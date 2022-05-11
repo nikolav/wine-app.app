@@ -1,0 +1,27 @@
+.link-cell {
+  min-height: calc(50vh - 2rem);
+}
+
+#cell-regions {
+  background: transparent url("/regions02.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+#cell-serbia {
+  background: transparent url("/srbija3.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+#cell-tech {
+  background: transparent url("/tech03.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+#cell-tasting {
+  background: transparent url("/tasting01.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}

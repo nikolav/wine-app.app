@@ -1,0 +1,28 @@
+.gravatarDiv {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.gravatarSpan {
+  display: inline-flex;
+  background: rgba(0, 0, 0, 0.12);
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+}
+.gravatarDiv:hover .gravatarSpan {
+  opacity: 0.71;
+  transition: opacity 0.19s;
+}
+
+.gravatarIcon {
+  cursor: pointer;
+  width: 42%;
+  height: 42%;
+}

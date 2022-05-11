@@ -1,0 +1,21 @@
+
+li#italy.isActive {
+    background-image: url("../public/bg-icon-bottle-italy.png");
+    background-repeat: no-repeat;
+    background-position: left center;
+}
+li#france.isActive {
+    background-image: url("../public/bg-icon-bottle-france.png");
+    background-repeat: no-repeat;
+    background-position: left center;
+}
+li#spain.isActive {
+    background-image: url("../public/bg-icon-bottle-spain.png");
+    background-repeat: no-repeat;
+    background-position: left center;
+}
+li#usa.isActive {
+    background-image: url("../public/bg-icon-bottle-usa.png");
+    background-repeat: no-repeat;
+    background-position: left center;
+}

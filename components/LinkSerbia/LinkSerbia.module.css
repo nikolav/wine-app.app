@@ -1,0 +1,10 @@
+
+
+.main {
+    /* background: transparent url("/chateaux.jpg"); */
+    background: transparent url("/srbija1.jpg");
+    background-size: cover;
+    background-size: 110%;
+    background-position: -20px 20%;
+    background-repeat: no-repeat;
+}

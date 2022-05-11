@@ -1,0 +1,10 @@
+
+
+.main {
+    /* background: transparent url("/chateaux.jpg"); */
+    background: transparent url("/regions01.jpg");
+    background-size: cover;
+    background-size: 110%;
+    background-position: -60px -55px;
+    background-repeat: no-repeat;
+}
