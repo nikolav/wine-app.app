@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import DocBody from "../components/DocBody";
+import useStateSwitch from "../src/hooks/use-state-switch";
 
 // import client from "../src/feathers";
 
@@ -32,7 +33,7 @@ import {
   //   animate,
 } from "framer-motion";
 
-// import VideoBackground from "../components/VideoBackground/VideoBackground";
+import VideoBackground from "../components/VideoBackground/VideoBackground";
 import GuestNavigation from "../components/GuestNavigation/GuestNavigation";
 import Paper from "../components/Paper/Paper";
 
@@ -43,50 +44,54 @@ import { usePages } from "../app/store";
 //
 export default function Home() {
   const { page } = usePages();
+  const { isOn: isMounted, toggle: toggleMounted } = useStateSwitch();
+  useEffect(() => {
+    toggleMounted.on();
+    return toggleMounted.off;
+  }, []);
   return (
-    <>
-      <DocBody className="h-screen overflow-y-hidden">
-        {/* 2-col grid */}
-        <div className="grid grid-cols-12 h-full">
-          {/* window-left */}
-          <section
-            id="window-left"
-            className="col-span-5 relative z-10 shadow-lg border-r-4 border-r-white"
-          >
-            {/* <VideoBackground /> */}
-          </section>
+    <DocBody className="h-screen overflow-y-hidden">
+      {/* 2-col grid */}
+      <div className="grid h-full grid-cols-12">
+        {/* window-left */}
+        <section
+          id="window-left"
+          className="relative z-10 col-span-5 border-r-4 shadow-lg border-r-white"
+        >
+          {isMounted && (
+            <VideoBackground video="https://nikolav.rs/etc/wine-app/mov.min2.mp4" />
+          )}
+        </section>
 
-          {/* window-right */}
-          <section id="window-right" className="col-span-7 relative z-10 pr-16">
+        {/* window-right */}
+        <section id="window-right" className="relative z-10 col-span-7 pr-16">
+          {/* nav right */}
+          <GuestNavigation className="absolute inset-y-0 right-0 z-10 w-16 bg-slate-900" />
 
-            {/* nav right */}
-            <GuestNavigation className="absolute z-10 right-0 inset-y-0 w-16 bg-slate-900" />
-
-            {/* `framer` page toggle; change `key` and `content` to set page */}
-            <AnimatePresence>
-              <motion.div
-                key={page.key}
-                style={{
-                  width: "calc(100% - 4rem)",
-                }}
-                className="h-full"
-                initial={{ y: -12, opacity: 0.12 }}
-                animate={{
-                  y: 0,
-                  opacity: 1,
-                  position: "absolute",
-                  transition: { stiffness: 12 },
-                }}
-                exit={{ y: 48, opacity: 0, transition: { stiffness: 12 } }}
-              >
-                <Paper className="bg-white h-full rounded-t-2xl shadow-lg py-6 mx-4 mt-4 opacity-95 **backdrop-blur-md relative overflow-hidden">
-                  <page.content />
-                </Paper>
-              </motion.div>
-            </AnimatePresence>
-          </section>
-        </div>
-      </DocBody>
-    </>
+          {/* `framer` page toggle; change `key` and `content` to set page */}
+          <AnimatePresence>
+            <motion.div
+              key={page.key}
+              style={{
+                width: "calc(100% - 4rem)",
+              }}
+              className="h-full"
+              initial={{ y: -12, opacity: 0.12 }}
+              animate={{
+                y: 0,
+                opacity: 1,
+                position: "absolute",
+                transition: { stiffness: 12 },
+              }}
+              exit={{ y: 48, opacity: 0, transition: { stiffness: 12 } }}
+            >
+              <Paper className="bg-white h-full rounded-t-2xl shadow-lg py-6 mx-4 mt-4 opacity-95 **backdrop-blur-md relative overflow-hidden">
+                <page.content />
+              </Paper>
+            </motion.div>
+          </AnimatePresence>
+        </section>
+      </div>
+    </DocBody>
   );
 }
