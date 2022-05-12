@@ -96,7 +96,7 @@ export default function Home() {
               }}
               exit={{ y: 48, opacity: 0, transition: { stiffness: 12 } }}
             >
-              <Paper className="bg-white h-full rounded-t-2xl shadow-lg py-6 mx-4 mt-4 opacity-95 **backdrop-blur-md relative overflow-hidden">
+              <Paper className="bg-white h-full rounded-t-2xl shadow-lg py-6 mx-4 mt-4 bg-opacity-95 relative overflow-hidden">
                 <page.content />
               </Paper>
             </motion.div>

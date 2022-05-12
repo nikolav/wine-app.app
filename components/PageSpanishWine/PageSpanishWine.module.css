@@ -1,0 +1,6 @@
+.bgSpain {
+  background-image: url("../../public/bg-spain.png");
+  background-repeat: no-repeat;
+  background-position: center 40%;
+  background-size: cover;
+}

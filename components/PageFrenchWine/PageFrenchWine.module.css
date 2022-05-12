@@ -1,0 +1,6 @@
+.bgFrance {
+  background-image: url("../../public/bg-france.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}

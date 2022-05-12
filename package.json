@@ -32,7 +32,7 @@
     "md5": "^2.3.0",
     "next": "12.1.4",
     "next-auth": "^4.3.1",
-    "nikolav-q": "^1.0.7",
+    "nikolav-q": "^1.1.1",
     "react": "18.0.0",
     "react-dom": "18.0.0",
     "react-icons": "^4.3.1",

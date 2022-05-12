@@ -3,13 +3,15 @@ import LeadBreak from "../LeadBreak";
 import ArticleEnd from "../ArticleEnd";
 
 import NavCountriesPagesLinks from "../NavCountriesPagesLinks/NavCountriesPagesLinks";
+import { bgSpain } from "./PageSpanishWine.module.css";
+
 //
 const PageSpanishWine = () => {
   return (
     <>
       <NavCountriesPagesLinks />
       <div
-        className="overflow-y-auto scrollbar-thin p-6 mt-8 indent-8 space-y-8"
+        className={`${bgSpain} overflow-y-auto scrollbar-thin p-6 mt-8 indent-8 space-y-8`}
         style={{
           height: "calc(100% - 1.5rem)",
         }}

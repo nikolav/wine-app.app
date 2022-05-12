@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import DrawerBox from "../DrawerBox/DrawerBox";
 import useStateSwitch from "../../src/hooks/use-state-switch";
+import q from "nikolav-q";
 //
 //
 const HelpPage = () => {
@@ -24,6 +25,10 @@ const HelpPage = () => {
     },
   ];
   const { isOn, toggle } = useStateSwitch();
+  useEffect(() => {
+    if ("undefined" !== typeof window)
+      window.q = q;
+  }, [])
   //
   return (
     <>

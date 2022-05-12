@@ -1,0 +1,6 @@
+.bgUsa {
+  background-image: url("../../public/bg-usa.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}

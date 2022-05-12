@@ -3,14 +3,15 @@ import React from "react";
 import NavCountriesPagesLinks from "../NavCountriesPagesLinks/NavCountriesPagesLinks";
 import LeadBreak from "../LeadBreak";
 import ArticleEnd from "../ArticleEnd";
-
+import { bgFrance } from "./PageFrenchWine.module.css";
+//
 //
 const PageFrenchWine = () => {
   return (
     <>
       <NavCountriesPagesLinks />
       <div
-        className="overflow-y-auto scrollbar-thin p-6 mt-8 space-y-8 indent-8"
+        className={`${bgFrance} overflow-y-auto scrollbar-thin p-6 mt-8 space-y-8 indent-8`}
         style={{
           height: "calc(100% - 1.5rem)",
         }}
