@@ -45,7 +45,7 @@ export default function AuthContextProvider({ children }) {
     const clearOnAuthStateChanged = onAuthStateChanged(
       firebaseAuth,
       async (user) => {
-        if (!user) return setUser((_) => null);
+        if (!user) return setUser(null);
 
         // firebase doesnt save user names by default
         // fetch manualy from db
@@ -65,10 +65,10 @@ export default function AuthContextProvider({ children }) {
             })
             .then((payload) => {
               user.displayName = payload.data[0]?.value;
-              setUser((_) => user);
+              setUser(user);
             });
 
-        setUser((_) => user);
+        setUser(user);
       }
     );
 

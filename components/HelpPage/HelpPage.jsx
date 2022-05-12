@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from "react";
+import DrawerBox from "../DrawerBox/DrawerBox";
+import useStateSwitch from "../../src/hooks/use-state-switch";
+//
 //
 const HelpPage = () => {
   const [selectedId, setSelectedId] = useState(null);
@@ -20,12 +23,22 @@ const HelpPage = () => {
       title: "title - 4",
     },
   ];
+  const { isOn, toggle } = useStateSwitch();
   //
   return (
     <>
+      <DrawerBox isActive={isOn} onClose={toggle.off}>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia
+          quis et eius illo labore vero commodi neque, impedit laudantium at id
+          nisi ab cumque quisquam recusandae temporibus ex. Atque, maxime.
+        </p>
+      </DrawerBox>
       <h2 className="heading-primary text-center">Dobrodošli 👋🏼</h2>
       <div className="md:text-center">
-        <button className="button rounded-r-none px-6">run</button>
+        <button onClick={toggle.on} className="button rounded-r-none px-6">
+          run
+        </button>
         <button className="button rounded-none px-6">stop</button>
         <button className="button rounded-l-none px-6">ok</button>
       </div>

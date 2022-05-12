@@ -51,9 +51,9 @@ export default function PageContextProvider({ children }) {
   //
   function setPage_(name) {
     if (name in pages)
-      setPage((_) => ({
+      setPage({
         key: name,
         content: pages[name],
-      }));
+      });
   }
 }

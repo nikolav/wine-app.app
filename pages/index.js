@@ -39,7 +39,18 @@ import Paper from "../components/Paper/Paper";
 
 import { usePages } from "../app/store";
 
-// import { Menu, Listbox, Combobox, Switch } from "@headlessui/react";
+// import {
+//   Menu,
+//   Listbox,
+//   Combobox,
+//   Switch,
+//   Disclosure,
+//   Dialog,
+//   Popover,
+//   RadioGroup,
+//   Tab,
+//   Transition,
+// } from "@headlessui/react";
 
 //
 export default function Home() {
@@ -58,9 +69,9 @@ export default function Home() {
           id="window-left"
           className="relative z-10 col-span-5 border-r-4 shadow-lg border-r-white"
         >
-          {isMounted && (
+          {/* {isMounted && (
             <VideoBackground video="https://nikolav.rs/etc/wine-app/mov.min2.mp4" />
-          )}
+          )} */}
         </section>
 
         {/* window-right */}

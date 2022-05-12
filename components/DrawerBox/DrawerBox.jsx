@@ -22,14 +22,12 @@ const DrawerBox = ({
   // content
   children,
 }) => {
+  //
   const isWindow = "undefined" !== typeof window;
+  const keyup_ = ({ keyCode }) => 27 === keyCode && onClose();
   useEffect(() => {
     if (isWindow && isActive) window.addEventListener("keyup", keyup_);
     return () => isWindow && window.removeEventListener("keyup", keyup_);
-    //
-    function keyup_({ keyCode }) {
-      if (27 === keyCode) onClose();
-    }
   }, [isActive]);
   //
   return (
