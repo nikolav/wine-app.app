@@ -18,6 +18,7 @@ import { PAGE_LOGIN, PAGE_HELP, PAGE_ABOUT_WINE } from "../../app/store/page";
 import useAuthLogout from "../../src/hooks/use-auth-logout";
 
 import { useAuth } from "../../app/store";
+import { preload } from "nikolav-q";
 //
 //
 const GuestNavigation = ({ ...rest }) => {
@@ -38,10 +39,20 @@ const GuestNavigation = ({ ...rest }) => {
         <MdCreate className="text-white text-4xl opacity-50 hover:scale-110 transition-transform hover:opacity-80 active:opacity-100 cursor-pointer" />
         <HiOutlineBookOpen
           onClick={prevent(setPage.bind(null, PAGE_ABOUT_WINE))}
+          onMouseOver={(evt) =>
+            preload(
+              "regions02.jpg",
+              "srbija3.jpg",
+              "tech03.jpg",
+              "tasting01.jpg"
+            )
+          }
           className="text-white text-4xl opacity-50 hover:scale-110 transition-transform hover:opacity-80 active:opacity-100 cursor-pointer"
         />
         <FiShare2 className="text-white text-4xl opacity-50 hover:scale-110 transition-transform hover:opacity-80 active:opacity-100 cursor-pointer" />
-        <RiGithubLine className="text-white text-4xl opacity-25 hover:scale-110 transition-transform hover:opacity-80 active:opacity-100 cursor-pointer" />
+        <a href="https://github.com/nikolav/wine-app.app" target="_blank" rel="noreferrer noopener">
+          <RiGithubLine className="text-white text-4xl opacity-25 hover:scale-110 transition-transform hover:opacity-80 active:opacity-100 cursor-pointer" />
+        </a>
 
         {user ? (
           <IoMdPower

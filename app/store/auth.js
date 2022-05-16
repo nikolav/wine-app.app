@@ -56,9 +56,7 @@ export default function AuthContextProvider({ children }) {
               query: {
                 //
                 $limit: 1,
-                $select: {
-                  value: true,
-                },
+                $select: ["value"],
                 //
                 name: user.uid,
               },

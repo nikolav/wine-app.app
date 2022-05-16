@@ -4081,10 +4081,10 @@ next@12.1.4:
     "@next/swc-win32-ia32-msvc" "12.1.4"
     "@next/swc-win32-x64-msvc" "12.1.4"
 
-nikolav-q@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/nikolav-q/-/nikolav-q-1.1.1.tgz#d18a353897552af70350a3bf3aba5e97fb05fdea"
-  integrity sha512-ez89+zNnStAK+dQ7GfqGKZD+Wr3+M2ryjcTOQpSaYBDGsOayBSEmKv5WSKoV/u7Hqht8XqLodw7KnHylAsmZXA==
+nikolav-q@^1.1.3:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/nikolav-q/-/nikolav-q-1.1.3.tgz#210b8ecd82fe198f403f961b20d1287c23b152a1"
+  integrity sha512-vn+RrULjLy9d0ZeGiKegSh5iCLYQwYBD8u8EQlvBZthtXRpLHUS/PQ5Jh/2S2fNoxNITqdym4azyvGzc0ceAcQ==
 
 node-fetch@2.6.7:
   version "2.6.7"

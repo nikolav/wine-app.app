@@ -1056,9 +1056,12 @@ select {
   margin-bottom: 0;
 }
 
-.link:hover {
+.link {
   --tw-text-opacity: 1;
-  color: rgb(55 48 163 / var(--tw-text-opacity));
+  color: rgb(67 56 202 / var(--tw-text-opacity));
+}
+
+.link:hover {
   -webkit-text-decoration-line: underline;
           text-decoration-line: underline;
 }

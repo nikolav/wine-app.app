@@ -16,8 +16,8 @@ export default function useTimer(func) {
 
   function start(timeout = DEFAULT_TIMER_TIMEOUT) {
     if (!running) {
-      setRunning(true);
       setI(setInterval(func, timeout));
+      setRunning(true);
     }
   }
   function stop() {

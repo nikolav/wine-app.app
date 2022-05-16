@@ -32,15 +32,15 @@ export default client;
 // const login = async () => {
 //   try {
 //     // First try to log in with an existing JWT
-//     return await client.reAuthenticate();
+//     return  await client.reAuthenticate();
 //   } catch (error) {
 //     // If that errors, log in with email/password
 //     // Here we would normally show a login page
 //     // to get the login information
 //     return await client.authenticate({
 //       strategy: 'local',
-//       email: 'hello@feathersjs.com',
-//       password: 'supersecret'
+//       email: 'email',
+//       password: 'password'
 //     });
 //   }
 // };
@@ -50,8 +50,8 @@ export default client;
 
 //   console.log('User is authenticated', auth);
 
-//   // Log us out again
-//   await client.logout();
+//   // Log out
+//   // await client.logout();
 // };
 
 // main();

@@ -27,7 +27,7 @@
 
 @layer components {
   .link {
-    @apply hover:text-indigo-800 hover:underline active:text-red-600;
+    @apply text-indigo-700 hover:underline active:text-red-600;
   }
 
   /* default button; dark grey; small padding; white text; rounded */
