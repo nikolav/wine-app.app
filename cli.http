@@ -1,12 +1,7 @@
 
 ###
 
-POST http://localhost:3031/main
-Content-Type: application/json
+http://localhost:3031/articles/6287e1136f87f6bb9a5da25c
 
-{
-    "name": "x-1", 
-    "value": "foo-1"
-}
 
 ###
