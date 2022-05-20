@@ -21,9 +21,9 @@ const variants = {
 
 import "../styles/globals.css";
 import "../styles/build.css";
+import "../styles/scrollbars.css";
 import "../styles/App.css";
 import "../styles/LinkCell.css";
-import "../styles/scrollbars.css";
 import "../styles/SlideAboutWine.css";
 import "../styles/CountriesWines.css";
 

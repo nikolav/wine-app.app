@@ -51,6 +51,7 @@ import { usePages } from "../app/store";
 //   Tab,
 //   Transition,
 // } from "@headlessui/react";
+import IconBarSharing from "../components/IconBarSharing/IconBarSharing";
 
 //
 export default function Home() {
@@ -78,6 +79,7 @@ export default function Home() {
         <section id="window-right" className="relative z-10 col-span-7 pr-16">
           {/* nav right */}
           <GuestNavigation className="absolute inset-y-0 right-0 z-10 w-16 bg-slate-900" />
+          <IconBarSharing />
 
           {/* `framer` page toggle; change `key` and `content` to set page */}
           <AnimatePresence>
@@ -96,7 +98,7 @@ export default function Home() {
               }}
               exit={{ y: 48, opacity: 0, transition: { stiffness: 12 } }}
             >
-              <Paper className="bg-white h-full rounded-t-2xl shadow-lg py-6 mx-4 mt-4 bg-opacity-95 relative overflow-hidden">
+              <Paper className="relative h-full py-6 mx-4 mt-4 overflow-hidden bg-white shadow-lg rounded-t-2xl bg-opacity-95">
                 <page.content />
               </Paper>
             </motion.div>

@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 import DrawerBox from "../DrawerBox/DrawerBox";
 import useStateSwitch from "../../src/hooks/use-state-switch";
 //
+// import client from "../../src/feathers";
+import { TwitterShareButton } from "react-share";
+import { RiTwitterLine } from "../icons";
+//
 //
 const HelpPage = () => {
   const [selectedId, setSelectedId] = useState(null);

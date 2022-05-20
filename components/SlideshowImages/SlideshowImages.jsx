@@ -3,7 +3,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import useTimer from "../../src/hooks/use-timer";
 import { arrayRand } from "../../src/util";
-
+import useStateSwitch from "../../src/hooks/use-state-switch";
 //
 export const DEFAULT_TIMEOUT = 10;
 const SlideshowImages = ({
@@ -23,10 +23,10 @@ const SlideshowImages = ({
   timeout = DEFAULT_TIMEOUT,
 }) => {
   //
-  const [isMounted, setIsMounted] = useState(null);
+  const { isOn: isMounted, toggle: toggleMounted } = useStateSwitch();
   useEffect(() => {
-    setIsMounted(true);
-    return () => setIsMounted(false);
+    toggleMounted.on();
+    return toggleMounted.off;
   }, []);
   //
   const timeoutSec = parseInt(timeout, 10) * 1000;
@@ -36,7 +36,7 @@ const SlideshowImages = ({
       src={imgSrc}
       key={imgSrc}
       alt=""
-      className="block object-cover w-full h-full object-center"
+      className="block object-cover object-center w-full h-full"
     />
   ));
   const [image, setImage] = useState(arrayRand(Images));
@@ -77,7 +77,7 @@ const SlideshowImages = ({
         >
           <motion.div
             key={image.key}
-            className="absolute z-10 inset-0"
+            className="absolute inset-0 z-10"
             initial={{ opacity: 0, y: -12 }}
             exit={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}

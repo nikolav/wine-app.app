@@ -20,11 +20,17 @@ import useAuthLogout from "../../src/hooks/use-auth-logout";
 import { useAuth } from "../../app/store";
 import { preload } from "nikolav-q";
 //
+import { useFlags, IS_ACTIVE_SHARING } from "../../src/hooks/use-flags-global";
+//
 //
 const GuestNavigation = ({ ...rest }) => {
   const { setPage } = usePages();
   const { user } = useAuth();
   const [logout] = useAuthLogout();
+  //
+  const { toggle } = useFlags();
+  const openSharing = () => toggle.on(IS_ACTIVE_SHARING);
+  //
   return (
     <div {...rest}>
       <div className="space-y-8 w-full h-full flex flex-col items-center justify-end py-6">
@@ -49,8 +55,15 @@ const GuestNavigation = ({ ...rest }) => {
           }
           className="text-white text-4xl opacity-50 hover:scale-110 transition-transform hover:opacity-80 active:opacity-100 cursor-pointer"
         />
-        <FiShare2 className="text-white text-4xl opacity-50 hover:scale-110 transition-transform hover:opacity-80 active:opacity-100 cursor-pointer" />
-        <a href="https://github.com/nikolav/wine-app.app" target="_blank" rel="noreferrer noopener">
+        <FiShare2
+          onClick={prevent(openSharing)}
+          className="text-white text-4xl opacity-50 hover:scale-110 transition-transform hover:opacity-80 active:opacity-100 cursor-pointer"
+        />
+        <a
+          href="https://github.com/nikolav/wine-app.app"
+          target="_blank"
+          rel="noreferrer noopener"
+        >
           <RiGithubLine className="text-white text-4xl opacity-25 hover:scale-110 transition-transform hover:opacity-80 active:opacity-100 cursor-pointer" />
         </a>
 
