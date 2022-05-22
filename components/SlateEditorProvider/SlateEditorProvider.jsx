@@ -89,4 +89,15 @@ override editor method
       };
     })(Editor.isInline.bind(Editor))
   }
+
+
+  // Element renderers are just simple React components
+  const CodeElement = props => {
+  return (
+    <pre {...props.attributes}>
+      <code>{props.children}</code>
+    </pre>
+  )
+}
+
  */

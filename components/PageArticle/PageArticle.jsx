@@ -1,32 +1,15 @@
-import React, { useState } from "react";
-import modcss from "./PageArticle.module.css";
-
+import React from "react";
 //
-// Import the Slate editor factory.
-import {
-  createEditor,
-  Node,
-  Range,
-  Transforms,
-  Editor,
-  Path,
-  Text,
-  Element as SlateElement,
-  Descendant,
-} from "slate";
-// Import the Slate components and React plugin.
-import { Slate, Editable, useSlate } from "slate-react";
+import { useSlate } from "slate-react";
+import SlateEditable from "../SlateEditable/SlateEditable";
 ////
 const PageArticle = () => {
-
   const editor = useSlate();
-
   return (
     <div>
-      <hr />
-      <Editable />
-      <hr />
-      <pre className="text-xs">{JSON.stringify(editor, null, 2)}</pre>
+      <div className="border-4 border-gray-50 border-t-0 mx-4 rounded-lg overflow-hidden">
+        <SlateEditable editor={editor} />
+      </div>
     </div>
   );
 };
