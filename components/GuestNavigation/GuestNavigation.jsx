@@ -14,7 +14,12 @@ import {
 
 import { prevent } from "../../src/util";
 import { usePages } from "../../app/store";
-import { PAGE_LOGIN, PAGE_HELP, PAGE_ABOUT_WINE } from "../../app/store/page";
+import {
+  PAGE_LOGIN,
+  PAGE_HELP,
+  PAGE_ABOUT_WINE,
+  PAGE_ARTICLE_CREATE,
+} from "../../app/store/page";
 import useAuthLogout from "../../src/hooks/use-auth-logout";
 
 import { useAuth } from "../../app/store";
@@ -42,7 +47,10 @@ const GuestNavigation = ({ ...rest }) => {
           className="opacity-50 hover:opacity-80 active:opacity-100 cursor-pointer shadow-sm hover:scale-110 transition-transform"
         />
         <FaRegComments className="text-white text-4xl opacity-50 hover:scale-110 transition-transform hover:opacity-80 active:opacity-100 cursor-pointer" />
-        <MdCreate className="text-white text-4xl opacity-50 hover:scale-110 transition-transform hover:opacity-80 active:opacity-100 cursor-pointer" />
+        <MdCreate
+          onClick={prevent(setPage.bind(null, PAGE_ARTICLE_CREATE))}
+          className="text-white text-4xl opacity-50 hover:scale-110 transition-transform hover:opacity-80 active:opacity-100 cursor-pointer"
+        />
         <HiOutlineBookOpen
           onClick={prevent(setPage.bind(null, PAGE_ABOUT_WINE))}
           onMouseOver={(evt) =>

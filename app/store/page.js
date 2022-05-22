@@ -7,8 +7,10 @@ import SlideAboutWine from "../../components/SlideAboutWine/SlideAboutWine";
 import PageItalyWine from "../../components/PageItalyWine/PageItalyWine";
 import PageFrenchWine from "../../components/PageFrenchWine/PageFrenchWine";
 import PageSpanishWine from "../../components/PageSpanishWine/PageSpanishWine";
-import PageUsaWine from "../../components//PageUsaWine/PageUsaWine";
-
+import PageUsaWine from "../../components/PageUsaWine/PageUsaWine";
+//
+import PageArticle from "../../components/PageArticle/PageArticle";
+//
 export const PAGE_LOGIN = "login";
 export const PAGE_REGISTER = "register";
 export const PAGE_HELP = "help";
@@ -17,6 +19,10 @@ export const PAGE_ITALY_WINE = "italy";
 export const PAGE_FRENCH_WINE = "france";
 export const PAGE_SPANISH_WINE = "spain";
 export const PAGE_USA_WINE = "usa";
+//
+export const PAGE_ARTICLE_CREATE = "article-create";
+//
+
 
 export const pages = {
   [PAGE_LOGIN]: LoginForm,
@@ -27,6 +33,8 @@ export const pages = {
   [PAGE_FRENCH_WINE]: PageFrenchWine,
   [PAGE_SPANISH_WINE]: PageSpanishWine,
   [PAGE_USA_WINE]: PageUsaWine,
+  //
+  [PAGE_ARTICLE_CREATE]: PageArticle,
 };
 
 export const PageContext = React.createContext();

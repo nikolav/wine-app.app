@@ -3,6 +3,7 @@ import AuthContextProvider from "../app/store/auth";
 import PageContextProvider from "../app/store/page";
 import FlagsProvider from "../src/hooks/use-flags-global";
 import GlobalsProvder from "../src/hooks/use-globals";
+import SlateEditorProvider from "../components/SlateEditorProvider/SlateEditorProvider";
 
 import { motion, AnimatePresence } from "framer-motion";
 const variants = {
@@ -49,19 +50,21 @@ function MyApp({ Component, pageProps, router }) {
       <GlobalsProvder>
         <FlagsProvider>
           <AuthContextProvider>
-            <PageContextProvider>
-              <AnimatePresence exitBeforeEnter initial={false}>
-                <motion.div
-                  key={router.route}
-                  initial="out"
-                  animate="in"
-                  exit="out"
-                  variants={variants}
-                >
-                  <Component {...pageProps} />
-                </motion.div>
-              </AnimatePresence>
-            </PageContextProvider>
+            <SlateEditorProvider>
+              <PageContextProvider>
+                <AnimatePresence exitBeforeEnter initial={false}>
+                  <motion.div
+                    key={router.route}
+                    initial="out"
+                    animate="in"
+                    exit="out"
+                    variants={variants}
+                  >
+                    <Component {...pageProps} />
+                  </motion.div>
+                </AnimatePresence>
+              </PageContextProvider>
+            </SlateEditorProvider>
           </AuthContextProvider>
         </FlagsProvider>
       </GlobalsProvder>

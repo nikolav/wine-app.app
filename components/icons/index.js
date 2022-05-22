@@ -17,7 +17,10 @@ import { MdOutlineMail } from "react-icons/md";
 import { FaViber } from "react-icons/fa";
 import { RiMessengerLine } from "react-icons/ri";
 import { AiOutlineWhatsApp } from "react-icons/ai";
-
+//
+import { BiBold } from "react-icons/bi";
+import { CgFormatItalic } from "react-icons/cg";
+import { AiOutlineUnderline } from "react-icons/ai";
 // 
 export {
   iconSearch,
@@ -31,6 +34,7 @@ export {
   IoMdPower,
   FaHome,
   MdClose,
+  //
   RiTwitterLine,
   TiArrowLeftThick,
   FaFacebookF,
@@ -38,4 +42,8 @@ export {
   FaViber,
   RiMessengerLine,
   AiOutlineWhatsApp,
+  //
+  BiBold,
+  CgFormatItalic,
+  AiOutlineUnderline,
 };
