@@ -21,7 +21,7 @@ const LIST_TYPES = { "numbered-list": 1, "bulleted-list": 1 };
 const TEXT_ALIGN_TYPES = { left: 1, center: 1, right: 1, justify: 1 };
 
 ////
-const SlateEditable = ({ editor }) => {
+const SlateEditable = ({ editor, width = "100%", height = "100%" }) => {
   //
   const isMarkActive = (editor, format) => {
     const marks = Editor.marks(editor);
@@ -108,7 +108,7 @@ const SlateEditable = ({ editor }) => {
   //
   //
   return (
-    <>
+    <div className="border-4 border-gray-50 border-t-0 mx-4 rounded-lg overflow-hidden">
       <SlateToolbar
         editor={editor}
         isMarkActive={isMarkActive}
@@ -116,16 +116,23 @@ const SlateEditable = ({ editor }) => {
         toggleMark={toggleMark}
         toggleBlock={toggleBlock}
       />
-      <article className="prose">
+      <article
+        style={{
+          width,
+          height,
+        }}
+        className="prose"
+      >
         <Editable
           renderLeaf={renderLeaf}
           renderElement={renderElement}
           placeholder="Vaš tekst ovde..."
           autoFocus
           autoComplete="off"
+          className="h-full ml-2 overflow-y-auto scrollbar-thin"
         />
       </article>
-    </>
+    </div>
   );
 };
 

@@ -15,6 +15,7 @@ import {
   IoHelp,
 } from "../icons";
 import { prevent } from "../../src/util";
+import SlateEditableHelp from "../SlateEditableHelp/SlateEditableHelp";
 
 ////
 export default function SlateToolbar({
@@ -36,13 +37,7 @@ export default function SlateToolbar({
         isActive={isOnHelpSlateEditor}
         onClose={toggleHelpSlateEditor.off}
       >
-        <h4>help</h4>
-        <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Natus hic
-          assumenda quidem minima eius mollitia nulla nemo dolore. Id provident
-          beatae saepe culpa quia velit dolores accusantium placeat dolorem
-          minima.
-        </p>
+        <SlateEditableHelp />
       </DrawerBox>
 
       <div className="relative z-10 bg-gray-50 py-2">
@@ -140,8 +135,8 @@ function SlateToolbarIcon({
   //
   return (
     <li
-      className={`text-base text-slate-500 cursor-pointer ${
-        isActive ? "opacity-90" : "opacity-30 hover:opacity-90"
+      className={`text-base text-slate-500 cursor-pointer transition-transform duration-75 ${
+        isActive ? "opacity-90 scale-125" : "opacity-30 hover:opacity-90 hover:scale-125"
       } ${classes}`}
       {...rest}
     >

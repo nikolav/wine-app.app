@@ -7,9 +7,7 @@ const PageArticle = () => {
   const editor = useSlate();
   return (
     <div>
-      <div className="border-4 border-gray-50 border-t-0 mx-4 rounded-lg overflow-hidden">
-        <SlateEditable editor={editor} />
-      </div>
+      <SlateEditable editor={editor} height={320} />
     </div>
   );
 };
