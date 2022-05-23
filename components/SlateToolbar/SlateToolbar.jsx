@@ -16,20 +16,18 @@ import {
 } from "../icons";
 import { prevent } from "../../src/util";
 import SlateEditableHelp from "../SlateEditableHelp/SlateEditableHelp";
-
-////
-export default function SlateToolbar({
-  editor,
+import {
   isMarkActive,
   isBlockActive,
   toggleMark,
   toggleBlock,
-}) {
+} from "../SlateEditable/SlateEditable";
+////
+////
+export default function SlateToolbar({ editor }) {
   //
   const { isOn: isOnHelpSlateEditor, toggle: toggleHelpSlateEditor } =
     useStateSwitch();
-  const showHelpSlateEditor = toggleHelpSlateEditor.on;
-
   //
   return (
     <>
@@ -115,7 +113,7 @@ export default function SlateToolbar({
             <FaAlignJustify />
           </SlateToolbarIcon>
           <SlateToolbarIcon
-            onClick={prevent(showHelpSlateEditor)}
+            onClick={prevent(toggleHelpSlateEditor.on)}
             classes="!text-xl"
           >
             <IoHelp />
@@ -136,7 +134,9 @@ function SlateToolbarIcon({
   return (
     <li
       className={`text-base text-slate-500 cursor-pointer transition-transform duration-75 ${
-        isActive ? "opacity-90 scale-125" : "opacity-30 hover:opacity-90 hover:scale-125"
+        isActive
+          ? "opacity-90 scale-125"
+          : "opacity-30 hover:opacity-90 hover:scale-125"
       } ${classes}`}
       {...rest}
     >
