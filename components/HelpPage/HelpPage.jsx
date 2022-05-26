@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import DrawerBox from "../DrawerBox/DrawerBox";
 import useStateSwitch from "../../src/hooks/use-state-switch";
 //
+import useFancyboxGallery from "../../src/hooks/use-fancybox-galery";
 // import client from "../../src/feathers";
 //
 const HelpPage = () => {
@@ -25,6 +26,7 @@ const HelpPage = () => {
     },
   ];
   const { isOn, toggle } = useStateSwitch();
+  const gallery = useFancyboxGallery();
   //
   return (
     <>
@@ -41,7 +43,18 @@ const HelpPage = () => {
           run
         </button>
         <button className="px-6 rounded-none button">stop</button>
-        <button className="px-6 rounded-l-none button">ok</button>
+        <button
+          onClick={(evt) =>
+            gallery.openGallery([
+              { src: "https://wallpapercave.com/wp/p3HjAFU.jpg" },
+              { src: "https://cdn.wallpapersafari.com/59/3/xXbF2f.jpg" },
+              { src: "https://www.rd.com/wp-content/uploads/2020/09/GettyImages-553881517-scaled.jpg" },
+            ])
+          }
+          className="px-6 rounded-l-none button"
+        >
+          ok
+        </button>
       </div>
       <hr />
     </>

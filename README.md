@@ -1,4 +1,10 @@
+
 # wine-app
+
+## tech 
+- [![NextJS](logo.nextjs.png)](https://nextjs.org/)
+- [![NodeJS](logo.nodejs.png)](https://nodejs.org/)
+
 
 ## api
   https://github.com/nikolav/wine-app.api
