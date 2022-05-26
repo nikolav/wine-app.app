@@ -47,35 +47,50 @@ const PageItalyWine = () => {
           <p>
             Ka istoku prema Veneciji, oblasti Veneto i Friuli poznate su po
             penušavom belom vinu <em>Prosecco</em>, osevežavajućem belom vinu{" "}
-            <em>Soave</em> sorti <em>Glera</em>, <em>Garganega</em>, i po
-            laganim crnim vinima <em>Valpolicella</em> i <em>Amarone</em> od
-            sorti <em>Corvina</em>, <em>Rondinella</em>, <em>Molinara</em>.
+            <em>Soave</em> sorti <em>Glera</em>, <em>Garganega</em>,{" "}
+            <em>Pinot Grigio</em>, i bogatim crnim vinima <em>Valpolicella</em>{" "}
+            i <em>Amarone</em> od sorti <em>Corvina</em>, <em>Rondinella</em>,{" "}
+            <em>Molinara</em>.
           </p>
           <p>
-            <strong>@TODO.article</strong> Italy, the home of Chianti, Barolo,
-            Prosecco, Valpolicella, Soave, Orvieto, Etna, has a rich and diverse
-            wine heritage dating back more than four thousand years. Famous for
-            its bewildering diversity of both grape varieties and wine styles,
-            Italy is also significant for the sheer volume of wine it produces:
-            just over 5.6 billion liters in 2018, from 695,000 hectares of
-            vineyards.
+            Pored Dantea i Leonarda, Siene i Firence, krovova od terakote i
+            krivog tornja u Pizi, centralna regija Toskana proizvela je i red
+            najtraženijih svetskih vina. Sve apelacije ovog područja su DOCG (
+            <em>Denominazione di Origine Controllata e Garantita</em>) sto je
+            PDO ekvivalent propisa evropske unije. Vina <em>Chianti</em>,{" "}
+            <em>Vino Nobile di Montepulciano</em>,{" "}
+            <em>Brunello di Montalcino</em>, e <em>Carmignano</em> su vina
+            najvišeg statusa i najviše se izvoze.
           </p>
           <p>
-            It is rivaled in this regard only by France and Spain, and in 2018
-            the country produced roughly 19 percent of the world&apos;s wines.
+            Promenjliva nadmorska visina, peščarno glineno zemljište i brdovita
+            mediteranska obala idealna su osnova za sortu <em>Sangiovese</em>{" "}
+            koja daje koncetrisana crna vina izraženih kiselina arome višnje,
+            crevnog bobičastog voća i duvana. Chianti vina su idealna
+            kombinacija uz specijalitete sa lokalnog menija; testenina, pršut,
+            pečena piletina, divljač na žaru, dimljeni parmezan, idealno ako su
+            rashvlađena na oko 16 &deg;C.
           </p>
           <p>
-            Managing and marketing such a vast wine portfolio is no easy task,
-            particularly in today&apos;s highly competitive wine market. The
-            Italian government&apos;s system of wine classification and labeling
-            uses a four-tier quality hierarchy made up of more than 500 DOCG,
-            DOC/DOP and IGT titles. See Italian Wine Labels.
+            Sedamdesetih godina dvadesetog veka javlja se novi trend proizvodnje
+            vina u Italiji kada internacionalne sorte Cabernet S., Merlot, Syrah
+            ulaze u kupaže sa lokalnim sortama. Ovi &apos;Super-Toskanci&apos;{" "}
+            <em>Sassicaia</em>, <em>Solaia</em>, <em>Tignanello</em> i dr. su
+            kvalitetna crna vina &apos;sa stranim uticajem&apos; ali ona ne
+            ispunjavaju uslove za DOC (
+            <em>Denominazione di Origine Controllata</em>) etiketu s obzirom da
+            se ne proizvode na Chianti području. Ova vina nose IGT (
+            <em>Indicazione Geografica Tipica</em>) etiketu, tj. vina sa
+            geografskim poreklom, što je PGI ekvivalent specifikaciji EU.
           </p>
           <p>
-            Italy is divided into 20 administrative regions, all of which
-            produce wine, and all of which contain several wine regions. The
-            most significant, when both quality and quantity are taken into
-            consideration, are Tuscany, Piedmont and Veneto.
+            Uopšteno govoreći, Barolo i <em>Chianti Clasicco</em> smatraju se za
+            najveća italijanska vina. Međutim, proizvodnja vina ovde je toliko
+            ogromna i raznolika, da nominovanje bilo koje regije ili vina kao
+            najboljih izgleda potpuno apsurdno. Čak i unutar Pijemonta,
+            Barbaresco bi mogao da ide rame uz rame sa Barolom, a u Toskani
+            Brunelo di Montalcino i Vino Nobile di Montepulcciano bi mogli da se
+            ravnopravno porede sa Chianti vinima.
           </p>
           <ArticleEnd />
         </article>
