@@ -1071,6 +1071,19 @@ select {
   color: rgb(220 38 38 / var(--tw-text-opacity));
 }
 
+.link-preview {
+  cursor: zoom-in;
+  --tw-text-opacity: 1;
+  color: rgb(67 56 202 / var(--tw-text-opacity));
+  -webkit-text-decoration-style: dashed;
+          text-decoration-style: dashed;
+}
+
+.link-preview:hover {
+  -webkit-text-decoration-line: underline;
+          text-decoration-line: underline;
+}
+
 /* default button; dark grey; small padding; white text; rounded */
 
 .button {

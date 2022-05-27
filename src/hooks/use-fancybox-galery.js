@@ -5,9 +5,14 @@ import "@fancyapps/ui/dist/fancybox.css";
 //
 export const defaultOptions = {
   Toolbar: {
-    display: [{ id: "counter", position: "left" }, "fullscreen", "close"],
-  }, 
-  mainClass: "backdrop-blur-sm"
+    display: [
+      { id: "counter", position: "left" },
+      "download",
+      "fullscreen",
+      "close",
+    ],
+  },
+  mainClass: "backdrop-blur-sm",
 };
 //
 export default function useFancyboxGallery() {
@@ -29,13 +34,9 @@ const { gallery, openGallery } = useFancyboxGallery();
 //
 const images = [
     {
-      src: imageUploadHelpStep01,
+      src: <image>,
       caption:
         "Naslov treba da bude kratak i precizan da bi se lako pojavio u pretrazi.",
-    },
-    {
-      src: imageUploadHelpStep02,
-      caption: "Sadržaj oglasa može da bude opširan i da sadrži ključne reči.",
     },
   ];
 
@@ -54,7 +55,6 @@ openGallery(images, {
       "close",
     ],
   },
-    
 
   });
 */

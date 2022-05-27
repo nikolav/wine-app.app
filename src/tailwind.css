@@ -29,6 +29,9 @@
   .link {
     @apply text-indigo-700 hover:underline active:text-red-600;
   }
+  .link-preview {
+    @apply cursor-zoom-in text-indigo-700 hover:underline decoration-dashed;
+  }
 
   /* default button; dark grey; small padding; white text; rounded */
   .button {
