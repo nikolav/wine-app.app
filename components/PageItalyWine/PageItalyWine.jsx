@@ -74,7 +74,7 @@ const PageItalyWine = () => {
           <p>
             Sedamdesetih godina dvadesetog veka javlja se novi trend proizvodnje
             vina u Italiji kada internacionalne sorte Cabernet S., Merlot, Syrah
-            ulaze u kupaže sa lokalnim sortama. Ovi &apos;Super-Toskanci&apos;{" "}
+            ulaze u kupaže lokalnih sorti. Ovi &apos;Super-Toskanci&apos;{" "}
             <em>Sassicaia</em>, <em>Solaia</em>, <em>Tignanello</em> i dr. su
             kvalitetna crna vina &apos;sa stranim uticajem&apos; ali ona ne
             ispunjavaju uslove za DOC (
