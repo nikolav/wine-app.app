@@ -35,7 +35,10 @@ import { IoHelp } from "react-icons/io5";
 //
 import { BiCloudUpload } from "react-icons/bi";
 import { FiCamera } from "react-icons/fi";
-//FiCamera
+import { BiImage } from "react-icons/bi";
+import { MdDeleteOutline } from "react-icons/md";
+import { BiShow } from "react-icons/bi";
+// 
 export {
   // FiHelpCircle,
   IoHelp,
@@ -73,4 +76,7 @@ export {
   //
   BiCloudUpload,
   FiCamera,
+  BiImage,
+  MdDeleteOutline,
+  BiShow,
 };

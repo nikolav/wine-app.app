@@ -1237,6 +1237,18 @@ select {
   * by plugins.
   */
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 .visible {
   visibility: visible;
 }
@@ -1347,6 +1359,18 @@ select {
 
 .col-span-7 {
   grid-column: span 7 / span 7;
+}
+
+.col-span-6 {
+  grid-column: span 6 / span 6;
+}
+
+.col-span-8 {
+  grid-column: span 8 / span 8;
+}
+
+.col-span-4 {
+  grid-column: span 4 / span 4;
 }
 
 .m-0 {
@@ -1487,6 +1511,10 @@ select {
   display: none;
 }
 
+.\!hidden {
+  display: none !important;
+}
+
 .h-screen {
   height: 100vh;
 }
@@ -1497,6 +1525,10 @@ select {
 
 .h-32 {
   height: 8rem;
+}
+
+.\!h-full {
+  height: 100% !important;
 }
 
 .max-h-full {
@@ -1541,8 +1573,20 @@ select {
   width: fit-content;
 }
 
+.\!w-auto {
+  width: auto !important;
+}
+
 .min-w-\[50\%\] {
   min-width: 50%;
+}
+
+.max-w-full {
+  max-width: 100%;
+}
+
+.\!max-w-full {
+  max-width: 100% !important;
 }
 
 .grow {
@@ -1878,8 +1922,23 @@ select {
   background-color: rgb(15 23 42 / var(--tw-bg-opacity)) !important;
 }
 
+.bg-yellow-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(234 179 8 / var(--tw-bg-opacity));
+}
+
+.bg-blue-200 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(191 219 254 / var(--tw-bg-opacity));
+}
+
 .bg-opacity-95 {
   --tw-bg-opacity: 0.95;
+}
+
+.object-contain {
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 
 .object-cover {
@@ -1895,6 +1954,11 @@ select {
 .object-right {
   -o-object-position: right;
      object-position: right;
+}
+
+.\!object-center {
+  -o-object-position: center !important;
+     object-position: center !important;
 }
 
 .p-4 {
@@ -1991,6 +2055,10 @@ select {
 
 .text-center {
   text-align: center;
+}
+
+.\!text-center {
+  text-align: center !important;
 }
 
 .text-right {

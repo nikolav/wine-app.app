@@ -35,25 +35,3 @@ const PageArticle = () => {
 };
 
 export default PageArticle;
-
-function ButtonBase({ children, classes = "" }) {
-  return (
-    <button className={`button ${classes}`} type="button">
-      {children}
-    </button>
-  );
-}
-function ButtonChooseImage() {
-  return (
-    <ButtonBase classes="!rounded-r-none">
-      <BsCamera className="text-white text-2xl" />
-    </ButtonBase>
-  );
-}
-function ButtonSave() {
-  return (
-    <ButtonBase classes="">
-      <BiCloudUpload className="text-white text-3xl" />
-    </ButtonBase>
-  );
-}

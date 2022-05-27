@@ -3,7 +3,13 @@ import { has } from "../../src/util";
 
 export const GlobalsContext = createContext();
 export const useGlobals = () => useContext(GlobalsContext);
-
+//
+// export global var names here
+export const ARTICLE_IMAGE_DATAURL = "articleImageDataUrl.camxpqjjqjw";
+export const ARTICLE_IMAGE_FILE = "articleImageFile.hbpxohfahcm";
+export const ARTICLE_IMAGE_SHOW = "articleImageShow.xbucqjgrcyp";
+////
+////
 export default function GlobalsProvder({ children }) {
   const [globals, setGlobals] = useState({});
   const cp_ = () => ({ ...globals });

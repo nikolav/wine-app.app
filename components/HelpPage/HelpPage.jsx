@@ -44,7 +44,8 @@ const HelpPage = () => {
       </div>
       <hr />
       <p>
-        @todo - implement user content dashboard
+        🚧 app is under construction 👷🏼‍♂️
+        <br /> @todo - implement user content dashboard
         <br />
         @todo - display articles; filmstrip bottom
       </p>

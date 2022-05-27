@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import modcss from "./PageArticleCommandBar.module.css";
 import PortalOverlaysEnd from "../PortalOverlaysEnd";
 import { motion, AnimatePresence } from "framer-motion";
@@ -8,16 +8,44 @@ import {
 } from "../../src/hooks/use-flags-global";
 import { prevent } from "../../src/util";
 //
-import { TiArrowLeftThick, BiCloudUpload, FiCamera, IoHelp } from "../icons";
+import {
+  TiArrowLeftThick,
+  BiCloudUpload,
+  FiCamera,
+  IoHelp,
+  BiShow,
+  MdDeleteOutline,
+} from "../icons";
 import DrawerBox from "../DrawerBox/DrawerBox";
 import PageArticleEditorHelp from "../PageArticleEditorHelp/PageArticleEditorHelp";
 import useStateSwitch from "../../src/hooks/use-state-switch";
+import ChooseImage from "../ChooseImage/ChooseImage";
+import PageArticleHandleImageDisplay from "../PageArticleHandleImageDisplay/PageArticleHandleImageDisplay";
+import {
+  useGlobals,
+  ARTICLE_IMAGE_DATAURL,
+  ARTICLE_IMAGE_FILE,
+  ARTICLE_IMAGE_SHOW,
+} from "../../src/hooks/use-globals";
 //
 const PageArticleCommandBar = () => {
   const { flags } = useFlags();
   const isActive = flags[IS_ACTIVE_ARTICLE_COMMANDS];
   const { isOn: isOnHelpArticleEditor, toggle: toggleHelpArticleEditor } =
     useStateSwitch();
+  //
+  const globals = useGlobals();
+  const imageData = globals(ARTICLE_IMAGE_DATAURL);
+  const deleteImage = () => {
+    globals.set(ARTICLE_IMAGE_DATAURL, null);
+    globals.set(ARTICLE_IMAGE_FILE, null);
+    globals.set(ARTICLE_IMAGE_SHOW, null);
+  };
+  const showImage = () => {
+    // set it to new value `Date.now()`
+    // `useEffect` will pick up change and show image
+    globals.set(ARTICLE_IMAGE_SHOW, Date.now());
+  };
   //
   return (
     <>
@@ -36,14 +64,24 @@ const PageArticleCommandBar = () => {
                   <TiArrowLeftThick className="text-white text-5xl opacity-60 hover:scale-110 transition-transform hover:opacity-80 active:opacity-100 cursor-pointer" />
                 </IconCommandClose>
                 <IconCommand>
-                  <FiCamera className="text-white text-4xl opacity-50 hover:scale-110 transition-transform hover:opacity-80 active:opacity-100 cursor-pointer" />
+                  <ChooseImage>
+                    <FiCamera className="text-white text-4xl opacity-50 hover:scale-110 transition-transform hover:opacity-80 active:opacity-100 cursor-pointer" />
+                  </ChooseImage>
                 </IconCommand>
+                {imageData && (
+                  <>
+                    <IconCommand onClick={prevent(deleteImage)}>
+                      <MdDeleteOutline className="text-white text-3xl opacity-20 hover:scale-110 transition-transform hover:opacity-80 active:opacity-100 cursor-pointer" />
+                    </IconCommand>
+                    <IconCommand onClick={prevent(showImage)}>
+                      <BiShow className="text-white text-3xl opacity-20 hover:scale-110 transition-transform hover:opacity-80 active:opacity-100 cursor-pointer" />
+                    </IconCommand>
+                  </>
+                )}
                 <IconCommand>
                   <BiCloudUpload className="text-white text-5xl opacity-80 hover:scale-125 transition-transform hover:opacity-90 active:opacity-100 cursor-pointer" />
                 </IconCommand>
-                <IconCommand
-                  onClick={prevent(toggleHelpArticleEditor.on)}
-                >
+                <IconCommand onClick={prevent(toggleHelpArticleEditor.on)}>
                   <IoHelp className="text-white text-4xl opacity-20 hover:scale-110 transition-transform hover:opacity-80 active:opacity-100 cursor-pointer" />
                 </IconCommand>
               </ul>
@@ -58,6 +96,8 @@ const PageArticleCommandBar = () => {
       >
         <PageArticleEditorHelp />
       </DrawerBox>
+      {/*  */}
+      <PageArticleHandleImageDisplay />
     </>
   );
 };
