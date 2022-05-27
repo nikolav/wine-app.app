@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Fancybox } from "@fancyapps/ui";
 import "@fancyapps/ui/dist/fancybox.css";
 
-//
+// https://fancyapps.com/docs/ui/fancybox/options
 export const defaultOptions = {
   Toolbar: {
     display: [
@@ -20,14 +20,13 @@ export default function useFancyboxGallery() {
 
   return { gallery, openGallery };
 
-  // images: object[], options: object
   function openGallery(images = [], options = {}) {
     return setGallery(Fancybox.show(images, { ...defaultOptions, ...options }));
   }
 }
 
 /*
-// https://fancyapps.com/docs/ui/fancybox/options
+// 
 import useFancyboxGallery from "./hooks/use-fancybox-gallery";
 const { gallery, openGallery } = useFancyboxGallery();
 //
@@ -35,9 +34,10 @@ const { gallery, openGallery } = useFancyboxGallery();
 const images = [
     {
       src: <image>,
-      caption:
-        "Naslov treba da bude kratak i precizan da bi se lako pojavio u pretrazi.",
+      caption: <:string>,
+      thumb: <image-sm>
     },
+    // ...
   ];
 
 openGallery(images, {

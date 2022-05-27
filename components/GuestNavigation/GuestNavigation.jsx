@@ -25,7 +25,11 @@ import useAuthLogout from "../../src/hooks/use-auth-logout";
 import { useAuth } from "../../app/store";
 import { preload } from "nikolav-q";
 //
-import { useFlags, IS_ACTIVE_SHARING } from "../../src/hooks/use-flags-global";
+import {
+  useFlags,
+  IS_ACTIVE_SHARING,
+  IS_ACTIVE_ARTICLE_COMMANDS,
+} from "../../src/hooks/use-flags-global";
 //
 //
 const GuestNavigation = ({ ...rest }) => {
@@ -35,6 +39,7 @@ const GuestNavigation = ({ ...rest }) => {
   //
   const { toggle } = useFlags();
   const openSharing = () => toggle.on(IS_ACTIVE_SHARING);
+  const openArticleCommands = () => toggle.on(IS_ACTIVE_ARTICLE_COMMANDS);
   //
   return (
     <div {...rest}>
@@ -48,7 +53,10 @@ const GuestNavigation = ({ ...rest }) => {
         />
         <FaRegComments className="text-white text-4xl opacity-50 hover:scale-110 transition-transform hover:opacity-80 active:opacity-100 cursor-pointer" />
         <MdCreate
-          onClick={prevent(setPage.bind(null, PAGE_ARTICLE_CREATE))}
+          onClick={prevent(() => {
+            setPage(PAGE_ARTICLE_CREATE);
+            openArticleCommands();
+          })}
           className="text-white text-4xl opacity-50 hover:scale-110 transition-transform hover:opacity-80 active:opacity-100 cursor-pointer"
         />
         <HiOutlineBookOpen

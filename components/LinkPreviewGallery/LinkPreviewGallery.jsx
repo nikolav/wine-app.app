@@ -26,20 +26,15 @@ export const galleryImages = [
   "italy-gallery/21.pinot-grigio-veneto.jpg",
   "italy-gallery/22.tuscany-wine-country.jpg",
   "italy-gallery/23.chianti-classico-italy.jpg",
-];
-const gallery_ = galleryImages.map((src) => ({ src }));
+].map((src) => ({ src }));
 //
-const LinkPreviewGallery = ({
-  children,
-  // start galler @startIndex: number
-  startIndex = 0,
-}) => {
+const LinkPreviewGallery = ({ children, startIndex = 0 }) => {
   const { openGallery } = useFancyboxGallery();
   //
   return (
     <span
       className="link-preview"
-      onClick={prevent(() => openGallery(gallery_, { startIndex }))}
+      onClick={prevent(() => openGallery(galleryImages, { startIndex }))}
     >
       {children}
     </span>

@@ -39,10 +39,15 @@ const HelpPage = () => {
         <button onClick={toggle.on} className="px-6 rounded-r-none button">
           run
         </button>
-        <button className="px-6 rounded-none button">stop</button>
+        <button className="px-6 rounded-none button">set</button>
         <button className="px-6 rounded-l-none button">ok</button>
       </div>
       <hr />
+      <p>
+        @todo - implement user content dashboard
+        <br />
+        @todo - display articles; filmstrip bottom
+      </p>
     </>
   );
 };

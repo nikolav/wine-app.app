@@ -6,6 +6,7 @@ const FlagsContext = createContext();
 export const useFlags = () => useContext(FlagsContext);
 export const IS_PROCESSING = "appIsProcessing.cebgtbefrpc";
 export const IS_ACTIVE_SHARING = "isActiveSharing.ngndyesnhxx";
+export const IS_ACTIVE_ARTICLE_COMMANDS = "isActiveArticleCmd.bypgsakbkxq";
 //
 export default function FlagsProvider({ children }) {
   const [flags, setFlags] = useState({});

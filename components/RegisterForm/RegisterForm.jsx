@@ -96,7 +96,7 @@ export default function RegisterForm() {
             value={input.name}
             onChange={sync}
             type="email"
-            className={`${css.inputUser} w-full rounded pl-12`}
+            className={`input-styled ${css.inputUser} !pl-12`}
             name="name"
             id="name"
             autoComplete="off"
@@ -111,7 +111,7 @@ export default function RegisterForm() {
             value={input.email}
             onChange={sync}
             type="email"
-            className={`${css.inputEmail} w-full rounded pl-12`}
+            className={`input-styled ${css.inputEmail} !pl-12`}
             name="email"
             id="email"
             autoComplete="off"
@@ -126,7 +126,7 @@ export default function RegisterForm() {
             value={input.password}
             onChange={sync}
             type="password"
-            className={`${css.inputPassword} w-full rounded pl-12`}
+            className={`input-styled ${css.inputPassword} !pl-12`}
             name="password"
             id="password"
             autoComplete="off"
@@ -141,7 +141,7 @@ export default function RegisterForm() {
             value={input.password2}
             onChange={sync}
             type="password"
-            className={`${css.inputPassword2} w-full rounded pl-12`}
+            className={`input-styled ${css.inputPassword2} !pl-12`}
             name="password2"
             id="password2"
             autoComplete="off"

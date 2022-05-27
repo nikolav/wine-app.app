@@ -71,7 +71,7 @@ export default function LoginForm() {
             value={input.email}
             onChange={sync}
             type="email"
-            className={`${css.inputEmail} w-full rounded pl-12`}
+            className={`input-styled ${css.inputEmail} !pl-12`}
             name="email"
             id="email"
             autoComplete="off"
@@ -86,7 +86,7 @@ export default function LoginForm() {
             value={input.password}
             onChange={sync}
             type="password"
-            className={`${css.inputPassword} w-full rounded pl-12`}
+            className={`input-styled ${css.inputPassword} !pl-12`}
             name="password"
             id="password"
             autoComplete="off"

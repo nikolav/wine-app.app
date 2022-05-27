@@ -3,7 +3,7 @@ import React from "react";
 const SlateEditableHelp = () => {
   return (
     <>
-      <h4>help</h4>
+      <h2>help.slate-editor</h2>
       <p>
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Natus hic
         assumenda quidem minima eius mollitia nulla nemo dolore. Id provident

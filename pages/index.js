@@ -52,7 +52,7 @@ import { usePages } from "../app/store";
 //   Transition,
 // } from "@headlessui/react";
 import IconBarSharing from "../components/IconBarSharing/IconBarSharing";
-
+import PageArticleCommandBar from "../components/PageArticleCommandBar/PageArticleCommandBar";
 //
 export default function Home() {
   const { page } = usePages();
@@ -80,6 +80,7 @@ export default function Home() {
           {/* nav right */}
           <GuestNavigation className="absolute inset-y-0 right-0 z-10 w-16 bg-slate-900" />
           <IconBarSharing />
+          <PageArticleCommandBar />
 
           {/* `framer` page toggle; change `key` and `content` to set page */}
           <AnimatePresence>

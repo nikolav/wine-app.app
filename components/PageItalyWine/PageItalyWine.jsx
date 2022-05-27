@@ -142,16 +142,13 @@ const PageItalyWine = () => {
               <em>Brunello di Montalcino</em>
             </LinkPreviewGallery>
             , e <em>Carmignano</em> su vina najvišeg statusa i najviše se
-            izvoze.
-          </p>
-          <p>
-            Promenjliva nadmorska visina, peščarno glineno zemljište i brdovita
-            mediteranska obala idealna su osnova za sortu <em>Sangiovese</em>{" "}
-            koja daje koncetrisana crna vina izraženih kiselina arome višnje,
-            crevnog bobičastog voća i duvana. Chianti vina su idealna
-            kombinacija uz specijalitete sa lokalnog menija; testenina, pršut,
-            pečena piletina, divljač na žaru, dimljeni parmezan, idealno ako su
-            rashvlađena na oko 16 &deg;C.
+            izvoze. Promenjliva nadmorska visina, peščarno glineno zemljište i
+            brdovita mediteranska obala idealna su osnova za glavnu sortu{" "}
+            <em>Sangiovese</em> koja daje koncetrisana crna vina izraženih
+            kiselina arome višnje, crevnog bobičastog voća i duvana. Chianti
+            vina su idealna kombinacija uz specijalitete sa lokalnog menija;
+            testenina, pršut, pečena piletina, divljač na žaru, dimljeni
+            parmezan, idealno ako su rashvlađena na oko 16 &deg;C.
           </p>
           <p>
             Sedamdesetih godina dvadesetog veka javlja se novi trend proizvodnje

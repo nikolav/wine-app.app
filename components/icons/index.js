@@ -24,10 +24,18 @@ import { AiOutlineUnderline } from "react-icons/ai";
 import { ImQuotesLeft } from "react-icons/im";
 import { GoListOrdered } from "react-icons/go";
 import { GoListUnordered } from "react-icons/go";
-import { FaAlignLeft, FaAlignCenter, FaAlignRight, FaAlignJustify } from "react-icons/fa";
+import {
+  FaAlignLeft,
+  FaAlignCenter,
+  FaAlignRight,
+  FaAlignJustify,
+} from "react-icons/fa";
 // import { FiHelpCircle } from "react-icons/fi";
 import { IoHelp } from "react-icons/io5";
-// 
+//
+import { BiCloudUpload } from "react-icons/bi";
+import { FiCamera } from "react-icons/fi";
+//FiCamera
 export {
   // FiHelpCircle,
   IoHelp,
@@ -62,4 +70,7 @@ export {
   FaAlignCenter,
   FaAlignRight,
   FaAlignJustify,
+  //
+  BiCloudUpload,
+  FiCamera,
 };
