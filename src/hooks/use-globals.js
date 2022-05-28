@@ -12,6 +12,8 @@ export const ARTICLE_IMAGE_SHOW = "articleImageShow.xbucqjgrcyp";
 export const ARTICLE_IMAGE_DOWNLOAD_URL = "articleImageDownloadUrl.satoirpdmsy";
 export const ARTICLE_ONSAVE = "articleOnSave.fhxcetnlgss";
 export const ARTICLE_DBSAVE = "articleDBSave.ywhrpmeliai";
+export const ARTICLE_TITLE_CACHED = "articleTitleCached.wuireunyrdm";
+export const ARTICLE_SAVED = "articleSaved.kdbyzlmousj";
 ////
 ////
 export default function GlobalsProvder({ children }) {

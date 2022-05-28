@@ -20,6 +20,9 @@ const variants = {
   },
 };
 
+//
+import { LoaderBars } from "../components/loaders";
+
 import "../styles/globals.css";
 import "../styles/build.css";
 import "../styles/scrollbars.css";
@@ -52,17 +55,21 @@ function MyApp({ Component, pageProps, router }) {
           <AuthContextProvider>
             <SlateEditorProvider>
               <PageContextProvider>
-                <AnimatePresence exitBeforeEnter initial={false}>
-                  <motion.div
-                    key={router.route}
-                    initial="out"
-                    animate="in"
-                    exit="out"
-                    variants={variants}
-                  >
-                    <Component {...pageProps} />
-                  </motion.div>
-                </AnimatePresence>
+                <>
+                  <AnimatePresence exitBeforeEnter initial={false}>
+                    <motion.div
+                      key={router.route}
+                      initial="out"
+                      animate="in"
+                      exit="out"
+                      variants={variants}
+                    >
+                      <Component {...pageProps} />
+                    </motion.div>
+                  </AnimatePresence>
+                  {/*  */}
+                  <LoaderBars />
+                </>
               </PageContextProvider>
             </SlateEditorProvider>
           </AuthContextProvider>

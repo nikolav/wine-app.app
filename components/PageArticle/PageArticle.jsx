@@ -1,40 +1,73 @@
 import React, { useEffect } from "react";
-//
 import { useSlate } from "slate-react";
+import { Transforms } from "slate";
 import SlateEditable from "../SlateEditable/SlateEditable";
-//
-import useSyncInput from "../../src/hooks/use-sync-input";
+import useInputSynced from "../../src/hooks/use-input-synced";
 import Required from "../Required/Required";
-//
 import { prevent } from "../../src/util";
 import cli from "../../src/feathers";
 import useIsMounted from "../../src/hooks/use-is-mounted";
-//
 import {
   useGlobals,
   ARTICLE_ONSAVE,
   ARTICLE_IMAGE_FILE,
   ARTICLE_DBSAVE,
   ARTICLE_DATA,
+  ARTICLE_TITLE_CACHED,
+  ARTICLE_SAVED,
+  ARTICLE_IMAGE_DATAURL,
+  ARTICLE_IMAGE_SHOW,
 } from "../../src/hooks/use-globals";
-//
 import { useAuth } from "../../app/store";
 import useFirebaseStorageUpload from "../../src/hooks/use-firebase-storage-upload";
+import DrawerBox from "../DrawerBox/DrawerBox";
+import useStateSwitch from "../../src/hooks/use-state-switch";
+import { UserNotificationArticleSaved } from "../UserNotification";
+import {
+  useFlags,
+  IS_PROCESSING_ARTICLE_SAVE,
+} from "../../src/hooks/use-flags-global";
 ////
 ////
 const PageArticle = () => {
+  //
   const isMounted = useIsMounted();
   const { user } = useAuth();
-  //
   const globals = useGlobals();
+  const { sync, inputs, setInput } = useInputSynced({
+    articleTitle: globals(ARTICLE_TITLE_CACHED) || "",
+  });
+  const { isOn: isActiveDrawerBox, toggle: toggleActiveDrawerBox } =
+    useStateSwitch();
+  //
+  const editor = useSlate();
+  //
+  // triggers on/off @_app.loader
+  const { toggle: toggleProcessing } = useFlags();
+  const isProcessingArticleSaveOn = () =>
+    toggleProcessing.on(IS_PROCESSING_ARTICLE_SAVE);
+  const isProcessingArticleSaveOff = () =>
+    toggleProcessing.off(IS_PROCESSING_ARTICLE_SAVE);
+  //
   const articleOnSave = globals(ARTICLE_ONSAVE);
   const articleImageFile = globals(ARTICLE_IMAGE_FILE);
   const articleDBSave = globals(ARTICLE_DBSAVE);
   const nullArticleData = () => globals.set(ARTICLE_DATA, null);
   //
-  const editor = useSlate();
-  //
-  const [sync, input] = useSyncInput({ articleTitle: "" });
+  const deleteImage = () => {
+    globals.set(ARTICLE_IMAGE_DATAURL, null);
+    globals.set(ARTICLE_IMAGE_FILE, null);
+    globals.set(ARTICLE_IMAGE_SHOW, null);
+  };
+  const nullArticleInputs = () => {
+    // clear <input>
+    setInput((current) => ({ ...current, articleTitle: "" }));
+    globals.set(ARTICLE_TITLE_CACHED, "");
+    // clear image{}
+    deleteImage();
+    // clear editor
+    Transforms.insertText(editor, "", { at: [] });
+  };
   //
   const { upload, status: __ } = useFirebaseStorageUpload();
   //
@@ -48,7 +81,7 @@ const PageArticle = () => {
       if (!user) return;
       //
       // 1. validate title input
-      title = String(input.articleTitle).trim();
+      title = String(inputs.articleTitle).trim();
       if (!title) return;
       //
       globals.set(ARTICLE_DATA, {
@@ -59,6 +92,10 @@ const PageArticle = () => {
         image: null,
       });
       //
+      // trigger spinner
+      isProcessingArticleSaveOn();
+
+      //
       // 2. upload/validate image
       if (!articleImageFile) {
         // no image to upload..
@@ -68,7 +105,6 @@ const PageArticle = () => {
       }
       //
       upload(articleImageFile, `/etc/${Date.now()}.${articleImageFile.name}`);
-      //
     }
   }, [articleOnSave]);
   //
@@ -99,7 +135,21 @@ const PageArticle = () => {
             // article saved; clear cached data
             // prevents re-saves on page @re-mounts
             nullArticleData();
-          });
+            //
+            // cache saved article record
+            globals.set(ARTICLE_SAVED, [
+              ...(globals(ARTICLE_SAVED) || []),
+              payload,
+            ]);
+            //
+            nullArticleInputs();
+            //
+            // notify user article saved..
+            toggleActiveDrawerBox.on();
+          })
+          .finally(isProcessingArticleSaveOff);
+      } else {
+        isProcessingArticleSaveOff();
       }
     }
   }, [articleDBSave]);
@@ -108,27 +158,44 @@ const PageArticle = () => {
   // prevents unecesary saves
   useEffect(() => {
     nullArticleData();
+    setInput((current) => ({
+      ...current,
+      articleTitle: globals(ARTICLE_TITLE_CACHED),
+    }));
   }, []);
   //
+  const onChange = (evt) => {
+    sync(evt);
+    globals.set(ARTICLE_TITLE_CACHED, evt.target.value || "");
+  };
+  //
   return (
-    <div>
+    <>
+      <DrawerBox
+        isActive={isActiveDrawerBox}
+        onClose={toggleActiveDrawerBox.off}
+      >
+        <UserNotificationArticleSaved saved={globals(ARTICLE_SAVED)} />
+      </DrawerBox>
+      {/*  */}
       <form onSubmit={prevent()} noValidate className="px-8 mb-8 mt-4">
         <div className="flex flex-row items-center mb-4">
-          <Required input={input.articleTitle} />
+          <Required input={inputs.articleTitle} />
           <input
             id="articleTitle"
             name="articleTitle"
             type="text"
-            onChange={sync}
-            value={input.articleTitle}
+            onChange={onChange}
+            value={inputs?.articleTitle || ""}
             placeholder="Naslov..."
             autoComplete="off"
             className="input-underline !pl-4"
           />
         </div>
       </form>
+      {/*  */}
       <SlateEditable editor={editor} height={320} />
-    </div>
+    </>
   );
 };
 
