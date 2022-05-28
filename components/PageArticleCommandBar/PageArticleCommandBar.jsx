@@ -5,8 +5,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   useFlags,
   IS_ACTIVE_ARTICLE_COMMANDS,
+  IS_PROCESSING_ARTICLE_SAVE,
 } from "../../src/hooks/use-flags-global";
-import { prevent } from "../../src/util";
 //
 import {
   TiArrowLeftThick,
@@ -28,6 +28,7 @@ import {
   ARTICLE_IMAGE_SHOW,
   ARTICLE_ONSAVE,
 } from "../../src/hooks/use-globals";
+import { noop, prevent } from "../../src/util";
 //
 const PageArticleCommandBar = () => {
   const { flags } = useFlags();
@@ -48,6 +49,7 @@ const PageArticleCommandBar = () => {
     globals.set(ARTICLE_IMAGE_SHOW, Date.now());
   };
   const articleOnSave = () => globals.set(ARTICLE_ONSAVE, Date.now());
+  const disabledUpload = flags[IS_PROCESSING_ARTICLE_SAVE];
   //
   return (
     <>
@@ -80,8 +82,17 @@ const PageArticleCommandBar = () => {
                     </IconCommand>
                   </>
                 )}
-                <IconCommand onClick={prevent(articleOnSave)}>
-                  <BiCloudUpload className="text-white text-5xl opacity-80 hover:scale-125 transition-transform hover:opacity-90 active:opacity-100 cursor-pointer" />
+                <IconCommand
+                  onClick={prevent(articleOnSave)}
+                  disabled={disabledUpload}
+                >
+                  <BiCloudUpload
+                    className={`text-white text-5xl transition-transform ${
+                      disabledUpload
+                        ? "opacity-20 cursor-not-allowed"
+                        : "opacity-80 hover:scale-125 hover:opacity-90 active:opacity-100 cursor-pointer"
+                    }`}
+                  />
                 </IconCommand>
                 <IconCommand onClick={prevent(toggleHelpArticleEditor.on)}>
                   <IoHelp className="text-white text-4xl opacity-20 hover:scale-110 transition-transform hover:opacity-80 active:opacity-100 cursor-pointer" />
@@ -115,9 +126,10 @@ function IconCommandClose({ children, ...rest }) {
     </li>
   );
 }
-function IconCommand({ children, onClick = prevent, ...rest }) {
+function IconCommand({ children, disabled = null, onClick = noop, ...rest }) {
+  const handle = disabled ? prevent(noop) : onClick;
   return (
-    <li onClick={onClick} {...rest}>
+    <li onClick={handle} {...rest}>
       {children}
     </li>
   );
