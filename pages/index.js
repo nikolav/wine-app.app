@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import DocBody from "../components/DocBody";
-import useStateSwitch from "../src/hooks/use-state-switch";
 
 // import client from "../src/feathers";
 
@@ -53,14 +52,12 @@ import { usePages } from "../app/store";
 // } from "@headlessui/react";
 import IconBarSharing from "../components/IconBarSharing/IconBarSharing";
 import PageArticleCommandBar from "../components/PageArticleCommandBar/PageArticleCommandBar";
+import useIsMounted from "../src/hooks/use-is-mounted";
 //
 export default function Home() {
+  const isMounted = useIsMounted();
+  //
   const { page } = usePages();
-  const { isOn: isMounted, toggle: toggleMounted } = useStateSwitch();
-  useEffect(() => {
-    toggleMounted.on();
-    return toggleMounted.off;
-  }, []);
   return (
     <DocBody className="h-screen overflow-y-hidden">
       {/* 2-col grid */}

@@ -5,9 +5,13 @@ export const GlobalsContext = createContext();
 export const useGlobals = () => useContext(GlobalsContext);
 //
 // export global var names here
+export const ARTICLE_DATA = "articleData.yziiviptyxm";
 export const ARTICLE_IMAGE_DATAURL = "articleImageDataUrl.camxpqjjqjw";
 export const ARTICLE_IMAGE_FILE = "articleImageFile.hbpxohfahcm";
 export const ARTICLE_IMAGE_SHOW = "articleImageShow.xbucqjgrcyp";
+export const ARTICLE_IMAGE_DOWNLOAD_URL = "articleImageDownloadUrl.satoirpdmsy";
+export const ARTICLE_ONSAVE = "articleOnSave.fhxcetnlgss";
+export const ARTICLE_DBSAVE = "articleDBSave.ywhrpmeliai";
 ////
 ////
 export default function GlobalsProvder({ children }) {

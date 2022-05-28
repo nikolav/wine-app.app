@@ -9,13 +9,15 @@ import {
   Transforms,
   Editor,
   //   Path,
-  //   Text,
+  Text,
   Element as SlateElement,
   //   Descendant,
 } from "slate";
 // Import the Slate components and React plugin.
 import { Editable } from "slate-react";
 import SlateToolbar from "../SlateToolbar/SlateToolbar";
+//
+import escapeHtml from "escape-html";
 //
 export const LIST_TYPES = { "numbered-list": 1, "bulleted-list": 1 };
 export const TEXT_ALIGN_TYPES = { left: 1, center: 1, right: 1, justify: 1 };
@@ -84,6 +86,49 @@ export const toggleBlock = (editor, format) => {
     Transforms.wrapNodes(editor, block);
   }
 };
+//
+//
+export function slateSerialize(node) {
+  if (Text.isText(node)) {
+    let string = escapeHtml(node.text);
+    switch (true) {
+      case node.bold:
+        string = `<strong>${string}</strong>`;
+        break;
+      case node.italic:
+        string = `<em>${string}</em>`;
+        break;
+      case node.underline:
+        string = `<u>${string}</u>`;
+        break;
+      default:
+        break;
+    }
+    return string;
+  }
+
+  const children = node.children.map((n) => slateSerialize(n)).join("");
+
+  switch (true) {
+    case "block-quote" === node.type:
+      return `<blockquote>${children}</blockquote>`;
+    case "paragraph" === node.type:
+      return `<p>${children}</p>`;
+    case "heading-one" === node.type:
+      return `<h1>${children}</h1>`;
+    case "heading-two" === node.type:
+      return `<h2>${children}</h2>`;
+    case "bulleted-list" === node.type:
+      return `<ul>${children}</ul>`;
+    case "numbered-list" === node.type:
+      return `<ol>${children}</ol>`;
+    case "list-item" === node.type:
+      return `<li>${children}</li>`;
+    default:
+      return `<div>${children}</div>`;
+  }
+}
+
 ////
 ////
 const SlateEditable = ({ editor, width = "100%", height = "100%" }) => {

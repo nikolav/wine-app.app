@@ -4,25 +4,6 @@ import useStateSwitch from "../../src/hooks/use-state-switch";
 // import client from "../../src/feathers";
 //
 const HelpPage = () => {
-  const [selectedId, setSelectedId] = useState(null);
-  const items = [
-    {
-      id: "a1",
-      title: "title - 1",
-    },
-    {
-      id: "a2",
-      title: "title - 2",
-    },
-    {
-      id: "a3",
-      title: "title - 3",
-    },
-    {
-      id: "a4",
-      title: "title - 4",
-    },
-  ];
   const { isOn, toggle } = useStateSwitch();
   //
   return (
@@ -40,10 +21,11 @@ const HelpPage = () => {
           run
         </button>
         <button className="px-6 rounded-none button">set</button>
-        <button className="px-6 rounded-l-none button">ok</button>
+        <button
+        className="px-6 rounded-l-none button">ok</button>
       </div>
       <hr />
-      <p>
+      <p className="prose">
         🚧 app is under construction 👷🏼‍♂️
         <br /> @todo - implement user content dashboard
         <br />

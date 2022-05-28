@@ -26,6 +26,7 @@ import {
   ARTICLE_IMAGE_DATAURL,
   ARTICLE_IMAGE_FILE,
   ARTICLE_IMAGE_SHOW,
+  ARTICLE_ONSAVE,
 } from "../../src/hooks/use-globals";
 //
 const PageArticleCommandBar = () => {
@@ -46,6 +47,7 @@ const PageArticleCommandBar = () => {
     // `useEffect` will pick up change and show image
     globals.set(ARTICLE_IMAGE_SHOW, Date.now());
   };
+  const articleOnSave = () => globals.set(ARTICLE_ONSAVE, Date.now());
   //
   return (
     <>
@@ -78,7 +80,7 @@ const PageArticleCommandBar = () => {
                     </IconCommand>
                   </>
                 )}
-                <IconCommand>
+                <IconCommand onClick={prevent(articleOnSave)}>
                   <BiCloudUpload className="text-white text-5xl opacity-80 hover:scale-125 transition-transform hover:opacity-90 active:opacity-100 cursor-pointer" />
                 </IconCommand>
                 <IconCommand onClick={prevent(toggleHelpArticleEditor.on)}>

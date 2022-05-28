@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import useStateSwitch from "./use-state-switch";
+import useIsMounted from "./use-is-mounted";
 //
 export const DEFAULT_STORAGE_NAME = ".APPDATA";
 //
 export default function useLocalStorage(name = DEFAULT_STORAGE_NAME) {
-  const isWindow = "undefined" !== typeof window;
+  const isMounted = useIsMounted();
   //
   const [value, setValue] = useState(() => isWindow ? localStorage.getItem(name) : null);
   const storage_ = (newvalue) => {
@@ -12,14 +12,8 @@ export default function useLocalStorage(name = DEFAULT_STORAGE_NAME) {
     setValue_(name, newvalue);
   };
   //
-  const { isOn: isMounted, toggle: toggleMounted } = useStateSwitch();
   useEffect(() => {
-    toggleMounted.on();
-    return toggleMounted.off;
-  }, []);
-  //
-  useEffect(() => {
-    if (isMounted && isWindow) setValue_(name, value);
+    if (isMounted) setValue_(name, value);
   }, [name, value]);
   //
   //
