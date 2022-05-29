@@ -37,7 +37,7 @@ const DrawerBox = ({
           <>
             <div
               onClick={onClose}
-              className={`m-0 p-0 fixed z-10 inset-0 bg-gray-500/50 backdrop-blur-sm overflow-hidden ${moduleCss.drawerBoxBackdrop}`}
+              className={`m-0 p-0 fixed z-40 inset-0 bg-gray-500/50 backdrop-blur-sm overflow-hidden ${moduleCss.drawerBoxBackdrop}`}
             />
             <motion.div
               key="DraweBox-content"
@@ -52,7 +52,7 @@ const DrawerBox = ({
                 x: 0,
                 transition: { type: "spring", duration: 0.24 },
               }}
-              className={`fixed inset-y-0 z-20 w-full md:w-1/2 bg-white shadow-lg ${
+              className={`fixed inset-y-0 z-50 w-full md:w-1/2 bg-white shadow-lg ${
                 -1 === placement
                   ? "right-0 border-l-slate-900 border-l-4"
                   : "left-0 border-r-slate-900 border-r-4"

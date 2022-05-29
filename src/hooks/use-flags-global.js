@@ -12,6 +12,7 @@ export const IS_PROCESSING_ARTICLE_SAVE =
 export const IS_ACTIVE_SHARING = "isActiveSharing.ngndyesnhxx";
 export const IS_ACTIVE_ARTICLE_COMMANDS = "isActiveArticleCmd.bypgsakbkxq";
 export const IS_LOADING_CHAT = "isLoading.Chat.mxxhzbcesjh";
+export const IS_ACTIVE_HELP_CHAT = "isActive.HelpChat.evjfwzbnedy";
 //
 export default function FlagsProvider({ children }) {
   const [flags, setFlags] = useState({

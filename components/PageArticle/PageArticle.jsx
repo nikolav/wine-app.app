@@ -29,6 +29,7 @@ import {
 } from "../../src/hooks/use-flags-global";
 import modcss from "./PageArticle.module.css";
 import escapeHTML from "escape-html";
+import Effect from "../Effect";
 ////
 ////
 const PageArticle = () => {
@@ -73,6 +74,10 @@ const PageArticle = () => {
   //
   const { upload, status: __ } = useFirebaseStorageUpload();
   //
+  // triggers input effect if no title provided
+  const { isOn: isActiveEffect, toggle: toggleIsActiveEffect } =
+    useStateSwitch();
+  //
   const chatPublishArticlePosted = (payloadArticle = null) => {
     // payloadArticle{}
     //   .title .slug .body .image .author
@@ -109,7 +114,7 @@ const PageArticle = () => {
       //
       // 1. validate title input
       title = (inputs?.articleTitle || "").trim();
-      if (!title) return;
+      if (!title) return toggleIsActiveEffect.on();
       //
       globals.set(ARTICLE_DATA, {
         title,
@@ -199,6 +204,7 @@ const PageArticle = () => {
     globals.set(ARTICLE_TITLE_CACHED, evt.target.value || "");
   };
   //
+  //
   return (
     <div className={`${modcss.bgArticle} m-0 p-0 h-full`}>
       <DrawerBox
@@ -209,7 +215,11 @@ const PageArticle = () => {
       </DrawerBox>
       {/*  */}
       <form onSubmit={prevent()} noValidate className="px-8 mt-4 mb-8">
-        <div className="flex flex-row items-center mb-4">
+        <Effect
+          isActive={isActiveEffect}
+          onEnd={toggleIsActiveEffect.off}
+          className="relative flex flex-row items-center mb-4"
+        >
           <Required input={inputs.articleTitle} />
           <input
             id="articleTitle"
@@ -221,7 +231,7 @@ const PageArticle = () => {
             autoComplete="off"
             className="input-underline !pl-4"
           />
-        </div>
+        </Effect>
       </form>
       {/*  */}
       <SlateEditable editor={editor} height={320} />

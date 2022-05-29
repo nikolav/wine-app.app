@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import modcss from "./PageChat.module.css";
 import cli from "../../src/feathers";
 import useIsMounted from "../../src/hooks/use-is-mounted";
-import { useFlags, IS_LOADING_CHAT } from "../../src/hooks/use-flags-global";
+import {
+  useFlags,
+  IS_LOADING_CHAT,
+  IS_ACTIVE_HELP_CHAT,
+} from "../../src/hooks/use-flags-global";
 import ArticleEnd from "../ArticleEnd";
 import PortalOverlaysEnd from "../PortalOverlaysEnd";
 import {
@@ -16,13 +20,17 @@ import escapeHtml from "escape-html";
 import Effect from "../Effect";
 import useStateSwitch from "../../src/hooks/use-state-switch";
 import { SpinnerRotatingLines } from "../loaders";
+import { IoHelp } from "../icons";
+import DrawerBox from "../DrawerBox/DrawerBox";
+import PageChatHelp from "../PageChatHelp/PageChatHelp";
 ////
 ////
 const PageChat = () => {
   const isMounted = useIsMounted();
   //
-  const { flags, toggle: toggleIsLoadingChat } = useFlags();
+  const { flags, toggle: toggleFlags } = useFlags();
   const isLoadingChat = flags[IS_LOADING_CHAT];
+  const isActiveHelpChat = flags[IS_ACTIVE_HELP_CHAT];
   //
   const [messages, setMessages] = useState(null);
   const onCreated = (payload) => {
@@ -51,7 +59,7 @@ const PageChat = () => {
         .then(({ data }) => {
           setMessages(data);
         })
-        .finally(() => toggleIsLoadingChat.off(IS_LOADING_CHAT));
+        .finally(() => toggleFlags.off(IS_LOADING_CHAT));
     }
   }, [isMounted]);
   //
@@ -96,6 +104,12 @@ const PageChat = () => {
       </div>
       {/*  */}
       <ChatControll />
+      <DrawerBox
+        isActive={isActiveHelpChat}
+        onClose={() => toggleFlags.off(IS_ACTIVE_HELP_CHAT)}
+      >
+        <PageChatHelp />
+      </DrawerBox>
     </>
   );
 };
@@ -123,13 +137,15 @@ function ChatControll() {
     });
     setInput({ text: "" });
   };
+  const { toggle: toggleFlags } = useFlags();
+  const onChatHelp = () => toggleFlags.on(IS_ACTIVE_HELP_CHAT);
   //
   return (
     <PortalOverlaysEnd>
       <Effect
         isActive={isActiveEffect}
         onEnd={toggleIsActiveEffect.off}
-        className="fixed z-50 inset-x-0 bottom-0"
+        className="fixed z-20 inset-x-0 bottom-0"
       >
         <motion.div
           key="PageChat"
@@ -156,13 +172,22 @@ function ChatControll() {
                 autoComplete="off"
               />
             </form>
-            <button
-              type="button"
-              className="px-6 bg-opacity-20 button min-w-fit grow-0"
-              onClick={prevent(onSubmit)}
-            >
-              ok
-            </button>
+            <div className="min-w-fit grow-0 flex flex-row gap-0">
+              <button
+                type="button"
+                className="px-8 bg-opacity-20 button !rounded-r-none font-bold"
+                onClick={prevent(onSubmit)}
+              >
+                ok
+              </button>
+              <button
+                onClick={prevent(onChatHelp)}
+                type="button"
+                className="px-4 bg-opacity-20 button !rounded-l-none"
+              >
+                <IoHelp className="text-2xl text-slate-50/50" />
+              </button>
+            </div>
           </div>
         </motion.div>
       </Effect>
