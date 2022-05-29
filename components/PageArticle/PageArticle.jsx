@@ -27,6 +27,8 @@ import {
   useFlags,
   IS_PROCESSING_ARTICLE_SAVE,
 } from "../../src/hooks/use-flags-global";
+import modcss from "./PageArticle.module.css";
+import escapeHTML from "escape-html";
 ////
 ////
 const PageArticle = () => {
@@ -71,6 +73,31 @@ const PageArticle = () => {
   //
   const { upload, status: __ } = useFirebaseStorageUpload();
   //
+  const chatPublishArticlePosted = (payloadArticle = null) => {
+    // payloadArticle{}
+    //   .title .slug .body .image .author
+    if (!payloadArticle) return;
+    cli
+      .service("main")
+      .find({
+        query: {
+          $limit: 1,
+          $select: ["value"],
+          //
+          name: payloadArticle.author,
+        },
+      })
+      .then(({ data }) => {
+        const author = (data && data[0]?.value) || null;
+        if (author) {
+          cli.service("chat").create({
+            author: "🤖",
+            text: `Postavljen je novi članak. @${escapeHTML(author)}`,
+          });
+        }
+      });
+  };
+  //
   useEffect(() => {
     //
     let title;
@@ -81,7 +108,7 @@ const PageArticle = () => {
       if (!user) return;
       //
       // 1. validate title input
-      title = String(inputs.articleTitle).trim();
+      title = (inputs?.articleTitle || "").trim();
       if (!title) return;
       //
       globals.set(ARTICLE_DATA, {
@@ -146,6 +173,9 @@ const PageArticle = () => {
             //
             // notify user article saved..
             toggleActiveDrawerBox.on();
+            //
+            // notify chat @new article
+            chatPublishArticlePosted(payload);
           })
           .finally(isProcessingArticleSaveOff);
       } else {
@@ -170,7 +200,7 @@ const PageArticle = () => {
   };
   //
   return (
-    <>
+    <div className={`${modcss.bgArticle} m-0 p-0 h-full`}>
       <DrawerBox
         isActive={isActiveDrawerBox}
         onClose={toggleActiveDrawerBox.off}
@@ -178,7 +208,7 @@ const PageArticle = () => {
         <UserNotificationArticleSaved saved={globals(ARTICLE_SAVED)} />
       </DrawerBox>
       {/*  */}
-      <form onSubmit={prevent()} noValidate className="px-8 mb-8 mt-4">
+      <form onSubmit={prevent()} noValidate className="px-8 mt-4 mb-8">
         <div className="flex flex-row items-center mb-4">
           <Required input={inputs.articleTitle} />
           <input
@@ -195,7 +225,7 @@ const PageArticle = () => {
       </form>
       {/*  */}
       <SlateEditable editor={editor} height={320} />
-    </>
+    </div>
   );
 };
 

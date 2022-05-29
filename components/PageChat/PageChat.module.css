@@ -1,0 +1,10 @@
+.pageChat {
+  /* font-size: 77% !important; */
+}
+
+.bgChat {
+  background-image: url("../../public/bg-chat.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}

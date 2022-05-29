@@ -1,8 +1,20 @@
 
 ###
 
-http://localhost:3031/articles
-
+http://localhost:3031/chat/?$limit=1000
 
 ###
 
+POST http://localhost:3031/chat
+Content-Type: application/json
+
+{
+  "author": "user-26",
+  "text": "lorem-26"
+}
+
+###
+
+DELETE http://localhost:3031/chat/6292c00a271d420da5c26599
+
+###

@@ -2,11 +2,14 @@ import React, { useState, useEffect } from "react";
 import DrawerBox from "../DrawerBox/DrawerBox";
 import useStateSwitch from "../../src/hooks/use-state-switch";
 // import client from "../../src/feathers";
-import { useFlags, IS_PROCESSING_ARTICLE_SAVE } from "../../src/hooks/use-flags-global";
+import {
+  useFlags,
+  IS_PROCESSING_ARTICLE_SAVE,
+} from "../../src/hooks/use-flags-global";
 //
 const HelpPage = () => {
   const { isOn, toggle } = useStateSwitch();
-  const { flags, toggle: toggleIsProcessing } = useFlags();
+  const { toggle: toggleIsProcessing } = useFlags();
   //
   return (
     <>
@@ -24,10 +27,12 @@ const HelpPage = () => {
           run
         </button>
         <button
-        onClick={evt=> toggleIsProcessing(IS_PROCESSING_ARTICLE_SAVE)}
-        className="px-6 rounded-none button">set</button>
-        <button
-        className="px-6 rounded-l-none button">ok</button>
+          onClick={(evt) => toggleIsProcessing(IS_PROCESSING_ARTICLE_SAVE)}
+          className="px-6 rounded-none button"
+        >
+          set
+        </button>
+        <button className="px-6 rounded-l-none button">ok</button>
       </div>
       <hr />
       <p className="prose">

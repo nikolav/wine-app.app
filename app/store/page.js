@@ -8,8 +8,10 @@ import PageItalyWine from "../../components/PageItalyWine/PageItalyWine";
 import PageFrenchWine from "../../components/PageFrenchWine/PageFrenchWine";
 import PageSpanishWine from "../../components/PageSpanishWine/PageSpanishWine";
 import PageUsaWine from "../../components/PageUsaWine/PageUsaWine";
-//
 import PageArticle from "../../components/PageArticle/PageArticle";
+import PageChat from "../../components/PageChat/PageChat";
+import PageWineReview from "../../components/PageWineReview/PageWineReview";
+import PageSearch from "../../components/PageSearch/PageSearch";
 //
 export const PAGE_LOGIN = "login";
 export const PAGE_REGISTER = "register";
@@ -19,10 +21,11 @@ export const PAGE_ITALY_WINE = "italy";
 export const PAGE_FRENCH_WINE = "france";
 export const PAGE_SPANISH_WINE = "spain";
 export const PAGE_USA_WINE = "usa";
-//
 export const PAGE_ARTICLE_CREATE = "article-create";
+export const PAGE_CHAT = "page-chat.glcrpkbgcem";
+export const PAGE_WINE_REVIEW = "page-wine-review.jkttzwxwwqy";
+export const PAGE_SEARCH = "page-search.gqgkqpklfih";
 //
-
 
 export const pages = {
   [PAGE_LOGIN]: LoginForm,
@@ -33,8 +36,10 @@ export const pages = {
   [PAGE_FRENCH_WINE]: PageFrenchWine,
   [PAGE_SPANISH_WINE]: PageSpanishWine,
   [PAGE_USA_WINE]: PageUsaWine,
-  //
   [PAGE_ARTICLE_CREATE]: PageArticle,
+  [PAGE_CHAT]: PageChat,
+  [PAGE_WINE_REVIEW]: PageWineReview,
+  [PAGE_SEARCH]: PageSearch,
 };
 
 export const PageContext = React.createContext();
