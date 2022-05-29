@@ -2002,6 +2002,26 @@ select {
   text-indent: 2rem;
 }
 
+.align-baseline {
+  vertical-align: baseline;
+}
+
+.align-top {
+  vertical-align: top;
+}
+
+.align-middle {
+  vertical-align: middle;
+}
+
+.align-bottom {
+  vertical-align: bottom;
+}
+
+.align-text-top {
+  vertical-align: text-top;
+}
+
 .text-xl {
   font-size: 1.25rem;
   line-height: 1.75rem;

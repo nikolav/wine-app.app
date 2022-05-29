@@ -110,11 +110,20 @@ const PageArticle = () => {
     if (isMounted && articleOnSave) {
       //
       // 0. make sure user is logged in
-      if (!user) return;
+      if (!user) {
+        /**
+         * not logged in..
+         * trigger quick login/signup here
+         */
+        return;
+      };
       //
       // 1. validate title input
       title = (inputs?.articleTitle || "").trim();
-      if (!title) return toggleIsActiveEffect.on();
+      if (!title) {
+        toggleIsActiveEffect.on();
+        return;
+      };
       //
       globals.set(ARTICLE_DATA, {
         title,
@@ -220,7 +229,7 @@ const PageArticle = () => {
           onEnd={toggleIsActiveEffect.off}
           className="relative flex flex-row items-center mb-4"
         >
-          <Required input={inputs.articleTitle} />
+          <Required input={inputs?.articleTitle || ""} />
           <input
             id="articleTitle"
             name="articleTitle"

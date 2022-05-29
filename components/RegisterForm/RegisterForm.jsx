@@ -36,7 +36,7 @@ export default function RegisterForm() {
     }
 
     if (input.password.length < 2) {
-      setIsActive(true)
+      setIsActive(true);
       return setMessage("Lozinka treba da ima bar dva znaka.");
     }
 
@@ -57,11 +57,10 @@ export default function RegisterForm() {
     if (!registerStatus.error && !registerStatus.processing && user) {
       // set service.main [uid]: input.name
       // load help slide
-      client.service("main")
-        .create({
-          name  : user.uid,
-          value : input.name,
-        });
+      client.service("main").create({
+        name: user.uid,
+        value: input.name,
+      });
       user.displayName = input.name;
       return setPage(PAGE_HELP);
     }
@@ -90,7 +89,7 @@ export default function RegisterForm() {
       <div className="login-form-body p-8 pt-4">
         <div className="mb-4">
           <label htmlFor="name">
-            Korisnik <Required input={input.name} />
+            <Required input={input.name} /> Korisnik
           </label>
           <input
             value={input.name}
@@ -105,7 +104,7 @@ export default function RegisterForm() {
         </div>
         <div className="mb-4">
           <label htmlFor="email">
-            Email <Required input={input.email} />
+            <Required input={input.email} /> Email
           </label>
           <input
             value={input.email}
@@ -120,7 +119,7 @@ export default function RegisterForm() {
         </div>
         <div className="mb-4">
           <label htmlFor="password">
-            Lozinka <Required input={input.password} />
+            <Required input={input.password} /> Lozinka
           </label>
           <input
             value={input.password}
@@ -135,7 +134,7 @@ export default function RegisterForm() {
         </div>
         <div className="mb-6">
           <label htmlFor="password2">
-            Potvrdi lozinku <Required input={input.password2} />
+            <Required input={input.password2} /> Potvrdi lozinku
           </label>
           <input
             value={input.password2}

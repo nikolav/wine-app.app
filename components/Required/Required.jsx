@@ -1,8 +1,12 @@
 import React from "react";
-export default function Required({ input = "", ...rest }) {
+import { FaExclamationTriangle } from "../icons";
+////
+////
+export default function Required({ input = "", classes = "", ...rest }) {
   return 0 === input.length ? (
-    <strong className="text-danger" {...rest}>
-      *
-    </strong>
+    <FaExclamationTriangle
+      className={`inline align-baseline text-lg text-danger ${classes}`}
+      {...rest}
+    />
   ) : null;
 }

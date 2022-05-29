@@ -65,7 +65,7 @@ export default function LoginForm() {
       <div className="login-form-body p-8">
         <div className="mb-8">
           <label htmlFor="email">
-            Email <Required input={input.email} />
+            <Required input={input.email} /> Email
           </label>
           <input
             value={input.email}
@@ -80,7 +80,7 @@ export default function LoginForm() {
         </div>
         <div className="mb-8">
           <label htmlFor="password">
-            Lozinka <Required input={input.password} />
+            <Required input={input.password} /> Lozinka
           </label>
           <input
             value={input.password}

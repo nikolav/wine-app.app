@@ -38,10 +38,12 @@ import { FiCamera } from "react-icons/fi";
 import { BiImage } from "react-icons/bi";
 import { MdDeleteOutline } from "react-icons/md";
 import { BiShow } from "react-icons/bi";
+import { FaExclamationTriangle } from "react-icons/fa";
 // 
 export {
   // FiHelpCircle,
   IoHelp,
+  FaExclamationTriangle,
   //
   iconSearch,
   HiOutlineBookOpen,
