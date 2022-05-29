@@ -3,7 +3,15 @@ import modcss from "./PageWineReview.module.css";
 ////
 ////
 const PageWineReview = () => {
-  return <div className={`${modcss.bgWineReview}`}>PageWineReview</div>;
+  return (
+    <div className={`**prose ${modcss.bgWineReview} **bg-yellow-200`}>
+      <h2>wine-reviews; @todo</h2>
+      <article>
+      </article>
+      <hr />
+
+    </div>
+  );
 };
 
 export default PageWineReview;
@@ -51,6 +59,9 @@ export default PageWineReview;
       // cena i valuta
       price: Number,
       priceCurrency: String,
+      //
+      // prizvodjac, vinarija
+      producer: String,
       //
       // 1..5
       rating: {
