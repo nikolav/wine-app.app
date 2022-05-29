@@ -24,7 +24,7 @@ export default function ModalBox({ isOpen, onClose, children, ...rest }) {
           <>
             <div
               onClick={onClose}
-              className="fixed inset-0 z-50 bg-slate-500/50 backdrop-blur-md"
+              className="fixed inset-0 z-40 bg-slate-500/50 backdrop-blur-md"
             />
 
             <motion.div

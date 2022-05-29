@@ -1,16 +1,17 @@
 
 ###
 
-http://localhost:3031/chat/?$limit=1000
+http://localhost:3031/winereview
 
 ###
 
-POST http://localhost:3031/chat
+POST http://localhost:3031/winereview
 Content-Type: application/json
 
 {
-  "author": "user-26",
-  "text": "lorem-26"
+  "wine": "wine-6", 
+  "rating": 5,
+  "author": "nikolav"
 }
 
 ###

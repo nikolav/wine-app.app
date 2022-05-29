@@ -1,11 +1,20 @@
 import Head from "next/head";
+import { motion, AnimatePresence } from "framer-motion";
 import AuthContextProvider from "../app/store/auth";
 import PageContextProvider from "../app/store/page";
 import FlagsProvider from "../src/hooks/use-flags-global";
 import GlobalsProvder from "../src/hooks/use-globals";
 import SlateEditorProvider from "../components/SlateEditorProvider/SlateEditorProvider";
-
-import { motion, AnimatePresence } from "framer-motion";
+import { LoaderBars } from "../components/loaders";
+//
+import "../styles/globals.css";
+import "../styles/build.css";
+import "../styles/scrollbars.css";
+import "../styles/App.css";
+import "../styles/LinkCell.css";
+import "../styles/SlideAboutWine.css";
+import "../styles/CountriesWines.css";
+//
 const variants = {
   in: {
     opacity: 1,
@@ -19,21 +28,8 @@ const variants = {
     },
   },
 };
-
-//
-import { LoaderBars } from "../components/loaders";
-
-import "../styles/globals.css";
-import "../styles/build.css";
-import "../styles/scrollbars.css";
-import "../styles/App.css";
-import "../styles/LinkCell.css";
-import "../styles/SlideAboutWine.css";
-import "../styles/CountriesWines.css";
-
-// used in ListReorder
-// import "../styles/style.css";
-
+////
+////
 function MyApp({ Component, pageProps, router }) {
   return (
     <>
