@@ -1,3 +1,4 @@
 import LoaderBars from "./LoaderBars";
+import SpinnerRotatingLines from "./SpinnerRotatingLines";
 
-export { LoaderBars };
+export { LoaderBars, SpinnerRotatingLines };

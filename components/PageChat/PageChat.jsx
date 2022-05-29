@@ -13,6 +13,9 @@ import { prevent, dateFormated } from "../../src/util";
 import useInputSynced from "../../src/hooks/use-input-synced";
 import { useAuth } from "../../app/store";
 import escapeHtml from "escape-html";
+import Effect from "../Effect";
+import useStateSwitch from "../../src/hooks/use-state-switch";
+import { SpinnerRotatingLines } from "../loaders";
 ////
 ////
 const PageChat = () => {
@@ -45,8 +48,7 @@ const PageChat = () => {
             $sort: { createdAt: -1 },
           },
         })
-        .then((payload) => {
-          const { data } = payload;
+        .then(({ data }) => {
           setMessages(data);
         })
         .finally(() => toggleIsLoadingChat.off(IS_LOADING_CHAT));
@@ -84,10 +86,12 @@ const PageChat = () => {
                 </li>
               ))
             ) : (
-              <p className="text-center">loading</p>
+              <div className="flex flex-row justify-center items-center p-12">
+                <SpinnerRotatingLines width="122" />
+              </div>
             )}
           </ul>
-          <ArticleEnd />
+          {messages && <ArticleEnd />}
         </div>
       </div>
       {/*  */}
@@ -103,57 +107,65 @@ export default PageChat;
 function ChatControll() {
   const { user } = useAuth();
   const { sync, inputs, setInput } = useInputSynced({ text: "" });
+  const { isOn: isActiveEffect, toggle: toggleIsActiveEffect } =
+    useStateSwitch();
   //
   const onMessage = (message) => {
     cli.service("chat").create(message);
   };
   const onSubmit = () => {
     const text = inputs.text.trim();
-    if (0 < text.length) {
-      onMessage({
-        text,
-        author: user?.displayName || "👤",
-      });
-      setInput({ text: "" });
-    }
+    if (0 === text.length) return toggleIsActiveEffect.on();
+    //
+    onMessage({
+      text,
+      author: user?.displayName || "👤",
+    });
+    setInput({ text: "" });
   };
   //
   return (
     <PortalOverlaysEnd>
-      <motion.div
-        key="PageChat"
-        style={{
-          // $width-right-window[w-7/12] - $width-right-navbar[w-16]
-          width: "calc(58.333333% - 4rem)",
-        }}
-        className="!text-slate-100 fixed bottom-0 right-16 z-20 p-4 !pr-2 bg-gradient-to-b from-slate-900/80 to-slate-900 rounded-tl-2xl"
-        initial={{ opacity: 0, x: 56 }}
-        animate={{ opacity: 1, x: 0 }}
+      <Effect
+        isActive={isActiveEffect}
+        onEnd={toggleIsActiveEffect.off}
+        className="fixed z-50 inset-x-0 bottom-0"
       >
-        <div className="flex flex-row items-center">
-          <div className="text-sm italic opacity-40 min-w-fit grow-0">
-            {escapeHtml(user?.displayName || "user.nikolav")}
+        <motion.div
+          key="PageChat"
+          style={{
+            // $width-right-window[w-7/12] - $width-right-navbar[w-16]
+            width: "calc(58.333333% - 4rem)",
+          }}
+          className="!text-slate-100 absolute bottom-0 right-16 z-10 p-4 !pr-2 bg-gradient-to-b from-slate-900/80 to-slate-900 rounded-tl-2xl"
+          initial={{ opacity: 0, x: 56 }}
+          animate={{ opacity: 1, x: 0 }}
+        >
+          <div className="flex flex-row items-center">
+            <div className="text-sm italic opacity-40 min-w-fit grow-0">
+              {escapeHtml(user?.displayName || "👤")}
+            </div>
+            <form onSubmit={prevent(onSubmit)} noValidate className="pl-4 grow">
+              <input
+                name="text"
+                value={inputs.text}
+                onChange={sync}
+                type="text"
+                className="!bg-transparent input-underline"
+                placeholder="poruka..."
+                autoComplete="off"
+              />
+            </form>
+            <button
+              type="button"
+              className="px-6 bg-opacity-20 button min-w-fit grow-0"
+              onClick={prevent(onSubmit)}
+            >
+              ok
+            </button>
           </div>
-          <form onSubmit={prevent(onSubmit)} noValidate className="pl-4 grow">
-            <input
-              name="text"
-              value={inputs.text}
-              onChange={sync}
-              type="text"
-              className="!bg-transparent input-underline"
-              placeholder="poruka..."
-              autoComplete="off"
-            />
-          </form>
-          <button
-            type="button"
-            className="px-6 bg-opacity-20 button min-w-fit grow-0"
-            onClick={prevent(onSubmit)}
-          >
-            ok
-          </button>
-        </div>
-      </motion.div>
+        </motion.div>
+      </Effect>
     </PortalOverlaysEnd>
   );
 }

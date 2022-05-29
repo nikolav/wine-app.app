@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import "animate.css";
 
-const DEFAULT_EFFECT = "tada";
-const DEFAULT_DURATION = 2233;
+const DEFAULT_EFFECT = "headShake";
+const DEFAULT_DURATION = 1122;
 //
 export const EFFECTS = {
   // @@Attention seekers
@@ -126,6 +126,7 @@ export default function Effect({
   onEnd,
   duration,
   children,
+  ...rest
 }) {
   {
     /* 
@@ -152,7 +153,7 @@ export default function Effect({
   }, [isActive]);
 
   
-  return <div ref={refDiv}>{children}</div>;
+  return <div ref={refDiv} {...rest}>{children}</div>;
 
   function onend_(...args) {
     setIsEnded((_) => true);
