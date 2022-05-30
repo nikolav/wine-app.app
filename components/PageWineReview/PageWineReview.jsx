@@ -5,6 +5,7 @@ import { prevent } from "../../src/util";
 import PageWineReviewInput from "./PageWineReviewInput";
 import { InputWineColor, InputWineClearOrHazy, InputWineFizzy, InputWineAroma } from "./inputs";
 import { useGlobals, INPUT_WINE_REVIEW } from "../../src/hooks/use-globals";
+import InputWineReviewRangeSlider from "../InputWineReviewRangeSlider/InputWineReviewRangeSlider";
 ////
 ////
 const PageWineReview = () => {
@@ -18,10 +19,6 @@ const PageWineReview = () => {
       [payload.name]: payload.value,
     });
   };
-  //
-  useEffect(() => {
-    console.log(wineReview);
-  }, [wineReview]);
   //
   //
   return (
@@ -101,8 +98,7 @@ const PageWineReview = () => {
         <div className="md:col-span-4">
           ukus
           <hr />
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magni
-          tempore deserunt dolores.
+          <InputWineReviewRangeSlider />
         </div>
       </div>
       {/*  */}
