@@ -22,16 +22,16 @@ const InputWineReviewRangeSlider = ({
   ////
   return (
     <div className="w-full m-0 p-0">
-      <div className="flex flex-row items-center justify-between px-2">
+      <div className="flex flex-row items-center justify-between px-1">
         <small className="text-xs italic opacity-40">{title}</small>
-        <strong className="text-xs opacity-50">
+        <strong className="text-xs opacity-60">
           {stopValues[wineReview[name]]}
         </strong>
       </div>
-      <div className="relative">
+      <div className="!relative">
         <div className="relative z-10 -mx-[2px] flex flex-row justify-between">
-          {Array.from("1".repeat(parseInt(max))).map((one, i) => (
-            <span key={i} className="text-2xl opacity-20">
+          {Array.from(".".repeat(parseInt(max))).map((dot, i) => (
+            <span key={stopValues[i + 1]} className="text-2xl opacity-20">
               •
             </span>
           ))}
@@ -43,7 +43,7 @@ const InputWineReviewRangeSlider = ({
           max={max}
           step="1"
           defaultValue={1}
-          className={`top-1/2 translate-y-[1px] absolute z-20 ${modcss.sliderThumb} !duration-100 !transition-opacity appearance-none w-full h-px rounded-sm outline-none opacity-80 hover:opacity-90 active:opacity-100 bg-slate-300`}
+          className={`top-1/2 translate-y-[1px] absolute z-20 !duration-100 !transition-opacity appearance-none w-full h-px rounded-sm outline-none opacity-80 hover:opacity-90 active:opacity-100 bg-slate-300 ${modcss.sliderThumb}`}
           onInput={onInput}
         />
       </div>
