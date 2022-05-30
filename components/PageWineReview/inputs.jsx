@@ -4,11 +4,19 @@ import { prevent } from "../../src/util";
 //
 const classesInputWineColorButtonActive = {
   white: "text-yellow-500",
-  rose: "text-pink-400",
-  red: "text-red-800",
-  isClear: "text-slate-900",
-  isHazy: "text-slate-900",
-  isFizzy: "text-slate-900",
+  rose: "text-rose-300",
+  red: "text-rose-800",
+  // isClear: "text-slate-300",
+  // isHazy: "text-stone-600",
+  // isFizzy: "text-zinc-800",
+  // tropsko: "text-orange-400",
+  // vanila: "text-yellow-700",
+  // bobice: "text-pink-800",
+  // citrusi: "text-lime-400",
+  // "voće": "text-rose-700",
+  // bilje: "text-emerald-800",
+  // drvo: "text-orange-900",
+  // "začini": "text-stone-600",
 };
 //
 function InputWineColorButton({
@@ -44,7 +52,7 @@ function InputWineColorButton({
       htmlFor={id}
       className={`py-2 text-center font-bold !transition !duration-100 cursor-pointer ${
         isChecked
-          ? `scale-150 ${classesInputWineColorButtonActive[value]}`
+          ? `scale-150 ${classesInputWineColorButtonActive[value] || ""}`
           : "opacity-20 hover:opacity-40 hover:scale-110"
       } ${classes}`}
       onClick={prevent(onClick)}
@@ -107,9 +115,9 @@ export const InputWineFizzy = () => {
 
 //
 // voće, citrusi, cveće, tropsko, med, bobice, jabuka, kruška, bilje, minerali, začini, puter, kvasac, džem, drvo, vanila, čokolada
-export const InputWineAroma = () => {
+export const InputWineAroma = ({ ...rest }) => {
   return (
-    <>
+    <div {...rest}>
       <div className="flex flex-row items-center justify-around">
         <InputWineColorButton type="checkbox" name="aroma.fruit" value="voće">
           voće
@@ -126,6 +134,7 @@ export const InputWineAroma = () => {
         <InputWineColorButton type="checkbox" name="aroma.spice" value="začini">
           začini
         </InputWineColorButton>
+
         <InputWineColorButton
           type="checkbox"
           name="aroma.berries"
@@ -158,6 +167,6 @@ export const InputWineAroma = () => {
           vanila
         </InputWineColorButton>
       </div>
-    </>
+    </div>
   );
 };

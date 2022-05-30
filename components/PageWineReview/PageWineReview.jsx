@@ -1,9 +1,13 @@
 import React, { useEffect } from "react";
 import modcss from "./PageWineReview.module.css";
 import { prevent } from "../../src/util";
-// import useStateSwitch from "../../src/hooks/use-state-switch";
 import PageWineReviewInput from "./PageWineReviewInput";
-import { InputWineColor, InputWineClearOrHazy, InputWineFizzy, InputWineAroma } from "./inputs";
+import {
+  InputWineColor,
+  InputWineClearOrHazy,
+  InputWineFizzy,
+  InputWineAroma,
+} from "./inputs";
 import { useGlobals, INPUT_WINE_REVIEW } from "../../src/hooks/use-globals";
 import InputWineReviewRangeSlider from "../InputWineReviewRangeSlider/InputWineReviewRangeSlider";
 ////
@@ -12,7 +16,6 @@ const PageWineReview = () => {
   const globals = useGlobals();
   const wineReview = globals(INPUT_WINE_REVIEW);
   //
-  const onSubmit = () => {};
   const onChange_ = (payload) => {
     globals.set(INPUT_WINE_REVIEW, {
       ...wineReview,
@@ -20,22 +23,25 @@ const PageWineReview = () => {
     });
   };
   //
+  useEffect(() => {
+    if (wineReview) console.log(wineReview);
+  }, [wineReview]);
   //
   return (
     <form
-      onSubmit={prevent(onSubmit)}
-      className={`m-0 p-0 px-4 **prose ${modcss.bgWineReview} **bg-yellow-200 h-full overflow-y-auto scrollbar-thin`}
+      onSubmit={prevent()}
+      className={`px-2 **prose ${modcss.bgWineReview} ***bg-yellow-200 h-full overflow-y-auto scrollbar-thin`}
       noValidate
     >
       {/*  */}
       {/* inputs + image */}
-      <div className="grid grid-cols-12">
+      <div className="grid grid-cols-12 px-3">
         {/*  */}
         {/* inputs --left */}
         <div className="space-y-6 col-span-9 pr-2 **bg-yellow-50">
           <PageWineReviewInput
             onChange={onChange_}
-            isRequired={true}
+            // isRequired={true}
             name="wine"
             placeholder="Naziv vina (etiketa...)"
           />
@@ -76,41 +82,52 @@ const PageWineReview = () => {
         <div className="col-span-3 bg-slate-50">-wine.image-</div>
       </div>
       {/*  */}
-      {/* @todo; <PageWineReviewRating> here  */}
-      <PageWineReviewRating />
+      {/*  */}
       {/*  */}
       {/* izgled/miris/ukus */}
-      <div className="md:grid md:grid-cols-12 **bg-red-50 gap-x-2">
-        <div className="md:col-span-4">
-          izgled
-          <hr />
-          <div className="space-y-8">
+      <div className="grid grid-cols-3 ***bg-green-600 **gap-1 p-1 **grid-rows-2 mt-8"
+      style={{ 
+        gridTemplateRows: "1fr minmax(0, 100%)"
+       }}
+      >
+        {/*  */}
+        {/* col.1 */}
+        <div className="***bg-red-100">
+          <div className="space-y-6">
             <InputWineColor />
             <InputWineClearOrHazy />
             <InputWineFizzy />
           </div>
         </div>
-        <div className="md:col-span-4">
-          miris, arome
-          <hr />
-          <InputWineAroma />
+        {/*  */}
+        {/* col.2 */}
+        <div className="***bg-blue-50">
+          <InputWineAroma className="space-y-2" />
         </div>
-        <div className="md:col-span-4">
-          ukus
-          <hr />
-          <InputWineReviewRangeSlider />
+        {/*  */}
+        {/* col.3 */}
+        <div className="row-span-2 ***bg-slate-50">
+          <div className="space-y-5 px-4">
+            <InputWineReviewRangeSlider
+              title="Stil"
+              name="levelSugar"
+              max="4"
+            />
+            <InputWineReviewRangeSlider title="Kiseline" name="levelAcid" />
+            <InputWineReviewRangeSlider title="Alkohol" name="levelAlc" />
+            <InputWineReviewRangeSlider title="Tanini" name="levelTannin" />
+            <InputWineReviewRangeSlider title="Završnica" name="levelFinish" />
+          </div>
+        </div>
+        {/*  */}
+        {/* cell.4 */}
+        <div className="col-span-2 ***bg-yellow-50 flex justify-center items-center">
+          {/*  */}
+          {/* @todo; <PageWineReviewRating> here  */}
+          <PageWineReviewRating />
         </div>
       </div>
       {/*  */}
-      {/*  */}
-      {/* 
-      <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis, iste dolore earum ab libero dignissimos distinctio cupiditate nobis numquam quis consectetur praesentium!</div>
-      <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis, iste dolore earum ab libero dignissimos distinctio cupiditate nobis numquam quis consectetur praesentium!</div>
-      <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis, iste dolore earum ab libero dignissimos distinctio cupiditate nobis numquam quis consectetur praesentium!</div>
-      <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis, iste dolore earum ab libero dignissimos distinctio cupiditate nobis numquam quis consectetur praesentium!</div>
-      <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis, iste dolore earum ab libero dignissimos distinctio cupiditate nobis numquam quis consectetur praesentium!</div>
-      <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis, iste dolore earum ab libero dignissimos distinctio cupiditate nobis numquam quis consectetur praesentium!</div>
-       */}
     </form>
   );
 };
@@ -123,5 +140,11 @@ export default PageWineReview;
 //
 
 function PageWineReviewRating() {
-  return <div>@todo.wine-rating</div>;
+  return (
+    <div>
+      <hr />
+      @todo.wine-rating
+      <hr />
+    </div>
+  );
 }

@@ -50,9 +50,9 @@
   .icon-close {
     @apply absolute z-50 top-4 right-4 text-4xl opacity-40 hover:scale-110 hover:opacity-80 cursor-pointer;
   }
-
+  
   .input-underline {
-    @apply block w-full px-0.5 border-0 border-b-2 border-gray-50 focus:ring-0 focus:border-gray-200 placeholder:italic placeholder:opacity-50
+    @apply w-full px-0.5 border-0 border-b-2 border-gray-50 focus:ring-0 focus:border-gray-200 placeholder:italic placeholder:opacity-40 !bg-transparent
   }
   .input-styled {
     @apply block w-full rounded-md border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50

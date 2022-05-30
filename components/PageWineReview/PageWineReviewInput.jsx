@@ -41,7 +41,7 @@ export default function PageWineReviewInput({
     <div className={`flex flex-row items-center ${classes}`} {...rest}>
       {true === isRequired && <Required input={inputs?.[name] || ""} />}
       <input
-        className={`placeholder:text-sm pl-2 !inline-block !bg-transparent input-underline **grow`}
+        className={`placeholder:text-sm pl-2 input-underline`}
         name={name}
         onChange={inputSync}
         value={inputs?.[name] || ""}
