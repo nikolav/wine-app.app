@@ -14,11 +14,13 @@ export const ARTICLE_ONSAVE = "articleOnSave.fhxcetnlgss";
 export const ARTICLE_DBSAVE = "articleDBSave.ywhrpmeliai";
 export const ARTICLE_TITLE_CACHED = "articleTitleCached.wuireunyrdm";
 export const ARTICLE_SAVED = "articleSaved.kdbyzlmousj";
-export const INPUT_WINE_COLOR_ACTIVE = "inputWineColorActive.fgojnhfvgrd";
+export const INPUT_WINE_REVIEW = "inputWineReview.mxhuqbjfyug";
 ////
 ////
 export default function GlobalsProvder({ children }) {
-  const [globals, setGlobals] = useState({});
+  const [globals, setGlobals] = useState({
+    [INPUT_WINE_REVIEW]: {},
+  });
   const cp_ = () => ({ ...globals });
   //
   const value = (name) => globals[name];

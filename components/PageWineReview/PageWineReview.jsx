@@ -1,13 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import modcss from "./PageWineReview.module.css";
 import { prevent } from "../../src/util";
 // import useStateSwitch from "../../src/hooks/use-state-switch";
 import PageWineReviewInput from "./PageWineReviewInput";
-import InputWineColor from "./InputWineColor";
+import { InputWineColor, InputWineClearOrHazy, InputWineFizzy, InputWineAroma } from "./inputs";
+import { useGlobals, INPUT_WINE_REVIEW } from "../../src/hooks/use-globals";
 ////
 ////
 const PageWineReview = () => {
+  const globals = useGlobals();
+  const wineReview = globals(INPUT_WINE_REVIEW);
+  //
   const onSubmit = () => {};
+  const onChange_ = (payload) => {
+    globals.set(INPUT_WINE_REVIEW, {
+      ...wineReview,
+      [payload.name]: payload.value,
+    });
+  };
+  //
+  useEffect(() => {
+    console.log(wineReview);
+  }, [wineReview]);
+  //
   //
   return (
     <form
@@ -22,17 +37,20 @@ const PageWineReview = () => {
         {/* inputs --left */}
         <div className="space-y-6 col-span-9 pr-2 **bg-yellow-50">
           <PageWineReviewInput
+            onChange={onChange_}
             isRequired={true}
             name="wine"
             placeholder="Naziv vina (etiketa...)"
           />
           <div className="flex flex-row gap-x-2">
             <PageWineReviewInput
+              onChange={onChange_}
               name="producer"
               placeholder="Proizvođač/Poreklo"
               classes="grow"
             />
             <PageWineReviewInput
+              onChange={onChange_}
               name="year"
               type="number"
               placeholder="Godina berbe"
@@ -42,11 +60,13 @@ const PageWineReview = () => {
 
           <div className="flex flex-row gap-x-2">
             <PageWineReviewInput
+              onChange={onChange_}
               name="grape"
               placeholder="Sorta grožđa"
               classes="grow"
             />
             <PageWineReviewInput
+              onChange={onChange_}
               name="price"
               type="number"
               placeholder="Cena (RSD)"
@@ -67,15 +87,16 @@ const PageWineReview = () => {
         <div className="md:col-span-4">
           izgled
           <hr />
-          <div>
+          <div className="space-y-8">
             <InputWineColor />
+            <InputWineClearOrHazy />
+            <InputWineFizzy />
           </div>
         </div>
         <div className="md:col-span-4">
-          miris
+          miris, arome
           <hr />
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate
-          ratione animi delectus?
+          <InputWineAroma />
         </div>
         <div className="md:col-span-4">
           ukus
