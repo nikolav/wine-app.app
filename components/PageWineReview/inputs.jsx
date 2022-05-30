@@ -119,9 +119,6 @@ export const InputWineAroma = ({ ...rest }) => {
   return (
     <div {...rest}>
       <div className="flex flex-row items-center justify-around">
-        <InputWineColorButton type="checkbox" name="aroma.fruit" value="voće">
-          voće
-        </InputWineColorButton>
         <InputWineColorButton
           type="checkbox"
           name="aroma.citrus"
@@ -129,12 +126,14 @@ export const InputWineAroma = ({ ...rest }) => {
         >
           citrusi
         </InputWineColorButton>
+        <InputWineColorButton type="checkbox" name="aroma.fruit" value="voće">
+          voće
+        </InputWineColorButton>
       </div>
       <div className="flex flex-row items-center justify-around">
         <InputWineColorButton type="checkbox" name="aroma.spice" value="začini">
           začini
         </InputWineColorButton>
-
         <InputWineColorButton
           type="checkbox"
           name="aroma.berries"

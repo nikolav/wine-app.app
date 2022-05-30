@@ -1,1 +1,6 @@
-.bgWineReview {}
+.bgWineReview {
+  background-image: url("../../public/bg-winereview.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
