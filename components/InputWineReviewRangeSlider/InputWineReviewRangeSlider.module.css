@@ -1,13 +1,14 @@
 .sliderThumb {
     --thumb-size: 1.23rem;
     --bg-slate-900: #0f172a;
+    --rounded-full: 50%;
 }
 .sliderThumb::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
   width: var(--thumb-size, 24px);
   height: var(--thumb-size, 24px);
-  border-radius: 50%;
+  border-radius: var(--rounded-full, 0);
   background: var(--bg-slate-900, black);
   cursor: pointer;
 }
@@ -15,7 +16,7 @@
 .sliderThumb::-moz-range-thumb {
   width: var(--thumb-size, 24px);
   height: var(--thumb-size, 24px);
-  border-radius: 50%;
+  border-radius: var(--rounded-full, 0);
   background: var(--bg-slate-900, black);
   cursor: pointer;
 }

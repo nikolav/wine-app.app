@@ -85,10 +85,11 @@ const PageWineReview = () => {
       {/*  */}
       {/*  */}
       {/* izgled/miris/ukus */}
-      <div className="grid grid-cols-3 ***bg-green-600 **gap-1 p-1 **grid-rows-2 mt-8"
-      style={{ 
-        gridTemplateRows: "1fr minmax(0, 100%)"
-       }}
+      <div
+        className="grid grid-cols-3 ***bg-green-600 **gap-1 p-1 **grid-rows-2 mt-8"
+        style={{
+          gridTemplateRows: "1fr minmax(0, 100%)",
+        }}
       >
         {/*  */}
         {/* col.1 */}
@@ -112,11 +113,31 @@ const PageWineReview = () => {
               title="Stil"
               name="levelSugar"
               max="4"
+              stopValues={{
+                1: "Suvo",
+                2: "Polusuvo",
+                3: "Poluslatko",
+                4: "Slatko",
+              }}
             />
-            <InputWineReviewRangeSlider title="Kiseline" name="levelAcid" />
-            <InputWineReviewRangeSlider title="Alkohol" name="levelAlc" />
-            <InputWineReviewRangeSlider title="Tanini" name="levelTannin" />
-            <InputWineReviewRangeSlider title="Završnica" name="levelFinish" />
+            <InputWineReviewRangeSlider
+              title="Nivo kiselina"
+              name="levelAcid"
+            />
+            <InputWineReviewRangeSlider title="Nivo alkohola" name="levelAlc" />
+            <InputWineReviewRangeSlider
+              title="Nivo tanina"
+              name="levelTannin"
+            />
+            <InputWineReviewRangeSlider
+              stopValues={{
+                1: "Kratka",
+                2: "Srednja",
+                3: "Duga",
+              }}
+              title="Završnica"
+              name="levelFinish"
+            />
           </div>
         </div>
         {/*  */}
