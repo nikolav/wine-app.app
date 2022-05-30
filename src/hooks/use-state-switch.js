@@ -6,7 +6,7 @@ export default function useStateSwitch(initial = false) {
   //
   const on = () => setIsOn(true);
   const off = () => setIsOn(false);
-  const toggle = () => setIsOn((current) => !current);
+  const toggle = () => setIsOn(!isOn);
   //
   toggle.on = on;
   toggle.off = off;

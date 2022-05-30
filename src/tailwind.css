@@ -35,7 +35,7 @@
 
   /* default button; dark grey; small padding; white text; rounded */
   .button {
-    @apply rounded-full p-2 px-4 outline-none border-none bg-slate-500 text-white uppercase hover:bg-slate-900 active:bg-black transition-colors;
+    @apply rounded-full p-2 px-4 outline-none border-none bg-slate-500 text-white uppercase hover:bg-slate-900 active:bg-black transition-colors cursor-pointer;
   }
   .button-primary {
     @apply button bg-slate-800;

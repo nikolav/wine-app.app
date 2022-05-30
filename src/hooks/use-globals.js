@@ -14,6 +14,7 @@ export const ARTICLE_ONSAVE = "articleOnSave.fhxcetnlgss";
 export const ARTICLE_DBSAVE = "articleDBSave.ywhrpmeliai";
 export const ARTICLE_TITLE_CACHED = "articleTitleCached.wuireunyrdm";
 export const ARTICLE_SAVED = "articleSaved.kdbyzlmousj";
+export const INPUT_WINE_COLOR_ACTIVE = "inputWineColorActive.fgojnhfvgrd";
 ////
 ////
 export default function GlobalsProvder({ children }) {

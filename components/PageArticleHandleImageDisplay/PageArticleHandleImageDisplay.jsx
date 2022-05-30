@@ -34,13 +34,13 @@ const PageArticleHandleImageDisplay = () => {
         <div className="col-span-6 prose">
           <div className="h-full !text-center flex flex-col items-center justify-around">
             <article>
-              👈🏼👏🏼
+              <strong className="text-2xl">👈🏼👏🏼</strong>
               <br />
-              👍🏼 Izabrali ste ovu sliku.
+              <strong className="text-2xl">👍🏼</strong> Izabrali ste ovu sliku.
               <br />
               Biće postavljena kada sačuvate članak.
               <br />
-              🥳
+              <strong className="text-2xl">🍾🥳</strong>
             </article>
             <button onClick={toggle.off} className="button px-6">
               ok, hvala
