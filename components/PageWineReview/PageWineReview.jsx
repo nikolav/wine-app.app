@@ -27,9 +27,9 @@ const PageWineReview = () => {
     });
   };
   //
-  useEffect(() => {
-    if (wineReview) console.log(wineReview);
-  }, [wineReview]);
+  // useEffect(() => {
+  //   if (wineReview) console.log(wineReview);
+  // }, [wineReview]);
   //
   return (
     <form
@@ -84,7 +84,7 @@ const PageWineReview = () => {
         {/*  */}
         {/* upload.image --right */}
         <div className="col-span-3 bg-slate-50">
-          @todo.image
+          @todo.image-upload
         </div>
       </div>
       {/*  */}
@@ -92,7 +92,7 @@ const PageWineReview = () => {
       {/*  */}
       {/* izgled/miris/ukus */}
       <div
-        className="grid grid-cols-3 ***bg-green-600 **gap-1 p-1 **grid-rows-2 mt-8"
+        className="grid grid-cols-3 ***bg-green-600 p-1 **grid-rows-2 mt-8"
         style={{
           gridTemplateRows: "1fr minmax(0, 100%)",
         }}
@@ -160,7 +160,7 @@ const PageWineReview = () => {
               }
               classInactive="text-stone-300"
             />
-            <p className="opacity-75 italic">Moja konačna ocena</p>
+            <p className="opacity-50 italic">Moja konačna ocena vina</p>
           </div>
         </div>
       </div>
