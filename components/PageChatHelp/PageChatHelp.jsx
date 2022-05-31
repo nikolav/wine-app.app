@@ -3,7 +3,7 @@ import React from "react";
 const PageChatHelp = () => {
   return (
     <div className="prose">
-      <h2>help.chat @todo</h2>
+      <h2>@todo help.chat</h2>
       <article>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus
         officia, excepturi, alias eligendi maiores cumque odit porro odio

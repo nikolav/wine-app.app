@@ -78,7 +78,6 @@ export default function Home() {
           <GuestNavigation className="absolute inset-y-0 right-0 z-10 w-16 bg-slate-900" />
           <IconBarSharing />
           <PageArticleCommandBar />
-
           {/* `framer` page toggle; change `key` and `content` to set page */}
           <AnimatePresence>
             <motion.div

@@ -87,8 +87,8 @@ const PageChat = () => {
                       {escapeHtml(msg.text)}
                     </article>
                     <aside className="flex flex-col w-12 text-right">
+                      <span>🚧</span>
                       <span>❌</span>
-                      <span>👍🏼</span>
                     </aside>
                   </div>
                 </li>
