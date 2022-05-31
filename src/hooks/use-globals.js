@@ -15,11 +15,14 @@ export const ARTICLE_DBSAVE = "articleDBSave.ywhrpmeliai";
 export const ARTICLE_TITLE_CACHED = "articleTitleCached.wuireunyrdm";
 export const ARTICLE_SAVED = "articleSaved.kdbyzlmousj";
 export const INPUT_WINE_REVIEW = "inputWineReview.mxhuqbjfyug";
+export const STAR_RATING = "starRating.fxlepypdqsq";
+
 ////
 ////
 export default function GlobalsProvder({ children }) {
   const [globals, setGlobals] = useState({
     [INPUT_WINE_REVIEW]: {},
+    [STAR_RATING]: {},
   });
   const cp_ = () => ({ ...globals });
   //

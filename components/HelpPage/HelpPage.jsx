@@ -41,6 +41,7 @@ const HelpPage = () => {
         <br />
         @todo - display articles; filmstrip bottom
       </p>
+      <hr />
     </>
   );
 };

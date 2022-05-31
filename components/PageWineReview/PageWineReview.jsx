@@ -10,9 +10,13 @@ import {
 } from "./inputs";
 import { useGlobals, INPUT_WINE_REVIEW } from "../../src/hooks/use-globals";
 import InputWineReviewRangeSlider from "../InputWineReviewRangeSlider/InputWineReviewRangeSlider";
+import RatingFiveStars from "../RatingFiveStars/RatingFiveStars";
+// import {BiImage} from "../icons";
 ////
 ////
 const PageWineReview = () => {
+  const idWineRating = "wineRating";
+  //
   const globals = useGlobals();
   const wineReview = globals(INPUT_WINE_REVIEW);
   //
@@ -79,7 +83,9 @@ const PageWineReview = () => {
         </div>
         {/*  */}
         {/* upload.image --right */}
-        <div className="col-span-3 bg-slate-50">-wine.image-</div>
+        <div className="col-span-3 bg-slate-50">
+          @todo.image
+        </div>
       </div>
       {/*  */}
       {/*  */}
@@ -93,7 +99,7 @@ const PageWineReview = () => {
       >
         {/*  */}
         {/* col.1 */}
-        <div className="***bg-red-100">
+        <div className={`${modcss.bgIzgled} ***bg-red-100`}>
           <div className="space-y-6">
             <InputWineColor />
             <InputWineClearOrHazy />
@@ -102,12 +108,13 @@ const PageWineReview = () => {
         </div>
         {/*  */}
         {/* col.2 */}
-        <div className="***bg-blue-50">
+        <div className={`${modcss.bgArome
+        } ***bg-blue-50`}>
           <InputWineAroma className="space-y-2" />
         </div>
         {/*  */}
         {/* col.3 */}
-        <div className="row-span-2 ***bg-slate-50">
+        <div className={`${modcss.bgUkus} row-span-2 ***bg-slate-50`}>
           <div className="space-y-5 px-4">
             <InputWineReviewRangeSlider
               title="Stil"
@@ -142,10 +149,19 @@ const PageWineReview = () => {
         </div>
         {/*  */}
         {/* cell.4 */}
-        <div className="col-span-2 ***bg-yellow-50 flex justify-center items-center">
+        <div className="prose text-center pt-4 col-span-2 ***bg-yellow-50 flex justify-center items-center">
           {/*  */}
-          {/* @todo; <PageWineReviewRating> here  */}
-          <PageWineReviewRating />
+          <div>
+            <RatingFiveStars
+              size={52}
+              id={idWineRating}
+              onChange={(rating) =>
+                onChange_({ name: idWineRating, value: rating })
+              }
+              classInactive="text-stone-300"
+            />
+            <p className="opacity-75 italic">Moja konačna ocena</p>
+          </div>
         </div>
       </div>
       {/*  */}

@@ -4,3 +4,20 @@
   background-position: center;
   background-size: cover;
 }
+
+.bgIzgled {
+  background-image: url("../../public/bg-page-winereview-izgled.png");
+  background-repeat: no-repeat;
+  background-position: 0% 2rem;
+}
+.bgArome {
+  background-image: url("../../public/bg-winereview-arome.png");
+  background-repeat: no-repeat;
+  background-position: 0% 2rem;
+}
+.bgUkus {
+  background-image: url("../../public/bg-winereview-ukus.png");
+  background-repeat: no-repeat;
+  /* background-position: 0% 2rem; */
+  background-position: 1rem 2rem;
+}

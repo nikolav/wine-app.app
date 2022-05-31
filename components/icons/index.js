@@ -1,49 +1,46 @@
 import iconSearch from "../../src/etc/icon-search-primary.svg";
 import { HiOutlineBookOpen } from "react-icons/hi";
-import { FiShare2 } from "react-icons/fi";
-import { FaRegComments } from "react-icons/fa";
-import { FaStar } from "react-icons/fa";
-import { RiGithubLine } from "react-icons/ri";
-import { BiUserCircle } from "react-icons/bi";
-import { MdCreate } from "react-icons/md";
 import { IoMdPower } from "react-icons/io";
-import { FaHome } from "react-icons/fa";
-import { MdClose } from "react-icons/md";
-//
-import { RiTwitterLine } from "react-icons/ri";
 import { TiArrowLeftThick } from "react-icons/ti";
-import { FaFacebookF } from "react-icons/fa";
-import { MdOutlineMail } from "react-icons/md";
-import { FaViber } from "react-icons/fa";
-import { RiMessengerLine } from "react-icons/ri";
-import { AiOutlineWhatsApp } from "react-icons/ai";
-//
-import { BiBold } from "react-icons/bi";
 import { CgFormatItalic } from "react-icons/cg";
-import { AiOutlineUnderline } from "react-icons/ai";
 import { ImQuotesLeft } from "react-icons/im";
-import { GoListOrdered } from "react-icons/go";
-import { GoListUnordered } from "react-icons/go";
+import { GoListUnordered, GoListOrdered } from "react-icons/go";
 import {
+  FaStar,
+  FaHome,
+  FaFacebookF,
+  FaViber,
   FaAlignLeft,
   FaAlignCenter,
   FaAlignRight,
   FaAlignJustify,
+  FaRegComments,
+  FaExclamationTriangle,
 } from "react-icons/fa";
-// import { FiHelpCircle } from "react-icons/fi";
 import { IoHelp } from "react-icons/io5";
-//
-import { BiCloudUpload } from "react-icons/bi";
-import { FiCamera } from "react-icons/fi";
-import { BiImage } from "react-icons/bi";
-import { MdDeleteOutline } from "react-icons/md";
-import { BiShow } from "react-icons/bi";
-import { FaExclamationTriangle } from "react-icons/fa";
-// 
+import { FiCamera, FiShare2 } from "react-icons/fi";
+import { BsStarFill } from "react-icons/bs";
+import { RiGithubLine, RiTwitterLine, RiMessengerLine } from "react-icons/ri";
+import {
+  BiShow,
+  BiUserCircle,
+  BiBold,
+  BiCloudUpload,
+  BiImage,
+} from "react-icons/bi";
+import {
+  MdDeleteOutline,
+  MdCreate,
+  MdClose,
+  MdOutlineMail,
+} from "react-icons/md";
+import { AiOutlineUnderline, AiOutlineWhatsApp } from "react-icons/ai";
+////
+////
 export {
-  // FiHelpCircle,
   IoHelp,
   FaExclamationTriangle,
+  BsStarFill,
   //
   iconSearch,
   HiOutlineBookOpen,

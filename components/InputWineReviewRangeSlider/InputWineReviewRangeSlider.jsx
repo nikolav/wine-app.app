@@ -42,7 +42,7 @@ const InputWineReviewRangeSlider = ({
           min="1"
           max={max}
           step="1"
-          defaultValue={1}
+          defaultValue={wineReview[name] || 1}
           className={`top-1/2 translate-y-[1px] absolute z-20 !duration-100 !transition-opacity appearance-none w-full h-px rounded-sm outline-none opacity-80 hover:opacity-90 active:opacity-100 bg-slate-300 ${modcss.sliderThumb}`}
           onInput={onInput}
         />
