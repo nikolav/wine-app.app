@@ -8,10 +8,17 @@ import {
   InputWineFizzy,
   InputWineAroma,
 } from "./inputs";
-import { useGlobals, INPUT_WINE_REVIEW } from "../../src/hooks/use-globals";
+import {
+  useGlobals,
+  INPUT_WINE_REVIEW,
+  WINE_REVIEW_IMAGE_DATAURL,
+  WINE_REVIEW_IMAGE_FILE,
+} from "../../src/hooks/use-globals";
 import InputWineReviewRangeSlider from "../InputWineReviewRangeSlider/InputWineReviewRangeSlider";
 import RatingFiveStars from "../RatingFiveStars/RatingFiveStars";
-// import {BiImage} from "../icons";
+import PageWineReviewImageThumb from "../PageWineReviewImageThumb/PageWineReviewImageThumb";
+import ChooseImage from "../ChooseImage/ChooseImage";
+import PageWineReviewNoImageThumb from "../PageWineReviewNoImageThumb/PageWineReviewNoImageThumb";
 ////
 ////
 const PageWineReview = () => {
@@ -26,10 +33,11 @@ const PageWineReview = () => {
       [payload.name]: payload.value,
     });
   };
+  const imageDataWineReview = globals(WINE_REVIEW_IMAGE_DATAURL);
   //
-  // useEffect(() => {
-  //   if (wineReview) console.log(wineReview);
-  // }, [wineReview]);
+  useEffect(() => {
+    if (wineReview) console.log(wineReview);
+  }, [wineReview]);
   //
   return (
     <form
@@ -83,8 +91,22 @@ const PageWineReview = () => {
         </div>
         {/*  */}
         {/* upload.image --right */}
-        <div className="col-span-3 bg-slate-50">
-          @todo.image-upload
+        <div className="relative col-span-3 ***bg-slate-50 rounded-2xl overflow-hidden">
+          {imageDataWineReview ? (
+            <PageWineReviewImageThumb
+              classes="opacity-80 hover:opacity-90 active:opacity-1000 cursor-pointer"
+              imageDataUrl={imageDataWineReview}
+            />
+          ) : (
+            <ChooseImage
+              id="pageWineReview.hqnudedvazk"
+              GLOBAL_DATAURL={WINE_REVIEW_IMAGE_DATAURL}
+              GLOBAL_FILE={WINE_REVIEW_IMAGE_FILE}
+              className="flex justify-center items-center"
+            >
+              <PageWineReviewNoImageThumb />
+            </ChooseImage>
+          )}
         </div>
       </div>
       {/*  */}
@@ -108,8 +130,7 @@ const PageWineReview = () => {
         </div>
         {/*  */}
         {/* col.2 */}
-        <div className={`${modcss.bgArome
-        } ***bg-blue-50`}>
+        <div className={`${modcss.bgArome} ***bg-blue-50`}>
           <InputWineAroma className="space-y-2" />
         </div>
         {/*  */}
@@ -173,15 +194,3 @@ const PageWineReview = () => {
 export default PageWineReview;
 
 //
-//
-//
-
-function PageWineReviewRating() {
-  return (
-    <div>
-      <hr />
-      @todo.wine-rating
-      <hr />
-    </div>
-  );
-}

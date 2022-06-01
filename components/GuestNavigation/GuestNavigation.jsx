@@ -32,6 +32,7 @@ import {
   useFlags,
   IS_ACTIVE_SHARING,
   IS_ACTIVE_ARTICLE_COMMANDS,
+  IS_ACTIVE_WINE_REVIEW_TOOLBAR,
 } from "../../src/hooks/use-flags-global";
 //
 //
@@ -43,6 +44,7 @@ const GuestNavigation = ({ ...rest }) => {
   const { toggle } = useFlags();
   const openSharing = () => toggle.on(IS_ACTIVE_SHARING);
   const openArticleCommands = () => toggle.on(IS_ACTIVE_ARTICLE_COMMANDS);
+  const openWineReviewToolbar = () => toggle.on(IS_ACTIVE_WINE_REVIEW_TOOLBAR);
   //
   return (
     <div {...rest}>
@@ -50,6 +52,7 @@ const GuestNavigation = ({ ...rest }) => {
         <FaStar
           onClick={prevent(() => {
             setPage(PAGE_WINE_REVIEW);
+            openWineReviewToolbar();
           })}
           className="mb-auto text-5xl text-yellow-400 transition-transform cursor-pointer opacity-80 hover:opacity-90 active:opacity-100 hover:-rotate-2 hover:scale-125"
         />

@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import DrawerBox from "../DrawerBox/DrawerBox";
 import useStateSwitch from "../../src/hooks/use-state-switch";
 // import client from "../../src/feathers";
-// import  { useFlags, IS_PROCESSING_ARTICLE_SAVE } from "../../src/hooks/use-flags-global";
-//
+// import useChatNotify from "../../src/hooks/use-chat-notify";
+////
+////
 const HelpPage = () => {
   const { isOn, toggle } = useStateSwitch();
   // const { toggle: toggleIsProcessing } = useFlags();
@@ -11,12 +12,18 @@ const HelpPage = () => {
   return (
     <>
       <DrawerBox isActive={isOn} onClose={toggle.off}>
-        <h2>🚧🚧🚧 under construction</h2>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia
-          quis et eius illo labore vero commodi neque, impedit laudantium at id
-          nisi ab cumque quisquam recusandae temporibus ex. Atque, maxime.
-        </p>
+        <div>
+          <h2>under construction 🚧</h2>
+          <p>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+            Necessitatibus inventore, quaerat odio deleniti ea pariatur
+            molestiae debitis quis rem dolore nobis saepe quisquam autem,
+            repellat consequuntur. Exercitationem nihil in delectus eveniet
+            perspiciatis aliquam ex omnis fuga modi ad, nulla molestias cum
+            veniam, fugiat quis assumenda voluptate ullam! Laborum sequi
+            possimus officiis sed autem, temporibus fugit.
+          </p>
+        </div>
       </DrawerBox>
       {/*  */}
       <h2 className="text-center heading-primary">Dobrodošli 👋🏼</h2>
@@ -35,7 +42,7 @@ const HelpPage = () => {
       <hr />
       <p className="prose">
         <h2>🚧 app is under construction</h2>
-        <h4>@TODOS:</h4>
+        <br /> • @TODOS:
         <br /> • 👤 user dashboard @1st page; info, links, help, etc.
         <br /> • 📱 mobile/small-screen setup
         <br /> • 🔍 search/read articles feature

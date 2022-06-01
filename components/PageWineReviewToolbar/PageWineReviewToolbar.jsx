@@ -1,45 +1,58 @@
-import React, { useEffect } from "react";
-import modcss from "./PageArticleCommandBar.module.css";
+import React from "react";
 import PortalOverlaysEnd from "../PortalOverlaysEnd";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   useFlags,
-  IS_ACTIVE_ARTICLE_COMMANDS,
-  IS_PROCESSING_ARTICLE_SAVE,
+  IS_ACTIVE_WINE_REVIEW_TOOLBAR,
+  IS_PROCESSING_WINE_REVIEW_UPLOAD,
 } from "../../src/hooks/use-flags-global";
-//
 import {
   TiArrowLeftThick,
-  BiCloudUpload,
-  FiCamera,
   IoHelp,
-  BiShow,
+  FiCamera,
   MdDeleteOutline,
+  MdOutlineEditNote,
+  BiCloudUpload,
 } from "../icons";
 import DrawerBox from "../DrawerBox/DrawerBox";
-import PageArticleEditorHelp from "../PageArticleEditorHelp/PageArticleEditorHelp";
+import PageWineReviewHelp from "../PageWineReviewHelp/PageWineReviewHelp";
 import useStateSwitch from "../../src/hooks/use-state-switch";
+import { noop, prevent } from "../../src/util";
 import ChooseImage from "../ChooseImage/ChooseImage";
-import ChooseImageShow from "../ChooseImageShow/ChooseImageShow";
 import {
   useGlobals,
-  ARTICLE_ONSAVE,
+  WINE_REVIEW_IMAGE_FILE,
+  WINE_REVIEW_IMAGE_DATAURL,
+  WINE_REVIEW_IMAGE_SHOW,
+  WINE_REVIEW_ONSAVE,
 } from "../../src/hooks/use-globals";
-import { noop, prevent } from "../../src/util";
+import ChooseImageShow from "../ChooseImageShow/ChooseImageShow";
 import useHandleImageDataUrl from "../../src/hooks/use-handle-image-data-url";
+import PageWineReviewDescription from "../PageWineReviewDescription/PageWineReviewDescription";
+
 ////
 ////
-const PageArticleCommandBar = () => {
-  const globals = useGlobals();
+const PageWineReviewToolbar = () => {
   const { flags } = useFlags();
-  const isActive = flags[IS_ACTIVE_ARTICLE_COMMANDS];
-  const { isOn: isOnHelpArticleEditor, toggle: toggleHelpArticleEditor } =
+  const isActive = flags[IS_ACTIVE_WINE_REVIEW_TOOLBAR];
+  const {
+    isOn: isActiveWineReviewHelp,
+    toggle: toggleIsActiveWineReviewHelp,
+  } = useStateSwitch();
+  const globals = useGlobals();
+  //
+  const image_ = useHandleImageDataUrl({
+    GLOBAL_FILE: WINE_REVIEW_IMAGE_FILE,
+    GLOBAL_DATAURL: WINE_REVIEW_IMAGE_DATAURL,
+    GLOBAL_SHOW: WINE_REVIEW_IMAGE_SHOW,
+  });
+  const imageDataWineReview = image_();
+  //
+  const { isOn: isActiveDescription, toggle: toggleDescription } =
     useStateSwitch();
   //
-  const image_ = useHandleImageDataUrl();
-  const imageData = image_();
-  const articleOnSave = () => globals.set(ARTICLE_ONSAVE, Date.now());
-  const disabledUpload = flags[IS_PROCESSING_ARTICLE_SAVE];
+  const disabledUpload = flags[IS_PROCESSING_WINE_REVIEW_UPLOAD];
+  const wineReviewOnSave = () => globals.set(WINE_REVIEW_ONSAVE, Date.now());
   //
   return (
     <>
@@ -47,7 +60,7 @@ const PageArticleCommandBar = () => {
         <AnimatePresence>
           {isActive && (
             <motion.div
-              key={IS_ACTIVE_ARTICLE_COMMANDS}
+              key={IS_ACTIVE_WINE_REVIEW_TOOLBAR}
               className="fixed inset-y-0 right-0 z-20 w-16 bg-slate-900"
               initial={{ opacity: 0 }}
               exit={{ opacity: 0, transition: { duration: 0.1 } }}
@@ -58,22 +71,29 @@ const PageArticleCommandBar = () => {
                   <TiArrowLeftThick className="text-white text-5xl opacity-60 hover:scale-110 transition-transform hover:opacity-80 active:opacity-100 cursor-pointer" />
                 </IconCommandClose>
                 <IconCommand>
-                  <ChooseImage id="articleCommandBar">
+                  <ChooseImage
+                    id="pageWineReviewToolbar"
+                    GLOBAL_FILE={WINE_REVIEW_IMAGE_FILE}
+                    GLOBAL_DATAURL={WINE_REVIEW_IMAGE_DATAURL}
+                  >
                     <FiCamera className="text-white text-4xl opacity-50 hover:scale-110 transition-transform hover:opacity-80 active:opacity-100 cursor-pointer" />
                   </ChooseImage>
                 </IconCommand>
-                {imageData && (
+                {/*  */}
+                {imageDataWineReview && (
                   <>
                     <IconCommand onClick={prevent(image_.rm)}>
                       <MdDeleteOutline className="text-white text-3xl opacity-20 hover:scale-110 transition-transform hover:opacity-80 active:opacity-100 cursor-pointer" />
                     </IconCommand>
-                    <IconCommand onClick={prevent(image_.show)}>
-                      <BiShow className="text-white text-3xl opacity-20 hover:scale-110 transition-transform hover:opacity-80 active:opacity-100 cursor-pointer" />
-                    </IconCommand>
                   </>
                 )}
+                {/*  */}
+                <IconCommand onClick={prevent(toggleDescription.on)}>
+                  <MdOutlineEditNote className="pl-px text-white text-5xl opacity-50 hover:scale-110 transition-transform hover:opacity-80 active:opacity-100 cursor-pointer" />
+                </IconCommand>
+                {/*  */}
                 <IconCommand
-                  onClick={prevent(articleOnSave)}
+                  onClick={prevent(wineReviewOnSave)}
                   disabled={disabledUpload}
                 >
                   <BiCloudUpload
@@ -84,9 +104,11 @@ const PageArticleCommandBar = () => {
                     }`}
                   />
                 </IconCommand>
+
+                {/*  */}
                 <IconCommand
+                  onClick={prevent(toggleIsActiveWineReviewHelp.on)}
                   className="!mt-auto"
-                  onClick={prevent(toggleHelpArticleEditor.on)}
                 >
                   <IoHelp className="text-white text-4xl opacity-20 hover:scale-110 transition-transform hover:opacity-80 active:opacity-100 cursor-pointer" />
                 </IconCommand>
@@ -97,33 +119,40 @@ const PageArticleCommandBar = () => {
       </PortalOverlaysEnd>
       {/*  */}
       <DrawerBox
-        isActive={isOnHelpArticleEditor}
-        onClose={toggleHelpArticleEditor.off}
+        isActive={isActiveWineReviewHelp}
+        onClose={toggleIsActiveWineReviewHelp.off}
       >
-        <PageArticleEditorHelp />
+        <PageWineReviewHelp />
       </DrawerBox>
       {/*  */}
-      {/* <PageArticleHandleImageDisplay /> */}
-      <ChooseImageShow>
+      <ChooseImageShow
+        GLOBAL_DATAURL={WINE_REVIEW_IMAGE_DATAURL}
+        GLOBAL_IMAGE_SHOW={WINE_REVIEW_IMAGE_SHOW}
+      >
         <article>
-          <strong className="text-2xl">👈🏼👏🏼</strong>
+          <strong className="text-2xl">👏🏼</strong>
           <br />
-          <strong className="text-2xl">👍🏼</strong> Izabrali ste ovu sliku.
+          <strong className="text-2xl">👈🏼</strong> Izabrali ste ovu sliku.
           <br />
-          Biće postavljena kada sačuvate članak.
+          Biće postavljena kada sačuvate ocenu vina ⭐.
           <br />
           <strong className="text-2xl">🍾🥳</strong>
         </article>
       </ChooseImageShow>
+      {/*  */}
+      <PageWineReviewDescription
+        isActive={isActiveDescription}
+        onClose={toggleDescription.off}
+      />
     </>
   );
 };
 
-export default PageArticleCommandBar;
+export default PageWineReviewToolbar;
 
 function IconCommandClose({ children, ...rest }) {
   const { toggle } = useFlags();
-  const closeCmdBar = () => toggle.off(IS_ACTIVE_ARTICLE_COMMANDS);
+  const closeCmdBar = () => toggle.off(IS_ACTIVE_WINE_REVIEW_TOOLBAR);
   return (
     <li onClick={prevent(closeCmdBar)} {...rest}>
       {children}
@@ -138,3 +167,5 @@ function IconCommand({ children, disabled = null, onClick = noop, ...rest }) {
     </li>
   );
 }
+
+//
