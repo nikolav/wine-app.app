@@ -22,13 +22,16 @@ const InputWineReviewRangeSlider = ({
   ////
   return (
     <div className="w-full m-0 p-0">
+      {/* TITLE */}
       <div className="flex flex-row items-center justify-between px-1">
-        <small className="text-xs italic opacity-40">{title}</small>
-        <strong className="text-xs opacity-60">
+        <small className="text-xs italic opacity-60">{title}</small>
+        <strong className="text-xs opacity-80 font-bold">
           {stopValues[wineReview[name]]}
         </strong>
       </div>
+      {/* SLIDER */}
       <div className="!relative">
+        {/* STOPS */}
         <div className="relative z-10 -mx-[2px] flex flex-row justify-between">
           {Array.from(".".repeat(parseInt(max))).map((dot, i) => (
             <span key={stopValues[i + 1]} className="text-2xl opacity-20">
@@ -36,6 +39,7 @@ const InputWineReviewRangeSlider = ({
             </span>
           ))}
         </div>
+        {/* RANGE */}
         <input
           type="range"
           name={name}

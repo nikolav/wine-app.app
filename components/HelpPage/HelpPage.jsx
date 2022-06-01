@@ -42,7 +42,7 @@ const HelpPage = () => {
       <hr />
       <p className="prose">
         <h2>🚧 app is under construction</h2>
-        <br /> • @TODOS:
+        <br /> @TODOS:
         <br /> • 👤 user dashboard @1st page; info, links, help, etc.
         <br /> • 📱 mobile/small-screen setup
         <br /> • 🔍 search/read articles feature
@@ -52,7 +52,7 @@ const HelpPage = () => {
         <br /> • 👍🏼 like feature for user posted articles
         <br /> • ❔ app help drawer-boxes
         <br /> • 🙋🏼‍♂️ user welcome @login.success
-        <br /> 💬 feel free to message me on chat
+        <br /> • 💬 feel free to message me on chat
       </p>
     </>
   );

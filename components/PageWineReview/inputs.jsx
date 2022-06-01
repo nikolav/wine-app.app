@@ -53,7 +53,7 @@ function InputWineColorButton({
       className={`py-2 text-center font-bold !transition !duration-100 cursor-pointer ${
         isChecked
           ? `scale-150 ${classesInputWineColorButtonActive[value] || ""}`
-          : "opacity-20 hover:opacity-40 hover:scale-110"
+          : "opacity-30 hover:opacity-40 hover:scale-110"
       } ${classes}`}
       onClick={prevent(onClick)}
       {...rest}
