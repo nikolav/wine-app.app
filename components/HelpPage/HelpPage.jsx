@@ -41,7 +41,7 @@ const HelpPage = () => {
       </div>
       <hr />
       <p className="prose">
-        <h2>🚧 app is under construction;2</h2>
+        <h2>🚧 app is under construction;5</h2>
         <br /> •  <strong>@TODOS:</strong>
         <br /> • 👤 user dashboard @1st page; info, links, help, etc.
         <br /> • 📱 mobile/small-screen setup

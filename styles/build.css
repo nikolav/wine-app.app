@@ -2387,6 +2387,11 @@ select {
   color: rgb(251 191 36 / var(--tw-text-opacity)) !important;
 }
 
+.text-stone-800 {
+  --tw-text-opacity: 1;
+  color: rgb(41 37 36 / var(--tw-text-opacity));
+}
+
 .underline {
   -webkit-text-decoration-line: underline;
           text-decoration-line: underline;

@@ -41,7 +41,7 @@ export default function PageWineReviewDescription({
               id="description"
               cols="30"
               rows="12"
-              className="placeholder:italic placeholder:opacity-30 block w-full p-4 border-stone-200 shadow-sm focus:border-stone-300 focus:ring focus:ring-stone-200 focus:ring-opacity-50 rounded-xl"
+              className="scrollbar-thin placeholder:italic placeholder:opacity-30 block w-full p-4 border-stone-200 shadow-sm focus:border-stone-300 focus:ring focus:ring-stone-200 focus:ring-opacity-50 rounded-xl"
               placeholder="Opis..."
               value={inputs?.description}
               onChange={sync_}

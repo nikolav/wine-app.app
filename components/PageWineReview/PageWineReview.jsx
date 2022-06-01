@@ -238,7 +238,7 @@ const PageWineReview = () => {
                 }
                 classInactive="text-stone-300"
               />
-              <p className="opacity-50 italic">Moja konačna ocena vina</p>
+              <p className="text-stone-800 opacity-60 italic">Moja konačna ocena vina</p>
             </Effect>
           </div>
         </div>
