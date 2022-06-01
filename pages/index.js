@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import DocBody from "../components/DocBody";
-
+//
 // import client from "../src/feathers";
-
 // @stripe vanillaJS
 // https://www.youtube.com/watch?v=K7PHc6QNaoc
-
+// https://www.youtube.com/watch?v=K7PHc6QNaoc
 import {
   motion,
   AnimatePresence,
@@ -52,6 +51,8 @@ import { usePages } from "../app/store";
 // } from "@headlessui/react";
 import IconBarSharing from "../components/IconBarSharing/IconBarSharing";
 import PageArticleCommandBar from "../components/PageArticleCommandBar/PageArticleCommandBar";
+import PageWineReviewToolbar from "../components/PageWineReviewToolbar/PageWineReviewToolbar";
+//
 import useIsMounted from "../src/hooks/use-is-mounted";
 //
 export default function Home() {
@@ -67,9 +68,9 @@ export default function Home() {
           id="window-left"
           className="relative z-10 col-span-5 border-r-4 shadow-lg border-r-white"
         >
-          {isMounted && (
+          {/* {isMounted && (
             <VideoBackground video="https://nikolav.rs/etc/wine-app/mov.min2.mp4" />
-          )}
+          )} */}
         </section>
 
         {/* window-right */}
@@ -78,6 +79,7 @@ export default function Home() {
           <GuestNavigation className="absolute inset-y-0 right-0 z-10 w-16 bg-slate-900" />
           <IconBarSharing />
           <PageArticleCommandBar />
+          <PageWineReviewToolbar />
           {/* `framer` page toggle; change `key` and `content` to set page */}
           <AnimatePresence>
             <motion.div

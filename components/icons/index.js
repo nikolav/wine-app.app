@@ -16,6 +16,7 @@ import {
   FaAlignJustify,
   FaRegComments,
   FaExclamationTriangle,
+  FaRegSave,
 } from "react-icons/fa";
 import { IoHelp } from "react-icons/io5";
 import { FiCamera, FiShare2 } from "react-icons/fi";
@@ -33,14 +34,19 @@ import {
   MdCreate,
   MdClose,
   MdOutlineMail,
+  MdOutlineAddPhotoAlternate,
+  MdOutlinePostAdd,
+  MdOutlineEditNote,
 } from "react-icons/md";
 import { AiOutlineUnderline, AiOutlineWhatsApp } from "react-icons/ai";
-////
+
+//// 
 ////
 export {
   IoHelp,
   FaExclamationTriangle,
   BsStarFill,
+  FaRegSave,
   //
   iconSearch,
   HiOutlineBookOpen,
@@ -78,4 +84,8 @@ export {
   BiImage,
   MdDeleteOutline,
   BiShow,
+  //
+  MdOutlineAddPhotoAlternate,
+  MdOutlinePostAdd,
+  MdOutlineEditNote,
 };

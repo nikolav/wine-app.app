@@ -5,39 +5,54 @@ import {
   useGlobals,
   ARTICLE_IMAGE_DATAURL,
   ARTICLE_IMAGE_FILE,
+  // WINE_REVIEW_IMAGE_FILE,
+  // WINE_REVIEW_IMAGE_DATAURL,
 } from "../../src/hooks/use-globals";
 //
 export default function ChooseImage({
   //
+  id,
   children,
   //
-  id = "fileChooseImage",
+  GLOBAL_FILE = ARTICLE_IMAGE_FILE,
+  GLOBAL_DATAURL = ARTICLE_IMAGE_DATAURL,
+  ...rest
+  //
 }) {
+  const ID = `FILECHOOSEIMAGE${id}`;
   const isMounted = useIsMounted();
   const globals = useGlobals();
   //
   const [read, __] = useFileReader();
   const onChange = (evt) => {
     const file = evt?.target?.files[0];
+    //
+    // evt.target.value doesnt change when component removes image
+    // and if re-choosing the same image it wont work
+    // .. handle .value somehow; send {file, target} to `.set` 
+    // .. so that it can be removed with `evt.target.value = ""`
+    // console.log(fileRef.current.value);
+    //
     if (isMounted && file) {
       read(file);
-      globals.set(ARTICLE_IMAGE_FILE, file);
+      // globals.set(GLOBAL_FILE, file);
+      globals.set(GLOBAL_FILE, { file, target: evt?.target });
     }
   };
   useEffect(() => {
-    if (!__.error && !__.loading && __.url) 
+    if (!__.error && !__.loading && __.url)
       //
-      globals.set(ARTICLE_IMAGE_DATAURL, __.url);
+      globals.set(GLOBAL_DATAURL, __.url);
   }, [__.error, __.loading, __.url]);
   //
   return (
-    <label htmlFor={id}>
+    <label htmlFor={ID} {...rest}>
       {children}
       <input
         onChange={onChange}
         type="file"
-        id={id}
-        name={id}
+        id={ID}
+        name={ID}
         className="sr-only !hidden"
       />
     </label>

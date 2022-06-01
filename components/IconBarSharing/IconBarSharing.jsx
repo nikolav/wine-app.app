@@ -23,7 +23,9 @@ import {
   WhatsappShareButton,
 } from "react-share";
 //
-export const SHARE_URL = "https://nikolav.rs/";
+// export const SHARE_URL = "https://nikolav.rs/";
+// export const SHARE_URL = "https://wine-app0.herokuapp.com/";
+export const SHARE_URL = "http://ljubiteljvina.xyz/";
 //
 const IconBarSharing = () => {
   const { flags } = useFlags();
