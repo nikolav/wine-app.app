@@ -10,6 +10,9 @@ export default function PageWineReviewInput({
   //   required: true
   name,
   //
+  // sets globaly cached `input.value` on <inputs>
+  value = "",
+  //
   // passes current `input.value` to callback
   onChange = noop,
   //
@@ -44,7 +47,11 @@ export default function PageWineReviewInput({
         className={`placeholder:text-sm pl-2 input-underline`}
         name={name}
         onChange={inputSync}
-        value={inputs?.[name] || ""}
+        //
+        // dont sync <input> localy
+        // sync from global value passed to <C>
+        // value={inputs?.[name] || ""}
+        value={value}
         type={type}
         autoComplete="off"
         placeholder={placeholder}
