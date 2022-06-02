@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import modcss from "./PageWineReview.module.css";
 import { prevent } from "../../src/util";
 import PageWineReviewInput from "./PageWineReviewInput";
@@ -14,6 +14,7 @@ import {
   WINE_REVIEW_IMAGE_DATAURL,
   WINE_REVIEW_IMAGE_FILE,
   WINE_REVIEW_ONSAVE,
+  WR_RECORD,
 } from "../../src/hooks/use-globals";
 import {
   useFlags,
@@ -29,6 +30,7 @@ import { useAuth } from "../../app/store";
 import NotificationDangerNotAuthenticated from "../NotificationDangerNotAuthenticated/NotificationDangerNotAuthenticated";
 import useStateSwitch from "../../src/hooks/use-state-switch";
 import Effect from "../Effect";
+import { WR_InitRecord } from "../../src/util";
 
 //
 const IDWINERATING = "wineRating";
@@ -60,6 +62,8 @@ const PageWineReview = () => {
   //
   const wineReviewOnSave = globals(WINE_REVIEW_ONSAVE);
   //
+  //
+  const [debugWRRecord, setDebugWRRecord] = useState();
   useEffect(() => {
     if (isMounted && wineReviewOnSave) {
       // ..same as page-article
@@ -78,8 +82,20 @@ const PageWineReview = () => {
       //
       // ..all good here
       // can upload/store user input
-      console.log(wineReview);
+      globals.set(
+        WR_RECORD,
+        WR_InitRecord(
+          {
+            wine: wineReview.wine,
+            author: user.uid,
+            wineRating: wineReview[IDWINERATING],
+          },
+          wineReview
+        )
+      );
       //
+      //
+      setDebugWRRecord(Date.now());
     }
   }, [wineReviewOnSave]);
   //
@@ -91,9 +107,13 @@ const PageWineReview = () => {
   };
   const imageDataWineReview = globals(WINE_REVIEW_IMAGE_DATAURL);
   //
+  // @@debug
   useEffect(() => {
     if (wineReview) console.log(wineReview);
   }, [wineReview]);
+  useEffect(() => {
+    console.log(globals(WR_RECORD));
+  }, [debugWRRecord]);
   //
   return (
     <>

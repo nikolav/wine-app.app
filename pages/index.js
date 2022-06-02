@@ -68,9 +68,9 @@ export default function Home() {
           id="window-left"
           className="relative z-10 col-span-5 border-r-4 shadow-lg border-r-white"
         >
-          {isMounted && (
+          {/* {isMounted && (
             <VideoBackground video="https://nikolav.rs/etc/wine-app/mov.min2.mp4" />
-          )}
+          )} */}
         </section>
 
         {/* window-right */}

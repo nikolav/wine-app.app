@@ -20,6 +20,8 @@ export const WINE_REVIEW_IMAGE_DATAURL = "wineReview.dataUrl.jcowrbazcva";
 export const WINE_REVIEW_IMAGE_SHOW = "wineReview.imageShow.ttzazmhgoex";
 export const WINE_REVIEW_ONSAVE = "wineReview.onSave.ejxhasrqalx";
 export const STAR_RATING = "starRating.fxlepypdqsq";
+// collects wr-input-data for storing
+export const WR_RECORD = "wr.record.xbicntewgqh";
 //
 // GLOBAL_FILE
 // GLOBAL_DATAURL
@@ -30,6 +32,7 @@ export default function GlobalsProvder({ children }) {
   const [globals, setGlobals] = useState({
     [INPUT_WINE_REVIEW]: {},
     [STAR_RATING]: {},
+    [WR_RECORD]: {},
   });
   const cp_ = () => ({ ...globals });
   //
