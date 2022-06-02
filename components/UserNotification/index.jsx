@@ -21,10 +21,6 @@ function UserNotificationPostSaved({
   return (
     <DrawerBox isActive={isActive} onClose={onClose}>
       <div className="h-full overflow-y-auto prose" {...rest}>
-        {/* @@todo */}
-        <p>@TODO; links.. </p>
-        <p>@TODO; previews.. </p>
-        <hr />
         {children}
         <hr />
         <pre className="text-xs">{JSON.stringify(payload, null, 2)}</pre>
