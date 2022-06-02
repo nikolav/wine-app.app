@@ -20,7 +20,7 @@ export default function NavCountriesAboutWine({id}) {
   const closeModal = () => toggle.off(id);
   
   return (
-    <div className="text-white m-0 p-0 py-4 absolute bg-slate-900 bottom-0 inset-x-0 z-10 opacity-95 flex flex-row items-center justify-around w-7/12">
+    <div className="absolute inset-x-0 bottom-0 z-10 flex flex-row items-center justify-around p-0 py-4 m-0 text-white bg-slate-900 opacity-95 lg:w-7/12">
       {icons.map((image) => (
         <img
           key={image}
@@ -32,7 +32,7 @@ export default function NavCountriesAboutWine({id}) {
             closeModal();
             setPage(iconsMap[image]);
           }}
-          className="cursor-pointer rounded-full outline outline-white shadow hover:-translate-y-1 duration-75 transition-transform opacity-80 hover:opacity-100"
+          className="transition-transform duration-75 rounded-full shadow cursor-pointer outline outline-white hover:-translate-y-1 opacity-80 hover:opacity-100"
         />
       ))}
     </div>

@@ -8,3 +8,15 @@
   background-position: center;
   background-size: cover;
 }
+
+
+/*  */
+.chatControllResponsive {
+  width: calc(100% - 4rem);
+}
+
+@media (min-width: 976px) {
+  .chatControllResponsive {
+    width: calc(58.333333% - 4rem) !important;
+  }
+}

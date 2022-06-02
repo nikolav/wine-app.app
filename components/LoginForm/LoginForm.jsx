@@ -49,10 +49,10 @@ export default function LoginForm() {
   return (
     <form
       onSubmit={prevent(handleLogin)}
-      className="rounded-2xl border-4 **p-8 w-8/12 mx-auto mt-2"
+      className="rounded-2xl border-4 **p-8 w-full sm:w-10/12 md:w-8/12 lg:w-10/12 xl:w-8/12 mx-auto mt-2"
       noValidate
     >
-      <div className="bg-gray-50 text-slate-400 login-form-header px-8 py-2 w-full text-center border-b-4">
+      <div className="w-full px-8 py-2 text-center border-b-4 bg-gray-50 text-slate-400 login-form-header">
         <Effect
           effect="headShake"
           duration={888}
@@ -62,7 +62,7 @@ export default function LoginForm() {
           {message}
         </Effect>
       </div>
-      <div className="login-form-body p-8">
+      <div className="p-8 login-form-body">
         <div className="mb-8">
           <label htmlFor="email">
             <Required input={input.email} /> Email
@@ -104,7 +104,7 @@ export default function LoginForm() {
           <a
             onClick={prevent(setPage.bind(null, PAGE_REGISTER))}
             href="#!"
-            className="link text-center"
+            className="text-center link"
           >
             Nemam nalog, registruj me.
           </a>

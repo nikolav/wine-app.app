@@ -11,12 +11,12 @@ const ID_REGIONS = "cell-regions";
 //
 const SlideAboutWine = () => {
   return (
-    <div className="grid grid-cols-2 gap-0 relative px-6">
+    <div className="relative grid grid-cols-2 gap-0 px-6">
       <LinkCell title="regioni" id={ID_REGIONS} classes="rounded-tl-2xl">
         <NavCountriesAboutWine id={ID_REGIONS} />
         <div
           id="slide-about-wine"
-          className="indent-8 **text-base scrollbar-thin space-y-8 absolute left-0 p-8 max-h-full !overflow-y-auto w-7/12 pb-48"
+          className="indent-8 scrollbar-thin space-y-8 lg:absolute left-0 p-8 max-h-full !overflow-y-auto lg:w-7/12 pb-48"
         >
           <article className="prose">
             <p>
@@ -91,7 +91,8 @@ const SlideAboutWine = () => {
             <ArticleEnd />
           </article>
         </div>
-        <div className="absolute right-0 w-5/12 m-0 p-0 h-full">
+        {/* moda--slideshow.aside */}
+        <div className="right-0 hidden h-full p-0 m-0 lg:!block lg:w-5/12 lg:!absolute">
           <SlideshowImages
             images={[
               "/hist/export/regioni01.jpg",
