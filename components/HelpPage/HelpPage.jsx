@@ -41,18 +41,16 @@ const HelpPage = () => {
       </div>
       <hr />
       <p className="prose">
-        <h2>🚧 app is under construction;29</h2>
+        <h2>🚧 app is under construction;47</h2>
         <br /> •  <strong>@TODOS:</strong>
-        <br /> • 👤 user dashboard @1st page; info, links, help, etc.
+        <br /> • 👤 user dashboard @1st page; info, lists, links, help, etc.
         <br /> • 📱 mobile/small-screen setup
         <br /> • 🔍 search/read articles feature
-        <br /> • ⭐ wine-review backend
-        <br /> • 🗨 message management @chat; msg.delete, msg.like
         <br /> • 📰 more articles about wine
         <br /> • 👍🏼 like feature for user posted articles
         <br /> • ❔ app help drawer-boxes
         <br /> • 🙋🏼‍♂️ user welcome @login.success
-        <br /> • 💬 feel free to message me on chat
+        <br /> 💬 feel free to message me on chat
       </p>
     </>
   );

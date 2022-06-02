@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import DocBody from "../components/DocBody";
 //
 // import client from "../src/feathers";
@@ -53,10 +53,8 @@ import IconBarSharing from "../components/IconBarSharing/IconBarSharing";
 import PageArticleCommandBar from "../components/PageArticleCommandBar/PageArticleCommandBar";
 import PageWineReviewToolbar from "../components/PageWineReviewToolbar/PageWineReviewToolbar";
 //
-import useIsMounted from "../src/hooks/use-is-mounted";
 //
 export default function Home() {
-  const isMounted = useIsMounted();
   //
   const { page } = usePages();
   return (

@@ -20,7 +20,7 @@ function UserNotificationPostSaved({
   const payload = 0 < history.length ? history[history.length - 1] : null;
   return (
     <DrawerBox isActive={isActive} onClose={onClose}>
-      <div className="prose" {...rest}>
+      <div className="h-full overflow-y-auto prose" {...rest}>
         {/* @@todo */}
         <p>@TODO; links.. </p>
         <p>@TODO; previews.. </p>

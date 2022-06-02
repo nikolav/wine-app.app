@@ -20,13 +20,14 @@ import escapeHtml from "escape-html";
 import Effect from "../Effect";
 import useStateSwitch from "../../src/hooks/use-state-switch";
 import { SpinnerRotatingLines } from "../loaders";
-import { IoHelp } from "../icons";
+import { IoHelp, MdDeleteOutline } from "../icons";
 import DrawerBox from "../DrawerBox/DrawerBox";
 import PageChatHelp from "../PageChatHelp/PageChatHelp";
 ////
 ////
 const PageChat = () => {
   const isMounted = useIsMounted();
+  const { user } = useAuth();
   //
   const { flags, toggle: toggleFlags } = useFlags();
   const isLoadingChat = flags[IS_LOADING_CHAT];
@@ -36,14 +37,29 @@ const PageChat = () => {
   const onCreated = (payload) => {
     setMessages((messages_) => [payload, ...(messages_ || [])]);
   };
+  const onMessageRemoved = ({ _id: ID }) => {
+    // console.log(`@onMessageRemoved`);
+    // filter out from messsages[]
+    setMessages((messages) => messages.filter((msg) => ID !== msg._id));
+  };
   //
+  // stop listening on unmount
   useEffect(() => {
-    return () => cli.service("chat").removeListener("created", onCreated);
+    return () => {
+      cli
+        .service("chat")
+        .removeListener("created", onCreated)
+        .removeListener("removed", onMessageRemoved);
+    };
   }, []);
   //
+  // attach feathers events when chat is done fetching messages
   useEffect(() => {
     if (false === isLoadingChat) {
-      cli.service("chat").on("created", onCreated);
+      cli
+        .service("chat")
+        .on("created", onCreated)
+        .on("removed", onMessageRemoved);
     }
   }, [isLoadingChat]);
   useEffect(() => {
@@ -52,7 +68,8 @@ const PageChat = () => {
         .service("chat")
         .find({
           query: {
-            $limit: 1234,
+            // limit.max 1000
+            $limit: 123,
             $sort: { createdAt: -1 },
           },
         })
@@ -63,6 +80,13 @@ const PageChat = () => {
     }
   }, [isMounted]);
   //
+  const onClickMessageRemove = ({ _id }) => {
+    // message{ _id author author_id text .timestamps }
+    if (isMounted) {
+      cli.service("chat").remove(_id);
+    }
+  };
+  //
   return (
     <>
       <div
@@ -71,30 +95,34 @@ const PageChat = () => {
         <div className="prose !pb-32">
           <ul className="flex flex-col list-none !text-sm">
             {messages ? (
-              messages.map((msg) => (
+              messages.map((message) => (
                 <li
-                  key={msg._id}
+                  key={message._id}
                   className="p-4 rounded-lg shadow bg-slate-50/20 hover:bg-slate-50/50"
                 >
                   <div className="flex flex-row items-start">
                     <div className="text-center opacity-40 min-w-max grow-0">
-                      <h5>{escapeHtml(msg.author)}</h5>
+                      <h5>{escapeHtml(message.author)}</h5>
                       <small className="!text-xs italic">
-                        {dateFormated(msg.createdAt)}
+                        {dateFormated(message.createdAt)}
                       </small>
                     </div>
                     <article className="px-4 grow">
-                      {escapeHtml(msg.text)}
+                      {escapeHtml(message.text)}
                     </article>
-                    <aside className="flex flex-col w-12 text-right">
-                      <span>🚧</span>
-                      <span>❌</span>
+                    <aside className="flex flex-row items-start justify-end w-8">
+                      {user && user.uid === message.author_id && (
+                        <MdDeleteOutline
+                          onClick={() => onClickMessageRemove(message)}
+                          className="text-lg transition-transform duration-75 cursor-pointer opacity-40 hover:opacity-100 hover:scale-110 text-danger"
+                        />
+                      )}
                     </aside>
                   </div>
                 </li>
               ))
             ) : (
-              <div className="flex flex-row justify-center items-center p-12">
+              <div className="flex flex-row items-center justify-center p-12">
                 <SpinnerRotatingLines width="122" />
               </div>
             )}
@@ -134,19 +162,22 @@ function ChatControll() {
     onMessage({
       text,
       author: user?.displayName || "👤",
+      author_id: user?.uid || null,
     });
     setInput({ text: "" });
   };
   const { toggle: toggleFlags } = useFlags();
   const onChatHelp = () => toggleFlags.on(IS_ACTIVE_HELP_CHAT);
   //
+  //
   return (
     <PortalOverlaysEnd>
       <Effect
         isActive={isActiveEffect}
         onEnd={toggleIsActiveEffect.off}
-        className="fixed z-20 inset-x-0 bottom-0"
+        className="fixed inset-x-0 bottom-0 z-20"
       >
+        {/* framer container */}
         <motion.div
           key="PageChat"
           style={{
@@ -158,9 +189,11 @@ function ChatControll() {
           animate={{ opacity: 1, x: 0 }}
         >
           <div className="flex flex-row items-center">
+            {/* username */}
             <div className="text-sm italic opacity-40 min-w-fit grow-0">
               {escapeHtml(user?.displayName || "👤")}
             </div>
+            {/* message input */}
             <form onSubmit={prevent(onSubmit)} noValidate className="pl-4 grow">
               <input
                 name="text"
@@ -170,9 +203,11 @@ function ChatControll() {
                 className="!bg-transparent input-underline"
                 placeholder="poruka..."
                 autoComplete="off"
+                autoFocus
               />
             </form>
-            <div className="min-w-fit grow-0 flex flex-row gap-0">
+            {/* actions */}
+            <div className="flex flex-row gap-0 min-w-fit grow-0">
               <button
                 type="button"
                 className="px-8 bg-opacity-20 button !rounded-r-none font-bold"

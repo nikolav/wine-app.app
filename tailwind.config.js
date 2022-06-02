@@ -8,22 +8,22 @@ module.exports = {
   ],
   theme: {
     screens: {
-      sm: "492px",
+      sm: "512px",
       md: "768px",
       lg: "976px",
-      xl: "1440px",
+      xl: "1280px",
+      "2xl": "1536px",
     },
-    extend: {
-      colors: {
-        redx: "hsl(12, 88%, 59%)",
-      },
-    },
+    // extend: {
+    //   colors: {
+    //     redx: "hsl(12, 88%, 59%)",
+    //   },
+    // },
   },
   corePlugins: {
     aspectRatio: false,
   },
   plugins: [
-
     // https://tailwindcss.com/docs/typography-plugin
     require("@tailwindcss/typography"),
 

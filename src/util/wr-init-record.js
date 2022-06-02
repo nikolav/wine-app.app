@@ -62,6 +62,6 @@ export default function WR_InitRecord(
 function formatedAroma_(aroma = "") {
   return String(aroma).replace(
     /(\.*?)\.(\w)(.*)/i,
-    (_, $1, $2, $3) => `${$1}${$2.toUpperCase()}${$3}`
+    (_$0, $1, $2, $3) => `${$1}${$2.toUpperCase()}${$3}`
   );
 }
