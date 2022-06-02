@@ -4,10 +4,8 @@ class TheDocument extends Document {
   render() {
     return (
       <Html>
-        <Head>
-          {/* // global, meta... */}
-        </Head>
-        <body className="bg-slate-100 text-slate-800 text-lg tracking-wide leading-relaxed">
+        <Head>{/* // global, meta... */}</Head>
+        <body className="!overflow-y-hidden text-lg leading-relaxed tracking-wide bg-slate-100 text-slate-800">
           <div id="overlays" />
           <Main />
           <div id="overlays-end" />

@@ -42,40 +42,42 @@ const IconBarSharing = () => {
             exit={{ opacity: 0, transition: { duration: 0.1 } }}
             animate={{ opacity: 1, transition: { duration: 0.24 } }}
           >
-            <ul className="list-none space-y-8 w-full h-full flex flex-col items-center justify-end py-4">
-              <IconShare className="mb-auto">
-                <TiArrowLeftThick className="text-white text-5xl opacity-60 hover:scale-110 transition-transform hover:opacity-80 active:opacity-100 cursor-pointer" />
+            <ul className="list-none ***space-y-8 w-full h-full flex flex-col items-center justify-between py-4">
+              <IconShare className="mb-20">
+                <TiArrowLeftThick className="text-5xl text-white transition-transform cursor-pointer opacity-60 hover:scale-110 hover:opacity-80 active:opacity-100" />
               </IconShare>
-              <IconShare>
-                <TwitterShareButton url={SHARE_URL}>
-                  <RiTwitterLine className="text-white text-4xl opacity-50 hover:scale-110 transition-transform hover:opacity-80 active:opacity-100 cursor-pointer" />
-                </TwitterShareButton>
-              </IconShare>
-              <IconShare>
-                <FacebookShareButton url={SHARE_URL}>
-                  <FaFacebookF className="text-white text-3xl opacity-50 hover:scale-110 transition-transform hover:opacity-80 active:opacity-100 cursor-pointer" />
-                </FacebookShareButton>
-              </IconShare>
-              <IconShare>
+              <div className="flex flex-col items-center justify-between grow">
+                <IconShare>
+                  <TwitterShareButton url={SHARE_URL}>
+                    <RiTwitterLine className="text-4xl text-white transition-transform opacity-50 cursor-pointer hover:scale-110 hover:opacity-80 active:opacity-100" />
+                  </TwitterShareButton>
+                </IconShare>
+                <IconShare>
+                  <FacebookShareButton url={SHARE_URL}>
+                    <FaFacebookF className="text-3xl text-white transition-transform opacity-50 cursor-pointer hover:scale-110 hover:opacity-80 active:opacity-100" />
+                  </FacebookShareButton>
+                </IconShare>
+                <IconShare>
                   <ViberShareButton url={SHARE_URL} title={SHARE_URL}>
-                      <FaViber className="text-white text-3xl opacity-50 hover:scale-110 transition-transform hover:opacity-80 active:opacity-100 cursor-pointer" />
+                    <FaViber className="text-3xl text-white transition-transform opacity-50 cursor-pointer hover:scale-110 hover:opacity-80 active:opacity-100" />
                   </ViberShareButton>
-              </IconShare>
-              <IconShare>
+                </IconShare>
+                <IconShare>
                   <FacebookMessengerShareButton url={SHARE_URL}>
-                      <RiMessengerLine className="text-white text-3xl opacity-50 hover:scale-110 transition-transform hover:opacity-80 active:opacity-100 cursor-pointer" />
+                    <RiMessengerLine className="text-3xl text-white transition-transform opacity-50 cursor-pointer hover:scale-110 hover:opacity-80 active:opacity-100" />
                   </FacebookMessengerShareButton>
-              </IconShare>
-              <IconShare>
+                </IconShare>
+                <IconShare>
                   <WhatsappShareButton url={SHARE_URL} title={SHARE_URL}>
-                      <AiOutlineWhatsApp className="text-white text-3xl opacity-50 hover:scale-110 transition-transform hover:opacity-80 active:opacity-100 cursor-pointer" />
+                    <AiOutlineWhatsApp className="text-3xl text-white transition-transform opacity-50 cursor-pointer hover:scale-110 hover:opacity-80 active:opacity-100" />
                   </WhatsappShareButton>
-              </IconShare>
-              <IconShare>
-                <EmailShareButton url={SHARE_URL} subject={`@: ${SHARE_URL}`}>
-                  <MdOutlineMail className="text-white text-3xl opacity-50 hover:scale-110 transition-transform hover:opacity-80 active:opacity-100 cursor-pointer" />
-                </EmailShareButton>
-              </IconShare>
+                </IconShare>
+                <IconShare>
+                  <EmailShareButton url={SHARE_URL} subject={`@: ${SHARE_URL}`}>
+                    <MdOutlineMail className="text-3xl text-white transition-transform opacity-50 cursor-pointer hover:scale-110 hover:opacity-80 active:opacity-100" />
+                  </EmailShareButton>
+                </IconShare>
+              </div>
             </ul>
           </motion.div>
         )}

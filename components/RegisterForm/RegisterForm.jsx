@@ -73,10 +73,10 @@ export default function RegisterForm() {
   return (
     <form
       onSubmit={prevent(handleRegister)}
-      className="rounded-2xl border-4 w-8/12 mx-auto mt-2"
+      className="w-full mx-auto mt-2 border-4 rounded-2xl sm:w-10/12 md:w-8/12 lg:w-10/12 xl:w-8/12"
       noValidate
     >
-      <div className="login-form-header bg-gray-50 text-slate-400 px-8 py-2 w-full text-center border-b-4">
+      <div className="w-full px-8 py-2 text-center border-b-4 login-form-header bg-gray-50 text-slate-400">
         <Effect
           effect="headShake"
           duration={1234}
@@ -86,7 +86,7 @@ export default function RegisterForm() {
           {message}
         </Effect>
       </div>
-      <div className="login-form-body p-8 pt-4">
+      <div className="p-8 pt-4 login-form-body">
         <div className="mb-4">
           <label htmlFor="name">
             <Required input={input.name} /> Korisnik
@@ -159,7 +159,7 @@ export default function RegisterForm() {
           <a
             onClick={prevent(setPage.bind(null, PAGE_LOGIN))}
             href="#"
-            className="link text-center"
+            className="text-center link"
           >
             Imam nalog, prijavi me.
           </a>
