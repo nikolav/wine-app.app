@@ -5,6 +5,7 @@ import {
   useFlags,
   IS_ACTIVE_WINE_REVIEW_TOOLBAR,
   IS_PROCESSING_WINE_REVIEW_UPLOAD,
+  IS_REQUIRED_WR_INPUT_WINE,
 } from "../../src/hooks/use-flags-global";
 import {
   TiArrowLeftThick,

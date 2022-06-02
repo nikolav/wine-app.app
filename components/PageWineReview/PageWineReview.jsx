@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import modcss from "./PageWineReview.module.css";
-import { prevent, has } from "../../src/util";
+import { prevent } from "../../src/util";
 import PageWineReviewInput from "./PageWineReviewInput";
 import {
   InputWineColor,
@@ -15,6 +15,10 @@ import {
   WINE_REVIEW_IMAGE_FILE,
   WINE_REVIEW_ONSAVE,
 } from "../../src/hooks/use-globals";
+import {
+  useFlags,
+  IS_REQUIRED_WR_INPUT_WINE,
+} from "../../src/hooks/use-flags-global";
 import InputWineReviewRangeSlider from "../InputWineReviewRangeSlider/InputWineReviewRangeSlider";
 import RatingFiveStars from "../RatingFiveStars/RatingFiveStars";
 import PageWineReviewImageThumb from "../PageWineReviewImageThumb/PageWineReviewImageThumb";
@@ -26,13 +30,15 @@ import NotificationDangerNotAuthenticated from "../NotificationDangerNotAuthenti
 import useStateSwitch from "../../src/hooks/use-state-switch";
 import Effect from "../Effect";
 
+//
+const IDWINERATING = "wineRating";
 ////
 ////
 const PageWineReview = () => {
-  const idWineRating = "wineRating";
   const isMounted = useIsMounted();
   const { user } = useAuth();
   const globals = useGlobals();
+  const { flags, toggle: toggleFlags } = useFlags();
   //
   // toggles user notification
   // if not logged in
@@ -45,19 +51,30 @@ const PageWineReview = () => {
   const { isOn: isMissingRating, toggle: toggleIsMissingRating } =
     useStateSwitch();
   //
+  // set it `false` initialy
+  // activate when user interacts with input
+  // update to `true` @@onSave-tgl when data gets sent
+  const isRequiredWRinputWine = flags[IS_REQUIRED_WR_INPUT_WINE];
   // all input values {[name: string]: any}
   const wineReview = globals(INPUT_WINE_REVIEW);
   //
   const wineReviewOnSave = globals(WINE_REVIEW_ONSAVE);
+  //
   useEffect(() => {
     if (isMounted && wineReviewOnSave) {
       // ..same as page-article
-      // 0. user check
+      // 0. user check { .author }?
       if (!user) return toggleIsActiveUserNotification.on();
       // 1. validate required fields { .wine .wineRating .author }
-      if (0 === String(wineReview?.wine || "").trim().length)
-        return toggleIsMissingWRName.on();
-      if (null == wineReview[idWineRating]) return toggleIsMissingRating.on();
+      if (0 === String(wineReview?.wine || "").trim().length) {
+        toggleIsMissingWRName.on();
+        // @@onSave-tgl
+        return toggleFlags.on(IS_REQUIRED_WR_INPUT_WINE);
+      }
+      if (null == wineReview[IDWINERATING]) {
+        toggleIsMissingRating.on();
+        return;
+      }
       //
       // ..all good here
       // can upload/store user input
@@ -97,7 +114,7 @@ const PageWineReview = () => {
             >
               <PageWineReviewInput
                 onChange={onChange_}
-                // isRequired={true}
+                isRequired={isRequiredWRinputWine}
                 name="wine"
                 value={wineReview.wine}
                 placeholder="Naziv vina (etiketa...)"
@@ -171,6 +188,7 @@ const PageWineReview = () => {
           }}
         >
           {/*  */}
+          {/*  */}
           {/* col.1 */}
           <div className={`${modcss.bgIzgled} ***bg-red-100`}>
             <div className="space-y-6">
@@ -180,10 +198,12 @@ const PageWineReview = () => {
             </div>
           </div>
           {/*  */}
+          {/*  */}
           {/* col.2 */}
           <div className={`${modcss.bgArome} ***bg-blue-50`}>
             <InputWineAroma className="space-y-2" />
           </div>
+          {/*  */}
           {/*  */}
           {/* col.3 */}
           <div className={`${modcss.bgUkus} row-span-2 ***bg-slate-50`}>
@@ -223,6 +243,7 @@ const PageWineReview = () => {
             </div>
           </div>
           {/*  */}
+          {/*  */}
           {/* cell.4 */}
           <div className="prose text-center pt-4 col-span-2 ***bg-yellow-50 flex justify-center items-center">
             {/*  */}
@@ -232,13 +253,15 @@ const PageWineReview = () => {
             >
               <RatingFiveStars
                 size={52}
-                id={idWineRating}
+                id={IDWINERATING}
                 onChange={(rating) =>
-                  onChange_({ name: idWineRating, value: rating })
+                  onChange_({ name: IDWINERATING, value: rating })
                 }
                 classInactive="text-stone-300"
               />
-              <p className="text-stone-800 opacity-60 italic">Moja konačna ocena vina</p>
+              <p className="text-stone-800 opacity-60 italic">
+                Moja konačna ocena vina
+              </p>
             </Effect>
           </div>
         </div>
@@ -250,7 +273,7 @@ const PageWineReview = () => {
         isActive={isActiveUserNotification}
         onClose={toggleIsActiveUserNotification.off}
       >
-        👤 LOGIN -- to use this feature
+        👤 LOGIN to use this feature
       </NotificationDangerNotAuthenticated>
     </>
   );
@@ -258,5 +281,4 @@ const PageWineReview = () => {
 ////
 ////
 export default PageWineReview;
-
 //

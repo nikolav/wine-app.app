@@ -48,10 +48,10 @@ export const usePages = () => useContext(PageContext);
 const initialPage = PAGE_HELP;
 
 export default function PageContextProvider({ children }) {
-  const [page, setPage] = useState((_) => ({
+  const [page, setPage] = useState({
     key: initialPage,
     content: pages[initialPage],
-  }));
+  });
 
   const pageValue = {
     page,

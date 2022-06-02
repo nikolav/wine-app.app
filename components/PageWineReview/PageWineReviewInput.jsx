@@ -1,5 +1,5 @@
 import Required from "../Required/Required";
-import useInputSynced from "../../src/hooks/use-input-synced";
+// import useInputSynced from "../../src/hooks/use-input-synced";
 import { noop } from "../../src/util";
 
 ////
@@ -33,16 +33,16 @@ export default function PageWineReviewInput({
   //
   ...rest
 }) {
-  const { sync, inputs } = useInputSynced({ [name]: "" });
+  // const { sync, inputs } = useInputSynced({ [name]: "" });
   const inputSync = (evt) => {
     onChange({ name, value: evt?.target?.value });
-    sync(evt);
+    // sync(evt);
   };
   ////
   ////
   return (
     <div className={`flex flex-row items-center ${classes}`} {...rest}>
-      {true === isRequired && <Required input={inputs?.[name] || ""} />}
+      {true === isRequired && <Required input={value} />}
       <input
         className={`placeholder:text-sm pl-2 input-underline`}
         name={name}
