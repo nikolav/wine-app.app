@@ -9,12 +9,15 @@ export const useFlags = () => useContext(FlagsContext);
 export const IS_PROCESSING = "appIsProcessing.cebgtbefrpc";
 export const IS_PROCESSING_ARTICLE_SAVE =
   "appIsProcessing.articleSave.hozbaqpeshv";
+export const IS_PROCESSING_WR_SAVE = "appIsProcessing.wrSave.hffoudhwklf";
 export const IS_ACTIVE_SHARING = "isActiveSharing.ngndyesnhxx";
 export const IS_ACTIVE_ARTICLE_COMMANDS = "isActiveArticleCmd.bypgsakbkxq";
 export const IS_LOADING_CHAT = "isLoading.Chat.mxxhzbcesjh";
 export const IS_ACTIVE_HELP_CHAT = "isActive.HelpChat.evjfwzbnedy";
-export const IS_ACTIVE_WINE_REVIEW_TOOLBAR = "isActive.WineReviewToolbar.iilkxacznfd";
-export const IS_PROCESSING_WINE_REVIEW_UPLOAD = "isProcessing.wineReviewUpload.vbzzaasqlmi";
+export const IS_ACTIVE_WINE_REVIEW_TOOLBAR =
+  "isActive.WineReviewToolbar.iilkxacznfd";
+export const IS_PROCESSING_WINE_REVIEW_UPLOAD =
+  "isProcessing.wineReviewUpload.vbzzaasqlmi";
 export const IS_REQUIRED_WR_INPUT_WINE = "isRequired.WR.inputWine.miorzepxlnm";
 //
 export default function FlagsProvider({ children }) {

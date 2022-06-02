@@ -6,16 +6,18 @@ import {
 } from "./use-globals";
 ////
 ////
-export default function useHandleImageDataUrl(__ = {
-  GLOBAL_FILE: ARTICLE_IMAGE_FILE,
-  GLOBAL_DATAURL: ARTICLE_IMAGE_DATAURL,
-  GLOBAL_SHOW: ARTICLE_IMAGE_SHOW,
-}) {
+export default function useHandleImageDataUrl(
+  __ = {
+    GLOBAL_FILE: ARTICLE_IMAGE_FILE,
+    GLOBAL_DATAURL: ARTICLE_IMAGE_DATAURL,
+    GLOBAL_SHOW: ARTICLE_IMAGE_SHOW,
+  }
+) {
   const globals = useGlobals();
   const imageData = globals(__.GLOBAL_DATAURL);
   const imageNode = globals(__.GLOBAL_FILE);
   const deleteImage = () => {
-    imageNode.target.value = "";
+    if (imageNode?.target) imageNode.target.value = "";
     globals.set(__.GLOBAL_DATAURL, null);
     globals.set(__.GLOBAL_FILE, null);
     globals.set(__.GLOBAL_SHOW, null);

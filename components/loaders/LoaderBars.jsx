@@ -2,6 +2,7 @@ import React from "react";
 import {
   useFlags,
   IS_PROCESSING_ARTICLE_SAVE,
+  IS_PROCESSING_WR_SAVE,
 } from "../../src/hooks/use-flags-global";
 import { motion } from "framer-motion";
 import PortalOverlaysEnd from "../PortalOverlaysEnd";
@@ -14,7 +15,8 @@ import { Bars } from "react-loader-spinner";
 // <Bars heigth="100%" width="100%" color="rgb(15, 23, 42)" ariaLabel="loading-indicator" />
 const LoaderBars = () => {
   const { flags } = useFlags();
-  const isActive = flags[IS_PROCESSING_ARTICLE_SAVE];
+  const isActive =
+    flags[IS_PROCESSING_ARTICLE_SAVE] || flags[IS_PROCESSING_WR_SAVE];
   //
   return (
     isActive && (
@@ -22,13 +24,18 @@ const LoaderBars = () => {
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{
-            opacity: .55,
+            opacity: 0.55,
             y: 0,
             transition: { duration: 0.12 },
           }}
           className="fixed right-20 bottom-0 z-50"
         >
-          <Bars heigth="20" width="50" color="rgb(15, 23, 42)" ariaLabel="loading-indicator" />
+          <Bars
+            heigth="20"
+            width="50"
+            color="rgb(15, 23, 42)"
+            ariaLabel="loading-indicator"
+          />
         </motion.div>
       </PortalOverlaysEnd>
     )

@@ -22,6 +22,9 @@ export const WINE_REVIEW_ONSAVE = "wineReview.onSave.ejxhasrqalx";
 export const STAR_RATING = "starRating.fxlepypdqsq";
 // collects wr-input-data for storing
 export const WR_RECORD = "wr.record.xbicntewgqh";
+// trigger db.save @change
+export const WR_DBSAVE = "WR.dbSave.mecqgnjgtqp";
+export const WR_SAVED = "WR.dbSaved.twrkwvrzhri";
 //
 // GLOBAL_FILE
 // GLOBAL_DATAURL
