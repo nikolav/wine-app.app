@@ -1389,6 +1389,10 @@ select {
   right: 4rem;
 }
 
+.\!right-0 {
+  right: 0px !important;
+}
+
 .z-10 {
   z-index: 10;
 }
@@ -1500,6 +1504,22 @@ select {
   margin-left: 0.5rem;
 }
 
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+
+.mb-12 {
+  margin-bottom: 3rem;
+}
+
+.mb-14 {
+  margin-bottom: 3.5rem;
+}
+
+.mb-20 {
+  margin-bottom: 5rem;
+}
+
 .block {
   display: block;
 }
@@ -1568,6 +1588,10 @@ select {
   height: auto;
 }
 
+.h-64 {
+  height: 16rem;
+}
+
 .max-h-full {
   max-height: 100%;
 }
@@ -1626,6 +1650,10 @@ select {
   width: 2rem;
 }
 
+.\!w-full {
+  width: 100% !important;
+}
+
 .min-w-\[50\%\] {
   min-width: 50%;
 }
@@ -1652,6 +1680,10 @@ select {
 
 .grow {
   flex-grow: 1;
+}
+
+.\!grow {
+  flex-grow: 1 !important;
 }
 
 .-translate-x-1\/2 {
@@ -1805,8 +1837,20 @@ select {
   margin-left: calc(0px * calc(1 - var(--tw-space-x-reverse)));
 }
 
+.self-stretch {
+  align-self: stretch;
+}
+
+.justify-self-stretch {
+  justify-self: stretch;
+}
+
 .overflow-hidden {
   overflow: hidden;
+}
+
+.\!overflow-hidden {
+  overflow: hidden !important;
 }
 
 .overflow-y-auto {
@@ -1819,6 +1863,10 @@ select {
 
 .overflow-y-hidden {
   overflow-y: hidden;
+}
+
+.\!overflow-y-hidden {
+  overflow-y: hidden !important;
 }
 
 .rounded-lg {
@@ -2296,6 +2344,14 @@ select {
   line-height: 1.5rem;
 }
 
+.text-\[42px\] {
+  font-size: 42px;
+}
+
+.\!text-\[42px\] {
+  font-size: 42px !important;
+}
+
 .font-bold {
   font-weight: 700;
 }
@@ -2757,14 +2813,56 @@ select {
 }
 
 @media (min-width: 512px) {
+  .sm\:\!inline-block {
+    display: inline-block !important;
+  }
+
+  .sm\:w-10\/12 {
+    width: 83.333333%;
+  }
+
   .sm\:max-w-md {
     max-width: 28rem;
+  }
+
+  .sm\:\!rounded-r-none {
+    border-top-right-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+  }
+
+  .sm\:px-8 {
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
 }
 
 @media (min-width: 768px) {
+  .md\:relative {
+    position: relative;
+  }
+
+  .md\:\!relative {
+    position: relative !important;
+  }
+
+  .md\:col-span-7 {
+    grid-column: span 7 / span 7;
+  }
+
+  .md\:col-span-5 {
+    grid-column: span 5 / span 5;
+  }
+
   .md\:mt-24 {
     margin-top: 6rem;
+  }
+
+  .md\:\!inline-block {
+    display: inline-block !important;
+  }
+
+  .md\:grid {
+    display: grid;
   }
 
   .md\:w-1\/2 {
@@ -2775,12 +2873,126 @@ select {
     width: 83.333333%;
   }
 
+  .md\:w-6\/12 {
+    width: 50%;
+  }
+
+  .md\:w-8\/12 {
+    width: 66.666667%;
+  }
+
+  .md\:grid-cols-12 {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+
+  .md\:\!rounded-r-none {
+    border-top-right-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+  }
+
   .md\:px-6 {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
   }
 
+  .md\:px-8 {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
   .md\:text-center {
     text-align: center;
+  }
+}
+
+@media (min-width: 976px) {
+  .lg\:absolute {
+    position: absolute;
+  }
+
+  .lg\:\!absolute {
+    position: absolute !important;
+  }
+
+  .lg\:relative {
+    position: relative;
+  }
+
+  .lg\:\!relative {
+    position: relative !important;
+  }
+
+  .lg\:col-span-5 {
+    grid-column: span 5 / span 5;
+  }
+
+  .lg\:col-span-7 {
+    grid-column: span 7 / span 7;
+  }
+
+  .lg\:\!col-span-5 {
+    grid-column: span 5 / span 5 !important;
+  }
+
+  .lg\:\!col-span-7 {
+    grid-column: span 7 / span 7 !important;
+  }
+
+  .lg\:block {
+    display: block;
+  }
+
+  .lg\:\!block {
+    display: block !important;
+  }
+
+  .lg\:grid {
+    display: grid;
+  }
+
+  .lg\:\!grid {
+    display: grid !important;
+  }
+
+  .lg\:w-8\/12 {
+    width: 66.666667%;
+  }
+
+  .lg\:w-10\/12 {
+    width: 83.333333%;
+  }
+
+  .lg\:w-7\/12 {
+    width: 58.333333%;
+  }
+
+  .lg\:w-5\/12 {
+    width: 41.666667%;
+  }
+
+  .lg\:grid-cols-12 {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+
+  .lg\:\!grid-cols-12 {
+    grid-template-columns: repeat(12, minmax(0, 1fr)) !important;
+  }
+
+  .lg\:overflow-y-auto {
+    overflow-y: auto;
+  }
+
+  .lg\:overflow-y-hidden {
+    overflow-y: hidden;
+  }
+
+  .lg\:\!overflow-y-hidden {
+    overflow-y: hidden !important;
+  }
+}
+
+@media (min-width: 1280px) {
+  .xl\:w-8\/12 {
+    width: 66.666667%;
   }
 }

@@ -180,11 +180,16 @@ function ChatControll() {
         {/* framer container */}
         <motion.div
           key="PageChat"
-          style={{
-            // $width-right-window[w-7/12] - $width-right-navbar[w-16]
-            width: "calc(58.333333% - 4rem)",
-          }}
-          className="!text-slate-100 absolute bottom-0 right-16 z-10 p-4 !pr-2 bg-gradient-to-b from-slate-900/80 to-slate-900 rounded-tl-2xl"
+          // style={
+          //   {
+          //     // $width-right-window[w-7/12] - $width-right-navbar[w-16]
+          //     // width: "calc(58.333333% - 4rem)",
+          //     // width: "calc(100% - 4rem)",
+          //   }
+          // }
+          //
+          //
+          className={`!text-slate-100 lg:absolute bottom-0 right-16 z-10 p-4 !pr-2 bg-gradient-to-b from-slate-900/80 to-slate-900 rounded-tl-2xl ${modcss.chatControllResponsive}`}
           initial={{ opacity: 0, x: 56 }}
           animate={{ opacity: 1, x: 0 }}
         >
@@ -210,7 +215,7 @@ function ChatControll() {
             <div className="flex flex-row gap-0 min-w-fit grow-0">
               <button
                 type="button"
-                className="px-8 bg-opacity-20 button !rounded-r-none font-bold"
+                className="px-6 sm:px-8 bg-opacity-20 button sm:!rounded-r-none font-bold"
                 onClick={prevent(onSubmit)}
               >
                 ok
@@ -218,7 +223,7 @@ function ChatControll() {
               <button
                 onClick={prevent(onChatHelp)}
                 type="button"
-                className="px-4 bg-opacity-20 button !rounded-l-none"
+                className="hidden sm:!inline-block px-4 bg-opacity-20 button !rounded-l-none"
               >
                 <IoHelp className="text-2xl text-slate-50/50" />
               </button>
