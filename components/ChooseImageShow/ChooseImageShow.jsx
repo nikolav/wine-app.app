@@ -28,8 +28,8 @@ const ChooseImageShow = ({
   //
   return (
     <ModalBox isOpen={isOn} onClose={toggle.off}>
-      <div className="grid grid-cols-12 **bg-yellow-500 h-full">
-        <div className="col-span-6 **bg-red-500 h-full">
+      <div className="grid grid-cols-12 h-full">
+        <div className="col-span-6 h-full">
           <img
             className="block mx-auto object-cover h-full"
             src={imageDataUrl}

@@ -9,10 +9,7 @@ import {
 } from "../../src/hooks/use-flags-global";
 import ArticleEnd from "../ArticleEnd";
 import PortalOverlaysEnd from "../PortalOverlaysEnd";
-import {
-  motion,
-  // AnimatePresence,
-} from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { prevent, dateFormated } from "../../src/util";
 import useInputSynced from "../../src/hooks/use-input-synced";
 import { useAuth } from "../../app/store";
@@ -94,38 +91,50 @@ const PageChat = () => {
       >
         <div className="prose !pb-32">
           <ul className="flex flex-col list-none !text-sm">
-            {messages ? (
-              messages.map((message) => (
-                <li
-                  key={message._id}
-                  className="p-4 rounded-lg shadow bg-slate-50/20 hover:bg-slate-50/50"
-                >
-                  <div className="flex flex-row items-start">
-                    <div className="text-center opacity-40 min-w-max grow-0">
-                      <h5>{escapeHtml(message.author)}</h5>
-                      <small className="!text-xs italic">
-                        {dateFormated(message.createdAt)}
-                      </small>
+            <AnimatePresence initial={false}>
+              {messages ? (
+                messages.map((message) => (
+                  <motion.li
+                    initial={{ x: 122, opacity: 0 }}
+                    animate={{
+                      x: 0,
+                      opacity: 1,
+                    }}
+                    exit={{
+                      opacity: 0,
+                      x: 122,
+                      transition: { duration: 0.12 },
+                    }}
+                    key={message._id}
+                    className="p-4 rounded-lg shadow bg-slate-50/20 hover:bg-slate-50/50"
+                  >
+                    <div className="flex flex-row items-start">
+                      <div className="text-center opacity-40 min-w-max grow-0">
+                        <h5>{escapeHtml(message.author)}</h5>
+                        <small className="!text-xs italic">
+                          {dateFormated(message.createdAt)}
+                        </small>
+                      </div>
+                      <article className="px-4 grow">
+                        {escapeHtml(message.text)}
+                      </article>
+                      <aside className="flex flex-row items-start justify-end w-8">
+                        {user && user.uid === message.author_id && (
+                          <MdDeleteOutline
+                            onClick={() => onClickMessageRemove(message)}
+                            className="text-lg transition-transform duration-75 cursor-pointer opacity-40 hover:opacity-100 hover:scale-110 text-danger"
+                          />
+                        )}
+                      </aside>
                     </div>
-                    <article className="px-4 grow">
-                      {escapeHtml(message.text)}
-                    </article>
-                    <aside className="flex flex-row items-start justify-end w-8">
-                      {user && user.uid === message.author_id && (
-                        <MdDeleteOutline
-                          onClick={() => onClickMessageRemove(message)}
-                          className="text-lg transition-transform duration-75 cursor-pointer opacity-40 hover:opacity-100 hover:scale-110 text-danger"
-                        />
-                      )}
-                    </aside>
-                  </div>
-                </li>
-              ))
-            ) : (
-              <div className="flex flex-row items-center justify-center p-12">
-                <SpinnerRotatingLines width="122" />
-              </div>
-            )}
+                  </motion.li>
+                ))
+              ) : (
+                <div className="flex flex-row items-center justify-center p-12">
+                  <SpinnerRotatingLines width="122" />
+                </div>
+              )}
+            </AnimatePresence>
           </ul>
           {messages && <ArticleEnd />}
         </div>
@@ -180,16 +189,8 @@ function ChatControll() {
         {/* framer container */}
         <motion.div
           key="PageChat"
-          // style={
-          //   {
-          //     // $width-right-window[w-7/12] - $width-right-navbar[w-16]
-          //     // width: "calc(58.333333% - 4rem)",
-          //     // width: "calc(100% - 4rem)",
-          //   }
-          // }
-          //
-          //
-          className={`!text-slate-100 lg:absolute bottom-0 right-16 z-10 p-4 !pr-2 bg-gradient-to-b from-slate-900/80 to-slate-900 rounded-tl-2xl ${modcss.chatControllResponsive}`}
+          //// $width-right-window[w-7/12] - $width-right-navbar[w-16]
+          className={`***z-10 !text-slate-100 lg:absolute bottom-0 right-16 p-4 !pr-2 bg-gradient-to-b from-slate-900/80 to-slate-900 rounded-tl-2xl ${modcss.chatControllResponsive}`}
           initial={{ opacity: 0, x: 56 }}
           animate={{ opacity: 1, x: 0 }}
         >
@@ -216,12 +217,12 @@ function ChatControll() {
               <button
                 type="button"
                 className="px-6 sm:px-8 bg-opacity-20 button sm:!rounded-r-none font-bold"
-                onClick={prevent(onSubmit)}
+                onClick={onSubmit}
               >
                 ok
               </button>
               <button
-                onClick={prevent(onChatHelp)}
+                onClick={onChatHelp}
                 type="button"
                 className="hidden sm:!inline-block px-4 bg-opacity-20 button !rounded-l-none"
               >
