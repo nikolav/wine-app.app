@@ -1,13 +1,7 @@
 import React, { useEffect } from "react";
 import modcss from "./PageWineReview.module.css";
-import { prevent } from "../../src/util";
-import PageWineReviewInput from "./PageWineReviewInput";
-import {
-  InputWineColor,
-  InputWineClearOrHazy,
-  InputWineFizzy,
-  InputWineAroma,
-} from "./inputs";
+//
+import { prevent, WR_InitRecord } from "../../src/util";
 import {
   useGlobals,
   INPUT_WINE_REVIEW,
@@ -24,23 +18,29 @@ import {
   IS_REQUIRED_WR_INPUT_WINE,
   IS_PROCESSING_WR_SAVE,
 } from "../../src/hooks/use-flags-global";
+import useIsMounted from "../../src/hooks/use-is-mounted";
+import useStateSwitch from "../../src/hooks/use-state-switch";
+import useHandleImageDataUrl from "../../src/hooks/use-handle-image-data-url";
+import useChatNotify from "../../src/hooks/use-chat-notify";
+import { useAuth } from "../../app/store";
+import useFirebaseStorageUpload from "../../src/hooks/use-firebase-storage-upload";
+import cli from "../../src/feathers";
+// 
+import {
+  InputWineColor,
+  InputWineClearOrHazy,
+  InputWineFizzy,
+  InputWineAroma,
+} from "./inputs";
 import InputWineReviewRangeSlider from "../InputWineReviewRangeSlider/InputWineReviewRangeSlider";
+import PageWineReviewInput from "./PageWineReviewInput";
 import RatingFiveStars from "../RatingFiveStars/RatingFiveStars";
 import PageWineReviewImageThumb from "../PageWineReviewImageThumb/PageWineReviewImageThumb";
 import ChooseImage from "../ChooseImage/ChooseImage";
-import PageWineReviewNoImageThumb from "../PageWineReviewNoImageThumb/PageWineReviewNoImageThumb";
-import useIsMounted from "../../src/hooks/use-is-mounted";
-import { useAuth } from "../../app/store";
-import NotificationDangerNotAuthenticated from "../NotificationDangerNotAuthenticated/NotificationDangerNotAuthenticated";
-import useStateSwitch from "../../src/hooks/use-state-switch";
-import Effect from "../Effect";
-import { WR_InitRecord } from "../../src/util";
-import cli from "../../src/feathers";
-import useHandleImageDataUrl from "../../src/hooks/use-handle-image-data-url";
 import { UserNotificationPostSaved } from "../UserNotification";
-import useChatNotify from "../../src/hooks/use-chat-notify";
-import useFirebaseStorageUpload from "../../src/hooks/use-firebase-storage-upload";
-//
+import PageWineReviewNoImageThumb from "../PageWineReviewNoImageThumb/PageWineReviewNoImageThumb";
+import NotificationDangerNotAuthenticated from "../NotificationDangerNotAuthenticated/NotificationDangerNotAuthenticated";
+import Effect from "../Effect";
 //
 const IDWINERATING = "wineRating";
 ////
@@ -78,11 +78,11 @@ const PageWineReview = () => {
   const WRimageFile = globals(WINE_REVIEW_IMAGE_FILE);
   const { upload, status: __ } = useFirebaseStorageUpload();
   useEffect(() => {
+    //
     if (isMounted && wineReviewOnSave) {
-      // ..same as page-article
       // 0. user check { .author }?
       if (!user) return toggleIsActiveUserNotification.on();
-      // 1. validate required fields { .wine .wineRating .author }
+      // 1. validate required fields { .wine .wineRating -author }
       if (0 === String(wineReview?.wine || "").trim().length) {
         toggleIsMissingWRName.on();
         // @@onSave-tgl
@@ -113,13 +113,13 @@ const PageWineReview = () => {
       // setDebugWRRecord(Date.now());
       //
       // // trigger spinner
+      // @todo; icon.disabled
       isProcessingWRSave();
 
-      // //
       // // 2. upload/validate image
       if (!WRimageFile?.file) {
         // if no image provided..
-        // signal db.save start; exit, skips upload..
+        // signal db.save start; exit skips upload
         globals.set(WR_DBSAVE, Date.now());
         return;
       }
@@ -132,6 +132,7 @@ const PageWineReview = () => {
   //
   //
   // handle image upload-status change
+  // @todo; upload errors
   useEffect(() => {
     if (!__.error && __.downloadURL) {
       //
@@ -140,24 +141,28 @@ const PageWineReview = () => {
         image: __.downloadURL,
       });
       //
-      // trigger db.save
+      // all set, trigger db.save
       globals.set(WR_DBSAVE, Date.now());
     }
   }, [__.error, __.downloadURL]);
 
   //
-  //
+  // onChange triggers useEffect
   const wrDBSave = globals(WR_DBSAVE);
+  // gc after storage
   const nullCachedData = () => globals.set(WR_RECORD, null);
+  // manage selected image
   const wrImageCached = useHandleImageDataUrl({
     GLOBAL_FILE: WINE_REVIEW_IMAGE_FILE,
     GLOBAL_DATAURL: WINE_REVIEW_IMAGE_DATAURL,
     GLOBAL_SHOW: WINE_REVIEW_IMAGE_SHOW,
   });
+  // trigger user notification
   const {
     isOn: isActiveNotificationWRSaved,
     toggle: toggleIsActiveNotificationWRSaved,
   } = useStateSwitch();
+  // post chat notification
   const chatPublish = useChatNotify();
   //
   useEffect(() => {
@@ -174,7 +179,8 @@ const PageWineReview = () => {
             // prevents re-saves on page @re-mounts
             nullCachedData();
             //
-            // cache saved article record; append
+            // cache saved article record; ls.append
+            // @todo; undo, history, etc.
             globals.set(WR_SAVED, [...(globals(WR_SAVED) || []), payload]);
             //
             // nullArticleInputs();
@@ -185,14 +191,14 @@ const PageWineReview = () => {
             // toggleActiveDrawerBox.on();
             toggleIsActiveNotificationWRSaved.on();
             //
-            // notify chat @new wine-review
-            // chatPublishArticlePosted(payload);
+            // notify chat @created.winereview
             chatPublish({
               author: "🤖",
               text: `Nova ocena vina. @${user?.displayName || "👤"}`,
             });
             //
           })
+          // @todo; enable icon.save
           .finally(isProcessingWRSaveOff);
       } else {
         isProcessingWRSaveOff();

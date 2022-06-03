@@ -31,17 +31,14 @@ export default function ChooseImage({
     // and if re-choosing the same image it wont work
     // .. handle .value somehow; send {file, target} to `.set` 
     // .. so that it can be removed with `evt.target.value = ""`
-    // console.log(fileRef.current.value);
     //
     if (isMounted && file) {
       read(file);
-      // globals.set(GLOBAL_FILE, file);
       globals.set(GLOBAL_FILE, { file, target: evt?.target });
     }
   };
   useEffect(() => {
     if (!__.error && !__.loading && __.url)
-      //
       globals.set(GLOBAL_DATAURL, __.url);
   }, [__.error, __.loading, __.url]);
   //

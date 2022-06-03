@@ -41,7 +41,7 @@ const HelpPage = () => {
       </div>
       <hr />
       <p className="prose">
-        <h2>🚧 app is under construction;57</h2>
+        <h2>🚧 app is under construction;58</h2>
         <br /> •  <strong>@TODOS:</strong>
         <br /> • 👤 user dashboard @1st page; info, lists, links, help, etc.
         <br /> • 🔍 search/read articles feature
@@ -49,6 +49,7 @@ const HelpPage = () => {
         <br /> • 👍🏼 like feature for user posted articles
         <br /> • ❔ app help drawer-boxes
         <br /> • 🙋🏼‍♂️ user welcome @login.success
+        <br /> • ℹ title popup info
         <br /> 💬 feel free to message me on chat
       </p>
     </>
