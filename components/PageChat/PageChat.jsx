@@ -20,6 +20,9 @@ import { SpinnerRotatingLines } from "../loaders";
 import { IoHelp, MdDeleteOutline } from "../icons";
 import DrawerBox from "../DrawerBox/DrawerBox";
 import PageChatHelp from "../PageChatHelp/PageChatHelp";
+//
+const belongsTo = (message, user = null) =>
+  user && user.uid === message.author_id;
 ////
 ////
 const PageChat = () => {
@@ -89,8 +92,8 @@ const PageChat = () => {
       <div
         className={`${modcss.bgChat} ${modcss.pageChat} h-full overflow-y-auto scrollbar-thin m-0 p-0`}
       >
-        <div className="prose !pb-32">
-          <ul className="flex flex-col list-none !text-sm">
+        <div className="***prose px-2 !pb-32">
+          <ul className="flex flex-col list-none !text-sm gap-y-2">
             <AnimatePresence initial={false}>
               {messages ? (
                 messages.map((message) => (
@@ -106,7 +109,11 @@ const PageChat = () => {
                       transition: { duration: 0.12 },
                     }}
                     key={message._id}
-                    className="p-4 rounded-lg shadow bg-slate-50/20 hover:bg-slate-50/50"
+                    className={`p-4 rounded-xl shadow  ${
+                      belongsTo(message, user)
+                        ? "!text-slate-50/80 bg-slate-900/95 hover:bg-slate-900"
+                        : "bg-slate-50/20 hover:bg-slate-50/50"
+                    }`}
                   >
                     <div className="flex flex-row items-start">
                       <div className="text-center opacity-40 min-w-max grow-0">
@@ -119,10 +126,10 @@ const PageChat = () => {
                         {escapeHtml(message.text)}
                       </article>
                       <aside className="flex flex-row items-start justify-end w-8">
-                        {user && user.uid === message.author_id && (
+                        {belongsTo(message, user) && (
                           <MdDeleteOutline
                             onClick={() => onClickMessageRemove(message)}
-                            className="text-lg transition-transform duration-75 cursor-pointer opacity-40 hover:opacity-100 hover:scale-110 text-danger"
+                            className="text-2xl transition-transform duration-75 cursor-pointer opacity-40 hover:opacity-100 hover:scale-110 !text-white"
                           />
                         )}
                       </aside>
@@ -184,7 +191,7 @@ function ChatControll() {
       <Effect
         isActive={isActiveEffect}
         onEnd={toggleIsActiveEffect.off}
-        className="fixed inset-x-0 bottom-0 z-20"
+        className="fixed inset-x-0 bottom-0 lg:z-20"
       >
         {/* framer container */}
         <motion.div

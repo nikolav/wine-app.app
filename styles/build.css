@@ -1614,6 +1614,10 @@ select {
   width: fit-content;
 }
 
+.w-11\/12 {
+  width: 91.666667%;
+}
+
 .min-w-\[50\%\] {
   min-width: 50%;
 }
@@ -1755,6 +1759,14 @@ select {
 .gap-x-2 {
   -moz-column-gap: 0.5rem;
        column-gap: 0.5rem;
+}
+
+.gap-y-4 {
+  row-gap: 1rem;
+}
+
+.gap-y-2 {
+  row-gap: 0.5rem;
 }
 
 .space-y-8 > :not([hidden]) ~ :not([hidden]) {
@@ -2014,12 +2026,59 @@ select {
   background-color: rgb(0 0 0 / var(--tw-bg-opacity));
 }
 
+.bg-slate-800\/20 {
+  background-color: rgb(30 41 59 / 0.2);
+}
+
+.bg-slate-900\/20 {
+  background-color: rgb(15 23 42 / 0.2);
+}
+
+.bg-slate-800 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(30 41 59 / var(--tw-bg-opacity));
+}
+
+.bg-slate-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(100 116 139 / var(--tw-bg-opacity));
+}
+
+.bg-slate-700 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(51 65 85 / var(--tw-bg-opacity));
+}
+
+.bg-slate-700\/95 {
+  background-color: rgb(51 65 85 / 0.95);
+}
+
+.bg-slate-800\/95 {
+  background-color: rgb(30 41 59 / 0.95);
+}
+
+.bg-slate-900\/95 {
+  background-color: rgb(15 23 42 / 0.95);
+}
+
 .bg-opacity-95 {
   --tw-bg-opacity: 0.95;
 }
 
 .bg-opacity-20 {
   --tw-bg-opacity: 0.2;
+}
+
+.bg-opacity-5 {
+  --tw-bg-opacity: 0.05;
+}
+
+.bg-opacity-80 {
+  --tw-bg-opacity: 0.8;
+}
+
+.bg-opacity-90 {
+  --tw-bg-opacity: 0.9;
 }
 
 .bg-gradient-to-b {
@@ -2421,6 +2480,19 @@ select {
   color: rgb(251 191 36 / var(--tw-text-opacity)) !important;
 }
 
+.\!text-white {
+  --tw-text-opacity: 1 !important;
+  color: rgb(255 255 255 / var(--tw-text-opacity)) !important;
+}
+
+.\!text-slate-50\/50 {
+  color: rgb(248 250 252 / 0.5) !important;
+}
+
+.\!text-slate-50\/80 {
+  color: rgb(248 250 252 / 0.8) !important;
+}
+
 .underline {
   -webkit-text-decoration-line: underline;
           text-decoration-line: underline;
@@ -2679,6 +2751,38 @@ select {
   background-color: rgb(28 25 23 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-slate-200\/50:hover {
+  background-color: rgb(226 232 240 / 0.5);
+}
+
+.hover\:bg-slate-800\/50:hover {
+  background-color: rgb(30 41 59 / 0.5);
+}
+
+.hover\:bg-slate-900:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(15 23 42 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-slate-600:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(71 85 105 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-slate-800:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(30 41 59 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-slate-700\/95:hover {
+  background-color: rgb(51 65 85 / 0.95);
+}
+
+.hover\:bg-slate-700:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(51 65 85 / var(--tw-bg-opacity));
+}
+
 .hover\:opacity-90:hover {
   opacity: 0.9;
 }
@@ -2792,6 +2896,14 @@ select {
 
   .lg\:relative {
     position: relative;
+  }
+
+  .lg\:z-auto {
+    z-index: auto;
+  }
+
+  .lg\:z-20 {
+    z-index: 20;
   }
 
   .lg\:col-span-5 {
