@@ -5,12 +5,12 @@ import {
   useFlags,
   IS_ACTIVE_WINE_REVIEW_TOOLBAR,
   IS_PROCESSING_WINE_REVIEW_UPLOAD,
-  IS_REQUIRED_WR_INPUT_WINE,
+  // IS_REQUIRED_WR_INPUT_WINE,
 } from "../../src/hooks/use-flags-global";
 import {
   TiArrowLeftThick,
   IoHelp,
-  FiCamera,
+  // FiCamera,
   MdDeleteOutline,
   MdOutlineEditNote,
   BiCloudUpload,
@@ -19,7 +19,7 @@ import DrawerBox from "../DrawerBox/DrawerBox";
 import PageWineReviewHelp from "../PageWineReviewHelp/PageWineReviewHelp";
 import useStateSwitch from "../../src/hooks/use-state-switch";
 import { noop, prevent } from "../../src/util";
-import ChooseImage from "../ChooseImage/ChooseImage";
+// import ChooseImage from "../ChooseImage/ChooseImage";
 import {
   useGlobals,
   WINE_REVIEW_IMAGE_FILE,
@@ -71,15 +71,6 @@ const PageWineReviewToolbar = () => {
                 <IconCommandClose className="mb-16">
                   <TiArrowLeftThick className="text-white text-5xl opacity-60 hover:scale-110 transition-transform hover:opacity-80 active:opacity-100 cursor-pointer" />
                 </IconCommandClose>
-                <IconCommand>
-                  <ChooseImage
-                    id="pageWineReviewToolbar"
-                    GLOBAL_FILE={WINE_REVIEW_IMAGE_FILE}
-                    GLOBAL_DATAURL={WINE_REVIEW_IMAGE_DATAURL}
-                  >
-                    <FiCamera className="text-white text-4xl opacity-50 hover:scale-110 transition-transform hover:opacity-80 active:opacity-100 cursor-pointer" />
-                  </ChooseImage>
-                </IconCommand>
                 {/*  */}
                 {imageDataWineReview && (
                   <>
