@@ -52,10 +52,10 @@ const DrawerBox = ({
                 x: 0,
                 transition: { type: "spring", duration: 0.24 },
               }}
-              className={`fixed inset-y-0 z-50 w-full md:w-1/2 bg-white shadow-lg ${
+              className={`fixed inset-y-0 z-50 w-full sm:w-10/12 md:w-2/3 lg:w-1/2 bg-white shadow-lg ${
                 -1 === placement
-                  ? "right-0 border-l-slate-900 border-l-4"
-                  : "left-0 border-r-slate-900 border-r-4"
+                  ? "right-0 sm:border-l-slate-900 sm:border-l-4"
+                  : "left-0 sm:border-r-slate-900 sm:border-r-4"
               } ${classes} ${moduleCss.drawerBox}`}
             >
               <MdClose

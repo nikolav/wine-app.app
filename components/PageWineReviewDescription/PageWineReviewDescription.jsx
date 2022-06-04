@@ -27,12 +27,12 @@ export default function PageWineReviewDescription({
     <DrawerBox
       isActive={isActive}
       onClose={onClose}
-      classes="!border-l-stone-800 bg-stone-50"
+      classes="!border-l-stone-800 bg-stone-50/95 bg-backdrop-blur-sm"
     >
-      <div className="prose h-full">
+      <div className="h-full overflow-y-auto scrollbar-thin">
         {/*  */}
-        <div className="md:w-10/12 mx-auto md:mt-24">
-          <h4 className="text-stone-300 text-right italic px-2 md:px-6">
+        <div className="px-1 sm:px-4 md:px-6 lg:px-12 mt-16">
+          <h4 className="text-stone-400 text-right italic px-2 md:px-6">
             Opišite vino detaljnije
           </h4>
           <form onSubmit={prevent()} noValidate>
@@ -51,12 +51,12 @@ export default function PageWineReviewDescription({
           <button
             onClick={prevent(onClose)}
             type="button"
-            className="block button text-2xl ml-auto p-4 mt-4 px-6 mr-6 bg-stone-800 hover:bg-stone-900 active:bg-black"
+            className="button ml-auto p-4 px-6 mt-4 mr-6 bg-stone-800 hover:bg-stone-900 flex flex-row items-center center gap-x-4 text-2xl"
           >
-            <strong className="text-3xl pr-2">
-              <FaRegSave className="!inline-block text-white text-3xl opacity-40" />
-            </strong>{" "}
-            ok
+            <strong>
+              <FaRegSave className="!inline-block text-white opacity-40" />
+            </strong>
+            <strong>ok</strong>
           </button>
         </div>
       </div>
