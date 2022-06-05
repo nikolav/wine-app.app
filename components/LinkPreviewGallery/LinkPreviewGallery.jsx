@@ -1,8 +1,12 @@
 import React from "react";
 import useFancyboxGallery from "../../src/hooks/use-fancybox-galery";
-import { prevent } from "../../src/util";
 //
-export const galleryImages = [
+export const GALLERY_ITALY = "gallery.italy";
+export const GALLERY_SPAIN = "gallery.spain";
+export const GALLERY_FRANCE = "gallery.france";
+export const GALLERY_USA = "gallery.usa";
+//
+export const galleryImagesItaly = [
   "italy-gallery/01.italy-wine-map.jpg",
   "italy-gallery/02.italy-sangiovese.jpg",
   "italy-gallery/03.italy-nebbiolo-grape.jpg",
@@ -28,13 +32,37 @@ export const galleryImages = [
   "italy-gallery/23.chianti-classico-italy.jpg",
 ].map((src) => ({ src }));
 //
-const LinkPreviewGallery = ({ children, startIndex = 0 }) => {
+export const galleryImagesSpain = [
+  "gallery-spain/01.spain-wine-map.jpg",
+  "gallery-spain/02.spain-topographic-map.jpg",
+  "gallery-spain/03.global-wine-production.jpg",
+].map((src) => ({ src }));
+export const galleryImagesFrance = ["italy-gallery/01.italy-wine-map.jpg"].map(
+  (src) => ({ src })
+);
+export const galleryImagesUSA = ["italy-gallery/01.italy-wine-map.jpg"].map(
+  (src) => ({ src })
+);
+
+//
+const galleries = {
+  [GALLERY_ITALY]: galleryImagesItaly,
+  [GALLERY_SPAIN]: galleryImagesSpain,
+  [GALLERY_FRANCE]: galleryImagesFrance,
+  [GALLERY_USA]: galleryImagesUSA,
+};
+//
+const LinkPreviewGallery = ({
+  children,
+  gallery = GALLERY_ITALY,
+  startIndex = 0,
+}) => {
   const { openGallery } = useFancyboxGallery();
   //
   return (
     <span
       className="link-preview"
-      onClick={prevent(() => openGallery(galleryImages, { startIndex }))}
+      onClick={() => openGallery(galleries[gallery], { startIndex })}
     >
       {children}
     </span>
