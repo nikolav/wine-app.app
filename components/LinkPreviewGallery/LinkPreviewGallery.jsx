@@ -75,9 +75,47 @@ export const galleryImagesSpain = [
   "gallery-spain/40.consejo-regulador-doc-spain.jpg",
   "gallery-spain/41.consejo-regulador-rioja-quality-control-stamps.jpg",
 ].map((src) => ({ src }));
-export const galleryImagesFrance = ["italy-gallery/01.italy-wine-map.jpg"].map(
-  (src) => ({ src })
-);
+export const galleryImagesFrance = [
+  "gallery-france/01.wine-map.jpg",
+  "gallery-france/02.chatenuaf-du-pape-francuska-vino.jpg",
+  "gallery-france/03.wine-press-ancient-rome.jpg",
+  "gallery-france/04.battle-phyloxera-france.jpg",
+  "gallery-france/05.france-bordeaux-overview.jpg",
+  "gallery-france/06.france-bordeaux-map.jpg",
+  "gallery-france/07.france-bordeaux-city.jpg",
+  "gallery-france/08.cabernet-sauvignon.jpg",
+  "gallery-france/09.merlot-grape-france.jpg",
+  "gallery-france/10.cabernet-franc-grape.jpg",
+  "gallery-france/11.malbec-grape.jpg",
+  "gallery-france/12.petit-verdot-grape.jpg",
+  "gallery-france/13.carmenere-grape.jpg",
+  "gallery-france/14.bordeux-wine-grand-cru.jpg",
+  "gallery-france/15.saint-emilion-pomerol-wine.jpg",
+  "gallery-france/16.aoc-pyramid-france.jpg",
+  "gallery-france/17.bordeux-classification-cru.jpg",
+  "gallery-france/18.chateau-haut-brion.jpg",
+  "gallery-france/19.chateau-margaux.jpg",
+  "gallery-france/20.chateau-latour-bordeux.jpg",
+  "gallery-france/21.lafite-bordeux.jpg",
+  "gallery-france/22.mouton-rothschild.jpg",
+  "gallery-france/23.sauternes.jpg",
+  "gallery-france/24.botrytis-grapes.jpg",
+  "gallery-france/25.burgundy-france.jpg",
+  "gallery-france/26.burgundy-france.jpg",
+  "gallery-france/27.burgundy-france.jpg",
+  "gallery-france/28.pinot-noir.jpg",
+  "gallery-france/29.chardonnay.jpg",
+  "gallery-france/30.chablis.jpg",
+  "gallery-france/31.chablis.jpg",
+  "gallery-france/32.chablis.jpg",
+  "gallery-france/33.burgundy.jpg",
+  "gallery-france/34.burgundy.jpg",
+  "gallery-france/35.burgundy-wine.jpg",
+  "gallery-france/36.burgundy-wine.jpg",
+  "gallery-france/37.champagne-wine-map.jpg",
+  "gallery-france/38.champagne.jpg",
+  "gallery-france/39.champagne-vinyard.jpg",
+].map((src) => ({ src }));
 export const galleryImagesUSA = ["italy-gallery/01.italy-wine-map.jpg"].map(
   (src) => ({ src })
 );

@@ -105,6 +105,8 @@ const PageSpanishWine = () => {
             uticaju vazduha, svetlosti i toplote radi naglašavanja aroma
             nastalih odležavanjem.
           </p>
+          {/*  */}
+          {/*  */}
           <p>
             Najtraženija vina Španije su iz oblasti{" "}
             <LinkPreviewGallery gallery={GALLERY_SPAIN} startIndex={18}>
