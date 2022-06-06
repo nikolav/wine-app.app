@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import DrawerBox from "../DrawerBox/DrawerBox";
 import useStateSwitch from "../../src/hooks/use-state-switch";
 // import client from "../../src/feathers";
 // import useChatNotify from "../../src/hooks/use-chat-notify";
+import Tooltip from "../Tooltip/Tooltip";
+
 ////
 ////
 const HelpPage = () => {
   const { isOn, toggle } = useStateSwitch();
+  const { isOn: isActive, toggle: toggleIsActive } = useStateSwitch();
+  const [refButton, setRefButton] = useState(null);
   // const { toggle: toggleIsProcessing } = useFlags();
   //
   return (
@@ -41,17 +45,22 @@ const HelpPage = () => {
       </div>
       <hr />
       <p className="prose">
-        <h2>🚧 app is under construction;68</h2>
-        <br /> •  <strong>@TODOS:</strong>
-        <br /> • 👤 user dashboard @1st page; info, lists, links, help, etc.
-        <br /> • 🔍 search/read articles feature
-        <br /> • 📰 more articles about wine
-        <br /> • 📡 query apis for wine info
-        <br /> • 👍🏼 like feature for user posted articles
-        <br /> • ❔ app help drawer-boxes
-        <br /> • 🙋🏼‍♂️ user welcome @login.success
-        <br /> • ℹ title popup info
-        <br /> 💬 feel free to message me on chat
+        <h2>🚧 app is under construction;69</h2>
+        <button
+          onMouseOver={toggleIsActive.on}
+          onMouseLeave={toggleIsActive.off}
+          ref={setRefButton}
+          className="button px-4 mx-auto block"
+          type="button"
+        >
+          o.k.
+        </button>
+        <Tooltip
+          isActive={isActive}
+          refElement={refButton}
+        >
+          😀 lorem
+        </Tooltip>
       </p>
     </>
   );

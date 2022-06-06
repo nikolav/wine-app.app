@@ -1,0 +1,67 @@
+.arrow,
+.arrow::before,
+.arrowRight,
+.arrowRight::before,
+.arrowLeft,
+.arrowLeft::before,
+.arrowTop,
+.arrowTop::before,
+.arrowBottom,
+.arrowBottom::before {
+  --arrow-size: 6px;
+  position: absolute;
+  width: var(--arrow-size);
+  height: var(--arrow-size);
+  background: inherit;
+  /* background: red; */
+}
+
+.arrow,
+.arrowRight,
+.arrowLeft,
+.arrowTop,
+.arrowBottom {
+  visibility: hidden;
+}
+
+.arrow::before,
+.arrowRight::before,
+.arrowLeft::before,
+.arrowTop::before,
+.arrowBottom::before {
+  visibility: visible;
+  content: "";
+  transform: rotate(45deg);
+}
+
+/* popper placement @right  */
+.arrowRight {
+  left: 0;
+}
+.arrowRight::before {
+  transform: translateX(calc(-1 * var(--arrow-size) / 2)) rotate(45deg) !important;
+}
+
+/* popper placement @left */
+.arrowLeft {
+  right: 0;
+}
+.arrowLeft::before {
+  transform: translateX(calc(var(--arrow-size) / 2)) rotate(45deg) !important;
+}
+
+/* popper placement @top */
+.arrowTop {
+  bottom: 0;
+}
+.arrowTop::before {
+  transform: translateY(calc(var(--arrow-size) / 2)) rotate(45deg) !important;
+}
+
+/* popper placement @bottom */
+.arrowBottom {
+  top: 0;
+}
+.arrowBottom::before {
+  transform: translateY(calc(-1 * var(--arrow-size) / 2)) rotate(45deg) !important;
+}

@@ -38,7 +38,7 @@ const PageFrenchWine = () => {
             <em>terroir</em> u vinogradarstvo su uveli monasi katoličke crkve,
             koja većim delom stoji iza statusa francuskog vina danas. Njihova
             zapažanja o uticaju sredine, topografije, brojnih prirodnih faktora
-            na karakteristike berbe i kvalitet vina te godine (<em>cru</em>,{" "}
+            na karakteristike berbe i kvalitet vina te godine (<em>Cru</em>,{" "}
             <em>vintage</em>) danas su osnova brojnih klasifikacija francuskog
             vina.
           </p>
@@ -67,13 +67,13 @@ const PageFrenchWine = () => {
           <p>
             Jedna od najcenjenijih oblasti crvenog vina je{" "}
             <LinkPreviewGallery gallery={GALLERY_FRANCE} startIndex={4}>
-              Bordeux
-            </LinkPreviewGallery>{" "}
-            (Bordo). U slivu reka Dordogne, Garonne, Gironde, nadomak Atlanskog
-            okeana preovladava topla primorska klima idealna za sazrevanje
-            žilavijih crvenih sorti. Leva obala sliva (oblasti Medoc i Graves)
-            je uglavnom šljunkovita što održava temperaturu vinograda stabilnom
-            i tokom noći te sorte{" "}
+              <em>Bordeux (Bordo)</em>
+            </LinkPreviewGallery>
+            . U slivu reka <em>Dordogne</em>, <em>Garonne</em>, <em>Gironde</em>
+            , nadomak Atlanskog okeana preovladava topla primorska klima idealna
+            za sazrevanje žilavijih crvenih sorti. Leva obala sliva (oblasti{" "}
+            <em>Medoc</em> i <em>Graves</em>) je uglavnom šljunkovita što
+            održava temperaturu vinograda stabilnom i tokom noći te sorte{" "}
             <LinkPreviewGallery gallery={GALLERY_FRANCE} startIndex={7}>
               <em>Cabernet Sauvignon</em>
             </LinkPreviewGallery>
@@ -98,16 +98,16 @@ const PageFrenchWine = () => {
               <em>Carménère </em>
             </LinkPreviewGallery>
             poznate kao &apos;Bordo kupaža&apos; mogu da ostvare svoj pun
-            potencijal.{" "}
+            potencijal. Ovo su{" "}
             <LinkPreviewGallery gallery={GALLERY_FRANCE} startIndex={13}>
-              <em>Ovo </em>
+              <em>intenzivna crvena tanična vina</em>
             </LinkPreviewGallery>{" "}
-            su intenzivna crvena tanična vina arome brusnice i crnog bobičastog
-            voća idealna uz jela na bazi crvenog mesa, sa dužim periodom
-            odležavanja. Peščane rečne naslage desne obale (oblasti{" "}
-            <em>Pomerol</em> i <em>Saint-Émilion</em>) i malo svežjia vlažna
-            klima su pogoduju sortama <em>Merlot</em>, <em>Cabernet Franc</em>,
-            ponegde <em>Cabernet Sauvignon</em> i ovde daju{" "}
+            arome brusnice i crnog bobičastog voća idealna uz jela na bazi
+            crvenog mesa, sa dužim periodom odležavanja. Peščane rečne naslage
+            desne obale (oblasti <em>Pomerol</em> i <em>Saint-Émilion</em>) i
+            malo svežjia vlažna klima pogoduju sortama <em>Merlot</em>,{" "}
+            <em>Cabernet Franc</em>, ponegde <em>Cabernet Sauvignon</em> i ovde
+            daju{" "}
             <LinkPreviewGallery gallery={GALLERY_FRANCE} startIndex={14}>
               <em>bogata crvena vina</em>
             </LinkPreviewGallery>{" "}
@@ -126,8 +126,9 @@ const PageFrenchWine = () => {
             kompanija je u pitanju. Ovi posedi (<em>Chateux</em>) su svrstani u
             jedan od nekoliko slojeva (<em>Cru</em>, ili{" "}
             <em>&apos;Grand Cru Classe&apos;</em> na etiketama): 1<sup>st</sup>
-            ..5<sup>th</sup> <em>cru</em>, <em>cru</em> bourgeois i <em>cru</em>{" "}
-            artisans. Od 87 poseda samo pet je u prvom sloju ove klasifikacije:{" "}
+            ..5<sup>th</sup> <em>Cru</em>, <em>Cru Bourgeois</em> i{" "}
+            <em>Cru Artisans</em>. Od 87 poseda samo pet je u prvom sloju ove
+            klasifikacije:{" "}
             <LinkPreviewGallery gallery={GALLERY_FRANCE} startIndex={17}>
               <em>Château Haut-Brion</em>
             </LinkPreviewGallery>
@@ -175,10 +176,10 @@ const PageFrenchWine = () => {
             </LinkPreviewGallery>{" "}
             koje su najzastupljenije u ovoj oblasti. Za razliku od Bordo
             klasifikacije po veleposedima, ovde je podela izvršena po domeninma
-            (vinograd, <em>cru</em>), delovima zemlje karakteristika koje su
+            (vinograd, <em>Cru</em>), delovima zemlje karakteristika koje su
             dosledne tom reonu (<em>terroir</em> klasifikacija). Ovde imamo
-            četiri kategorije, <em>Grand cru</em>, <em>Premiere cru</em>,{" "}
-            <em>Village cru</em>, <em>Regional cru</em> i rapodeljene su na
+            četiri kategorije, <em>Grand Cru</em>, <em>Premiere Cru</em>,{" "}
+            <em>Village Cru</em>, <em>Regional Cru</em> i rapodeljene su na
             nekoliko podoblasti. Malo izdvojena, severnije je oblast{" "}
             <LinkPreviewGallery gallery={GALLERY_FRANCE} startIndex={29}>
               <em>Chablis (Šabli)</em>
