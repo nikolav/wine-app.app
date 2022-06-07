@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import DrawerBox from "../DrawerBox/DrawerBox";
 import useStateSwitch from "../../src/hooks/use-state-switch";
 // import client from "../../src/feathers";
@@ -9,9 +9,6 @@ import useStateSwitch from "../../src/hooks/use-state-switch";
 ////
 const HelpPage = () => {
   const { isOn, toggle } = useStateSwitch();
-  const { isOn: isActive, toggle: toggleIsActive } = useStateSwitch();
-  const [refButton, setRefButton] = useState(null);
-  // const { toggle: toggleIsProcessing } = useFlags();
   //
   return (
     <>
@@ -35,20 +32,20 @@ const HelpPage = () => {
         <button onClick={toggle.on} className="px-6 rounded-r-none button">
           run
         </button>
-        <button
-          // onClick={(evt) => toggleIsProcessing(IS_PROCESSING_ARTICLE_SAVE)}
-          className="px-6 rounded-none button"
-        >
-          set
-        </button>
+        <button className="px-6 rounded-none button">set</button>
         <button className="px-6 rounded-l-none button">ok</button>
       </div>
       <hr />
       <p className="prose text-center">
-        <h2>🚧 app is under construction --74</h2>
+        <h2>🚧 app is under construction --77</h2>
       </p>
     </>
   );
 };
 
 export default HelpPage;
+
+/*
+
+
+*/

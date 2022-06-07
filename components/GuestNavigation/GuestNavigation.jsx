@@ -100,7 +100,7 @@ const GuestNavigation = ({ ...rest }) => {
           refElement={refWineReview}
           offset={[0, 15]}
         >
-          🍸🤩 oceni vino
+          🍸🤩 nova ocena vina
         </Tooltip>
         {/* @@search */}
         <img
@@ -138,7 +138,7 @@ const GuestNavigation = ({ ...rest }) => {
           />
         </strong>
         <Tooltip refElement={refChat} isActive={isActiveChat} offset={[0, 23]}>
-          💬 ostavi poruku
+          💬 poruke
         </Tooltip>
 
         {/* @@article */}

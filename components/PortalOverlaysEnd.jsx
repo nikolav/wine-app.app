@@ -1,13 +1,8 @@
-import { useEffect } from "react";
 import { createPortal } from "react-dom";
-import useStateSwitch from "../src/hooks/use-state-switch";
-
+import useIsMounted from "../src/hooks/use-is-mounted";
+//
 export default function PortalOverlaysEnd({ children }) {
-  const { isOn: isMounted, toggle } = useStateSwitch();
-  useEffect(() => {
-    toggle.on();
-    return toggle.off;
-  }, []);
+  const isMounted = useIsMounted();
   //
   return isMounted
     ? createPortal(children, document.getElementById("overlays-end"))

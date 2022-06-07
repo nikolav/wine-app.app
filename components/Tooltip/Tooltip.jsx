@@ -40,7 +40,7 @@ export default function Tooltip({
   return (
     <AnimatePresence>
       {isActive && (
-        <PortalOverlays>
+        <PortalOverlays end={true}>
           {/*  */}
           {/* position */}
           <div
@@ -55,11 +55,11 @@ export default function Tooltip({
               initial={{ opacity: 0, y: 2 }}
               exit={{ opacity: 0, transition: { duration: 0.1 } }}
               animate={{ opacity: 1, y: 0, transition: { duration: 0.24 } }}
-              className={`bg-slate-900 py-2 ***px-1 text-slate-200 shadow rounded text-xs ${classes}`}
+              className={`bg-slate-900 p-2 text-slate-200 shadow rounded text-xs ${classes}`}
             >
               {/*  */}
               {/* tooltip content */}
-              <div className="px-2">{children}</div>
+              <div>{children}</div>
               {/*  */}
               {/* arrow */}
               <div

@@ -7,7 +7,8 @@ const Page = () => {
   return (
     <>
       <Link href="/">[index]</Link>
-      <pre>Page: {JSON.stringify(router.query, null, 2)}</pre>
+      <pre className="text-xs">Page: {JSON.stringify(router, null, 2)}</pre>
+      {/* <pre className="text-xs">Page: {JSON.stringify(args, null, 2)}</pre> */}
     </>
   );
 };
@@ -19,8 +20,6 @@ export async function getStaticPaths() {
   return {
     paths: [
       { params: { pid: "home" } },
-      { params: { pid: "guest" } },
-      { params: { pid: "dashboard" } },
     ],
     fallback: false,
   };
