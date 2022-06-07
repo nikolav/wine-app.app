@@ -53,7 +53,8 @@ import IconBarSharing from "../components/IconBarSharing/IconBarSharing";
 import PageArticleCommandBar from "../components/PageArticleCommandBar/PageArticleCommandBar";
 import PageWineReviewToolbar from "../components/PageWineReviewToolbar/PageWineReviewToolbar";
 import useIsMounted from "../src/hooks/use-is-mounted";
-import { PAGE_LOGIN, PAGE_REGISTER } from "../app/store/page";
+import { PAGE_LOGIN, PAGE_REGISTER, PAGE_HELP } from "../app/store/page";
+import { bg01 } from "../components/HelpPage/HelpPage";
 //
 //
 export default function Home() {
@@ -104,11 +105,11 @@ export default function Home() {
             >
               {/* @login/register add `!overflow-y-auto scrollbar-thin`  */}
               <Paper
-                className={`relative h-full py-6 mx-4 mt-4 bg-white shadow-lg rounded-t-2xl bg-opacity-95 ${
+                className={`bg-white relative h-full py-6 mx-4 mt-4 shadow-lg rounded-t-2xl bg-opacity-95 ${
                   [PAGE_LOGIN, PAGE_REGISTER].includes(page.key)
                     ? "!overflow-y-auto scrollbar-thin"
                     : "overflow-y-hidden"
-                }`}
+                } ${PAGE_HELP === page.key ? bg01 : ""}`}
               >
                 <page.content />
               </Paper>
