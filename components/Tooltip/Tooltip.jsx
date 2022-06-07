@@ -17,7 +17,7 @@ const arrowClasses = {
 export default function Tooltip({
   refElement,
   isActive,
-  placement = "top",
+  placement = "left",
   offset = [0, 8],
   classes = "",
   children,

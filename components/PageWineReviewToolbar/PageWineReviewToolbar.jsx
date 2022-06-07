@@ -4,8 +4,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   useFlags,
   IS_ACTIVE_WINE_REVIEW_TOOLBAR,
-  IS_PROCESSING_WINE_REVIEW_UPLOAD,
+  // IS_PROCESSING_WINE_REVIEW_UPLOAD,
   // IS_REQUIRED_WR_INPUT_WINE,
+  IS_PROCESSING_WR_SAVE,
 } from "../../src/hooks/use-flags-global";
 import {
   TiArrowLeftThick,
@@ -73,7 +74,8 @@ const PageWineReviewToolbar = () => {
   const { isOn: isActiveDescription, toggle: toggleDescription } =
     useStateSwitch();
   //
-  const disabledUpload = flags[IS_PROCESSING_WINE_REVIEW_UPLOAD];
+  // const disabledUpload = flags[IS_PROCESSING_WINE_REVIEW_UPLOAD];
+  const disabledUpload = flags[IS_PROCESSING_WR_SAVE];
   const wineReviewOnSave = () => globals.set(WINE_REVIEW_ONSAVE, Date.now());
   //
   const [refPopperDescription, setRefPopperDescription] = useState(null);
@@ -142,14 +144,16 @@ const PageWineReviewToolbar = () => {
                     }`}
                   />
                 </IconCommand>
-                <Tooltip
-                  refElement={refPopperSave}
-                  isActive={isActivePopperSave}
-                  placement="left"
-                  offset={[0, 23]}
-                >
-                  💾 sačuvaj
-                </Tooltip>
+                {disabledUpload || (
+                  <Tooltip
+                    refElement={refPopperSave}
+                    isActive={isActivePopperSave}
+                    placement="left"
+                    offset={[0, 23]}
+                  >
+                    💾 sačuvaj
+                  </Tooltip>
+                )}
 
                 {/*  */}
                 <IconCommand

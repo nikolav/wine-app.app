@@ -25,7 +25,7 @@ import useChatNotify from "../../src/hooks/use-chat-notify";
 import { useAuth } from "../../app/store";
 import useFirebaseStorageUpload from "../../src/hooks/use-firebase-storage-upload";
 import cli from "../../src/feathers";
-// 
+//
 import {
   InputWineColor,
   InputWineClearOrHazy,
@@ -41,6 +41,8 @@ import { UserNotificationPostSaved } from "../UserNotification";
 import PageWineReviewNoImageThumb from "../PageWineReviewNoImageThumb/PageWineReviewNoImageThumb";
 import NotificationDangerNotAuthenticated from "../NotificationDangerNotAuthenticated/NotificationDangerNotAuthenticated";
 import Effect from "../Effect";
+import { usePages } from "../../app/store";
+import { PAGE_LOGIN } from "../../app/store/page";
 //
 const IDWINERATING = "wineRating";
 ////
@@ -223,6 +225,8 @@ const PageWineReview = () => {
   //   console.log(globals(WR_RECORD));
   // }, [debugWRRecord]);
   //
+  const { setPage } = usePages();
+  //
   return (
     <>
       <form
@@ -401,7 +405,14 @@ const PageWineReview = () => {
         isActive={isActiveUserNotification}
         onClose={toggleIsActiveUserNotification.off}
       >
-        👤 LOGIN to use this feature
+        👤{" "}
+        <strong
+          onClick={prevent(setPage.bind(null, PAGE_LOGIN))}
+          className="link px-2"
+        >
+          PRIJAVITE SE
+        </strong>{" "}
+        za korišćenje ove usluge
       </NotificationDangerNotAuthenticated>
       {/*  */}
       {/*  */}

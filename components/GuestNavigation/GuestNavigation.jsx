@@ -49,6 +49,7 @@ const GuestNavigation = ({ ...rest }) => {
   const openArticleCommands = () => toggle.on(IS_ACTIVE_ARTICLE_COMMANDS);
   const openWineReviewToolbar = () => toggle.on(IS_ACTIVE_WINE_REVIEW_TOOLBAR);
   //
+  // tooltip controlls
   const [refWineReview, setRefWineReview] = useState(null);
   const [refSearch, setRefSearch] = useState(null);
   const [refChat, setRefChat] = useState(null);
@@ -58,7 +59,7 @@ const GuestNavigation = ({ ...rest }) => {
   const [refAboutGit, setRefAboutGit] = useState(null);
   const [refAboutAuth, setRefAboutAuth] = useState(null);
   const [refAboutHome, setRefAboutHome] = useState(null);
-  //
+  // tooltip switches
   const { isOn: isActiveWineReview, toggle: toggleIsActiveWineReview } =
     useStateSwitch();
   const { isOn: isActiveSearch, toggle: toggleIsActiveSearch } =
@@ -95,7 +96,6 @@ const GuestNavigation = ({ ...rest }) => {
           />
         </strong>
         <Tooltip
-          placement="left"
           isActive={isActiveWineReview}
           refElement={refWineReview}
           offset={[0, 15]}
@@ -116,12 +116,11 @@ const GuestNavigation = ({ ...rest }) => {
           onMouseLeave={toggleIsActiveSearch.off}
         />
         <Tooltip
-          placement="left"
           refElement={refSearch}
           isActive={isActiveSearch}
           offset={[0, 23]}
         >
-          🔎 pretraga članaka o vinu
+          🔎 pretraga članaka
         </Tooltip>
 
         {/* @@chat */}
@@ -138,12 +137,7 @@ const GuestNavigation = ({ ...rest }) => {
             className="***text-4xl text-white transition-transform opacity-50 cursor-pointer hover:scale-110 hover:opacity-80 active:opacity-100"
           />
         </strong>
-        <Tooltip
-          placement="left"
-          refElement={refChat}
-          isActive={isActiveChat}
-          offset={[0, 23]}
-        >
+        <Tooltip refElement={refChat} isActive={isActiveChat} offset={[0, 23]}>
           💬 ostavi poruku
         </Tooltip>
 
@@ -163,7 +157,6 @@ const GuestNavigation = ({ ...rest }) => {
           />
         </strong>
         <Tooltip
-          placement="left"
           refElement={refArticle}
           isActive={isActiveArticle}
           offset={[0, 23]}
@@ -191,7 +184,6 @@ const GuestNavigation = ({ ...rest }) => {
           />
         </strong>
         <Tooltip
-          placement="left"
           refElement={refAboutWine}
           isActive={isActiveAboutWine}
           offset={[0, 23]}
@@ -212,7 +204,6 @@ const GuestNavigation = ({ ...rest }) => {
           />
         </strong>
         <Tooltip
-          placement="left"
           refElement={refAboutShare}
           isActive={isActiveShare}
           offset={[0, 23]}
@@ -232,12 +223,12 @@ const GuestNavigation = ({ ...rest }) => {
           <RiGithubLine className="text-4xl text-white transition-transform opacity-25 cursor-pointer hover:scale-110 hover:opacity-80 active:opacity-100" />
         </a>
         <Tooltip
-          placement="left"
           refElement={refAboutGit}
           isActive={isActiveGit}
           offset={[0, 23]}
         >
-          🛠 doprinos projektu <small className="italic opacity-50">@github.com</small>
+          🛠 doprinos projektu{" "}
+          <small className="italic opacity-50">@github.com</small>
         </Tooltip>
 
         {/* @@auth */}
@@ -246,6 +237,7 @@ const GuestNavigation = ({ ...rest }) => {
           ref={setRefAboutAuth}
           onMouseOver={toggleIsActiveAuth.on}
           onMouseLeave={toggleIsActiveAuth.off}
+          onClick={toggleIsActiveAuth.off}
         >
           {user ? (
             <IoMdPower
@@ -260,12 +252,18 @@ const GuestNavigation = ({ ...rest }) => {
           )}
         </strong>
         <Tooltip
-          placement="left"
           refElement={refAboutAuth}
           isActive={isActiveAuth}
           offset={[0, 23]}
         >
-          👥 prijava/odjava
+          {null != user ? (
+            "⛔ odjava"
+          ) : (
+            <span>
+              👥 prijava
+              <span className="opacity-50">, registracija</span>
+            </span>
+          )}
         </Tooltip>
 
         {/* @@help/dashboard */}
@@ -281,7 +279,6 @@ const GuestNavigation = ({ ...rest }) => {
           />
         </strong>
         <Tooltip
-          placement="left"
           refElement={refAboutHome}
           isActive={isActiveHome}
           offset={[0, 23]}

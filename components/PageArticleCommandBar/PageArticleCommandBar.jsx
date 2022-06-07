@@ -111,9 +111,8 @@ const PageArticleCommandBar = () => {
                   refElement={refPopperImage}
                   isActive={isActiveImage}
                   offset={[0, 23]}
-                  placement="left"
                 >
-                  📷 izaberi sliku za članak
+                  📷 izaberi sliku
                 </Tooltip>
                 {imageData && (
                   <>
@@ -140,14 +139,15 @@ const PageArticleCommandBar = () => {
                     }`}
                   />
                 </IconCommand>
-                <Tooltip
-                  refElement={refPopperSave}
-                  isActive={isActiveSave}
-                  offset={[0, 23]}
-                  placement="left"
-                >
-                  💾 sačuvaj članak
-                </Tooltip>
+                {disabledUpload || (
+                  <Tooltip
+                    refElement={refPopperSave}
+                    isActive={isActiveSave}
+                    offset={[0, 23]}
+                  >
+                    💾 sačuvaj
+                  </Tooltip>
+                )}
                 <IconCommand
                   className="!mt-auto"
                   onClick={prevent(toggleHelpArticleEditor.on)}

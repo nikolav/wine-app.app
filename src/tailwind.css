@@ -27,7 +27,7 @@
 
 @layer components {
   .link {
-    @apply text-indigo-700 hover:underline active:text-red-600;
+    @apply cursor-pointer text-indigo-700 hover:underline active:text-red-600;
   }
   .link-preview {
     @apply cursor-zoom-in text-indigo-700 decoration-dashed hover:underline;

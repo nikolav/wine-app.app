@@ -6,6 +6,7 @@ import FlagsProvider from "../src/hooks/use-flags-global";
 import GlobalsProvder from "../src/hooks/use-globals";
 import SlateEditorProvider from "../components/SlateEditorProvider/SlateEditorProvider";
 import { LoaderBars } from "../components/loaders";
+import { UserNotificationAuthStateChange } from "../components/UserNotification";
 //
 import "../styles/globals.css";
 import "../styles/build.css";
@@ -63,6 +64,8 @@ function MyApp({ Component, pageProps, router }) {
                       <Component {...pageProps} />
                     </motion.div>
                   </AnimatePresence>
+                  {/*  */}
+                  <UserNotificationAuthStateChange />
                   {/*  */}
                   <LoaderBars />
                 </>

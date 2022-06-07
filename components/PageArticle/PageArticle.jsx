@@ -30,6 +30,9 @@ import {
 import modcss from "./PageArticle.module.css";
 import escapeHTML from "escape-html";
 import Effect from "../Effect";
+import NotificationDangerNotAuthenticated from "../NotificationDangerNotAuthenticated/NotificationDangerNotAuthenticated";
+import { usePages } from "../../app/store";
+import { PAGE_LOGIN } from "../../app/store/page";
 ////
 ////
 const PageArticle = () => {
@@ -103,6 +106,12 @@ const PageArticle = () => {
       });
   };
   //
+  const { setPage } = usePages();
+  const {
+    isOn: isActiveNotificationDangerNotAuthenticated,
+    toggle: toggleIsActiveNotificationDangerNotAuthenticated,
+  } = useStateSwitch();
+  //
   useEffect(() => {
     //
     let title;
@@ -115,15 +124,15 @@ const PageArticle = () => {
          * not logged in..
          * trigger quick login/signup here
          */
-        return;
-      };
+        return toggleIsActiveNotificationDangerNotAuthenticated.on();
+      }
       //
       // 1. validate title input
       title = (inputs?.articleTitle || "").trim();
       if (!title) {
         toggleIsActiveEffect.on();
         return;
-      };
+      }
       //
       globals.set(ARTICLE_DATA, {
         title,
@@ -215,36 +224,53 @@ const PageArticle = () => {
   //
   //
   return (
-    <div className={`${modcss.bgArticle} m-0 p-0 h-full`}>
-      <DrawerBox
-        isActive={isActiveDrawerBox}
-        onClose={toggleActiveDrawerBox.off}
-      >
-        <UserNotificationArticleSaved saved={globals(ARTICLE_SAVED)} />
-      </DrawerBox>
-      {/*  */}
-      <form onSubmit={prevent()} noValidate className="px-8 mt-4 mb-8">
-        <Effect
-          isActive={isActiveEffect}
-          onEnd={toggleIsActiveEffect.off}
-          className="relative flex flex-row items-center mb-4"
+    <>
+      <div className={`${modcss.bgArticle} m-0 p-0 h-full`}>
+        <DrawerBox
+          isActive={isActiveDrawerBox}
+          onClose={toggleActiveDrawerBox.off}
         >
-          <Required input={inputs?.articleTitle || ""} />
-          <input
-            id="articleTitle"
-            name="articleTitle"
-            type="text"
-            onChange={onChange}
-            value={inputs?.articleTitle || ""}
-            placeholder="Naslov..."
-            autoComplete="off"
-            className="input-underline !pl-4"
-          />
-        </Effect>
-      </form>
-      {/*  */}
-      <SlateEditable editor={editor} height={320} />
-    </div>
+          <UserNotificationArticleSaved saved={globals(ARTICLE_SAVED)} />
+        </DrawerBox>
+        {/*  */}
+        <form onSubmit={prevent()} noValidate className="px-8 mt-4 mb-8">
+          <Effect
+            isActive={isActiveEffect}
+            onEnd={toggleIsActiveEffect.off}
+            className="relative flex flex-row items-center mb-4"
+          >
+            <Required input={inputs?.articleTitle || ""} />
+            <input
+              id="articleTitle"
+              name="articleTitle"
+              type="text"
+              onChange={onChange}
+              value={inputs?.articleTitle || ""}
+              placeholder="Naslov..."
+              autoComplete="off"
+              className="input-underline !pl-4"
+            />
+          </Effect>
+        </form>
+        {/*  */}
+        <SlateEditable editor={editor} height={320} />
+      </div>
+      {/*   */}
+      {/* user notification --not-signed-in */}
+      <NotificationDangerNotAuthenticated
+        isActive={isActiveNotificationDangerNotAuthenticated}
+        onClose={toggleIsActiveNotificationDangerNotAuthenticated.off}
+      >
+        👤{" "}
+        <strong
+          onClick={prevent(setPage.bind(null, PAGE_LOGIN))}
+          className="link px-2"
+        >
+          PRIJAVITE SE
+        </strong>{" "}
+        za korišćenje ove usluge
+      </NotificationDangerNotAuthenticated>
+    </>
   );
 };
 
