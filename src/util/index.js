@@ -6,14 +6,18 @@ import { has } from "./has";
 import dateFormated from "./date-formated";
 import WR_InitRecord from "./wr-init-record";
 import escapeHTML from "escape-html";
+import q from "nikolav-q";
+//
+const debounce = q.func.debounce;
 //
 export {
-  escapeHTML,
-  prevent,
-  isEmail,
   arrayRand,
-  noop,
-  has,
   dateFormated,
+  debounce,
+  escapeHTML,
+  has,
+  isEmail,
+  noop,
+  prevent,
   WR_InitRecord,
 };

@@ -3,9 +3,10 @@ import {
   useFlags,
   IS_PROCESSING_ARTICLE_SAVE,
   IS_PROCESSING_WR_SAVE,
+  IS_PROCESSING_AUTH,
 } from "../../src/hooks/use-flags-global";
 import { motion } from "framer-motion";
-import PortalOverlaysEnd from "../PortalOverlaysEnd";
+import PortalOverlays from "../PortalOverlays";
 import { Bars } from "react-loader-spinner";
 
 // https://mhnpd.github.io/react-loader-spinner/
@@ -16,11 +17,13 @@ import { Bars } from "react-loader-spinner";
 const LoaderBars = () => {
   const { flags } = useFlags();
   const isActive =
-    flags[IS_PROCESSING_ARTICLE_SAVE] || flags[IS_PROCESSING_WR_SAVE];
+    flags[IS_PROCESSING_ARTICLE_SAVE] ||
+    flags[IS_PROCESSING_WR_SAVE] ||
+    flags[IS_PROCESSING_AUTH];
   //
   return (
     isActive && (
-      <PortalOverlaysEnd>
+      <PortalOverlays>
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{
@@ -37,7 +40,7 @@ const LoaderBars = () => {
             ariaLabel="loading-indicator"
           />
         </motion.div>
-      </PortalOverlaysEnd>
+      </PortalOverlays>
     )
   );
 };

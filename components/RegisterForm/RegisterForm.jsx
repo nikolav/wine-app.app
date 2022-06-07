@@ -9,6 +9,8 @@ import Effect from "../../components/Effect";
 import { PAGE_LOGIN, PAGE_HELP } from "../../app/store/page";
 import { prevent, isEmail } from "../../src/util";
 import css from "./RegisterForm.module.css";
+import { useFlags, IS_PROCESSING_AUTH } from "../../src/hooks/use-flags-global";
+
 //
 export default function RegisterForm() {
   const [message, setMessage] = useState("Registracija u sistem.");
@@ -24,6 +26,12 @@ export default function RegisterForm() {
 
   const { user } = useAuth();
   const [register, registerStatus] = useAuthRegister();
+  //
+  // triggers spinner on auth action
+  const { toggle: toggleFlags } = useFlags();
+  const isProcessingAuthOn = () => toggleFlags.on(IS_PROCESSING_AUTH);
+  const isProcessingAuthOff = () => toggleFlags.off(IS_PROCESSING_AUTH);
+  //
   const handleRegister = async () => {
     if (!input.name || !input.email || !input.password || !input.password2) {
       setIsActive(true);
@@ -45,11 +53,16 @@ export default function RegisterForm() {
       return setMessage("Potvrdite lozinku ponovo.");
     }
 
+    //
+    //
+    isProcessingAuthOn();
     try {
       await register(input.email, input.password);
     } catch (error) {
       setIsActive(true);
       return setMessage(`[@RegisterForm]: ${error.message}`);
+    } finally {
+      isProcessingAuthOff();
     }
   };
 
@@ -62,10 +75,12 @@ export default function RegisterForm() {
         value: input.name,
       });
       user.displayName = input.name;
+      isProcessingAuthOff();
       return setPage(PAGE_HELP);
     }
 
     if (!registerStatus.processing && registerStatus.error) {
+      isProcessingAuthOff();
       setIsActive(true);
       setMessage("Ovaj korisnik je već registrovan.");
     }

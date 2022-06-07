@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { usePopper } from "react-popper";
 import PortalOverlays from "../PortalOverlays";
 import { motion, AnimatePresence } from "framer-motion";
 import { has } from "../../src/util";
+// https://popper.js.org/react-popper/
+import { usePopper } from "react-popper";
 ////
 ////
 const Panel = ({
@@ -38,7 +39,7 @@ const Panel = ({
         ref={setPopperElement}
         style={styles.popper}
         {...attributes.popper}
-        className="z-50 ***!bg-green-400"
+        className="z-10 m-0 p-0"
       >
         {children}
       </div>
@@ -75,7 +76,7 @@ const PanelAppear = ({
   if (!has(APPEAR, effect)) effect = "_default";
   //
   return (
-    <AnimatePresence>
+    <AnimatePresence initial={false}>
       {isActive && (
         <Panel isActive={isActive} {...rest}>
           <motion.div

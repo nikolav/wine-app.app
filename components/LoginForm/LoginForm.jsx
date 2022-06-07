@@ -7,6 +7,7 @@ import { PAGE_REGISTER, PAGE_HELP } from "../../app/store/page";
 import useSyncInput from "../../src/hooks/use-sync-input";
 import { prevent, isEmail } from "../../src/util";
 import css from "./LoginForm.module.css";
+import { useFlags, IS_PROCESSING_AUTH } from "../../src/hooks/use-flags-global";
 
 export default function LoginForm() {
   const [message, setMessage] = useState("Prijava na sistem.");
@@ -18,6 +19,10 @@ export default function LoginForm() {
   const [sync, input] = useSyncInput({ email: "", password: "" });
   const { setPage } = usePages();
   //
+  const { toggle: toggleFlags } = useFlags();
+  const isProcessingAuthOn = () => toggleFlags.on(IS_PROCESSING_AUTH);
+  const isProcessingAuthOff = () => toggleFlags.off(IS_PROCESSING_AUTH);
+  //
   const handleLogin = async () => {
     if (!input.email || !input.password) {
       setIsActive(true);
@@ -28,19 +33,26 @@ export default function LoginForm() {
       setIsActive(true);
       return setMessage("Unesite ispravnu email adresu.");
     }
-
+    //
+    // trigger spinner
+    isProcessingAuthOn();
     try {
       await login(input.email, input.password);
     } catch (error) {
       setMessage(error.message);
+    } finally {
+      isProcessingAuthOff();
     }
   };
 
   useEffect(() => {
-    if (!loginStatus.error && !loginStatus.processing && user)
+    if (!loginStatus.error && !loginStatus.processing && user) {
+      isProcessingAuthOff();
       return setPage(PAGE_HELP);
+    }
 
     if (!loginStatus.processing && loginStatus.error) {
+      isProcessingAuthOff();
       setIsActive(true);
       setMessage("Greška, ovaj korisnik nije registrovan.");
     }

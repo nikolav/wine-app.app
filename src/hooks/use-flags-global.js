@@ -19,7 +19,7 @@ export const IS_ACTIVE_WINE_REVIEW_TOOLBAR =
 export const IS_PROCESSING_WINE_REVIEW_UPLOAD =
   "isProcessing.wineReviewUpload.vbzzaasqlmi";
 export const IS_REQUIRED_WR_INPUT_WINE = "isRequired.WR.inputWine.miorzepxlnm";
-// export const IS_AUTH_STATUS_UPDATE = "isAuth.statusUpdate.fkwbwtuvsbz";
+export const IS_PROCESSING_AUTH = "isProcessing.Auth.wmuqpbwfxzx";
 ////
 ////
 export default function FlagsProvider({ children }) {
