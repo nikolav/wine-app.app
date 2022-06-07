@@ -45,7 +45,7 @@ const HelpPage = () => {
       </div>
       <hr />
       <p className="prose text-center">
-        <h2>🚧 app is under construction;69</h2>
+        <h2>🚧 app is under construction --70</h2>
       </p>
     </>
   );
