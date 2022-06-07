@@ -138,7 +138,7 @@ const SlateEditable = ({ editor, width = "100%", height = "100%" }) => {
   //
   //
   return (
-    <div className="border-4 border-gray-50 border-t-0 mx-4 rounded-lg overflow-hidden">
+    <div className="border-4 border-slate-900 border-t-0 mx-4 rounded-lg overflow-hidden shadow">
       <SlateToolbar editor={editor} />
       <article
         style={{
