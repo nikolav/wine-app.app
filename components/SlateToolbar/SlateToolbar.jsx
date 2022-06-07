@@ -38,8 +38,8 @@ export default function SlateToolbar({ editor }) {
         <SlateEditableHelp />
       </DrawerBox>
 
-      <div className="relative z-10 bg-gray-50 py-2">
-        <ul className="**space-x-6 w-full h-full m-0 p-0 list-none flex flex-row justify-around items-center">
+      <div className="relative z-10 bg-slate-900 py-2 rounded-t-xl">
+        <ul className="w-full h-full m-0 p-0 list-none flex flex-row justify-around items-center">
           <SlateToolbarIcon
             isActive={isMarkActive(editor, "bold")}
             onMouseDown={prevent(() => toggleMark(editor, "bold"))}
@@ -133,10 +133,10 @@ function SlateToolbarIcon({
   //
   return (
     <li
-      className={`text-base text-slate-500 cursor-pointer transition-transform duration-75 ${
+      className={`text-base text-slate-50 cursor-pointer transition-transform duration-75 ${
         isActive
-          ? "opacity-90 scale-125"
-          : "opacity-30 hover:opacity-90 hover:scale-125"
+          ? "opacity-100 scale-125"
+          : "opacity-60 hover:opacity-100 hover:scale-125"
       } ${classes}`}
       {...rest}
     >

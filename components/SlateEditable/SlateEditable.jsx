@@ -131,31 +131,32 @@ export function slateSerialize(node) {
 
 ////
 ////
-const SlateEditable = ({ editor, width = "100%", height = "100%" }) => {
+const SlateEditable = ({ editor }) => {
   //
   const renderLeaf = useCallback((props) => <LeafNode {...props} />, []);
   const renderElement = useCallback((props) => <Element {...props} />, []);
   //
   //
   return (
-    <div className="border-4 border-gray-50 border-t-0 mx-4 rounded-lg overflow-hidden">
+    <div className="h-full px-4">
       <SlateToolbar editor={editor} />
-      <article
+      <div
         style={{
-          width,
-          height,
+          height: "calc(100% - 10rem)",
         }}
-        className="prose"
+        className="border-4 border-slate-900 border-t-0 rounded-b-xl overflow-y-auto scrollbar-thin"
       >
-        <Editable
-          renderLeaf={renderLeaf}
-          renderElement={renderElement}
-          placeholder="Vaš tekst ovde..."
-          autoFocus
-          autoComplete="off"
-          className="h-full ml-2 overflow-y-auto scrollbar-thin"
-        />
-      </article>
+        <article className="prose">
+          <Editable
+            renderLeaf={renderLeaf}
+            renderElement={renderElement}
+            placeholder="Vaš tekst ovde..."
+            autoFocus
+            autoComplete="off"
+            className="ml-2"
+          />
+        </article>
+      </div>
     </div>
   );
 };

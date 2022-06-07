@@ -253,7 +253,7 @@ const PageArticle = () => {
           </Effect>
         </form>
         {/*  */}
-        <SlateEditable editor={editor} height={320} />
+        <SlateEditable editor={editor} />
       </div>
       {/*   */}
       {/* user notification --not-signed-in */}
