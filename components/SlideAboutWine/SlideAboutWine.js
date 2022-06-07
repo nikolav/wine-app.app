@@ -4,6 +4,8 @@ import SlideshowImages from "../SlideshowImages/SlideshowImages";
 import NavCountriesAboutWine from "../NavCountriesAboutWine/NavCountriesAboutWine";
 import LeadBreak from "../LeadBreak";
 import ArticleEnd from "../ArticleEnd";
+import Image from "next/image";
+import imgPlaceholder from "../../public/hist/export/regioni10.jpg";
 
 //
 const ID_REGIONS = "cell-regions";
@@ -112,21 +114,152 @@ const SlideAboutWine = () => {
         </div>
       </LinkCell>
       <LinkCell title="tehnologija" id="cell-tech" classes="rounded-tr-2xl">
-        <div className="grid grid-cols-12">
-          <div className="col-span-5 bg-red-500">L</div>
-          <div className="col-span-7 p-6">R</div>
+        <div className="grid grid-cols-12 h-full">
+          <div className="col-span-5 relative">
+            <Image layout="fill" src={imgPlaceholder} alt="" />
+          </div>
+          <div className="col-span-7 p-6 overflow-y-auto scrollbar-thin">
+            <article className="prose">
+              <h2>🚧 winemaking</h2>
+              <p>
+                @TODO; Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Aperiam ratione dolor nihil consequatur eos labore incidunt
+                quisquam odio, ducimus, iusto eum omnis expedita assumenda
+                facilis illo illum voluptatum culpa dolorem?
+              </p>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam
+                ratione dolor nihil consequatur eos labore incidunt quisquam
+                odio, ducimus, iusto eum omnis expedita assumenda facilis illo
+                illum voluptatum culpa dolorem?
+              </p>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam
+                ratione dolor nihil consequatur eos labore incidunt quisquam
+                odio, ducimus, iusto eum omnis expedita assumenda facilis illo
+                illum voluptatum culpa dolorem?
+              </p>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam
+                ratione dolor nihil consequatur eos labore incidunt quisquam
+                odio, ducimus, iusto eum omnis expedita assumenda facilis illo
+                illum voluptatum culpa dolorem?
+              </p>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam
+                ratione dolor nihil consequatur eos labore incidunt quisquam
+                odio, ducimus, iusto eum omnis expedita assumenda facilis illo
+                illum voluptatum culpa dolorem?
+              </p>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam
+                ratione dolor nihil consequatur eos labore incidunt quisquam
+                odio, ducimus, iusto eum omnis expedita assumenda facilis illo
+                illum voluptatum culpa dolorem?
+              </p>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam
+                ratione dolor nihil consequatur eos labore incidunt quisquam
+                odio, ducimus, iusto eum omnis expedita assumenda facilis illo
+                illum voluptatum culpa dolorem?
+              </p>
+            </article>
+          </div>
         </div>
       </LinkCell>
       <LinkCell title="senzorika" id="cell-tasting" classes="rounded-bl-2xl">
-        <div className="grid grid-cols-12">
-          <div className="col-span-7 p-6">L</div>
-          <div className="col-span-5 bg-red-500">R</div>
+        <div className="grid grid-cols-12 h-full">
+          <div className="col-span-7 p-6 overflow-y-auto scrollbar-thin">
+            <article className="prose">
+              <h2>🚧 wine tasting</h2>
+              <p>
+                @TODO; Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Excepturi debitis illum tempore, doloribus quidem dolor quis
+                corporis saepe! Dignissimos velit repellat accusamus facilis
+                accusantium, adipisci ullam obcaecati recusandae! Quaerat,
+                totam!
+              </p>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Excepturi debitis illum tempore, doloribus quidem dolor quis
+                corporis saepe! Dignissimos velit repellat accusamus facilis
+                accusantium, adipisci ullam obcaecati recusandae! Quaerat,
+                totam!
+              </p>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Excepturi debitis illum tempore, doloribus quidem dolor quis
+                corporis saepe! Dignissimos velit repellat accusamus facilis
+                accusantium, adipisci ullam obcaecati recusandae! Quaerat,
+                totam!
+              </p>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Excepturi debitis illum tempore, doloribus quidem dolor quis
+                corporis saepe! Dignissimos velit repellat accusamus facilis
+                accusantium, adipisci ullam obcaecati recusandae! Quaerat,
+                totam!
+              </p>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Excepturi debitis illum tempore, doloribus quidem dolor quis
+                corporis saepe! Dignissimos velit repellat accusamus facilis
+                accusantium, adipisci ullam obcaecati recusandae! Quaerat,
+                totam!
+              </p>
+            </article>
+          </div>
+          <div className="col-span-5 relative">
+            <Image layout="fill" src={imgPlaceholder} alt="" />
+          </div>
         </div>
       </LinkCell>
       <LinkCell title="srbija" id="cell-serbia" classes="rounded-br-2xl">
-        <div className="grid grid-cols-12">
-          <div className="col-span-5 bg-red-500">L</div>
-          <div className="col-span-7 p-6">R</div>
+        <div className="grid grid-cols-12 h-full">
+          <div className="col-span-5 relative">
+            <Image layout="fill" src={imgPlaceholder} alt="" />
+          </div>
+          <div className="col-span-7 p-6">
+            <article className="prose">
+              <h2>🚧 srbija</h2>
+              <p>
+                @TODO; Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                Maxime necessitatibus vel animi, quos blanditiis unde inventore
+                qui ratione placeat ipsam quam itaque corrupti, odio expedita,
+                voluptatum dicta velit. Suscipit ipsam rerum alias blanditiis
+                quod est quos facere, eos nam praesentium voluptas cumque qui
+                fugit laborum dolores impedit voluptates laboriosam repellendus
+                perspiciatis asperiores numquam deserunt sit.
+              </p>
+              <p>
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime
+                necessitatibus vel animi, quos blanditiis unde inventore qui
+                ratione placeat ipsam quam itaque corrupti, odio expedita,
+                voluptatum dicta velit. Suscipit ipsam rerum alias blanditiis
+                quod est quos facere, eos nam praesentium voluptas cumque qui
+                fugit laborum dolores impedit voluptates laboriosam repellendus
+                perspiciatis asperiores numquam deserunt sit.
+              </p>
+              <p>
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime
+                necessitatibus vel animi, quos blanditiis unde inventore qui
+                ratione placeat ipsam quam itaque corrupti, odio expedita,
+                voluptatum dicta velit. Suscipit ipsam rerum alias blanditiis
+                quod est quos facere, eos nam praesentium voluptas cumque qui
+                fugit laborum dolores impedit voluptates laboriosam repellendus
+                perspiciatis asperiores numquam deserunt sit.
+              </p>
+              <p>
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime
+                necessitatibus vel animi, quos blanditiis unde inventore qui
+                ratione placeat ipsam quam itaque corrupti, odio expedita,
+                voluptatum dicta velit. Suscipit ipsam rerum alias blanditiis
+                quod est quos facere, eos nam praesentium voluptas cumque qui
+                fugit laborum dolores impedit voluptates laboriosam repellendus
+                perspiciatis asperiores numquam deserunt sit.
+              </p>
+            </article>
+          </div>
         </div>
       </LinkCell>
     </div>
