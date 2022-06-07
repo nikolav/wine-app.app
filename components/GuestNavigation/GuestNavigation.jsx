@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   iconSearch,
   HiOutlineBookOpen,
@@ -35,6 +35,9 @@ import {
   IS_ACTIVE_WINE_REVIEW_TOOLBAR,
 } from "../../src/hooks/use-flags-global";
 //
+import useStateSwitch from "../../src/hooks/use-state-switch";
+import Tooltip from "../Tooltip/Tooltip";
+//
 //
 const GuestNavigation = ({ ...rest }) => {
   const { setPage } = usePages();
@@ -46,6 +49,30 @@ const GuestNavigation = ({ ...rest }) => {
   const openArticleCommands = () => toggle.on(IS_ACTIVE_ARTICLE_COMMANDS);
   const openWineReviewToolbar = () => toggle.on(IS_ACTIVE_WINE_REVIEW_TOOLBAR);
   //
+  const [refWineReview, setRefWineReview] = useState(null);
+  const [refSearch, setRefSearch] = useState(null);
+  const [refChat, setRefChat] = useState(null);
+  const [refArticle, setRefArticle] = useState(null);
+  const [refAboutWine, setRefAboutWine] = useState(null);
+  const [refAboutShare, setRefAboutShare] = useState(null);
+  const [refAboutGit, setRefAboutGit] = useState(null);
+  const [refAboutAuth, setRefAboutAuth] = useState(null);
+  const [refAboutHome, setRefAboutHome] = useState(null);
+  //
+  const { isOn: isActiveWineReview, toggle: toggleIsActiveWineReview } =
+    useStateSwitch();
+  const { isOn: isActiveSearch, toggle: toggleIsActiveSearch } =
+    useStateSwitch();
+  const { isOn: isActiveChat, toggle: toggleIsActiveChat } = useStateSwitch();
+  const { isOn: isActiveArticle, toggle: toggleIsActiveArticle } =
+    useStateSwitch();
+  const { isOn: isActiveAboutWine, toggle: toggleIsActiveAboutWine } =
+    useStateSwitch();
+  const { isOn: isActiveShare, toggle: toggleIsActiveShare } = useStateSwitch();
+  const { isOn: isActiveGit, toggle: toggleIsActiveGit } = useStateSwitch();
+  const { isOn: isActiveAuth, toggle: toggleIsActiveAuth } = useStateSwitch();
+  const { isOn: isActiveHome, toggle: toggleIsActiveHome } = useStateSwitch();
+  //
   return (
     <div {...rest}>
       <div className="flex flex-col items-center justify-between w-full h-full py-4 ***space-y-8">
@@ -55,6 +82,9 @@ const GuestNavigation = ({ ...rest }) => {
           style={{
             fontSize: 48,
           }}
+          ref={setRefWineReview}
+          onMouseOver={toggleIsActiveWineReview.on}
+          onMouseLeave={toggleIsActiveWineReview.off}
         >
           <FaStar
             onClick={prevent(() => {
@@ -64,6 +94,14 @@ const GuestNavigation = ({ ...rest }) => {
             className="text-yellow-400 transition-transform cursor-pointer opacity-80 hover:opacity-90 active:opacity-100 hover:-rotate-2 hover:scale-125"
           />
         </strong>
+        <Tooltip
+          placement="left"
+          isActive={isActiveWineReview}
+          refElement={refWineReview}
+          offset={[0, 15]}
+        >
+          🍸🤩 oceni vino
+        </Tooltip>
         {/* @@search */}
         <img
           onClick={prevent(() => {
@@ -73,9 +111,26 @@ const GuestNavigation = ({ ...rest }) => {
           alt=""
           width={32}
           className="transition-transform shadow-sm opacity-50 cursor-pointer hover:opacity-80 active:opacity-100 hover:scale-110"
+          ref={setRefSearch}
+          onMouseOver={toggleIsActiveSearch.on}
+          onMouseLeave={toggleIsActiveSearch.off}
         />
+        <Tooltip
+          placement="left"
+          refElement={refSearch}
+          isActive={isActiveSearch}
+          offset={[0, 23]}
+        >
+          🔎 pretraga članaka o vinu
+        </Tooltip>
+
         {/* @@chat */}
-        <strong style={{ fontSize: 36 }}>
+        <strong
+          style={{ fontSize: 36 }}
+          ref={setRefChat}
+          onMouseOver={toggleIsActiveChat.on}
+          onMouseLeave={toggleIsActiveChat.off}
+        >
           <FaRegComments
             onClick={prevent(() => {
               setPage(PAGE_CHAT);
@@ -83,8 +138,22 @@ const GuestNavigation = ({ ...rest }) => {
             className="***text-4xl text-white transition-transform opacity-50 cursor-pointer hover:scale-110 hover:opacity-80 active:opacity-100"
           />
         </strong>
+        <Tooltip
+          placement="left"
+          refElement={refChat}
+          isActive={isActiveChat}
+          offset={[0, 23]}
+        >
+          💬 ostavi poruku
+        </Tooltip>
+
         {/* @@article */}
-        <strong style={{ fontSize: 36 }}>
+        <strong
+          style={{ fontSize: 36 }}
+          ref={setRefArticle}
+          onMouseOver={toggleIsActiveArticle.on}
+          onMouseLeave={toggleIsActiveArticle.off}
+        >
           <MdCreate
             onClick={prevent(() => {
               setPage(PAGE_ARTICLE_CREATE);
@@ -93,8 +162,21 @@ const GuestNavigation = ({ ...rest }) => {
             className="***text-4xl text-white transition-transform opacity-50 cursor-pointer hover:scale-110 hover:opacity-80 active:opacity-100"
           />
         </strong>
+        <Tooltip
+          placement="left"
+          refElement={refArticle}
+          isActive={isActiveArticle}
+          offset={[0, 23]}
+        >
+          ✍🏼 napiši članak o vinu
+        </Tooltip>
         {/* @@about-wine */}
-        <strong style={{ fontSize: 36 }}>
+        <strong
+          style={{ fontSize: 36 }}
+          onMouseOver={toggleIsActiveAboutWine.on}
+          onMouseLeave={toggleIsActiveAboutWine.off}
+          ref={setRefAboutWine}
+        >
           <HiOutlineBookOpen
             onClick={prevent(setPage.bind(null, PAGE_ABOUT_WINE))}
             onMouseOver={(evt) =>
@@ -108,23 +190,63 @@ const GuestNavigation = ({ ...rest }) => {
             className="***text-4xl text-white transition-transform opacity-50 cursor-pointer hover:scale-110 hover:opacity-80 active:opacity-100"
           />
         </strong>
+        <Tooltip
+          placement="left"
+          refElement={refAboutWine}
+          isActive={isActiveAboutWine}
+          offset={[0, 23]}
+        >
+          🎓 saznaj više o vinu
+        </Tooltip>
+
         {/* @@share */}
-        <strong style={{ fontSize: 36 }}>
+        <strong
+          style={{ fontSize: 36 }}
+          ref={setRefAboutShare}
+          onMouseOver={toggleIsActiveShare.on}
+          onMouseLeave={toggleIsActiveShare.off}
+        >
           <FiShare2
             onClick={prevent(openSharing)}
             className="***text-4xl text-white transition-transform opacity-50 cursor-pointer hover:scale-110 hover:opacity-80 active:opacity-100"
           />
         </strong>
+        <Tooltip
+          placement="left"
+          refElement={refAboutShare}
+          isActive={isActiveShare}
+          offset={[0, 23]}
+        >
+          📱 deli na društvenim mrežama
+        </Tooltip>
+
         {/* @@git; sizes ok */}
         <a
           href="https://github.com/nikolav/wine-app.app"
           target="_blank"
           rel="noreferrer noopener"
+          ref={setRefAboutGit}
+          onMouseOver={toggleIsActiveGit.on}
+          onMouseLeave={toggleIsActiveGit.off}
         >
           <RiGithubLine className="text-4xl text-white transition-transform opacity-25 cursor-pointer hover:scale-110 hover:opacity-80 active:opacity-100" />
         </a>
+        <Tooltip
+          placement="left"
+          refElement={refAboutGit}
+          isActive={isActiveGit}
+          offset={[0, 23]}
+        >
+          🛠 doprinos projektu <small className="italic opacity-50">@github.com</small>
+        </Tooltip>
+
         {/* @@auth */}
-        <strong style={{ fontSize: 36 }}>
+        <strong
+          style={{ fontSize: 36 }}
+          ref={setRefAboutAuth}
+          onMouseOver={toggleIsActiveAuth.on}
+          onMouseLeave={toggleIsActiveAuth.off}
+        >
           {user ? (
             <IoMdPower
               onClick={logout}
@@ -137,13 +259,35 @@ const GuestNavigation = ({ ...rest }) => {
             />
           )}
         </strong>
+        <Tooltip
+          placement="left"
+          refElement={refAboutAuth}
+          isActive={isActiveAuth}
+          offset={[0, 23]}
+        >
+          👥 prijava/odjava
+        </Tooltip>
+
         {/* @@help/dashboard */}
-        <strong style={{ fontSize: 36 }}>
+        <strong
+          style={{ fontSize: 36 }}
+          ref={setRefAboutHome}
+          onMouseOver={toggleIsActiveHome.on}
+          onMouseLeave={toggleIsActiveHome.off}
+        >
           <FaHome
             onClick={prevent(setPage.bind(null, PAGE_HELP))}
             className="***text-4xl text-white transition-transform opacity-50 cursor-pointer hover:scale-110 hover:opacity-80 active:opacity-100"
           />
         </strong>
+        <Tooltip
+          placement="left"
+          refElement={refAboutHome}
+          isActive={isActiveHome}
+          offset={[0, 23]}
+        >
+          🏠 početna strana, <small className="opacity-50">dashboard</small>
+        </Tooltip>
       </div>
     </div>
   );

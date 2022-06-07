@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, forwardRef } from "react";
 import modcss from "./PageArticleCommandBar.module.css";
 import PortalOverlaysEnd from "../PortalOverlaysEnd";
 import { motion, AnimatePresence } from "framer-motion";
@@ -21,12 +21,36 @@ import PageArticleEditorHelp from "../PageArticleEditorHelp/PageArticleEditorHel
 import useStateSwitch from "../../src/hooks/use-state-switch";
 import ChooseImage from "../ChooseImage/ChooseImage";
 import ChooseImageShow from "../ChooseImageShow/ChooseImageShow";
-import {
-  useGlobals,
-  ARTICLE_ONSAVE,
-} from "../../src/hooks/use-globals";
+import { useGlobals, ARTICLE_ONSAVE } from "../../src/hooks/use-globals";
 import { noop, prevent } from "../../src/util";
 import useHandleImageDataUrl from "../../src/hooks/use-handle-image-data-url";
+import Tooltip from "../Tooltip/Tooltip";
+//
+const IconCommand = forwardRef(function IconCommand(
+  { children, disabled = null, onClick = noop, ...rest },
+  ref
+) {
+  const handle = disabled ? prevent(noop) : onClick;
+  return (
+    <li ref={ref} onClick={handle} {...rest}>
+      {children}
+    </li>
+  );
+});
+// const IconCommand = ({
+//   children,
+//   disabled = null,
+//   onClick = noop,
+//   ...rest
+// }) => {
+//   const handle = disabled ? prevent(noop) : onClick;
+//   return (
+//     <li onClick={handle} {...rest}>
+//       {children}
+//     </li>
+//   );
+// };
+
 ////
 ////
 const PageArticleCommandBar = () => {
@@ -40,6 +64,23 @@ const PageArticleCommandBar = () => {
   const imageData = image_();
   const articleOnSave = () => globals.set(ARTICLE_ONSAVE, Date.now());
   const disabledUpload = flags[IS_PROCESSING_ARTICLE_SAVE];
+  //
+  //
+  const IconCommandClose = ({ children, ...rest }) => {
+    const { toggle } = useFlags();
+    const closeCmdBar = () => toggle.off(IS_ACTIVE_ARTICLE_COMMANDS);
+    return (
+      <li onClick={prevent(closeCmdBar)} {...rest}>
+        {children}
+      </li>
+    );
+  };
+  //
+  const [refPopperSave, setRefPopperSave] = useState(null);
+  const { isOn: isActiveSave, toggle: toggleIsActiveSave } = useStateSwitch();
+  const [refPopperImage, setRefPopperImage] = useState(null);
+  const { isOn: isActiveImage, toggle: toggleIsActiveImage } = useStateSwitch();
+  //
   //
   return (
     <>
@@ -57,11 +98,23 @@ const PageArticleCommandBar = () => {
                 <IconCommandClose className="mb-16">
                   <TiArrowLeftThick className="text-white text-5xl opacity-60 hover:scale-110 transition-transform hover:opacity-80 active:opacity-100 cursor-pointer" />
                 </IconCommandClose>
-                <IconCommand>
+                <IconCommand
+                  ref={setRefPopperImage}
+                  onMouseOver={toggleIsActiveImage.on}
+                  onMouseLeave={toggleIsActiveImage.off}
+                >
                   <ChooseImage id="articleCommandBar">
                     <FiCamera className="text-white text-4xl opacity-50 hover:scale-110 transition-transform hover:opacity-80 active:opacity-100 cursor-pointer" />
                   </ChooseImage>
                 </IconCommand>
+                <Tooltip
+                  refElement={refPopperImage}
+                  isActive={isActiveImage}
+                  offset={[0, 23]}
+                  placement="left"
+                >
+                  📷 izaberi sliku za članak
+                </Tooltip>
                 {imageData && (
                   <>
                     <IconCommand onClick={prevent(image_.rm)}>
@@ -75,6 +128,9 @@ const PageArticleCommandBar = () => {
                 <IconCommand
                   onClick={prevent(articleOnSave)}
                   disabled={disabledUpload}
+                  ref={setRefPopperSave}
+                  onMouseOver={toggleIsActiveSave.on}
+                  onMouseLeave={toggleIsActiveSave.off}
                 >
                   <BiCloudUpload
                     className={`text-white text-5xl transition-transform ${
@@ -84,6 +140,14 @@ const PageArticleCommandBar = () => {
                     }`}
                   />
                 </IconCommand>
+                <Tooltip
+                  refElement={refPopperSave}
+                  isActive={isActiveSave}
+                  offset={[0, 23]}
+                  placement="left"
+                >
+                  💾 sačuvaj članak
+                </Tooltip>
                 <IconCommand
                   className="!mt-auto"
                   onClick={prevent(toggleHelpArticleEditor.on)}
@@ -120,21 +184,3 @@ const PageArticleCommandBar = () => {
 };
 
 export default PageArticleCommandBar;
-
-function IconCommandClose({ children, ...rest }) {
-  const { toggle } = useFlags();
-  const closeCmdBar = () => toggle.off(IS_ACTIVE_ARTICLE_COMMANDS);
-  return (
-    <li onClick={prevent(closeCmdBar)} {...rest}>
-      {children}
-    </li>
-  );
-}
-function IconCommand({ children, disabled = null, onClick = noop, ...rest }) {
-  const handle = disabled ? prevent(noop) : onClick;
-  return (
-    <li onClick={handle} {...rest}>
-      {children}
-    </li>
-  );
-}

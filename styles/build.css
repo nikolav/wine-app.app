@@ -2236,6 +2236,16 @@ select {
   padding-right: 0.75rem;
 }
 
+.\!px-1 {
+  padding-left: 0.25rem !important;
+  padding-right: 0.25rem !important;
+}
+
+.py-1 {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
 .pr-16 {
   padding-right: 4rem;
 }

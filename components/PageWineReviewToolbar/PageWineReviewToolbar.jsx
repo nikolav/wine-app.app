@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, forwardRef } from "react";
 import PortalOverlaysEnd from "../PortalOverlaysEnd";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -30,16 +30,37 @@ import {
 import ChooseImageShow from "../ChooseImageShow/ChooseImageShow";
 import useHandleImageDataUrl from "../../src/hooks/use-handle-image-data-url";
 import PageWineReviewDescription from "../PageWineReviewDescription/PageWineReviewDescription";
+//
+import Tooltip from "../Tooltip/Tooltip";
+//
+function IconCommandClose({ children, ...rest }) {
+  const { toggle } = useFlags();
+  const closeCmdBar = () => toggle.off(IS_ACTIVE_WINE_REVIEW_TOOLBAR);
+  return (
+    <li onClick={prevent(closeCmdBar)} {...rest}>
+      {children}
+    </li>
+  );
+}
+const IconCommand = forwardRef(function IconCommand(
+  { children, disabled = null, onClick = noop, ...rest },
+  ref
+) {
+  const handle = disabled ? prevent(noop) : onClick;
+  return (
+    <li ref={ref} onClick={handle} {...rest}>
+      {children}
+    </li>
+  );
+});
 
 ////
 ////
 const PageWineReviewToolbar = () => {
   const { flags } = useFlags();
   const isActive = flags[IS_ACTIVE_WINE_REVIEW_TOOLBAR];
-  const {
-    isOn: isActiveWineReviewHelp,
-    toggle: toggleIsActiveWineReviewHelp,
-  } = useStateSwitch();
+  const { isOn: isActiveWineReviewHelp, toggle: toggleIsActiveWineReviewHelp } =
+    useStateSwitch();
   const globals = useGlobals();
   //
   const image_ = useHandleImageDataUrl({
@@ -54,6 +75,15 @@ const PageWineReviewToolbar = () => {
   //
   const disabledUpload = flags[IS_PROCESSING_WINE_REVIEW_UPLOAD];
   const wineReviewOnSave = () => globals.set(WINE_REVIEW_ONSAVE, Date.now());
+  //
+  const [refPopperDescription, setRefPopperDescription] = useState(null);
+  const {
+    isOn: isActivePopperDescription,
+    toggle: toggleIsActivePopperDescription,
+  } = useStateSwitch();
+  const [refPopperSave, setRefPopperSave] = useState(null);
+  const { isOn: isActivePopperSave, toggle: toggleIsActivePopperSave } =
+    useStateSwitch();
   //
   return (
     <>
@@ -80,11 +110,27 @@ const PageWineReviewToolbar = () => {
                   </>
                 )}
                 {/*  */}
-                <IconCommand onClick={prevent(toggleDescription.on)}>
+                <IconCommand
+                  onMouseOver={toggleIsActivePopperDescription.on}
+                  onMouseLeave={toggleIsActivePopperDescription.off}
+                  ref={setRefPopperDescription}
+                  onClick={prevent(toggleDescription.on)}
+                >
                   <MdOutlineEditNote className="pl-px text-white text-5xl opacity-50 hover:scale-110 transition-transform hover:opacity-80 active:opacity-100 cursor-pointer" />
                 </IconCommand>
+                <Tooltip
+                  refElement={refPopperDescription}
+                  isActive={isActivePopperDescription}
+                  placement="left"
+                  offset={[0, 23]}
+                >
+                  ✍🏼 detaljnije
+                </Tooltip>
                 {/*  */}
                 <IconCommand
+                  ref={setRefPopperSave}
+                  onMouseOver={toggleIsActivePopperSave.on}
+                  onMouseLeave={toggleIsActivePopperSave.off}
                   onClick={prevent(wineReviewOnSave)}
                   disabled={disabledUpload}
                 >
@@ -96,6 +142,14 @@ const PageWineReviewToolbar = () => {
                     }`}
                   />
                 </IconCommand>
+                <Tooltip
+                  refElement={refPopperSave}
+                  isActive={isActivePopperSave}
+                  placement="left"
+                  offset={[0, 23]}
+                >
+                  💾 sačuvaj
+                </Tooltip>
 
                 {/*  */}
                 <IconCommand
@@ -141,23 +195,3 @@ const PageWineReviewToolbar = () => {
 };
 
 export default PageWineReviewToolbar;
-
-function IconCommandClose({ children, ...rest }) {
-  const { toggle } = useFlags();
-  const closeCmdBar = () => toggle.off(IS_ACTIVE_WINE_REVIEW_TOOLBAR);
-  return (
-    <li onClick={prevent(closeCmdBar)} {...rest}>
-      {children}
-    </li>
-  );
-}
-function IconCommand({ children, disabled = null, onClick = noop, ...rest }) {
-  const handle = disabled ? prevent(noop) : onClick;
-  return (
-    <li onClick={handle} {...rest}>
-      {children}
-    </li>
-  );
-}
-
-//

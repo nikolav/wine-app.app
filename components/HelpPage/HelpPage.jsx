@@ -3,7 +3,7 @@ import DrawerBox from "../DrawerBox/DrawerBox";
 import useStateSwitch from "../../src/hooks/use-state-switch";
 // import client from "../../src/feathers";
 // import useChatNotify from "../../src/hooks/use-chat-notify";
-import Tooltip from "../Tooltip/Tooltip";
+// import Tooltip from "../Tooltip/Tooltip";
 
 ////
 ////
@@ -44,23 +44,8 @@ const HelpPage = () => {
         <button className="px-6 rounded-l-none button">ok</button>
       </div>
       <hr />
-      <p className="prose">
+      <p className="prose text-center">
         <h2>🚧 app is under construction;69</h2>
-        <button
-          onMouseOver={toggleIsActive.on}
-          onMouseLeave={toggleIsActive.off}
-          ref={setRefButton}
-          className="button px-4 mx-auto block"
-          type="button"
-        >
-          o.k.
-        </button>
-        <Tooltip
-          isActive={isActive}
-          refElement={refButton}
-        >
-          😀 lorem
-        </Tooltip>
       </p>
     </>
   );
