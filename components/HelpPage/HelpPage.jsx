@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import DrawerBox from "../DrawerBox/DrawerBox";
 import useStateSwitch from "../../src/hooks/use-state-switch";
 // import client from "../../src/feathers";
 // import useChatNotify from "../../src/hooks/use-chat-notify";
 // import Tooltip from "../Tooltip/Tooltip";
+import Panel from "../Panel";
 
 ////
 ////
 const HelpPage = () => {
   const { isOn, toggle } = useStateSwitch();
+  const { isOn: isActivePanel, toggle: toggleIsActivePanel } = useStateSwitch();
+  const [refPanel, setRefPanel] = useState(null);
   //
   return (
     <>
@@ -36,16 +39,24 @@ const HelpPage = () => {
         <button className="px-6 rounded-l-none button">ok</button>
       </div>
       <hr />
-      <p className="prose text-center">
-        <h2>🚧 app is under construction --77</h2>
-      </p>
+      <button
+        ref={setRefPanel}
+        className="button px-4 block mx-auto"
+        type="button"
+        onClick={toggleIsActivePanel}
+      >
+        ok
+      </button>
+      <Panel.Appear
+        isActive={isActivePanel}
+        refElement={refPanel}
+        placement="right-start"
+        effect="slideUp"
+      >
+        <div className="bg-gradient-to-b from-slate-500/50 to-slate-500/60 w-48 h-48 p-4 rounded-2xl shadow">12 333</div>
+      </Panel.Appear>
     </>
   );
 };
 
 export default HelpPage;
-
-/*
-
-
-*/
