@@ -92,7 +92,7 @@ export default function Home() {
               style={{
                 width: "calc(100% - 4rem)",
               }}
-              className="!h-full"
+              className="h-full"
               initial={{ y: -12, opacity: 0.12 }}
               animate={{
                 y: 0,
