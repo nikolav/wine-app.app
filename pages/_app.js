@@ -7,6 +7,7 @@ import GlobalsProvder from "../src/hooks/use-globals";
 import SlateEditorProvider from "../components/SlateEditorProvider/SlateEditorProvider";
 import { LoaderBars } from "../components/loaders";
 import { UserNotificationAuthStateChange } from "../components/UserNotification";
+import { QueryProvider } from "../app/providers";
 //
 import "../styles/globals.css";
 import "../styles/build.css";
@@ -49,29 +50,31 @@ function MyApp({ Component, pageProps, router }) {
       </Head>
       <GlobalsProvder>
         <FlagsProvider>
-          <AuthContextProvider>
-            <SlateEditorProvider>
-              <PageContextProvider>
-                <>
-                  <AnimatePresence exitBeforeEnter initial={false}>
-                    <motion.div
-                      key={router.route}
-                      initial="out"
-                      animate="in"
-                      exit="out"
-                      variants={variants}
-                    >
-                      <Component {...pageProps} />
-                    </motion.div>
-                  </AnimatePresence>
-                  {/*  */}
-                  <UserNotificationAuthStateChange />
-                  {/*  */}
-                  <LoaderBars />
-                </>
-              </PageContextProvider>
-            </SlateEditorProvider>
-          </AuthContextProvider>
+          <QueryProvider>
+            <AuthContextProvider>
+              <SlateEditorProvider>
+                <PageContextProvider>
+                  <>
+                    <AnimatePresence exitBeforeEnter initial={false}>
+                      <motion.div
+                        key={router.route}
+                        initial="out"
+                        animate="in"
+                        exit="out"
+                        variants={variants}
+                      >
+                        <Component {...pageProps} />
+                      </motion.div>
+                    </AnimatePresence>
+                    {/*  */}
+                    <UserNotificationAuthStateChange />
+                    {/*  */}
+                    <LoaderBars />
+                  </>
+                </PageContextProvider>
+              </SlateEditorProvider>
+            </AuthContextProvider>
+          </QueryProvider>
         </FlagsProvider>
       </GlobalsProvder>
     </>

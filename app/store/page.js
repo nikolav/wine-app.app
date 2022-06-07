@@ -2,7 +2,6 @@ import React, { useState, useContext } from "react";
 
 import LoginForm from "../../components/LoginForm/LoginForm";
 import RegisterForm from "../../components/RegisterForm/RegisterForm";
-import HelpPage from "../../components/HelpPage/HelpPage";
 import SlideAboutWine from "../../components/SlideAboutWine/SlideAboutWine";
 import PageItalyWine from "../../components/PageItalyWine/PageItalyWine";
 import PageFrenchWine from "../../components/PageFrenchWine/PageFrenchWine";
@@ -12,6 +11,7 @@ import PageArticle from "../../components/PageArticle/PageArticle";
 import PageChat from "../../components/PageChat/PageChat";
 import PageWineReview from "../../components/PageWineReview/PageWineReview";
 import PageSearch from "../../components/PageSearch/PageSearch";
+import HelpPage from "../../components/HelpPage/HelpPage";
 //
 export const PAGE_LOGIN = "login";
 export const PAGE_REGISTER = "register";
@@ -26,7 +26,6 @@ export const PAGE_CHAT = "page-chat.glcrpkbgcem";
 export const PAGE_WINE_REVIEW = "page-wine-review.jkttzwxwwqy";
 export const PAGE_SEARCH = "page-search.gqgkqpklfih";
 //
-
 export const pages = {
   [PAGE_LOGIN]: LoginForm,
   [PAGE_REGISTER]: RegisterForm,

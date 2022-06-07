@@ -54,7 +54,7 @@ import PageArticleCommandBar from "../components/PageArticleCommandBar/PageArtic
 import PageWineReviewToolbar from "../components/PageWineReviewToolbar/PageWineReviewToolbar";
 import useIsMounted from "../src/hooks/use-is-mounted";
 import { PAGE_LOGIN, PAGE_REGISTER, PAGE_HELP } from "../app/store/page";
-import { bg01 } from "../components/HelpPage/HelpPage";
+import { bgDashboard } from "../components/HelpPage/HelpPage";
 //
 //
 export default function Home() {
@@ -109,13 +109,11 @@ export default function Home() {
                   [PAGE_LOGIN, PAGE_REGISTER].includes(page.key)
                     ? "!overflow-y-auto scrollbar-thin"
                     : "overflow-y-hidden"
-                } ${PAGE_HELP === page.key ? bg01 : ""}`}
+                  // sets dashboard background
+                } ${PAGE_HELP === page.key ? bgDashboard : ""}`}
               >
                 <page.content />
               </Paper>
-              {/* <Paper className="relative h-full py-6 mx-4 mt-4 bg-white shadow-lg rounded-t-2xl bg-opacity-95">
-                <page.content />
-              </Paper> */}
             </motion.div>
           </AnimatePresence>
         </section>

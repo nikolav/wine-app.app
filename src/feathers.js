@@ -2,8 +2,12 @@ import feathers from "@feathersjs/client";
 import socketio from "@feathersjs/socketio-client";
 import io from "socket.io-client";
 
-const socket = io("http://localhost:3031");
-// const socket = io("https://wine-app-api.herokuapp.com/");
+export const URL_DEVELOPMENT = "http://localhost:3031/";
+export const URL_PRODUCTION = "https://wine-app-api.herokuapp.com/";
+//
+export const URL_LOCAL = URL_DEVELOPMENT;
+//
+const socket = io(URL_LOCAL);
 const client = feathers();
 
 client.configure(socketio(socket));
