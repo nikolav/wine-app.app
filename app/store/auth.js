@@ -62,7 +62,6 @@ export default function AuthContextProvider({ children }) {
               },
             })
             .then((payload) => {
-              console.log(payload);
               user.displayName = payload.data[0]?.value;
               setUser(user);
             });
