@@ -14,7 +14,19 @@ const HelpPage = () => {
   // const { isOn, toggle } = useStateSwitch();
   // const [data, setData] = useState(null);
   //
-  return <div className="h-full">12</div>;
+  return (
+    <div className="h-full">
+      <section
+        style={{
+          gridTemplateColumns: "1fr auto",
+        }}
+        className="grid grid-cols-2 h-full gap-px mx-3 -mt-1"
+      >
+        <div className="bg-black/80 rounded-l-2xl">1</div>
+        <div className="w-48 bg-black/80 rounded-r-2xl">2</div>
+      </section>
+    </div>
+  );
 };
 
 export default HelpPage;
