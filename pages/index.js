@@ -71,9 +71,9 @@ export default function Home() {
           id="window-left"
           className="relative z-10 hidden border-r-4 shadow-lg lg:col-span-5 lg:!block border-r-white"
         >
-          {isMounted && (
+          {/* {isMounted && (
             <VideoBackground video="https://nikolav.rs/etc/wine-app/mov.min2.mp4" />
-          )}
+          )} */}
         </section>
 
         {/* window-right */}
@@ -82,7 +82,7 @@ export default function Home() {
           className="z-10 pr-16 lg:relative lg:col-span-7"
         >
           {/* nav right */}
-          <GuestNavigation className="absolute inset-y-0 !right-0 z-10 w-16 bg-slate-900" />
+          <GuestNavigation className="absolute inset-y-0 !right-0 z-10 w-16 bg-gradient-to-r from-slate-900/95 to-slate-900" />
           <IconBarSharing />
           <PageArticleCommandBar />
           <PageWineReviewToolbar />

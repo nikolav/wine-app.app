@@ -3,7 +3,9 @@ import axios from "axios";
 import { stripEndSlashes } from "../util";
 import { URL_LOCAL } from "../feathers";
 //
+const WINEREVIEW = "winereview";
 const ARTICLES = "articles";
+//
 export const DEFAULT_QUERY_CONFIG = {
   // refresh data on every window focus
   // refetchOnWindowFocus: true,
@@ -59,24 +61,35 @@ export const DEFAULT_QUERY_CONFIG = {
   // .. can pass memozed function to calc. data upfront
   // .placeholderData
 };
-
 //
-export default function useQueryArticles(config = {}) {
+//
+export function useQueryResource (resource, config = {}) {
   const queryClient = useQueryClient();
   // .invalidateQueries(<key>)
   // .prefetchQuery(<key>, <fetch>)
   // .setQueryData(<key>, <data>)
   //
   return useQuery(
-    ARTICLES,
+    resource,
     (_queryKey) =>
       axios
-        .get(`${stripEndSlashes(URL_LOCAL)}/${ARTICLES}`)
+        .get(`${stripEndSlashes(URL_LOCAL)}/${resource}`)
         .then((res) => res.data),
     {
       ...DEFAULT_QUERY_CONFIG,
-      initialData: () => queryClient.getQueryData(ARTICLES),
+      initialData: () => queryClient.getQueryData(resource),
       ...config,
     }
   );
+
 }
+//
+export function useQueryWineReviews (config) {
+  return useQueryResource(WINEREVIEW, config);
+}
+////
+////
+export default function useQueryArticles(config) {
+  return useQueryResource(ARTICLES, config);
+}
+

@@ -8,7 +8,10 @@ import { bgDashboard, twoCols } from "./HelpPage.module.css";
 // import Panel from "../Panel";
 import { motion } from "framer-motion";
 // import Image from "next/image";
-import { useArticles } from "../../app/store";
+import { 
+  useArticles, 
+  // useWineReview 
+} from "../../app/store";
 import Rotation from "../Rotation/Rotation";
 import placeholder01 from "../../public/placeholder01.png";
 import { SpinnerRotatingLines } from "../loaders";
@@ -21,7 +24,10 @@ export { bgDashboard };
 const HelpPage = () => {
   // const { isOn, toggle } = useStateSwitch();
   const { articles } = useArticles();
+  // const { winereview } = useWineReview();
+  //
   const articleChunks = arrayDivide(shuffle(articles || []), 3);
+  console.log(winereview);
   //
   return (
     <div className="h-full">
@@ -90,7 +96,6 @@ function _thumb(article) {
         className={`overflow-hidden hover:shadow-lg absolute hover:z-10 w-full h-full cursor-pointer opacity-90 hover:opacity-100 ${classes}`}
       >
         <img
-          // layout="fill"
           className="w-full h-full object-cover object-center block"
           src={article.image || placeholder01.src}
           alt=""

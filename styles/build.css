@@ -2083,6 +2083,11 @@ select {
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(15 23 42 / 0));
 }
 
+.from-slate-900\/95 {
+  --tw-gradient-from: rgb(15 23 42 / 0.95);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(15 23 42 / 0));
+}
+
 .to-black\/95 {
   --tw-gradient-to: rgb(0 0 0 / 0.95);
 }
