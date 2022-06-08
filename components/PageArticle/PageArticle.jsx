@@ -147,14 +147,17 @@ const PageArticle = () => {
 
       //
       // 2. upload/validate image
-      if (!articleImageFile) {
+      if (!articleImageFile?.file) {
         // no image to upload..
         // signal db.save start; exit, skips upload..
         globals.set(ARTICLE_DBSAVE, Date.now());
         return;
       }
       //
-      upload(articleImageFile, `/etc/${Date.now()}.${articleImageFile.name}`);
+      upload(
+        articleImageFile.file,
+        `/etc/${Date.now()}.${articleImageFile.file.name}`
+      );
     }
   }, [articleOnSave]);
   //

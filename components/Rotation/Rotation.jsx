@@ -4,7 +4,7 @@ import { arrayRand, has } from "../../src/util";
 import useTimer from "../../src/hooks/use-timer";
 import useIsMounted from "../../src/hooks/use-is-mounted";
 
-const DEFAULT_ROTATION_TIMEOUT = 1; // [sec]
+const DEFAULT_ROTATION_TIMEOUT = 3; // [sec]
 const DEFAULT_ROTATION_EFFECT = "fade";
 const ROTATION_EFFECT = {
   fade: {
@@ -18,14 +18,14 @@ const ROTATION_EFFECT = {
     animate: {
       opacity: 1,
       x: 0,
-      transition: { type: "spring", duration: 0.22 },
+      transition: { type: "spring", duration: 0.24 },
     },
   },
 };
 
 export default function Rotation({
   //
-  // [{ key: string|unique, node: Node|Component }]
+  // [{ key: string.unique, node: Node|Component }]
   nodes = [],
 
   //
@@ -77,7 +77,7 @@ export default function Rotation({
       >
         <motion.div
           key={active.key}
-          className="absolute inset-0 z-10"
+          className="absolute inset-0"
           initial={ROTATION_EFFECT[effect].initial}
           exit={ROTATION_EFFECT[effect].exit}
           animate={ROTATION_EFFECT[effect].animate}

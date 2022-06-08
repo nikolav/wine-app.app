@@ -4,9 +4,11 @@ const nextConfig = {
   env: {
     "app.name": "test-wine-online",
   },
-  // images: {
-  //   domains: ["example.com", "example2.com"],
-  // },
+  images: {
+    domains: [
+      "firebasestorage.googleapis.com",
+    ],
+  },
 };
 module.exports = nextConfig;
 
