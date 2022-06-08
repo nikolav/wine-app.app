@@ -7,7 +7,6 @@ import { bgDashboard, twoCols } from "./HelpPage.module.css";
 // import Tooltip from "../Tooltip/Tooltip";
 // import Panel from "../Panel";
 import { useArticles } from "../../app/store";
-import { chunk } from "lodash";
 import Rotation from "../Rotation/Rotation";
 
 ////
@@ -18,44 +17,91 @@ const HelpPage = () => {
   const { articles } = useArticles();
   //
   //
+  console.log(articles);
   return (
     <div className="h-full">
       <section
         className={`text-white md:grid md:grid-cols-2 h-full gap-px mx-3 -mt-1 ${twoCols}`}
       >
         <div className="h-full md:h-auto bg-gradient-to-b from-black/80 to-black/95 rounded-2xl md:rounded-r-none">
-          <Rotation
-            nodes={[
-              {
-                key: 1,
-                node: (
-                  <div className="w-96 h-96 bg-red-100">
-                    Lorem
-                  </div>
-                ),
-              },
-              {
-                key: 2,
-                node: (
-                  <div className="w-96 h-96 bg-green-100">
-                    Aspernatur
-                  </div>
-                ),
-              },
-              {
-                key: 3,
-                node: (
-                  <div className="w-96 h-96 bg-blue-100">
-                    exercitationem
-                  </div>
-                ),
-              },
-            ]}
-          />
+          <strong className="text-4xl">🚧</strong> dobrodošli
+
         </div>
-        <div className="hidden md:!block w-48 bg-gradient-to-r from-black/80 to-black/90 rounded-r-2xl ***overflow-hidden">
-          <small>122.333</small>
-          {/* <Articles articles={articles} /> */}
+        <div className="p-px hidden md:!block w-48 bg-gradient-to-r from-black/80 to-black/90 rounded-r-2xl ***overflow-hidden">
+          <section className="grid grid-rows-3 gap-px h-full">
+            <div className="bg-red-100">
+              <Rotation
+                className="w-full h-full"
+                timeout={22}
+                nodes={[
+                  {
+                    key: "g.1",
+                    node: <div className="bg-red-400 w-full h-full">events.--1</div>,
+                  },
+                  {
+                    key: "g.2",
+                    node: <div className="bg-red-600 w-full h-full">events.2</div>,
+                  },
+                  {
+                    key: "g.3",
+                    node: <div className="bg-red-800 w-full h-full">events.3</div>,
+                  },
+                ]}
+              />
+            </div>
+            <div className="bg-green-100">
+              <Rotation
+                className="w-full h-full"
+                timeout={12}
+                nodes={[
+                  {
+                    key: "g.1",
+                    node: (
+                      <div className="bg-green-400 w-full h-full">wine.1</div>
+                    ),
+                  },
+                  {
+                    key: "g.2",
+                    node: (
+                      <div className="bg-green-600 w-full h-full">wine.2</div>
+                    ),
+                  },
+                  {
+                    key: "g.3",
+                    node: (
+                      <div className="bg-green-800 w-full h-full">wine.3</div>
+                    ),
+                  },
+                ]}
+              />
+            </div>
+            <div className="bg-blue-100">
+              <Rotation
+                className="w-full h-full"
+                timeout={17}
+                nodes={[
+                  {
+                    key: "g.1",
+                    node: (
+                      <div className="bg-blue-400 w-full h-full">info.1</div>
+                    ),
+                  },
+                  {
+                    key: "g.2",
+                    node: (
+                      <div className="bg-blue-600 w-full h-full">info.2</div>
+                    ),
+                  },
+                  {
+                    key: "g.3",
+                    node: (
+                      <div className="bg-blue-800 w-full h-full">info.3</div>
+                    ),
+                  },
+                ]}
+              />
+            </div>
+          </section>
         </div>
       </section>
     </div>
@@ -64,20 +110,3 @@ const HelpPage = () => {
 
 export default HelpPage;
 //
-
-function Articles({ articles }) {
-  //
-  return null != articles ? (
-    chunk(articles, articles.length % 3).map((articles_, i) => (
-      <div key={i}>
-        <ArticlesPreview articles={articles_} />
-      </div>
-    ))
-  ) : (
-    <small>loadig...</small>
-  );
-}
-function Article({ article }) {
-  return <div className="bg-blue-100/50">{article.title}</div>;
-}
-function ArticlesPreview({ articles = [] }) {}
