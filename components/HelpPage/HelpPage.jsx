@@ -12,6 +12,7 @@ import { useArticles } from "../../app/store";
 import Rotation from "../Rotation/Rotation";
 import placeholder01 from "../../public/placeholder01.png";
 import chunk from "lodash/chunk";
+import { SpinnerRotatingLines } from "../loaders";
 //
 export { bgDashboard };
 ////
@@ -46,7 +47,7 @@ const HelpPage = () => {
                   })}
                 />
               ) : (
-                <LoadingSmall />
+                <SpinnerThumb />
               )}
             </div>
             <div className="***bg-green-100">
@@ -57,7 +58,7 @@ const HelpPage = () => {
                   nodes={articleChunks[1].map(_thumb, { classes: "" })}
                 />
               ) : (
-                <LoadingSmall />
+                <SpinnerThumb />
               )}
             </div>
             <div className="***bg-blue-100">
@@ -70,7 +71,7 @@ const HelpPage = () => {
                   })}
                 />
               ) : (
-                <LoadingSmall />
+                <SpinnerThumb />
               )}
             </div>
           </section>
@@ -105,7 +106,11 @@ function _thumb(article) {
     ),
   };
 }
-//
-function LoadingSmall() {
-  return <small className="text-xs">loading...</small>;
+
+function SpinnerThumb() {
+  return (
+    <div className="w-full h-full flex flex-row justify-center items-center">
+      <SpinnerRotatingLines />
+    </div>
+  );
 }

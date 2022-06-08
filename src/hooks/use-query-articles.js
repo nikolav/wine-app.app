@@ -6,15 +6,15 @@ import { URL_LOCAL } from "../feathers";
 const ARTICLES = "articles";
 export const DEFAULT_QUERY_CONFIG = {
   // refresh data on every window focus
-  refetchOnWindowFocus: true,
+  // refetchOnWindowFocus: true,
   //   refetchOnMount: bool,
   //   refetchOnReconnect: bool,
 
   // how oftern to refetch data
-  staleTime: 23456, // [0], `Infinity`: fresh forever, refetch manually
+  staleTime: 56789, // [0], `Infinity`: fresh forever, refetch manually
 
   // ttl for cached/hiden query for memcached data thats not displaying
-  cacheTime: 5 * 60 * 1000, // in ms; `Infinity` doesnt gc queries
+  cacheTime: 12 * 60 * 1000, // in ms; `Infinity` doesnt gc queries
 
   // how many times to retry failed query
   retry: false, // number | boolean | 0 [3]
@@ -47,7 +47,7 @@ export const DEFAULT_QUERY_CONFIG = {
   // }
 
   // poll interval [ms]
-  refetchInterval: 56789,
+  refetchInterval: 67890,
   //
   //  onSuccess: (data) => null,
   //  onError: (error) => null,
