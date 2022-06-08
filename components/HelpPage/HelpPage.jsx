@@ -34,7 +34,7 @@ const HelpPage = () => {
               {articles ? (
                 <Rotation
                   className="w-full h-full"
-                  timeout={15}
+                  timeout={48}
                   nodes={articles.map(_thumb, { classes: "rounded-tr-2xl" })}
                 />
               ) : (
@@ -45,7 +45,7 @@ const HelpPage = () => {
               {articles ? (
                 <Rotation
                   className="w-full h-full"
-                  timeout={12}
+                  timeout={55}
                   nodes={articles.map(_thumb, { classes: "" })}
                 />
               ) : (
@@ -56,7 +56,7 @@ const HelpPage = () => {
               {articles ? (
                 <Rotation
                   className="w-full h-full"
-                  timeout={19}
+                  timeout={45}
                   nodes={articles.map(_thumb, { classes: "rounded-br-2xl" })}
                 />
               ) : (
