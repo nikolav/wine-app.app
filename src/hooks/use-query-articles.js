@@ -1,12 +1,14 @@
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import axios from "axios";
-import { skipEndSlashes } from "../util";
+import { stripEndSlashes } from "../util";
 import { URL_LOCAL } from "../feathers";
 //
-
+const ARTICLES = "articles";
 export const DEFAULT_QUERY_CONFIG = {
   // refresh data on every window focus
-  // refetchOnWindowFocus: true,
+  refetchOnWindowFocus: true,
+  //   refetchOnMount: bool,
+  //   refetchOnReconnect: bool,
 
   // how oftern to refetch data
   staleTime: 23456, // [0], `Infinity`: fresh forever, refetch manually
@@ -16,7 +18,7 @@ export const DEFAULT_QUERY_CONFIG = {
 
   // how many times to retry failed query
   retry: false, // number | boolean | 0 [3]
-  // retryDelay: number [sec] | func 
+  // retryDelay: number [sec] | func
 
   //  enable dependent queries;
   //    allow query to run after prev. data has been fetched
@@ -26,8 +28,9 @@ export const DEFAULT_QUERY_CONFIG = {
 
   // use existing query data seed
   // initialData: any,
-  // initialData: () => queryCache.getQueryData("posts"),
-
+  // ..start with exisiting cache if any;
+  // @deprecated
+  // initialData: () => qCache.findAll(ARTICLES),
   // show initial data but fetch on component mount
   initialStale: true,
 
@@ -49,18 +52,30 @@ export const DEFAULT_QUERY_CONFIG = {
   //  onSuccess: (data) => null,
   //  onError: (error) => null,
   //  onSettled: (data, error) => null,
+
+  // prepopulate its cache if empty
+  // with placeholder, partial or incomplete data
+  // it doesnt cache this data like .initialData
+  // .. can pass memozed function to calc. data upfront
+  // .placeholderData
 };
 
 //
 export default function useQueryArticles(config = {}) {
+  const queryClient = useQueryClient();
+  // .invalidateQueries(<key>)
+  // .prefetchQuery(<key>, <fetch>)
+  // setQueryData(<key>, <data>)
+  //
   return useQuery(
-    "articles",
-    () =>
+    ARTICLES,
+    (_queryKey) =>
       axios
-        .get(`${skipEndSlashes(URL_LOCAL)}/articles`)
+        .get(`${stripEndSlashes(URL_LOCAL)}/${ARTICLES}`)
         .then((res) => res.data),
     {
       ...DEFAULT_QUERY_CONFIG,
+      initialData: () => queryClient.getQueryData(ARTICLES),
       ...config,
     }
   );

@@ -58,7 +58,7 @@ const UserNotificationAuthStateChange = () => {
   return (
     <DrawerBox isActive={isOn} onClose={toggle.off}>
       <div className="flex flex-row items-center justify-center h-full">
-        <p className="text-center">
+        <section className="text-center">
           {null != user ? (
             <strong>
               👋🏼 Dobrodošli {escapeHTML(user?.displayName || "!")}
@@ -70,7 +70,7 @@ const UserNotificationAuthStateChange = () => {
               <p className="italic opacity-80">👋🏼</p>
             </>
           )}
-        </p>
+        </section>
       </div>
       {/* <pre className="text-xs">{JSON.stringify(user, null, 2)}</pre> */}
     </DrawerBox>

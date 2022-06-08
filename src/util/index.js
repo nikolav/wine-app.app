@@ -6,7 +6,7 @@ import { has } from "./has";
 import dateFormated from "./date-formated";
 import WR_InitRecord from "./wr-init-record";
 import escapeHTML from "escape-html";
-import skipEndSlashes from "./skip-end-slashes";
+import stripEndSlashes from "./strip-end-slashes";
 import q from "nikolav-q";
 //
 const debounce = q.func.debounce;
@@ -20,6 +20,6 @@ export {
   isEmail,
   noop,
   prevent,
-  skipEndSlashes,
+  stripEndSlashes,
   WR_InitRecord,
 };

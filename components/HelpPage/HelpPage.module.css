@@ -5,3 +5,9 @@
     background-size: cover;
     background-position: center;
 }
+
+@media (min-width: 768px) {
+    .twoCols {
+        grid-template-columns: 1fr auto !important;
+    }
+}
