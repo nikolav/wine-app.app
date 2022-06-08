@@ -65,7 +65,7 @@ export default function useQueryArticles(config = {}) {
   const queryClient = useQueryClient();
   // .invalidateQueries(<key>)
   // .prefetchQuery(<key>, <fetch>)
-  // setQueryData(<key>, <data>)
+  // .setQueryData(<key>, <data>)
   //
   return useQuery(
     ARTICLES,
