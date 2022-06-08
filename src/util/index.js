@@ -7,11 +7,14 @@ import dateFormated from "./date-formated";
 import WR_InitRecord from "./wr-init-record";
 import escapeHTML from "escape-html";
 import stripEndSlashes from "./strip-end-slashes";
+import arrayDivide from "./array-divide";
+//
 import q from "nikolav-q";
 //
 const debounce = q.func.debounce;
 //
 export {
+  arrayDivide,
   arrayRand,
   dateFormated,
   debounce,

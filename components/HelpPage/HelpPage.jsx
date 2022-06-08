@@ -11,8 +11,9 @@ import { motion } from "framer-motion";
 import { useArticles } from "../../app/store";
 import Rotation from "../Rotation/Rotation";
 import placeholder01 from "../../public/placeholder01.png";
-import chunk from "lodash/chunk";
 import { SpinnerRotatingLines } from "../loaders";
+import { arrayDivide } from "../../src/util";
+import shuffle from "lodash/shuffle";
 //
 export { bgDashboard };
 ////
@@ -20,10 +21,7 @@ export { bgDashboard };
 const HelpPage = () => {
   // const { isOn, toggle } = useStateSwitch();
   const { articles } = useArticles();
-  const articleChunks = chunk(
-    articles || [],
-    Math.ceil((articles?.length || 0) / 3)
-  );
+  const articleChunks = arrayDivide(shuffle(articles || []), 3);
   //
   return (
     <div className="h-full">
@@ -31,8 +29,6 @@ const HelpPage = () => {
         className={`text-white md:grid md:grid-cols-2 h-full gap-px mx-3 -mt-1 ${twoCols}`}
       >
         <div className="h-full md:h-auto bg-gradient-to-b from-black/80 to-black/95 rounded-2xl md:rounded-r-none">
-          <p className="text-xl">🚧 dobrodosli</p>
-          <p className="text-xl">🚧 aplikacija je u izradi</p>
           <p className="text-xl">🚧 comming on</p>
         </div>
         <div className="p-px hidden md:!block w-48 bg-gradient-to-r from-black/80 to-black/90 rounded-r-2xl ***overflow-hidden">
@@ -41,7 +37,7 @@ const HelpPage = () => {
               {articles ? (
                 <Rotation
                   className="w-full h-full"
-                  timeout={67}
+                  timeout={55}
                   nodes={articleChunks[0].map(_thumb, {
                     classes: "rounded-tr-2xl",
                   })}
@@ -54,7 +50,7 @@ const HelpPage = () => {
               {articles ? (
                 <Rotation
                   className="w-full h-full"
-                  timeout={45}
+                  timeout={44}
                   nodes={articleChunks[1].map(_thumb, { classes: "" })}
                 />
               ) : (
@@ -65,7 +61,7 @@ const HelpPage = () => {
               {articles ? (
                 <Rotation
                   className="w-full h-full"
-                  timeout={56}
+                  timeout={66}
                   nodes={articleChunks[2].map(_thumb, {
                     classes: "rounded-br-2xl",
                   })}
