@@ -63,7 +63,7 @@ export default function Rotation({
   if (!has(ROTATION_EFFECT, effect)) effect = DEFAULT_ROTATION_EFFECT;
   //
   //
-  return (
+  return 0 < nodes.length ? (
     <AnimatePresence initial={false}>
       <div
         style={{
@@ -86,5 +86,5 @@ export default function Rotation({
         </motion.div>
       </div>
     </AnimatePresence>
-  );
+  ) : null;
 }
