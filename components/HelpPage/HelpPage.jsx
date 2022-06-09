@@ -6,6 +6,7 @@ import { bgDashboard, twoCols } from "./HelpPage.module.css";
 // import useChatNotify from "../../src/hooks/use-chat-notify";
 // import Tooltip from "../Tooltip/Tooltip";
 // import Panel from "../Panel";
+import Like from "../Like/Like";
 import { motion } from "framer-motion";
 // import Image from "next/image";
 import {
@@ -32,7 +33,9 @@ const HelpPage = () => {
         className={`text-white md:grid md:grid-cols-2 h-full gap-px mx-3 -mt-1 ${twoCols}`}
       >
         <div className="h-full md:h-auto bg-gradient-to-b from-black/80 to-black/95 rounded-2xl md:rounded-r-none">
-          <p className="text-xl">🚧 comming on</p>
+          <p className="text-xl ***text-center">
+            🚧 comming soon <Like id="1-22-333" className="!inline-block" />
+          </p>
         </div>
         <div className="p-px hidden md:!block w-48 bg-gradient-to-r from-black/80 to-black/90 rounded-r-2xl ***overflow-hidden">
           <section className="grid grid-rows-3 gap-px h-full">

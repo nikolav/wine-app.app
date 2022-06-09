@@ -166,7 +166,7 @@ export default function Rotation({
       >
         <motion.div
           key={active.key}
-          className="absolute inset-0 h-full"
+          className="absolute inset-0 ***h-full"
           initial={ROTATION_EFFECT[effect].initial}
           exit={ROTATION_EFFECT[effect].exit}
           animate={ROTATION_EFFECT[effect].animate}

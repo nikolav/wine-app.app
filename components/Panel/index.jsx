@@ -71,6 +71,7 @@ const PanelAppear = ({
   key = "panel",
   effect = "_default",
   children,
+  className,
   ...rest
 }) => {
   if (!has(APPEAR, effect)) effect = "_default";
@@ -84,7 +85,8 @@ const PanelAppear = ({
             exit={APPEAR[effect].exit}
             animate={APPEAR[effect].animate}
             key={key}
-            className="m-0 p-0"
+            className={`m-0 p-0 ${className}`}
+            {...rest}
           >
             {children}
           </motion.div>
