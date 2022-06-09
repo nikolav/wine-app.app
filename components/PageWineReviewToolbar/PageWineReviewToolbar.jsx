@@ -1,4 +1,4 @@
-import React, { useState, forwardRef } from "react";
+import React, { useEffect, useState, forwardRef } from "react";
 import PortalOverlaysEnd from "../PortalOverlaysEnd";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -86,6 +86,15 @@ const PageWineReviewToolbar = () => {
   const [refPopperSave, setRefPopperSave] = useState(null);
   const { isOn: isActivePopperSave, toggle: toggleIsActivePopperSave } =
     useStateSwitch();
+  const [refPopperTrash, setRefPopperTrash] = useState(null);
+  const { isOn: isActivePopperTrash, toggle: toggleIsActivePopperTrash } =
+    useStateSwitch();
+  //
+  // @bug-11; deactivates trash tooltip on @image-choose
+  const onImageDataUrlUpdate = globals(WINE_REVIEW_IMAGE_DATAURL);
+  useEffect(() => {
+    toggleIsActivePopperTrash.off();
+  }, [onImageDataUrlUpdate]);
   //
   return (
     <>
@@ -106,9 +115,25 @@ const PageWineReviewToolbar = () => {
                 {/*  */}
                 {imageDataWineReview && (
                   <>
-                    <IconCommand onClick={prevent(image_.rm)}>
+                    <IconCommand
+                      ref={setRefPopperTrash}
+                      onMouseOver={toggleIsActivePopperTrash.on}
+                      onMouseLeave={toggleIsActivePopperTrash.off}
+                      onClick={prevent(image_.rm)}
+                    >
                       <MdDeleteOutline className="text-white text-3xl opacity-20 hover:scale-110 transition-transform hover:opacity-80 active:opacity-100 cursor-pointer" />
                     </IconCommand>
+                    <Tooltip
+                      refElement={refPopperTrash}
+                      isActive={isActivePopperTrash}
+                      offset={[0, 23]}
+                    >
+                      {/* @bug-11; choose-image-feat  */}
+                      {/* otvara toolitip automatski kada se izabere slika */}
+                      {/* watch `WINE_REVIEW_IMAGE_DATAURL` when image is set  */}
+                      {/* .. to deactivate */}
+                      🚫 ukloni sliku
+                    </Tooltip>
                   </>
                 )}
                 {/*  */}
@@ -123,7 +148,6 @@ const PageWineReviewToolbar = () => {
                 <Tooltip
                   refElement={refPopperDescription}
                   isActive={isActivePopperDescription}
-                  placement="left"
                   offset={[0, 23]}
                 >
                   ✍🏼 detaljnije
@@ -148,7 +172,6 @@ const PageWineReviewToolbar = () => {
                   <Tooltip
                     refElement={refPopperSave}
                     isActive={isActivePopperSave}
-                    placement="left"
                     offset={[0, 23]}
                   >
                     💾 sačuvaj

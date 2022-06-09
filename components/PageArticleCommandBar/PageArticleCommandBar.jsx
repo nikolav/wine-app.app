@@ -1,5 +1,9 @@
-import React, { useEffect, useState, forwardRef } from "react";
-import modcss from "./PageArticleCommandBar.module.css";
+import React, {
+  // useEffect,
+  useState,
+  forwardRef,
+} from "react";
+// import modcss from "./PageArticleCommandBar.module.css";
 import PortalOverlaysEnd from "../PortalOverlaysEnd";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -80,6 +84,11 @@ const PageArticleCommandBar = () => {
   const { isOn: isActiveSave, toggle: toggleIsActiveSave } = useStateSwitch();
   const [refPopperImage, setRefPopperImage] = useState(null);
   const { isOn: isActiveImage, toggle: toggleIsActiveImage } = useStateSwitch();
+  const [refPopperTrash, setRefPopperTrash] = useState(null);
+  const { isOn: isActiveTrash, toggle: toggleIsActiveTrash } = useStateSwitch();
+  const [refPopperImagePreview, setRefPopperImagePreview] = useState(null);
+  const { isOn: isActiveImagePreview, toggle: toggleIsActiveImagePreview } =
+    useStateSwitch();
   //
   //
   return (
@@ -102,6 +111,12 @@ const PageArticleCommandBar = () => {
                   ref={setRefPopperImage}
                   onMouseOver={toggleIsActiveImage.on}
                   onMouseLeave={toggleIsActiveImage.off}
+                  onClick={() => {
+                    // trash tooltip stays open when choosing image..
+                    // deactivates it here
+                    toggleIsActiveTrash.off();
+                    toggleIsActiveImage.off();
+                  }}
                 >
                   <ChooseImage id="articleCommandBar">
                     <FiCamera className="text-white text-4xl opacity-50 hover:scale-110 transition-transform hover:opacity-80 active:opacity-100 cursor-pointer" />
@@ -116,12 +131,36 @@ const PageArticleCommandBar = () => {
                 </Tooltip>
                 {imageData && (
                   <>
-                    <IconCommand onClick={prevent(image_.rm)}>
+                    <IconCommand
+                      ref={setRefPopperTrash}
+                      onMouseOver={toggleIsActiveTrash.on}
+                      onMouseLeave={toggleIsActiveTrash.off}
+                      onClick={prevent(image_.rm)}
+                    >
                       <MdDeleteOutline className="text-white text-3xl opacity-20 hover:scale-110 transition-transform hover:opacity-80 active:opacity-100 cursor-pointer" />
                     </IconCommand>
-                    <IconCommand onClick={prevent(image_.show)}>
+                    <Tooltip
+                      refElement={refPopperTrash}
+                      isActive={isActiveTrash}
+                      offset={[0, 23]}
+                    >
+                      🚫 ukloni sliku
+                    </Tooltip>
+                    <IconCommand
+                      ref={setRefPopperImagePreview}
+                      onMouseOver={toggleIsActiveImagePreview.on}
+                      onMouseLeave={toggleIsActiveImagePreview.off}
+                      onClick={prevent(image_.show)}
+                    >
                       <BiShow className="text-white text-3xl opacity-20 hover:scale-110 transition-transform hover:opacity-80 active:opacity-100 cursor-pointer" />
                     </IconCommand>
+                    <Tooltip
+                      refElement={refPopperImagePreview}
+                      isActive={isActiveImagePreview}
+                      offset={[0, 23]}
+                    >
+                      🔎 pogledaj sliku
+                    </Tooltip>
                   </>
                 )}
                 <IconCommand
