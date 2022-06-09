@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { arrayRand, has } from "../../src/util";
 import useTimer from "../../src/hooks/use-timer";
 import useIsMounted from "../../src/hooks/use-is-mounted";
 
-const DEFAULT_ROTATION_TIMEOUT = 3; // [sec]
+// [sec.]
+const DEFAULT_ROTATION_TIMEOUT = 3;
 const DEFAULT_ROTATION_EFFECT = "fade";
 const ROTATION_EFFECT = {
   fade: {
@@ -23,11 +24,14 @@ const ROTATION_EFFECT = {
   },
 };
 
+/**
+ * <Rotation onNext={loadNext} />
+ */
+
 export default function Rotation({
   //
   // [{ key: string.unique, node: Node|Component }]
   nodes = [],
-
   //
   // [sec]
   timeout = DEFAULT_ROTATION_TIMEOUT,
@@ -35,35 +39,122 @@ export default function Rotation({
   //
   effect = DEFAULT_ROTATION_EFFECT,
   //
+  //
+  // manual mode
+  // doesnt auto start
+  // loads slides in .useEffect
+  // ..when load<IncomingSlide> value changes outside.. `@Date.now()`
+  manual = false,
+  //
+  loadNext = null,
+  loadPrev = null,
+  loadRandom = null,
+  // { slide: number, key: string.unique }
+  loadSlide = null,
+  //
+  loop = false,
+  startIndex = null,
+  //
+  // access current slider state
+  // pass callback to .debug
+  // { debug: access(state@slider), key: string.unique }
+  onDebug = null,
+  //
   ...rest
 }) {
+  const refNodes = useRef(nodes);
+  const NODES = refNodes.current;
+  //
   const isMounted = useIsMounted();
-  const [active, setActive] = useState(arrayRand(nodes));
-  const nextNode = () => {
+  const [active, setActive] = useState(
+    null != startIndex ? NODES[startIndex] : arrayRand(NODES)
+  );
+  //
+  // slider navigation, nex, prev, random, goTo
+  const nextNodeRandom = () => {
     let node = active;
 
-    if (1 < nodes.length) {
+    if (1 < NODES.length) {
       while (node === active) {
-        node = arrayRand(nodes);
+        node = arrayRand(NODES);
       }
     }
     setActive(node);
   };
+  const nextNode = () => {
+    let node = active;
+    const len = NODES.length;
+    const index = NODES.indexOf(node);
+    const indexNext = 1 + index;
+    //
+    if (1 < len) {
+      if (indexNext < len) {
+        node = NODES[indexNext];
+      } else if (true === loop) {
+        node = NODES[0];
+      }
+      setActive(node);
+    }
+  };
+  const prevNode = () => {
+    let node = active;
+    const len = NODES.length;
+    const index = NODES.indexOf(node);
+    //
+    if (1 < len) {
+      if (0 < index) {
+        node = NODES[index - 1];
+      } else if (true === loop) {
+        node = NODES[len - 1];
+      }
+      setActive(node);
+    }
+  };
   //
-  const timerControls = useTimer(nextNode);
+  const timerControls = useTimer(nextNodeRandom);
   const slideshowStart = timerControls.start.bind(
     null,
     parseInt(timeout, 10) * 1000
   );
-  //
   useEffect(() => {
-    if (isMounted) slideshowStart();
+    if (isMounted && !manual) slideshowStart();
     return timerControls.stop;
   }, [isMounted]);
+  //
+  //
+  useEffect(() => {
+    if (null != loadNext) nextNode();
+  }, [loadNext]);
+  useEffect(() => {
+    if (null != loadPrev) prevNode();
+  }, [loadPrev]);
+  useEffect(() => {
+    if (null != loadRandom) nextNodeRandom();
+  }, [loadRandom]);
+  // { slide: number, key: string.unique }
+  useEffect(() => {
+    if (null != loadSlide) setActive(NODES[loadSlide.slide]);
+  }, [loadSlide?.key]);
+  // { debug: func(state@slider), key: string.unique }
+  useEffect(() => {
+    if (null != onDebug)
+      onDebug.debug({
+        active,
+        effect,
+        index: NODES.indexOf(active),
+        isRunning: timerControls.running,
+        loop,
+        manual,
+        nodes: [...NODES],
+        startIndex,
+        timeout,
+        total: NODES.length,
+      });
+  }, [onDebug?.key]);
+  //
   if (!has(ROTATION_EFFECT, effect)) effect = DEFAULT_ROTATION_EFFECT;
   //
-  //
-  return 0 < nodes.length ? (
+  return 0 < NODES.length ? (
     <AnimatePresence initial={false}>
       <div
         style={{
@@ -71,8 +162,8 @@ export default function Rotation({
           margin: 0,
           padding: 0,
         }}
-        onMouseOver={timerControls.stop}
-        onMouseOut={slideshowStart}
+        onMouseOver={() => !manual && timerControls.stop()}
+        onMouseOut={() => !manual && slideshowStart()}
         {...rest}
       >
         <motion.div

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { bgDashboard, twoCols } from "./HelpPage.module.css";
 // import useStateSwitch from "../../src/hooks/use-state-switch";
 // import DrawerBox from "../DrawerBox/DrawerBox";
@@ -8,9 +8,9 @@ import { bgDashboard, twoCols } from "./HelpPage.module.css";
 // import Panel from "../Panel";
 import { motion } from "framer-motion";
 // import Image from "next/image";
-import { 
-  useArticles, 
-  // useWineReview 
+import {
+  useArticles,
+  // useWineReview
 } from "../../app/store";
 import Rotation from "../Rotation/Rotation";
 import placeholder01 from "../../public/placeholder01.png";
@@ -24,10 +24,14 @@ export { bgDashboard };
 const HelpPage = () => {
   // const { isOn, toggle } = useStateSwitch();
   const { articles } = useArticles();
-  // const { winereview } = useWineReview();
   //
   const articleChunks = arrayDivide(shuffle(articles || []), 3);
-  console.log(winereview);
+  //
+  const [loadNext, setLoadNext] = useState(null);
+  const [loadPrev, setLoadPrev] = useState(null);
+  const [loadRandom, setLoadRandom] = useState(null);
+  const [loadSlide, setLoadSlide] = useState(null);
+  const [onDebug, setOnDebug] = useState(null);
   //
   return (
     <div className="h-full">
@@ -36,12 +40,61 @@ const HelpPage = () => {
       >
         <div className="h-full md:h-auto bg-gradient-to-b from-black/80 to-black/95 rounded-2xl md:rounded-r-none">
           <p className="text-xl">🚧 comming on</p>
+          <button
+            className="button"
+            type="button"
+            onClick={() => setLoadPrev(Date.now())}
+          >
+            prev
+          </button>
+          <button
+            className="button"
+            type="button"
+            onClick={() => setLoadNext(Date.now())}
+          >
+            next
+          </button>
+          <button
+            className="button"
+            type="button"
+            onClick={() => setLoadRandom(Date.now())}
+          >
+            rand
+          </button>
+          <button
+            className="button"
+            type="button"
+            onClick={() => setLoadSlide({ slide: 1, key: Date.now() })}
+          >
+            go-to @1
+          </button>
+          <button
+            className="button"
+            type="button"
+            onClick={() =>
+              setOnDebug({
+                debug: (state) => console.log(state),
+                key: Date.now(),
+              })
+            }
+          >
+            debug
+          </button>
         </div>
         <div className="p-px hidden md:!block w-48 bg-gradient-to-r from-black/80 to-black/90 rounded-r-2xl ***overflow-hidden">
           <section className="grid grid-rows-3 gap-px h-full">
             <div className="***bg-red-100">
               {articles ? (
                 <Rotation
+                  //
+                  manual={true}
+                  loadNext={loadNext}
+                  loadPrev={loadPrev}
+                  loadRandom={loadRandom}
+                  loadSlide={loadSlide}
+                  loop={true}
+                  onDebug={onDebug}
+                  startIndex={1}
                   className="w-full h-full"
                   timeout={55}
                   nodes={articleChunks[0].map(_thumb, {
