@@ -24,35 +24,33 @@ const ROTATION_EFFECT = {
   },
 };
 
-/**
- * <Rotation onNext={loadNext} />
- */
-
 export default function Rotation({
   //
-  // [{ key: string.unique, node: Node|Component }]
+  // Array<{ key: string.unique, node: Node|Component }>
   nodes = [],
   //
   // [sec]
   timeout = DEFAULT_ROTATION_TIMEOUT,
   //
-  //
+  // string
   effect = DEFAULT_ROTATION_EFFECT,
-  //
   //
   // manual mode
   // doesnt auto start
   // loads slides in .useEffect
   // ..when load<IncomingSlide> value changes outside.. `@Date.now()`
   manual = false,
-  //
+  // string.unique*
   loadNext = null,
   loadPrev = null,
   loadRandom = null,
   // { slide: number, key: string.unique }
   loadSlide = null,
   //
+  // @next; skip to 0 if @end 
+  // @prev; skip to @end if 0
   loop = false,
+  // number; load @mount
   startIndex = null,
   //
   // access current slider state

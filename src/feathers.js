@@ -5,8 +5,8 @@ import io from "socket.io-client";
 export const URL_DEVELOPMENT = "http://localhost:3031/";
 export const URL_PRODUCTION = "https://wine-app-api.herokuapp.com/";
 //
-export const URL_LOCAL = URL_DEVELOPMENT;
-// export const URL_LOCAL = URL_PRODUCTION;
+// export const URL_LOCAL = URL_DEVELOPMENT;
+export const URL_LOCAL = URL_PRODUCTION;
 //
 const socket = io(URL_LOCAL);
 const client = feathers();
