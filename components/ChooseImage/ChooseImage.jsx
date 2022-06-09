@@ -34,7 +34,11 @@ export default function ChooseImage({
     //
     if (isMounted && file) {
       read(file);
-      globals.set(GLOBAL_FILE, { file, target: evt?.target });
+      globals.set(GLOBAL_FILE, 
+        { 
+          file, 
+          target: evt?.target 
+      });
     }
   };
   useEffect(() => {
