@@ -256,7 +256,7 @@ function ChatComment({
       {...rest}
     >
       <div className="w-20 text-center">
-        <div className="opacity-70 truncate">{comment?.user || "🤖"}</div>
+        <div className="opacity-70 truncate">{comment?.user || "👤"}</div>
         <small className="!text-xs italic opacity-30">
           {dateFormated(comment[CREATED_AT])}
         </small>
