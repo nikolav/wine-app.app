@@ -39,7 +39,7 @@ const Panel = ({
         ref={setPopperElement}
         style={styles.popper}
         {...attributes.popper}
-        className="z-10 m-0 p-0"
+        className="z-20 m-0 p-0"
       >
         {children}
       </div>
@@ -51,11 +51,41 @@ const DEFAULT_DURATION_IN = 0.24;
 const DEFAULT_DURATION_OUT = 0.1;
 const APPEAR = {
   slideUp: {
-    initial: { opacity: 0, y: 12 },
-    exit: { opacity: 0, transition: { duration: DEFAULT_DURATION_OUT } },
+    initial: { opacity: 0, y: 12, scale: 1 },
+    exit: {
+      opacity: 0,
+      scale: 1.05,
+      transition: { duration: DEFAULT_DURATION_OUT },
+    },
     animate: {
       opacity: 1,
       y: 0,
+      transition: { type: "spring", duration: DEFAULT_DURATION_IN },
+    },
+  },
+  slideLeft: {
+    initial: { opacity: 0, x: 12, scale: 1 },
+    exit: {
+      opacity: 0,
+      scale: 1.05,
+      transition: { duration: DEFAULT_DURATION_OUT },
+    },
+    animate: {
+      opacity: 1,
+      x: 0,
+      transition: { type: "spring", duration: DEFAULT_DURATION_IN },
+    },
+  },
+  puff: {
+    initial: { opacity: 0, scale: 1.05 },
+    exit: {
+      opacity: 0,
+      scale: 1.1,
+      transition: { duration: DEFAULT_DURATION_OUT },
+    },
+    animate: {
+      opacity: 1,
+      scale: 1,
       transition: { type: "spring", duration: DEFAULT_DURATION_IN },
     },
   },

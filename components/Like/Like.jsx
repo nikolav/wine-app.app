@@ -1,8 +1,10 @@
 import React from "react";
 import useLike, { localId } from "../../src/hooks/use-like";
+import useIsMounted from "../../src/hooks/use-is-mounted";
 
 const Like = ({ id, className = "", ...rest }) => {
-  const isLiked = null != localStorage.getItem(localId(id));
+  const isMounted = useIsMounted();
+  const isLiked = isMounted ? null != localStorage.getItem(localId(id)) : null;
   const { like, likeCount } = useLike(id);
 
   return (
@@ -21,7 +23,7 @@ const Like = ({ id, className = "", ...rest }) => {
         </span>
       </strong>
       <i style={{ fontSize: "64%" }} className="***pt-1 ***ml-1">
-        {likeCount || 0}
+        {likeCount ?? "."}
       </i>
     </em>
   );

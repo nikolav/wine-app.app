@@ -8,10 +8,13 @@ import WR_InitRecord from "./wr-init-record";
 import escapeHTML from "escape-html";
 import stripEndSlashes from "./strip-end-slashes";
 import arrayDivide from "./array-divide";
+import sortByTimestampDesc from "./sort-by-timestamp-desc";
 //
 import q from "nikolav-q";
+import shuffle from "lodash/shuffle";
 //
 const debounce = q.func.debounce;
+const paste = q.object.paste;
 //
 export {
   arrayDivide,
@@ -22,7 +25,10 @@ export {
   has,
   isEmail,
   noop,
+  paste,
   prevent,
+  shuffle,
+  sortByTimestampDesc,
   stripEndSlashes,
   WR_InitRecord,
 };
