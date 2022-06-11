@@ -4,12 +4,18 @@ import LeadBreak from "../LeadBreak";
 
 import NavCountriesPagesLinks from "../NavCountriesPagesLinks/NavCountriesPagesLinks";
 import { bgUsa } from "./PageUsaWine.module.css";
+import { CommentsLike } from "../social";
 //
 //
 const PageUsaWine = () => {
   return (
     <>
       <NavCountriesPagesLinks />
+      <CommentsLike
+        size="sm"
+        id="article-use--hkdmivtcdkd"
+        className="absolute top-[62px] right-[8px]"
+      />
       <div
         className={`${bgUsa} overflow-y-auto scrollbar-thin p-6 mt-8 indent-8 space-y-8`}
         style={{

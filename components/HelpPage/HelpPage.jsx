@@ -17,7 +17,6 @@ import Rotation from "../Rotation/Rotation";
 import placeholder01 from "../../public/placeholder01.png";
 import { SpinnerRotatingLines } from "../loaders";
 import { arrayDivide, shuffle } from "../../src/util";
-import { CommentsLike } from  "../social";
 
 export { bgDashboard };
 ////
@@ -36,7 +35,6 @@ const HelpPage = () => {
           <p className="text-xl">
             🚧 comming soon
           </p>
-          <CommentsLike id="main--memytocvgxi" className="mx-auto" />
         </div>
         <div className="p-px hidden md:!block w-48 bg-gradient-to-r from-black/80 to-black/90 rounded-r-2xl ***overflow-hidden">
           <section className="grid grid-rows-3 gap-px h-full">

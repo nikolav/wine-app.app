@@ -43,6 +43,9 @@
   .text-danger {
     @apply text-red-600;
   }
+  .bg-danger {
+    @apply bg-red-600;
+  }
 
   .heading-primary {
     @apply text-2xl font-semibold;

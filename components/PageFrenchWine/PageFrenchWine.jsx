@@ -6,13 +6,18 @@ import { bgFrance } from "./PageFrenchWine.module.css";
 import LinkPreviewGallery, {
   GALLERY_FRANCE,
 } from "../LinkPreviewGallery/LinkPreviewGallery";
-
+import { CommentsLike } from "../social";
 //
 //
 const PageFrenchWine = () => {
   return (
     <>
       <NavCountriesPagesLinks />
+      <CommentsLike
+        size="sm"
+        id="article-france--ezkglehgfil"
+        className="absolute top-[62px] right-[8px]"
+      />
       <div
         className={`${bgFrance} overflow-y-auto scrollbar-thin p-6 mt-8 space-y-8 indent-8`}
         style={{

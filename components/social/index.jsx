@@ -11,7 +11,7 @@ import {
 } from "../../src/util";
 import useStateSwitch from "../../src/hooks/use-state-switch";
 import Panel from "../Panel";
-import { RiCloseCircleFill, MdDeleteOutline } from "../icons";
+import { RiCloseCircleFill, MdDeleteOutline, IoMdPower } from "../icons";
 import useInputSynced from "../../src/hooks/use-input-synced.js";
 import { useAuth } from "../../app/store";
 //
@@ -77,6 +77,8 @@ export const Comments = ({
   refElement = null,
   size,
   className = "",
+  placement = "bottom",
+  offset = [0, 0],
   // ...rest
 }) => {
   // refs={{ refElement, setRefElement }}
@@ -104,7 +106,7 @@ export const Comments = ({
       <WithOptionalRef
         setRefNode={null != refElement ? null : setRefNode}
         onClick={toggle}
-        className={`cursor-pointer ${className}`}
+        className={`!indent-0 cursor-pointer ${className}`}
       >
         <span className={`${isSmall ? "!tracking-tighter !m-0" : "mr-2"}`}>
           💬
@@ -115,8 +117,8 @@ export const Comments = ({
         effect="puff"
         refElement={null != refElement ? refElement : refNode}
         isActive={isOn}
-        placement="bottom"
-        offset={[0, 2]}
+        placement={placement}
+        offset={offset}
         className="border-2 border-slate-900 h-[320px] w-[456px] !max-w-full  bg-gradient-to-b to-slate-200 from-slate-200/80 overflow-hidden rounded-xl shadow-xl backdrop-blur-sm"
       >
         <section className="space-y-2 text-sm p-2 pt-4 !pb-32 w-full h-full !overflow-y-auto scrollbar-thin">
@@ -144,16 +146,20 @@ export const Comments = ({
               id="comment"
               autoFocus
               autoComplete="off"
-              className="pl-2 placeholder:text-white/50 grow input-underline text-white/80 !border-white/80 mx-4"
+              className="pl-2 placeholder:text-white/50 !grow input-underline text-white/80 !border-white/80 mx-4"
             />
             <button className="bg-slate-700 font-bold hover:!bg-slate-700/80 hover:text-white text-white/80 uppercase w-24 h-full">
               ok
             </button>
+            <IoMdPower
+              onClick={toggle.off}
+              className="opacity-80 hover:opacity-100 bg-danger hover:text-white text-white/80 p-3 w-16 h-full cursor-pointer"
+            />
           </form>
         </div>
         <RiCloseCircleFill
           onClick={toggle.off}
-          className="opacity-40 hover:opacity-80 hover:scale-110 cursor-pointer absolute w-8 h-8 text-slate-900 top-1 right-2"
+          className="opacity-50 hover:opacity-80 hover:scale-110 cursor-pointer absolute w-8 h-8 text-danger top-1 right-2"
         />
       </Panel.Appear>
     </>
@@ -199,7 +205,7 @@ export const Like = ({ id, size, className = "", ...rest }) => {
 
   return (
     <em
-      className={`${
+      className={`!indent-0 ${
         isSmall ? "!tracking-tighter" : ""
       } cursor-pointer ${className}`}
       onClick={like}
@@ -217,16 +223,22 @@ export const Like = ({ id, size, className = "", ...rest }) => {
   );
 };
 
-export const CommentsLike = ({ id, size = "!sm", className = "" }) => {
+export const CommentsLike = ({
+  id,
+  offset = [0, 2],
+  placement = "left-start",
+  size = "!sm",
+  className = "",
+}) => {
   const [refElement, setRefElement] = useState(null);
   const isSmall = "sm" === size;
   //
   return (
     <span
       ref={setRefElement}
-      className={`${
+      className={`shadow rounded-full !w-fit bg-slate-200 flex flow-row justify-center items-center ${
         isSmall ? "!tracking-tighter !text-xs" : ""
-      } rounded-full !w-fit bg-slate-200 flex flow-row justify-center items-center ${className}`}
+      } ${className}`}
     >
       <Comments
         // refs={{ refElement }}
@@ -235,6 +247,8 @@ export const CommentsLike = ({ id, size = "!sm", className = "" }) => {
         className={`${
           isSmall ? "p-1" : "p-2 !pl-4"
         } rounded-l-full hover:bg-slate-300 text-slate-900`}
+        placement={placement}
+        offset={offset}
         size
       />
       <Like

@@ -30,13 +30,19 @@ import LinkPreviewGallery from "../LinkPreviewGallery/LinkPreviewGallery";
 // "italy-gallery/21.pinot-grigio-veneto.jpg",
 // "italy-gallery/22.tuscany-wine-country.jpg",
 // "italy-gallery/23.chianti-classico-italy.jpg",
+import { CommentsLike } from "../social";
 //
 //
 const PageItalyWine = () => {
   return (
     <>
       <NavCountriesPagesLinks />
-      
+      <CommentsLike
+        size="sm"
+        id="article-italy--pekouhoeytc"
+        className="absolute top-[62px] right-[8px]"
+      />
+
       <div
         className={`${css.bgItaly} overflow-y-auto scrollbar-thin p-6 mt-8 indent-8 space-y-8`}
         style={{
@@ -44,9 +50,7 @@ const PageItalyWine = () => {
         }}
       >
         <article className="prose">
-          <p>
-            
-          </p>
+          <p></p>
           <p>
             Najveći proizvođač i izvoznik vina u svetu, sa tradicijom dugom
             preko četiri milenujuma, brojem sorti, stilova i apelacija Italija s

@@ -6,11 +6,17 @@ import LinkPreviewGallery, {
 } from "../LinkPreviewGallery/LinkPreviewGallery";
 import NavCountriesPagesLinks from "../NavCountriesPagesLinks/NavCountriesPagesLinks";
 import { bgSpain } from "./PageSpanishWine.module.css";
+import { CommentsLike } from "../social";
 //
 const PageSpanishWine = () => {
   return (
     <>
       <NavCountriesPagesLinks />
+      <CommentsLike
+        size="sm"
+        id="article-spain--atelhejxcqv"
+        className="absolute top-[62px] right-[8px]"
+      />
       <div
         className={`${bgSpain} overflow-y-auto scrollbar-thin p-6 mt-8 indent-8 space-y-8`}
         style={{
