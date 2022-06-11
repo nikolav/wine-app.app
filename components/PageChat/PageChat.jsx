@@ -17,7 +17,7 @@ import escapeHtml from "escape-html";
 import Effect from "../Effect";
 import useStateSwitch from "../../src/hooks/use-state-switch";
 import { SpinnerRotatingLines } from "../loaders";
-import { IoHelp, MdDeleteOutline } from "../icons";
+import { IoHelp, MdDeleteOutline, FiSend } from "../icons";
 import DrawerBox from "../DrawerBox/DrawerBox";
 import PageChatHelp from "../PageChatHelp/PageChatHelp";
 //
@@ -203,7 +203,7 @@ function ChatControll() {
         >
           <div className="flex flex-row items-center">
             {/* username */}
-            <div className="text-sm italic opacity-40 min-w-fit grow-0">
+            <div className="text-sm italic opacity-40 w-28 truncate grow-0">
               {escapeHtml(user?.displayName || "👤")}
             </div>
             {/* message input */}
@@ -223,10 +223,10 @@ function ChatControll() {
             <div className="flex flex-row gap-0 min-w-fit grow-0">
               <button
                 type="button"
-                className="px-6 sm:px-8 bg-opacity-20 button sm:!rounded-r-none font-bold"
+                className="px-6 sm:px-8 bg-opacity-20 button !py-1 sm:!rounded-r-none font-bold"
                 onClick={onSubmit}
               >
-                ok
+                <FiSend className="text-2xl w-full h-full" />
               </button>
               <button
                 onClick={onChatHelp}

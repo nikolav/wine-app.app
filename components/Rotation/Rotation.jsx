@@ -5,7 +5,7 @@ import useTimer from "../../src/hooks/use-timer";
 import useIsMounted from "../../src/hooks/use-is-mounted";
 
 // [sec.]
-const DEFAULT_ROTATION_TIMEOUT = 3;
+const DEFAULT_ROTATION_TIMEOUT = 5;
 const DEFAULT_ROTATION_EFFECT = "fade";
 const ROTATION_EFFECT = {
   fade: {

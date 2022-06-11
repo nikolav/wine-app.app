@@ -6,6 +6,7 @@ import { CommentsLike } from "../../components/social";
 import Image from "next/image";
 import imagePlaceholder from "../../public/placeholder01.png";
 import { bgArticleImage } from "./Article.module.css";
+import { slateSerialize } from "../../components/SlateEditable/SlateEditable";
 //
 const PreviewArticle = () => {
   const router = useRouter();
@@ -23,13 +24,17 @@ const PreviewArticle = () => {
       >
         <section className="lg:overflow-y-auto scrollbar-thin">
           <div className="sm:pt-4 md:pt-8">
-            <article className="min-h-screen prose mx-auto bg-white p-6 sm:rounded-t-2xl shadow-lg">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Doloremque autem dolore culpa rerum ducimus atque unde error
-                nisi iusto, quasi consequatur maiores ratione fugiat. Reiciendis
-                delectus molestiae quos quam nobis.
-              </p>
+            <article className="prose min-h-screen mx-auto bg-white p-6 sm:rounded-t-2xl shadow-lg">
+              {article ? (
+                <>
+                  <h1 className="pb-2 italic text-slate-900/40 text-center md:text-right lg:pr-4 border-b-2 border-b-slate-900/40">{article.title}</h1>
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: slateSerialize(JSON.parse(article.body)),
+                    }}
+                  />
+                </>
+              ) : null}
             </article>
           </div>
         </section>

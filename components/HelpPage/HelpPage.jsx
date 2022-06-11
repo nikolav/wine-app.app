@@ -29,6 +29,9 @@ const HelpPage = () => {
   const { articles } = useArticles();
   const articleChunks = arrayDivide(shuffle(articles || []), 3);
   //
+  const onClickArticlePreview = (active) =>
+    router.push(`/article/${active.article._id}`);
+  //
   return (
     <div className="h-full">
       <section
@@ -47,7 +50,7 @@ const HelpPage = () => {
                   nodes={articleChunks[0].map(mkThumb, {
                     classes: "rounded-tr-2xl",
                   })}
-                  onClick={(active) => router.push(`/article/${active.article._id}`)}
+                  onClick={onClickArticlePreview}
                 />
               ) : (
                 <SpinnerThumb />
@@ -59,6 +62,7 @@ const HelpPage = () => {
                   className="w-full h-full"
                   timeout={44}
                   nodes={articleChunks[1].map(mkThumb, { classes: "" })}
+                  onClick={onClickArticlePreview}
                 />
               ) : (
                 <SpinnerThumb />
@@ -72,6 +76,7 @@ const HelpPage = () => {
                   nodes={articleChunks[2].map(mkThumb, {
                     classes: "rounded-br-2xl",
                   })}
+                  onClick={onClickArticlePreview}
                 />
               ) : (
                 <SpinnerThumb />
