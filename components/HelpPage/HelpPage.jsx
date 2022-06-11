@@ -9,6 +9,8 @@ import { bgDashboard, twoCols } from "./HelpPage.module.css";
 // import Like from "../Like/Like";
 import { motion } from "framer-motion";
 // import Image from "next/image";
+import { useRouter } from "next/router";
+//
 import {
   useArticles,
   // useWineReview
@@ -23,6 +25,7 @@ export { bgDashboard };
 ////
 const HelpPage = () => {
   // const { isOn, toggle } = useStateSwitch();
+  const router = useRouter();
   const { articles } = useArticles();
   const articleChunks = arrayDivide(shuffle(articles || []), 3);
   //
@@ -32,9 +35,7 @@ const HelpPage = () => {
         className={`text-white md:grid md:grid-cols-2 h-full gap-px mx-3 -mt-1 ${twoCols}`}
       >
         <div className="h-full md:h-auto bg-gradient-to-b from-black/80 to-black/95 rounded-2xl md:rounded-r-none">
-          <p className="text-xl">
-            🚧 comming soon
-          </p>
+          <p className="text-xl">🚧 comming soon</p>
         </div>
         <div className="p-px hidden md:!block w-48 bg-gradient-to-r from-black/80 to-black/90 rounded-r-2xl ***overflow-hidden">
           <section className="grid grid-rows-3 gap-px h-full">
@@ -43,9 +44,10 @@ const HelpPage = () => {
                 <Rotation
                   className="w-full h-full"
                   timeout={55}
-                  nodes={articleChunks[0].map(_thumb, {
+                  nodes={articleChunks[0].map(mkThumb, {
                     classes: "rounded-tr-2xl",
                   })}
+                  onClick={(active) => router.push(`/article/${active.article._id}`)}
                 />
               ) : (
                 <SpinnerThumb />
@@ -56,7 +58,7 @@ const HelpPage = () => {
                 <Rotation
                   className="w-full h-full"
                   timeout={44}
-                  nodes={articleChunks[1].map(_thumb, { classes: "" })}
+                  nodes={articleChunks[1].map(mkThumb, { classes: "" })}
                 />
               ) : (
                 <SpinnerThumb />
@@ -67,7 +69,7 @@ const HelpPage = () => {
                 <Rotation
                   className="w-full h-full"
                   timeout={66}
-                  nodes={articleChunks[2].map(_thumb, {
+                  nodes={articleChunks[2].map(mkThumb, {
                     classes: "rounded-br-2xl",
                   })}
                 />
@@ -85,10 +87,11 @@ const HelpPage = () => {
 export default HelpPage;
 //
 //
-function _thumb(article) {
+function mkThumb(article) {
   const { classes } = this;
   return {
     key: article._id,
+    article,
     node: (
       <motion.div
         whileHover={{ scale: 1.089 }}

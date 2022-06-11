@@ -40,6 +40,8 @@ import {
 } from "react-icons/md";
 import { AiOutlineUnderline, AiOutlineWhatsApp } from "react-icons/ai";
 import { RiCloseCircleFill } from "react-icons/ri";
+import { FiSend } from "react-icons/fi";
+
 ////  
 ////
 export {
@@ -67,6 +69,7 @@ export {
   FiShare2,
   GoListOrdered,
   GoListUnordered,
+  FiSend,
   HiOutlineBookOpen,
   iconSearch,
   ImQuotesLeft,

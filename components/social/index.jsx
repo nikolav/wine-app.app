@@ -11,7 +11,12 @@ import {
 } from "../../src/util";
 import useStateSwitch from "../../src/hooks/use-state-switch";
 import Panel from "../Panel";
-import { RiCloseCircleFill, MdDeleteOutline, IoMdPower } from "../icons";
+import {
+  RiCloseCircleFill,
+  MdDeleteOutline,
+  IoMdPower,
+  FiSend,
+} from "../icons";
 import useInputSynced from "../../src/hooks/use-input-synced.js";
 import { useAuth } from "../../app/store";
 //
@@ -148,8 +153,11 @@ export const Comments = ({
               autoComplete="off"
               className="pl-2 placeholder:text-white/50 !grow input-underline text-white/80 !border-white/80 mx-4"
             />
-            <button className="bg-slate-700 font-bold hover:!bg-slate-700/80 hover:text-white text-white/80 uppercase w-24 h-full">
-              ok
+            <button
+              type="submit"
+              className="text-white/80 hover:text-white bg-slate-700 hover:bg-slate-700/80 w-24 h-full flex items-center justify-center p-3"
+            >
+              <FiSend className="w-full h-full" />
             </button>
             <IoMdPower
               onClick={toggle.off}

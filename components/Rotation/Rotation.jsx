@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { arrayRand, has } from "../../src/util";
+import {prevent, noop, arrayRand, has } from "../../src/util";
 import useTimer from "../../src/hooks/use-timer";
 import useIsMounted from "../../src/hooks/use-is-mounted";
 
@@ -26,7 +26,7 @@ const ROTATION_EFFECT = {
 
 export default function Rotation({
   //
-  // Array<{ key: string.unique, node: Node|Component }>
+  // Array<{ key: string.unique, node: Node|Component, [ ...rest: any ] }>
   nodes = [],
   //
   // [sec]
@@ -34,6 +34,8 @@ export default function Rotation({
   //
   // string
   effect = DEFAULT_ROTATION_EFFECT,
+  //
+  onClick = noop,
   //
   // manual mode
   // doesnt auto start
@@ -162,6 +164,7 @@ export default function Rotation({
         }}
         onMouseOver={() => !manual && timerControls.stop()}
         onMouseOut={() => !manual && slideshowStart()}
+        onClick={prevent(() => onClick(active))}
         {...rest}
       >
         <motion.div
