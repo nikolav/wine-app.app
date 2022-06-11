@@ -98,10 +98,11 @@ const APPEAR = {
 //
 const PanelAppear = ({
   isActive = false,
-  key = "panel",
+  // key = "panel",
   effect = "_default",
   children,
   className,
+  refElement,
   ...rest
 }) => {
   if (!has(APPEAR, effect)) effect = "_default";
@@ -109,12 +110,12 @@ const PanelAppear = ({
   return (
     <AnimatePresence initial={false}>
       {isActive && (
-        <Panel isActive={isActive} {...rest}>
+        <Panel isActive={isActive} refElement={refElement} {...rest}>
           <motion.div
             initial={APPEAR[effect].initial}
             exit={APPEAR[effect].exit}
             animate={APPEAR[effect].animate}
-            key={key}
+            // key={key}
             className={`m-0 p-0 ${className}`}
             {...rest}
           >

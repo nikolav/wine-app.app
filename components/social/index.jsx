@@ -36,7 +36,10 @@ export const useComments = (entityId) => {
       });
     },
     //
-    rm: (key) => remove(ref(db, `${dbPath}/${key}`)),
+    rm: (key) =>
+      remove(ref(db, `${dbPath}/${key}`)).then(
+        (_) => 1 === Object.keys(commentsDB).length && setCommentsDB(null)
+      ),
     //
     ls: () =>
       Object.keys(commentsDB ?? {})
@@ -70,8 +73,9 @@ function WithOptionalRef({ setRefNode = null, children, ...rest }) {
 //@@
 export const Comments = ({
   id,
-  refs = null,
-  // size = "sm",
+  // refs = null,
+  refElement = null,
+  size,
   className = "",
   // ...rest
 }) => {
@@ -80,6 +84,7 @@ export const Comments = ({
   const [refNode, setRefNode] = useState(null);
   const { isOn, toggle } = useStateSwitch();
   const { user } = useAuth();
+  const isSmall = "sm" === size;
   //
   const { sync, inputs, setInput } = useInputSynced({ comment: "" });
   const onSubmitChat = () => {
@@ -97,18 +102,18 @@ export const Comments = ({
   return (
     <>
       <WithOptionalRef
-        setRefNode={null != refs ? null : setRefNode}
+        setRefNode={null != refElement ? null : setRefNode}
         onClick={toggle}
-        className={`!inline-block cursor-pointer ${className}`}
+        className={`cursor-pointer ${className}`}
       >
-        <strong className="***text-xl">
-          <span className="mr-2 inline-block">💬</span>
-        </strong>
-        <i style={{ fontSize: "72%" }}>{comments.len()}</i>
+        <span className={`${isSmall ? "!tracking-tighter !m-0" : "mr-2"}`}>
+          💬
+        </span>
+        <i style={{ fontSize: isSmall ? "36%" : "72%" }}>{comments.len()}</i>
       </WithOptionalRef>
       <Panel.Appear
         effect="puff"
-        refElement={null != refs ? refs.refElement : refNode}
+        refElement={null != refElement ? refElement : refNode}
         isActive={isOn}
         placement="bottom"
         offset={[0, 2]}
@@ -186,50 +191,57 @@ export const useLike = (id) => {
   }
 };
 //@@
-export const Like = ({ id, size = "sm", className = "", ...rest }) => {
+export const Like = ({ id, size, className = "", ...rest }) => {
   const isMounted = useIsMounted();
   const isLiked = isMounted ? null != localStorage.getItem(localId(id)) : null;
   const { like, likeCount } = useLike(id);
+  const isSmall = "sm" === size;
 
   return (
     <em
-      className={`!inline-block cursor-pointer ${className}`}
+      className={`${
+        isSmall ? "!tracking-tighter" : ""
+      } cursor-pointer ${className}`}
       onClick={like}
       {...rest}
     >
-      <strong className="***text-xl">
-        <span
-          className={`mr-2 inline-block ${
-            isLiked ? "opacity-100" : "opacity-40 hover:opacity-60"
-          }`}
-        >
-          👍🏻
-        </span>
-      </strong>
-      <i style={{ fontSize: "72%" }} className="***pt-1 ***ml-1">
-        {likeCount ?? "."}
-      </i>
+      <span
+        className={`${isSmall ? "!m-0" : "mr-2"} ${
+          isLiked ? "opacity-100" : "opacity-40 hover:opacity-60"
+        }`}
+      >
+        👍🏻
+      </span>
+      <i style={{ fontSize: isSmall ? "36%" : "72%" }}>{likeCount ?? "."}</i>
     </em>
   );
 };
 
-export const CommentsLike = ({ id, size = "sm", className = "", ...rest }) => {
+export const CommentsLike = ({ id, size = "!sm", className = "" }) => {
   const [refElement, setRefElement] = useState(null);
+  const isSmall = "sm" === size;
   //
   return (
     <span
       ref={setRefElement}
-      className={`border border-slate-200/30 rounded-full !w-fit bg-gradient-to-b from-slate-100/30 to-slate-100 flex flow-row justify-center items-center ${className}`}
+      className={`${
+        isSmall ? "!tracking-tighter !text-xs" : ""
+      } rounded-full !w-fit bg-slate-200 flex flow-row justify-center items-center ${className}`}
     >
       <Comments
-        refs={{ refElement }}
+        // refs={{ refElement }}
+        refElement={refElement}
         id={id}
-        className="hover:bg-slate-200/30 p-2 rounded-l-full !pl-4"
+        className={`${
+          isSmall ? "p-1" : "p-2 !pl-4"
+        } rounded-l-full hover:bg-slate-300 text-slate-900`}
         size
       />
       <Like
         id={id}
-        className="hover:bg-slate-200/30 p-2 rounded-r-full !pr-4"
+        className={`${
+          isSmall ? "p-1" : "p-2 !pr-4"
+        } rounded-r-full hover:bg-slate-300 text-slate-900`}
         size
       />
     </span>
@@ -248,9 +260,9 @@ function ChatComment({
   const ownsComment = null != user && user.uid === comment.uid;
   return (
     <div
-      className={`shadow rounded-xl p-2 flex flex-row gap-6 justify-between items-start ${className} ${
+      className={`shadow rounded-xl p-2 flex flex-row space-x-6 justify-between items-start ${className} ${
         ownsComment
-          ? "bg-slate-300/60 hover:bg-slate-300/70"
+          ? "bg-slate-300/80 hover:bg-slate-300/90"
           : "bg-slate-300/30 hover:bg-slate-300/40"
       }`}
       {...rest}
@@ -265,7 +277,7 @@ function ChatComment({
       {ownsComment ? (
         <MdDeleteOutline
           onClick={() => comments.rm(comment.key)}
-          className="text-slate-800 self-center h-5 w-5 opacity-20 hover:opacity-80 hover:scale-110 cursor-pointer"
+          className="text-slate-800 self-center h-5 w-5 opacity-20 hover:opacity-80 hover:scale-110 cursor-pointer hover:text-danger"
         />
       ) : null}
     </div>

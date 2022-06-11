@@ -36,6 +36,7 @@ const PageItalyWine = () => {
   return (
     <>
       <NavCountriesPagesLinks />
+      
       <div
         className={`${css.bgItaly} overflow-y-auto scrollbar-thin p-6 mt-8 indent-8 space-y-8`}
         style={{
@@ -43,6 +44,9 @@ const PageItalyWine = () => {
         }}
       >
         <article className="prose">
+          <p>
+            
+          </p>
           <p>
             Najveći proizvođač i izvoznik vina u svetu, sa tradicijom dugom
             preko četiri milenujuma, brojem sorti, stilova i apelacija Italija s
