@@ -12,9 +12,9 @@ const PageUsaWine = () => {
     <>
       <NavCountriesPagesLinks />
       <CommentsLike
-        size="sm"
+        size="!sm"
         id="article-use--hkdmivtcdkd"
-        className="absolute top-[62px] right-[8px]"
+        className="absolute top-[60px] right-[5px]"
       />
       <div
         className={`${bgUsa} overflow-y-auto scrollbar-thin p-6 mt-8 indent-8 space-y-8`}
@@ -22,7 +22,7 @@ const PageUsaWine = () => {
           height: "calc(100% - 1.5rem)",
         }}
       >
-        <article className="prose">
+        <article className="prose pt-6">
           <p>
             <strong>@TODO.article</strong> The United States&apos; reputation as
             a wine producer is to a large degree founded on the global fame of
