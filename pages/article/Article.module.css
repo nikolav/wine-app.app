@@ -1,7 +1,6 @@
-
 .bgArticleImage {
-    background-image: url("../../public/placeholder01.png");
-    background-repeat: no-repeat;
-    object-position: center;
-    object-fit: cover;
+  background-image: url("../../public/placeholder01.png");
+  background-repeat: no-repeat;
+  object-position: center;
+  object-fit: cover;
 }

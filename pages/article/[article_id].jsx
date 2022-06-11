@@ -14,100 +14,33 @@ const PreviewArticle = () => {
   const article = (articles ?? []).find((a) => ID === a._id);
 
   return (
-    <>
+    <div className="h-screen overflow-y-auto scrollbar-thin">
       <div
         style={{
           gridTemplateColumns: "58% auto",
         }}
-        className="md:grid md:grid-cols-2 h-screen overflow-hidden ***bg-yellow-200"
+        className="flex flex-col lg:flex-none lg:!grid h-full lg:overflow-hidden"
       >
-        {/*  */}
-        {/* --window-LEFT article */}
-        <section className="***bg-red-200 overflow-y-auto scrollbar-thin p-6 !pb-0">
-          <div
-            id="paper--aejenethrto"
-            className="bg-white rounded-t-2xl p-6 shadow-lg"
-          >
-            <article className="prose">
+        <section className="lg:overflow-y-auto scrollbar-thin">
+          <div className="sm:pt-4 md:pt-8">
+            <article className="min-h-screen prose mx-auto bg-white p-6 sm:rounded-t-2xl shadow-lg">
               <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Molestias sapiente sint laudantium sed assumenda ut amet
-                perferendis corporis hic earum, ullam veritatis est sequi
-                debitis eaque voluptatem rem deserunt quas!!
-              </p>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Molestias sapiente sint laudantium sed assumenda ut amet
-                perferendis corporis hic earum, ullam veritatis est sequi
-                debitis eaque voluptatem rem deserunt quas!!
-              </p>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Molestias sapiente sint laudantium sed assumenda ut amet
-                perferendis corporis hic earum, ullam veritatis est sequi
-                debitis eaque voluptatem rem deserunt quas!!
-              </p>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Molestias sapiente sint laudantium sed assumenda ut amet
-                perferendis corporis hic earum, ullam veritatis est sequi
-                debitis eaque voluptatem rem deserunt quas!!
-              </p>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Molestias sapiente sint laudantium sed assumenda ut amet
-                perferendis corporis hic earum, ullam veritatis est sequi
-                debitis eaque voluptatem rem deserunt quas!!
-              </p>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Molestias sapiente sint laudantium sed assumenda ut amet
-                perferendis corporis hic earum, ullam veritatis est sequi
-                debitis eaque voluptatem rem deserunt quas!!
-              </p>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Molestias sapiente sint laudantium sed assumenda ut amet
-                perferendis corporis hic earum, ullam veritatis est sequi
-                debitis eaque voluptatem rem deserunt quas!!
-              </p>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Molestias sapiente sint laudantium sed assumenda ut amet
-                perferendis corporis hic earum, ullam veritatis est sequi
-                debitis eaque voluptatem rem deserunt quas!!
-              </p>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Molestias sapiente sint laudantium sed assumenda ut amet
-                perferendis corporis hic earum, ullam veritatis est sequi
-                debitis eaque voluptatem rem deserunt quas!!
-              </p>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Molestias sapiente sint laudantium sed assumenda ut amet
-                perferendis corporis hic earum, ullam veritatis est sequi
-                debitis eaque voluptatem rem deserunt quas!!
-              </p>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Molestias sapiente sint laudantium sed assumenda ut amet
-                perferendis corporis hic earum, ullam veritatis est sequi
-                debitis eaque voluptatem rem deserunt quas!!
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Doloremque autem dolore culpa rerum ducimus atque unde error
+                nisi iusto, quasi consequatur maiores ratione fugiat. Reiciendis
+                delectus molestiae quos quam nobis.
               </p>
             </article>
           </div>
         </section>
-        {/*  */}
-        {/* --window-RIGHT image preview */}
         <section
-          className={`${bgArticleImage} h-full overflow-hidden relative`}
+          className={`${bgArticleImage} lg:shadow-lg lg:border-l-4 lg:border-l-white order-first lg:order-none min-h-screen relative`}
         >
           <Image
             alt=""
             layout="fill"
             src={article?.image ?? imagePlaceholder.src}
-            className="object-cover object-center block m-0 p-0 border-0"
+            className="object-cover object-center block"
           />
           {null != article ? (
             <CommentsLike
@@ -119,7 +52,7 @@ const PreviewArticle = () => {
           ) : null}
         </section>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -124,7 +124,7 @@ export const Comments = ({
         isActive={isOn}
         placement={placement}
         offset={offset}
-        className="border-2 border-slate-900 h-[320px] w-[456px] !max-w-full  bg-gradient-to-b to-slate-200 from-slate-200/80 overflow-hidden rounded-xl shadow-xl backdrop-blur-sm"
+        className="border-2 border-slate-900 h-[320px] w-[456px] !max-w-full  bg-gradient-to-b to-slate-200 from-slate-200/80 !overflow-hidden rounded-xl shadow-xl backdrop-blur-sm"
       >
         <section className="space-y-2 text-sm p-2 pt-4 !pb-32 w-full h-full !overflow-y-auto scrollbar-thin">
           {comments.ls().map((comment) => (
