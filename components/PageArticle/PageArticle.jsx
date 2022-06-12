@@ -4,7 +4,7 @@ import { Transforms } from "slate";
 import SlateEditable from "../SlateEditable/SlateEditable";
 import useInputSynced from "../../src/hooks/use-input-synced";
 import Required from "../Required/Required";
-import { prevent } from "../../src/util";
+import { prevent, escapeHTML } from "../../src/util";
 import cli from "../../src/feathers";
 import useIsMounted from "../../src/hooks/use-is-mounted";
 import {
@@ -28,7 +28,6 @@ import {
   IS_PROCESSING_ARTICLE_SAVE,
 } from "../../src/hooks/use-flags-global";
 import modcss from "./PageArticle.module.css";
-import escapeHTML from "escape-html";
 import Effect from "../Effect";
 import NotificationDangerNotAuthenticated from "../NotificationDangerNotAuthenticated/NotificationDangerNotAuthenticated";
 import { usePages } from "../../app/store";

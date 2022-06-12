@@ -1,13 +1,21 @@
 import React, { useState } from "react";
 import { createEditor } from "slate";
 import { Slate, withReact } from "slate-react";
+import { noop } from "../../src/util";
 //
 const initialValue = [{ type: "paragraph", children: [{ text: "" }] }];
 //
 export default function SlateEditorProvider({ children }) {
   const [editor] = useState(() => withReact(createEditor()));
+  const handleValueChanged = noop;
+  const onChangeEditor = (value) => {
+    const isAstChange = editor.operations.some(
+      (op) => "set_selection" !== op.type
+    );
+    if (isAstChange) handleValueChanged(value);
+  };
   return (
-    <Slate editor={editor} value={initialValue}>
+    <Slate editor={editor} value={initialValue} onChange={onChangeEditor}>
       {children}
     </Slate>
   );

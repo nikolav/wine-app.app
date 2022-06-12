@@ -4,7 +4,7 @@ import { useArticles } from "../../app/store";
 import { CommentsLike } from "../../components/social";
 import Image from "next/image";
 import imagePlaceholder from "../../public/placeholder01.png";
-import { bgArticleImage } from "./Article.module.css";
+// import { bgArticleImage } from "./Article.module.css";
 import { slateSerialize } from "../../components/SlateEditable/SlateEditable";
 import PortalOverlays from "../../components/PortalOverlays";
 import { FaHome } from "../../components/icons";
@@ -69,9 +69,7 @@ const PreviewArticle = () => {
               </article>
             </div>
           </section>
-          <section
-            className={`${bgArticleImage} lg:shadow-lg lg:border-l-4 lg:border-l-white order-first lg:order-none min-h-screen relative`}
-          >
+          <section className="lg:shadow-lg lg:border-l-4 lg:border-l-white order-first lg:order-none min-h-screen relative">
             <Image
               alt=""
               layout="fill"

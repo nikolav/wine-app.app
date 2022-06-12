@@ -1,11 +1,16 @@
+//
+// https://nikolav.rs/app/13--slate-js-editor/
+//
+//
 import React, { useCallback } from "react";
-import { has } from "../../src/util";
+import { has, escapeHtml } from "../../src/util";
 //
 // Import the Slate editor factory.
 import {
   //   createEditor,
-  //   Node,
+    Node,
   //   Range,
+  Point,
   Transforms,
   Editor,
   //   Path,
@@ -17,7 +22,6 @@ import {
 import { Editable } from "slate-react";
 import SlateToolbar from "../SlateToolbar/SlateToolbar";
 //
-import escapeHtml from "escape-html";
 //
 export const LIST_TYPES = { "numbered-list": 1, "bulleted-list": 1 };
 export const TEXT_ALIGN_TYPES = { left: 1, center: 1, right: 1, justify: 1 };
@@ -84,6 +88,40 @@ export const toggleBlock = (editor, format) => {
   if (!isActive && isList) {
     const block = { type: format, children: [] };
     Transforms.wrapNodes(editor, block);
+  }
+};
+/**
+ * resetNodes resets the value of the editor.
+ * It should be noted that passing the `at` parameter may cause 
+ *   a "Cannot resolve a DOM point from Slate point" error.
+ * 
+  options: {
+    nodes?: Node | Node[],
+    at?: Location
+  }
+ */
+export const resetNodes = (editor, options = {}) => {
+  const children = [...editor.children];
+
+  children.forEach((node) =>
+    editor.apply({ type: "remove_node", path: [0], node })
+  );
+
+  if (options.nodes) {
+    const nodes = Node.isNode(options.nodes) ? [options.nodes] : options.nodes;
+
+    nodes.forEach((node, i) =>
+      editor.apply({ type: "insert_node", path: [i], node })
+    );
+  }
+
+  const point =
+    options.at && Point.isPoint(options.at)
+      ? options.at
+      : Editor.end(editor, []);
+
+  if (point) {
+    Transforms.select(editor, point);
   }
 };
 //
@@ -165,7 +203,7 @@ export default SlateEditable;
 
 //
 // Slate components
-//
+//   - render text{}
 function LeafNode({ attributes, children, leaf }) {
   return (
     <span
@@ -183,7 +221,7 @@ function LeafNode({ attributes, children, leaf }) {
     </span>
   );
 }
-//
+//   - render element{}
 function Element({ attributes, children, element }) {
   const style = { textAlign: element.align };
   switch (element.type) {
