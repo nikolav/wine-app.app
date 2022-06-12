@@ -42,7 +42,7 @@ const HelpPage = () => {
           <section
             className="grid grid-rows-2 h-full gap-1"
             style={{
-              gridTemplateRows: "1fr 1fr",
+              gridTemplateRows: "auto 48%",
             }}
           >
             <div className="***bg-red-200/20 overflow-y-auto scrollbar-thin">

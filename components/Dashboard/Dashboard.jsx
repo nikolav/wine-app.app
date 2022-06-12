@@ -18,45 +18,153 @@ import {
   IoHelp,
 } from "../icons";
 
+//
+const DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES =
+  "cursor-pointer active:opacity-100 opacity-50 hover:opacity-80 hover:scale-110 transition-transform duration-75";
+const DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES_INACTIVE = "opacity-10";
 ////
 ////
 const Dashboard = () => {
   const { user } = useAuth();
   const { articles, query: qArticles } = useArticles();
   const { winereview, query: qWR } = useWineReview();
-  const userData = [...(articles ?? []), ...(winereview ?? [])]
-    .filter((node) => node.author === user?.uid)
-    .sort(sortByTimestampDesc("updatedAt"));
+  const userData = user
+    ? [...(articles ?? []), ...(winereview ?? [])]
+        .filter((node) => node.author === user.uid)
+        .sort(sortByTimestampDesc("updatedAt"))
+    : [];
   ////
   ////
   return user ? (
-    <>
-      <div className="relative">
-        <DashboardToolbar className="shadow-lg !sticky z-10 inset-x-0 top-0 bg-gradient-to-b from-black to-slate-900/95" />
-        <div className="py-4 bg-gradient-to-r from-black/50 to-black/80">
-          {userData ? (
-            0 < userData.length ? (
-              <section>
-                {userData.map((post, i) => (
-                  <DashboardEntry i={i} key={post._id} post={post} />
-                ))}
-              </section>
-            ) : (
-              <p>no posts</p>
-            )
+    <div className="relative">
+      <DashboardToolbar className="shadow !sticky z-10 inset-x-0 top-0 bg-gradient-to-b from-black to-slate-900/95" />
+      <div className="py-4 bg-gradient-to-r from-black/50 to-black/80">
+        {userData ? (
+          0 < userData.length ? (
+            <section>
+              {userData.map((post, i) => (
+                <DashboardEntry i={i} key={post._id} post={post} />
+              ))}
+            </section>
           ) : (
-            <small>loading...</small>
-          )}
-        </div>
+            <p>no posts</p>
+          )
+        ) : (
+          <small>loading...</small>
+        )}
       </div>
-    </>
+    </div>
   ) : (
     <DashboardNotAuthenticated />
   );
 };
+//
+function DashboardToolbar({ iconSize = 28, className = "", ...rest }) {
+  const globals = useGlobals();
+  const isActiveToolbar = null != globals(DASHBOARD_ENTRY_ACTIVE_POST);
+  //
+  return (
+    <div
+      className={`flex flex-row items-center justify-between gap-x-4 px-4 py-1 ${className}`}
+      {...rest}
+    >
+      <BiShow
+        className={
+          isActiveToolbar
+            ? DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES
+            : DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES_INACTIVE
+        }
+        style={{ width: iconSize, height: iconSize }}
+      />
+      <MdCreate
+        className={
+          isActiveToolbar
+            ? DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES
+            : DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES_INACTIVE
+        }
+        style={{ width: iconSize, height: iconSize }}
+      />
+      <AiOutlineLink
+        className={
+          isActiveToolbar
+            ? DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES
+            : DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES_INACTIVE
+        }
+        style={{ width: iconSize, height: iconSize }}
+      />
+      <BiRefresh
+        className={
+          isActiveToolbar
+            ? DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES
+            : DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES_INACTIVE
+        }
+        style={{ width: iconSize, height: iconSize }}
+      />
+      <MdDeleteOutline
+        className={
+          isActiveToolbar
+            ? "cursor-pointer text-red-500 opacity-30 hover:opacity-80 active:opacity-100"
+            : DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES_INACTIVE
+        }
+        style={{ width: iconSize, height: iconSize }}
+      />
+      <IoHelp
+        className={
+          isActiveToolbar
+            ? `${DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES} opacity-20`
+            : DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES_INACTIVE
+        }
+        style={{ width: iconSize, height: iconSize }}
+      />
+    </div>
+  );
+}
 
+////
+////
 export default Dashboard;
-
+//
+//
+function DashboardEntry({ post }) {
+  const globals = useGlobals();
+  const isActive = post._id === globals(DASHBOARD_ENTRY_ACTIVE_POST)?._id;
+  const setActive = () => globals.set(DASHBOARD_ENTRY_ACTIVE_POST, post);
+  //
+  return (
+    <>
+      <div
+        onClick={setActive}
+        className={`cursor-default ${
+          isActive ? "bg-slate-50/10" : ""
+        } hover:bg-slate-50/10 py-2 flex flex-row items-center justify-between`}
+      >
+        <div className="px-4">
+          <DashboardEntryRadio
+            size={24}
+            className="text-white/50 hover:text-white"
+            isActive={isActive}
+            onClick={setActive}
+          />
+        </div>
+        <div className="flex items-center justify-center">
+          <DashboardEntryPostType
+            className="text-xl mr-4"
+            post={post}
+            isActive={isActive}
+          />
+        </div>
+        <div
+          className={`grow truncate text-sm ${
+            isActive ? "text-white" : "text-white/30"
+          }`}
+        >
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+        </div>
+      </div>
+    </>
+  );
+}
+//
 function DashboardEntryRadio({
   isActive,
   onClick,
@@ -89,104 +197,18 @@ function DashboardEntryRadio({
     </div>
   );
 }
-
-function DashboardEntry({ post }) {
-  const globals = useGlobals();
-  const isActive = post._id === globals(DASHBOARD_ENTRY_ACTIVE_POST)?._id;
-  const setActive = () => globals.set(DASHBOARD_ENTRY_ACTIVE_POST, post);
-  //
-  return (
-    <>
-      <div
-        onClick={setActive}
-        className={`cursor-default ${
-          isActive ? "bg-slate-50/10" : ""
-        } hover:bg-slate-50/10 py-2 flex flex-row items-center justify-between`}
-      >
-        <div className="px-4">
-          <DashboardEntryRadio
-            size={24}
-            className="text-white/50 hover:text-white"
-            isActive={isActive}
-            onClick={setActive}
-          />
-        </div>
-        <div
-          className={`grow truncate text-sm ${
-            isActive ? "text-white" : "text-white/60"
-          }`}
-        >
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-        </div>
-      </div>
-    </>
-  );
-}
-
-const DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES =
-  "cursor-pointer active:opacity-100 opacity-50 hover:opacity-80 hover:scale-110 transition-transform duration-75";
-const DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES_INACTIVE = "opacity-10";
 //
-function DashboardToolbar({ size = 28, className = "", ...rest }) {
-  const globals = useGlobals();
-  const isActiveToolbar = null != globals(DASHBOARD_ENTRY_ACTIVE_POST);
-  //
+function DashboardEntryPostType({ post, isActive, className = "", ...rest }) {
   return (
-    <div
-      className={`flex flex-row items-center justify-between gap-x-4 px-4 py-1 ${className}`}
+    <strong
+      className={`${isActive ? "" : "opacity-30"} ${className}`}
       {...rest}
     >
-      <BiShow
-        className={
-          isActiveToolbar
-            ? DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES
-            : DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES_INACTIVE
-        }
-        style={{ width: size, height: size }}
-      />
-      <MdCreate
-        className={
-          isActiveToolbar
-            ? DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES
-            : DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES_INACTIVE
-        }
-        style={{ width: size, height: size }}
-      />
-      <AiOutlineLink
-        className={
-          isActiveToolbar
-            ? DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES
-            : DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES_INACTIVE
-        }
-        style={{ width: size, height: size }}
-      />
-      <BiRefresh
-        className={
-          isActiveToolbar
-            ? DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES
-            : DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES_INACTIVE
-        }
-        style={{ width: size, height: size }}
-      />
-      <MdDeleteOutline
-        className={
-          isActiveToolbar
-            ? "cursor-pointer text-red-500 opacity-30 hover:opacity-80 active:opacity-100"
-            : DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES_INACTIVE
-        }
-        style={{ width: size, height: size }}
-      />
-      <IoHelp
-        className={
-          isActiveToolbar
-            ? `${DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES} opacity-20`
-            : DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES_INACTIVE
-        }
-        style={{ width: size, height: size }}
-      />
-    </div>
+      {"winereview" === postType(post) ? "⭐" : "📃"}
+    </strong>
   );
 }
+//
 function DashboardNotAuthenticated() {
   return <div>dashboard-not-authenticated</div>;
 }
