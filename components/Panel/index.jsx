@@ -97,12 +97,12 @@ const APPEAR = {
 };
 //
 const PanelAppear = ({
+  refElement,
+  className,
+  children,
   isActive = false,
   // key = "panel",
   effect = "_default",
-  children,
-  className,
-  refElement,
   ...rest
 }) => {
   if (!has(APPEAR, effect)) effect = "_default";

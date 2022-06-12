@@ -1571,6 +1571,18 @@ select {
   margin-right: 1rem;
 }
 
+.mt-auto {
+  margin-top: auto;
+}
+
+.mb-auto {
+  margin-bottom: auto;
+}
+
+.\!mb-auto {
+  margin-bottom: auto !important;
+}
+
 .block {
   display: block;
 }
@@ -1659,6 +1671,14 @@ select {
   height: 50%;
 }
 
+.h-96 {
+  height: 24rem;
+}
+
+.\!h-full {
+  height: 100% !important;
+}
+
 .max-h-full {
   max-height: 100%;
 }
@@ -1677,6 +1697,14 @@ select {
 
 .\!min-h-\[50\%\] {
   min-height: 50% !important;
+}
+
+.min-h-\[196px\] {
+  min-height: 196px;
+}
+
+.min-h-\[124px\] {
+  min-height: 124px;
 }
 
 .w-screen {
@@ -1753,6 +1781,14 @@ select {
 
 .w-12 {
   width: 3rem;
+}
+
+.w-64 {
+  width: 16rem;
+}
+
+.w-80 {
+  width: 20rem;
 }
 
 .min-w-\[50\%\] {
@@ -2050,6 +2086,12 @@ select {
   white-space: nowrap;
 }
 
+.\!truncate {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
 .rounded-lg {
   border-radius: 0.5rem;
 }
@@ -2333,6 +2375,36 @@ select {
   background-color: rgb(248 250 252 / 0.1);
 }
 
+.bg-green-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(34 197 94 / var(--tw-bg-opacity));
+}
+
+.bg-slate-200\/90 {
+  background-color: rgb(226 232 240 / 0.9);
+}
+
+.bg-slate-500\/90 {
+  background-color: rgb(100 116 139 / 0.9);
+}
+
+.bg-slate-800\/90 {
+  background-color: rgb(30 41 59 / 0.9);
+}
+
+.bg-slate-200\/95 {
+  background-color: rgb(226 232 240 / 0.95);
+}
+
+.bg-red-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(220 38 38 / var(--tw-bg-opacity));
+}
+
+.bg-slate-100\/95 {
+  background-color: rgb(241 245 249 / 0.95);
+}
+
 .bg-opacity-95 {
   --tw-bg-opacity: 0.95;
 }
@@ -2518,6 +2590,14 @@ select {
   padding: 0.75rem;
 }
 
+.\!p-2 {
+  padding: 0.5rem !important;
+}
+
+.\!p-4 {
+  padding: 1rem !important;
+}
+
 .py-6 {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
@@ -2576,6 +2656,11 @@ select {
 .py-\[2px\] {
   padding-top: 2px;
   padding-bottom: 2px;
+}
+
+.px-0 {
+  padding-left: 0px;
+  padding-right: 0px;
 }
 
 .pr-16 {
@@ -3314,6 +3399,16 @@ select {
 
 .hover\:bg-slate-50\/10:hover {
   background-color: rgb(248 250 252 / 0.1);
+}
+
+.hover\:bg-blue-600:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(37 99 235 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-red-700:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(185 28 28 / var(--tw-bg-opacity));
 }
 
 .hover\:text-white:hover {

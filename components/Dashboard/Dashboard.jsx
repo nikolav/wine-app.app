@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useAuth } from "../../app/store";
 import { useArticles, useWineReview } from "../../app/store";
 import { sortByTimestampDesc, postType } from "../../src/util";
@@ -17,7 +17,11 @@ import {
   AiOutlineLink,
   IoHelp,
 } from "../icons";
+import { useQueryClient } from "react-query";
+import cli from "../../src/feathers";
+import Panel from "../Panel";
 
+//
 //
 const DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES =
   "cursor-pointer active:opacity-100 opacity-50 hover:opacity-80 hover:scale-110 transition-transform duration-75";
@@ -60,8 +64,36 @@ const Dashboard = () => {
 };
 //
 function DashboardToolbar({ iconSize = 28, className = "", ...rest }) {
+  // Get QueryClient from the context
   const globals = useGlobals();
-  const isActiveToolbar = null != globals(DASHBOARD_ENTRY_ACTIVE_POST);
+  const activePost = globals(DASHBOARD_ENTRY_ACTIVE_POST);
+  const isActiveToolbar = null != activePost;
+  //
+  const queryClient = useQueryClient();
+  const qRefresh = () => {
+    if (isActiveToolbar) {
+      queryClient.invalidateQueries("articles");
+      queryClient.invalidateQueries("winereview");
+    }
+  };
+  //
+  const [refPopperOnDelete, setRefPopperOnDelete] = useState(null);
+  const { isOn: isActiveOnDelete, toggle: toggleIsActiveOnDelete } =
+    useStateSwitch();
+  const deletePost = () => {
+    if (activePost) {
+      cli
+        .service(postType(activePost))
+        .remove(activePost._id)
+        .then((_payload) => {
+          // post removed
+          // reload data
+          // null active post
+          qRefresh();
+          globals.set(DASHBOARD_ENTRY_ACTIVE_POST, null);
+        });
+    }
+  };
   //
   return (
     <div
@@ -93,6 +125,7 @@ function DashboardToolbar({ iconSize = 28, className = "", ...rest }) {
         style={{ width: iconSize, height: iconSize }}
       />
       <BiRefresh
+        onClick={qRefresh}
         className={
           isActiveToolbar
             ? DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES
@@ -100,14 +133,50 @@ function DashboardToolbar({ iconSize = 28, className = "", ...rest }) {
         }
         style={{ width: iconSize, height: iconSize }}
       />
-      <MdDeleteOutline
-        className={
-          isActiveToolbar
-            ? "cursor-pointer text-red-500 opacity-30 hover:opacity-80 active:opacity-100"
-            : DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES_INACTIVE
-        }
-        style={{ width: iconSize, height: iconSize }}
-      />
+      <span ref={setRefPopperOnDelete}>
+        <MdDeleteOutline
+          onClick={() => isActiveToolbar && toggleIsActiveOnDelete.on()}
+          className={
+            isActiveToolbar
+              ? "cursor-pointer text-red-500 opacity-30 hover:opacity-80 active:opacity-100"
+              : DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES_INACTIVE
+          }
+          style={{ width: iconSize * 0.72, height: iconSize * 0.72 }}
+        />
+      </span>
+      <Panel.Appear
+        effect="slideUp"
+        refElement={refPopperOnDelete}
+        isActive={isActiveOnDelete}
+        className="!p-4 flex justify-center items-center text-center z-10 bg-slate-100/95 w-64 min-h-[124px] rounded-xl shadow text-sm"
+        placement="left"
+      >
+        <div className="space-y-6">
+          <div>
+            <p>
+              <strong className="text-lg">Obriši,</strong>
+            </p>
+            <p>{activePost?.wine || activePost?.title || ""}</p>
+          </div>
+          <div className="flex flex-row items-center justify-center">
+            <button
+              className="w-12 button px-0 rounded-r-none bg-red-600 hover:bg-red-700"
+              onClick={() => {
+                deletePost();
+                toggleIsActiveOnDelete.off();
+              }}
+            >
+              da
+            </button>
+            <button
+              className="w-16 button rounded-l-none font-bold"
+              onClick={toggleIsActiveOnDelete.off}
+            >
+              ne
+            </button>
+          </div>
+        </div>
+      </Panel.Appear>
       <IoHelp
         className={
           isActiveToolbar
@@ -158,7 +227,7 @@ function DashboardEntry({ post }) {
             isActive ? "text-white" : "text-white/30"
           }`}
         >
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+          {post.wine || post.title}
         </div>
       </div>
     </>
