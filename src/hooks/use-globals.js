@@ -25,6 +25,8 @@ export const WR_RECORD = "wr.record.xbicntewgqh";
 // trigger db.save @change
 export const WR_DBSAVE = "WR.dbSave.mecqgnjgtqp";
 export const WR_SAVED = "WR.dbSaved.twrkwvrzhri";
+// store active dashboard post id
+export const DASHBOARD_ENTRY_ACTIVE_POST = "dashboardEntryActivePost.gnktkobglqd";
 //
 // GLOBAL_FILE
 // GLOBAL_DATAURL

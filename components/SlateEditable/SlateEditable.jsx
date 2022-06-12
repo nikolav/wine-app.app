@@ -8,7 +8,7 @@ import { has, escapeHtml } from "../../src/util";
 // Import the Slate editor factory.
 import {
   //   createEditor,
-    Node,
+  Node,
   //   Range,
   Point,
   Transforms,
@@ -125,8 +125,12 @@ export const resetNodes = (editor, options = {}) => {
   }
 };
 //
+export const slateSerializePlainText = (nodes) => {
+  return nodes.map((n) => Node.string(n)).join("\n");
+};
 //
-export function slateSerialize(node) {
+//
+export function slateSerializeHTML(node) {
   if (Text.isText(node)) {
     let string = escapeHtml(node.text);
     switch (true) {
@@ -145,7 +149,7 @@ export function slateSerialize(node) {
     return string;
   }
 
-  const children = node.children.map((n) => slateSerialize(n)).join("");
+  const children = node.children.map((n) => slateSerializeHTML(n)).join("");
 
   switch (true) {
     case "block-quote" === node.type:

@@ -5,7 +5,7 @@ import { CommentsLike } from "../../components/social";
 import Image from "next/image";
 import imagePlaceholder from "../../public/placeholder01.png";
 // import { bgArticleImage } from "./Article.module.css";
-import { slateSerialize } from "../../components/SlateEditable/SlateEditable";
+import { slateSerializeHTML } from "../../components/SlateEditable/SlateEditable";
 import PortalOverlays from "../../components/PortalOverlays";
 import { FaHome } from "../../components/icons";
 import Tooltip from "../../components/Tooltip/Tooltip";
@@ -61,7 +61,7 @@ const PreviewArticle = () => {
                     </h1>
                     <div
                       dangerouslySetInnerHTML={{
-                        __html: slateSerialize(JSON.parse(article.body)),
+                        __html: slateSerializeHTML(JSON.parse(article.body)),
                       }}
                     />
                   </>

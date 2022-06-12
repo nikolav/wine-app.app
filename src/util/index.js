@@ -9,6 +9,7 @@ import escapeHtml from "escape-html";
 import stripEndSlashes from "./strip-end-slashes";
 import arrayDivide from "./array-divide";
 import sortByTimestampDesc from "./sort-by-timestamp-desc";
+import { postType } from "./post-type";
 //
 import q from "nikolav-q";
 import shuffle from "lodash/shuffle";
@@ -28,6 +29,7 @@ export {
   isEmail,
   noop,
   paste,
+  postType,
   prevent,
   shuffle,
   sortByTimestampDesc,

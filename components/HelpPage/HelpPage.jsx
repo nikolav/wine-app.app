@@ -19,6 +19,7 @@ import Rotation from "../Rotation/Rotation";
 import placeholder01 from "../../public/placeholder01.png";
 import { SpinnerRotatingLines } from "../loaders";
 import { arrayDivide, shuffle } from "../../src/util";
+import Dashboard from "../Dashboard/Dashboard";
 
 export { bgDashboard };
 ////
@@ -37,8 +38,20 @@ const HelpPage = () => {
       <section
         className={`text-white md:grid md:grid-cols-2 h-full gap-px mx-3 -mt-1 ${twoCols}`}
       >
-        <div className="h-full md:h-auto bg-gradient-to-b from-black/80 to-black/95 rounded-2xl md:rounded-r-none">
-          <p className="text-xl">🚧 comming soon</p>
+        <div className="overflow-y-hidden ***p-1 h-full md:h-auto bg-gradient-to-b from-black/80 to-black/95 rounded-2xl md:rounded-r-none">
+          <section
+            className="grid grid-rows-2 h-full gap-1"
+            style={{
+              gridTemplateRows: "1fr 1fr",
+            }}
+          >
+            <div className="***bg-red-200/20 overflow-y-auto scrollbar-thin">
+              🚧 app under construction
+            </div>
+            <div className="***bg-green-200/20 !overflow-y-auto scrollbar-thin">
+              <Dashboard />
+            </div>
+          </section>
         </div>
         <div className="p-px hidden md:!block w-48 bg-gradient-to-r from-black/80 to-black/90 rounded-r-2xl ***overflow-hidden">
           <section className="grid grid-rows-3 gap-px h-full">
