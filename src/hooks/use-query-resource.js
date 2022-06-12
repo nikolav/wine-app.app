@@ -3,12 +3,13 @@ import axios from "axios";
 import { stripEndSlashes } from "../util";
 import { URL_LOCAL } from "../feathers";
 //
-const WINEREVIEW = "winereview";
-const ARTICLES = "articles";
+export const WINEREVIEW = "winereview";
+export const ARTICLES = "articles";
+export const APPDATA_MAIN = "main";
 //
 export const DEFAULT_QUERY_CONFIG = {
   // refresh data on every window focus
-  // refetchOnWindowFocus: true,
+  refetchOnWindowFocus: true,
   //   refetchOnMount: bool,
   //   refetchOnReconnect: bool,
 
@@ -86,6 +87,9 @@ export function useQueryResource (resource, config = {}) {
 //
 export function useQueryWineReviews (config) {
   return useQueryResource(WINEREVIEW, config);
+}
+export function useQueryAppData (config) {
+  return useQueryResource(APPDATA_MAIN, config);
 }
 ////
 ////

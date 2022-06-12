@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useAuth } from "../../app/store";
-import { useArticles, useWineReview } from "../../app/store";
-import { sortByTimestampDesc, postType } from "../../src/util";
+import {
+  useAuth,
+  useArticles,
+  useWineReview,
+  useAppData,
+  APP_URL_DBKEY,
+} from "../../app/store";
+import { sortByTimestampDesc, postType, stripEndSlashes } from "../../src/util";
 import useStateSwitch from "../../src/hooks/use-state-switch";
 import {
   useGlobals,
@@ -21,6 +26,9 @@ import { useQueryClient } from "react-query";
 import cli from "../../src/feathers";
 import Panel from "../Panel";
 import { useRouter } from "next/router";
+// https://github.com/sudodoki/copy-to-clipboard
+import copyToClipboard from "copy-to-clipboard";
+import Tooltip from "../Tooltip/Tooltip";
 
 //
 //
@@ -101,56 +109,162 @@ function DashboardToolbar({ iconSize = 28, className = "", ...rest }) {
     if (activePost) router.push(`${postType(activePost)}/${activePost._id}`);
   };
   //
+  const { appdata } = useAppData();
+  const [copiedLink, setCopiedLink] = useState(null);
+  const DEFAULT_TOOLTIP_MESSAGE_COPY_LINK = "📋 kopiraj link";
+  const DEFAULT_TOOLTIP_MESSAGE_COPY_LINK_SUCCESS = "✅ kopirali ste link";
+  const [tooltipBodyCopyLink, setTooltipBodyCopyLink] = useState(
+    DEFAULT_TOOLTIP_MESSAGE_COPY_LINK
+  );
+  const onCopyLink = () => {
+    let domain;
+    if (activePost) {
+      domain = stripEndSlashes(
+        appdata?.find((node) => APP_URL_DBKEY === node.name)?.value || "/"
+      );
+      copyToClipboard(`${domain}/${postType(activePost)}/${activePost._id}`, {
+        format: "text/plain",
+        onCopy: setCopiedLink,
+      });
+    }
+  };
+  useEffect(() => {
+    if (copiedLink) {
+      setTooltipBodyCopyLink(DEFAULT_TOOLTIP_MESSAGE_COPY_LINK_SUCCESS);
+    }
+  }, [copiedLink]);
+  const [refPopperCopyLink, setRefPopperCopyLink] = useState(null);
+  const { isOn: isActivePopperCopyLink, toggle: toggleIsActivePopperCopyLink } =
+    useStateSwitch();
+  const resetCopyLink = () => {
+    toggleIsActivePopperCopyLink.off();
+    setTooltipBodyCopyLink(DEFAULT_TOOLTIP_MESSAGE_COPY_LINK);
+  };
+  //
+  const [refPopperPreviewPost, setRefPopperPreviewPost] = useState(null);
+  const { isOn: isActivePreviewPost, toggle: toggleIsActivePreviewPost } =
+    useStateSwitch();
+  //
+  const [refPopperRefreshPosts, setRefPopperRefreshPosts] = useState(null);
+  const { isOn: isActiveRefreshPosts, toggle: toggleIsActiveRefreshPosts } =
+    useStateSwitch();
+  //
+  const [refPopperTrash, setRefPopperTrash] = useState(null);
+  const { isOn: isActiveTrash, toggle: toggleisActiveTrash } = useStateSwitch();
+  //
+  const [refPopperInfo, setRefPopperInfo] = useState(null);
+  const { isOn: isActiveInfo, toggle: toggleIsActiveInfo } = useStateSwitch();
+  //
+  const [refPopperEditPost, setRefPopperEditPost] = useState(null);
+  const { isOn: isActiveEditPost, toggle: toggleIsActiveEditPost } =
+    useStateSwitch();
+  //
   return (
     <div
       className={`flex flex-row items-center justify-between gap-x-4 px-4 py-1 ${className}`}
       {...rest}
     >
-      <AiOutlineLink
-        className={
-          isActiveToolbar
-            ? DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES
-            : DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES_INACTIVE
-        }
-        style={{ width: iconSize, height: iconSize }}
-      />
-      <BiShow
-        onClick={onShowPost}
-        className={
-          isActiveToolbar
-            ? DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES
-            : DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES_INACTIVE
-        }
-        style={{ width: iconSize, height: iconSize }}
-      />
-      <MdCreate
-        className={
-          isActiveToolbar
-            ? DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES
-            : DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES_INACTIVE
-        }
-        style={{ width: iconSize, height: iconSize }}
-      />
-      <BiRefresh
-        onClick={qRefresh}
-        className={
-          isActiveToolbar
-            ? DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES
-            : DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES_INACTIVE
-        }
-        style={{ width: iconSize, height: iconSize }}
-      />
-      <span ref={setRefPopperOnDelete}>
-        <MdDeleteOutline
-          onClick={() => isActiveToolbar && toggleIsActiveOnDelete.on()}
+      <span ref={setRefPopperCopyLink}>
+        <AiOutlineLink
+          onClick={onCopyLink}
+          onMouseOver={toggleIsActivePopperCopyLink.on}
+          onMouseLeave={resetCopyLink}
           className={
             isActiveToolbar
-              ? "cursor-pointer text-red-500 opacity-30 hover:opacity-80 active:opacity-100"
+              ? DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES
               : DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES_INACTIVE
           }
-          style={{ width: iconSize * 0.72, height: iconSize * 0.72 }}
+          style={{ width: iconSize, height: iconSize }}
         />
       </span>
+      <Tooltip
+        isActive={isActivePopperCopyLink}
+        refElement={refPopperCopyLink}
+        placement="top"
+      >
+        {tooltipBodyCopyLink}
+      </Tooltip>
+      <span ref={setRefPopperPreviewPost}>
+        <BiShow
+          onClick={onShowPost}
+          onMouseOver={toggleIsActivePreviewPost.on}
+          onMouseLeave={toggleIsActivePreviewPost.off}
+          className={
+            isActiveToolbar
+              ? DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES
+              : DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES_INACTIVE
+          }
+          style={{ width: iconSize, height: iconSize }}
+        />
+      </span>
+      <Tooltip
+        isActive={isActivePreviewPost}
+        refElement={refPopperPreviewPost}
+        placement="top"
+      >
+        📰 pogledaj stranu
+      </Tooltip>
+      <span ref={setRefPopperEditPost}>
+        <MdCreate
+          onMouseOver={toggleIsActiveEditPost.on}
+          onMouseLeave={toggleIsActiveEditPost.off}
+          className={
+            isActiveToolbar
+              ? DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES
+              : DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES_INACTIVE
+          }
+          style={{ width: iconSize, height: iconSize }}
+        />
+      </span>
+      <Tooltip
+        isActive={isActiveEditPost}
+        refElement={refPopperEditPost}
+        placement="top"
+      >
+        📐 uredi
+      </Tooltip>
+      <span ref={setRefPopperRefreshPosts}>
+        <BiRefresh
+          onClick={qRefresh}
+          onMouseOver={toggleIsActiveRefreshPosts.on}
+          onMouseLeave={toggleIsActiveRefreshPosts.off}
+          className={
+            isActiveToolbar
+              ? DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES
+              : DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES_INACTIVE
+          }
+          style={{ width: iconSize, height: iconSize }}
+        />
+      </span>
+      <Tooltip
+        isActive={isActiveRefreshPosts}
+        refElement={refPopperRefreshPosts}
+        placement="top"
+      >
+        ✨ osveži listu
+      </Tooltip>
+      <span ref={setRefPopperOnDelete}>
+        <span ref={setRefPopperTrash}>
+          <MdDeleteOutline
+            onClick={() => isActiveToolbar && toggleIsActiveOnDelete.on()}
+            onMouseOver={toggleisActiveTrash.on}
+            onMouseLeave={toggleisActiveTrash.off}
+            className={
+              isActiveToolbar
+                ? "cursor-pointer text-red-500 opacity-30 hover:opacity-80 active:opacity-100"
+                : DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES_INACTIVE
+            }
+            style={{ width: iconSize * 0.72, height: iconSize * 0.72 }}
+          />
+        </span>
+      </span>
+      <Tooltip
+        refElement={refPopperTrash}
+        isActive={isActiveTrash}
+        placement="top"
+      >
+        🚫 obriši
+      </Tooltip>
       <Panel.Appear
         effect="slideUp"
         refElement={refPopperOnDelete}
@@ -184,14 +298,25 @@ function DashboardToolbar({ iconSize = 28, className = "", ...rest }) {
           </div>
         </div>
       </Panel.Appear>
-      <IoHelp
-        className={
-          isActiveToolbar
-            ? `${DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES} opacity-20`
-            : DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES_INACTIVE
-        }
-        style={{ width: iconSize, height: iconSize }}
-      />
+      <span ref={setRefPopperInfo}>
+        <IoHelp
+          onMouseOver={toggleIsActiveInfo.on}
+          onMouseLeave={toggleIsActiveInfo.off}
+          className={
+            isActiveToolbar
+              ? `${DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES} opacity-20`
+              : DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES_INACTIVE
+          }
+          style={{ width: iconSize, height: iconSize }}
+        />
+      </span>
+      <Tooltip
+        isActive={isActiveInfo}
+        refElement={refPopperInfo}
+        placement="top"
+      >
+        ⛑ pomoć
+      </Tooltip>
     </div>
   );
 }
@@ -319,5 +444,6 @@ function DashboardNotAuthenticated() {
   "updatedAt": "2022-06-08T16:34:59.833Z",
   "__v": 0
 }
+
 
  */
