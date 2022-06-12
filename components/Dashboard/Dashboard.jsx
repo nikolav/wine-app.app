@@ -20,6 +20,7 @@ import {
 import { useQueryClient } from "react-query";
 import cli from "../../src/feathers";
 import Panel from "../Panel";
+import { useRouter } from "next/router";
 
 //
 //
@@ -95,12 +96,26 @@ function DashboardToolbar({ iconSize = 28, className = "", ...rest }) {
     }
   };
   //
+  const router = useRouter();
+  const onShowPost = () => {
+    if (activePost) router.push(`${postType(activePost)}/${activePost._id}`);
+  };
+  //
   return (
     <div
       className={`flex flex-row items-center justify-between gap-x-4 px-4 py-1 ${className}`}
       {...rest}
     >
+      <AiOutlineLink
+        className={
+          isActiveToolbar
+            ? DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES
+            : DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES_INACTIVE
+        }
+        style={{ width: iconSize, height: iconSize }}
+      />
       <BiShow
+        onClick={onShowPost}
         className={
           isActiveToolbar
             ? DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES
@@ -109,14 +124,6 @@ function DashboardToolbar({ iconSize = 28, className = "", ...rest }) {
         style={{ width: iconSize, height: iconSize }}
       />
       <MdCreate
-        className={
-          isActiveToolbar
-            ? DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES
-            : DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES_INACTIVE
-        }
-        style={{ width: iconSize, height: iconSize }}
-      />
-      <AiOutlineLink
         className={
           isActiveToolbar
             ? DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES

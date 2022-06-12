@@ -31,7 +31,7 @@ const HelpPage = () => {
   const articleChunks = arrayDivide(shuffle(articles || []), 3);
   //
   const onClickArticlePreview = (active) =>
-    router.push(`/article/${active.article._id}`);
+    router.push(`/articles/${active.article._id}`);
   //
   return (
     <div className="h-full">

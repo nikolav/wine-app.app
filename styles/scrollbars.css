@@ -3,12 +3,14 @@ https://codepen.io/devstreak/pen/dMYgeO
 */
 
 
-.scrollbar-thin::-webkit-scrollbar-track
+.scrollbar-thin::-webkit-scrollbar-track,
+.scrollbar-thin-light::-webkit-scrollbar-track
 {
   background: transparent;
 }
 
-.scrollbar-thin::-webkit-scrollbar
+.scrollbar-thin::-webkit-scrollbar,
+.scrollbar-thin-light::-webkit-scrollbar
 {
   width: .2rem;
   background: transparent;
@@ -17,4 +19,8 @@ https://codepen.io/devstreak/pen/dMYgeO
 .scrollbar-thin::-webkit-scrollbar-thumb
 {
   background-color: #0f172a;
+}
+.scrollbar-thin-light::-webkit-scrollbar-thumb
+{
+  background-color: #aaaaaa;
 }
