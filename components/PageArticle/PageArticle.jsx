@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useSlate } from "slate-react";
 import { Transforms } from "slate";
 import SlateEditable from "../SlateEditable/SlateEditable";
@@ -17,8 +17,10 @@ import {
   ARTICLE_SAVED,
   ARTICLE_IMAGE_DATAURL,
   ARTICLE_IMAGE_SHOW,
+  DASHBOARD_ENTRY_ACTIVE_POST,
+  DASHBOARD_ENTRY_ACTIVE_POST_EDIT,
 } from "../../src/hooks/use-globals";
-import { useAuth } from "../../app/store";
+import { useAuth, usePages, useAppData } from "../../app/store";
 import useFirebaseStorageUpload from "../../src/hooks/use-firebase-storage-upload";
 import DrawerBox from "../DrawerBox/DrawerBox";
 import useStateSwitch from "../../src/hooks/use-state-switch";
@@ -30,8 +32,14 @@ import {
 import modcss from "./PageArticle.module.css";
 import Effect from "../Effect";
 import NotificationDangerNotAuthenticated from "../NotificationDangerNotAuthenticated/NotificationDangerNotAuthenticated";
-import { usePages } from "../../app/store";
 import { PAGE_LOGIN } from "../../app/store/page";
+import useChatNotify from "../../src/hooks/use-chat-notify";
+import { useQueryClient } from "react-query";
+import {
+  useActions,
+  ACTION_DEACTIVATE_ARTICLE_TOOLTIP_TRASH,
+  ACTION_DEACTIVATE_IMAGE_MODALS,
+} from "../../src/hooks/use-actions-global";
 ////
 ////
 const PageArticle = () => {
@@ -47,12 +55,14 @@ const PageArticle = () => {
   //
   const editor = useSlate();
   //
+  const actions = useActions();
+  //
   // triggers on/off @_app.loader
-  const { toggle: toggleProcessing } = useFlags();
+  const { toggle: toggleFlags } = useFlags();
   const isProcessingArticleSaveOn = () =>
-    toggleProcessing.on(IS_PROCESSING_ARTICLE_SAVE);
+    toggleFlags.on(IS_PROCESSING_ARTICLE_SAVE);
   const isProcessingArticleSaveOff = () =>
-    toggleProcessing.off(IS_PROCESSING_ARTICLE_SAVE);
+    toggleFlags.off(IS_PROCESSING_ARTICLE_SAVE);
   //
   const articleOnSave = globals(ARTICLE_ONSAVE);
   const articleImageFile = globals(ARTICLE_IMAGE_FILE);
@@ -64,14 +74,15 @@ const PageArticle = () => {
     globals.set(ARTICLE_IMAGE_FILE, null);
     globals.set(ARTICLE_IMAGE_SHOW, null);
   };
+  const clearEditor = (editor) => Transforms.insertText(editor, "", { at: [] });
   const nullArticleInputs = () => {
     // clear <input>
     setInput((current) => ({ ...current, articleTitle: "" }));
     globals.set(ARTICLE_TITLE_CACHED, "");
-    // clear image{}
+    //
     deleteImage();
-    // clear editor
-    Transforms.insertText(editor, "", { at: [] });
+    //
+    clearEditor(editor);
   };
   //
   const { upload, status: __ } = useFirebaseStorageUpload();
@@ -80,31 +91,24 @@ const PageArticle = () => {
   const { isOn: isActiveEffect, toggle: toggleIsActiveEffect } =
     useStateSwitch();
   //
+
+  const chatNotify = useChatNotify();
+  const { appdata } = useAppData();
   const chatPublishArticlePosted = (payloadArticle = null) => {
-    // payloadArticle{}
-    //   .title .slug .body .image .author
+    let authorName;
+    //
     if (!payloadArticle) return;
-    cli
-      .service("main")
-      .find({
-        query: {
-          $limit: 1,
-          $select: ["value"],
-          //
-          name: payloadArticle.author,
-        },
-      })
-      .then(({ data }) => {
-        const author = (data && data[0]?.value) || null;
-        if (author) {
-          cli.service("chat").create({
-            author: "🤖",
-            text: `Postavljen je novi članak. @${escapeHTML(author)}`,
-          });
-        }
+    //
+    authorName = appdata?.find(
+      (node) => payloadArticle.author === node.name
+    )?.value;
+    if (authorName) {
+      chatNotify({
+        author: "🤖",
+        text: `Postavljen je novi članak. @[${escapeHTML(authorName)}]`,
       });
+    }
   };
-  //
   const { setPage } = usePages();
   const {
     isOn: isActiveNotificationDangerNotAuthenticated,
@@ -174,6 +178,10 @@ const PageArticle = () => {
     }
   }, [__.error, __.downloadURL]);
   //
+  //
+  const qClient = useQueryClient();
+  const setActiveArticle = (post) =>
+    globals.set(DASHBOARD_ENTRY_ACTIVE_POST, post);
   // if data complete: db.save()
   useEffect(() => {
     let data;
@@ -199,6 +207,11 @@ const PageArticle = () => {
             // notify user article saved..
             toggleActiveDrawerBox.on();
             //
+            // refresh articles query
+            // select new post to show in dashboard
+            qClient.invalidateQueries("articles");
+            setActiveArticle(payload);
+            //
             // notify chat @new article
             chatPublishArticlePosted(payload);
           })
@@ -217,6 +230,40 @@ const PageArticle = () => {
       ...current,
       articleTitle: globals(ARTICLE_TITLE_CACHED),
     }));
+  }, []);
+  //
+  const setEditor = (editor, nodes = []) => {
+    editor.children = nodes;
+    editor.onChange();
+  };
+  const editPost = useRef(globals(DASHBOARD_ENTRY_ACTIVE_POST_EDIT)?.post);
+  // clear article edit data from context
+  // .. unstucks navigation to dashboard page
+  // .. which auto maticaly opens this page if edit post data is set
+  useEffect(() => {
+    // @@
+    globals.set(DASHBOARD_ENTRY_ACTIVE_POST_EDIT, null);
+    // if editing post
+    // poopulate inputs
+    // {articleTitle, slateEditor, imageUrl}
+    //@@
+    if (editPost?.current) {
+      setInput({ articleTitle: editPost.current.title });
+      setEditor(editor, JSON.parse(editPost.current.body).children);
+      if (editPost.current.image) {
+        globals.set(ARTICLE_IMAGE_DATAURL, editPost.current.image);
+        actions[ACTION_DEACTIVATE_IMAGE_MODALS]();
+      }
+    }
+
+    return () => {
+      clearEditor(editor);
+    };
+  }, []);
+  //
+
+  useEffect(() => {
+    actions[ACTION_DEACTIVATE_ARTICLE_TOOLTIP_TRASH]();
   }, []);
   //
   const onChange = (evt) => {

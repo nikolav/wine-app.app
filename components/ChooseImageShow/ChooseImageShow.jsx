@@ -6,6 +6,10 @@ import {
 } from "../../src/hooks/use-globals";
 import ModalBox from "../ModalBox";
 import useStateSwitch from "../../src/hooks/use-state-switch";
+import {
+  useFlags,
+  IS_ARTICLE_IMAGE_DATAURL,
+} from "../../src/hooks/use-flags-global";
 //
 //
 const ChooseImageShow = ({
@@ -16,15 +20,17 @@ const ChooseImageShow = ({
 }) => {
   //
   const globals = useGlobals();
+  const { flags } = useFlags();
   const imageDataUrl = globals(GLOBAL_DATAURL);
   const imageDataUrlShow = globals(GLOBAL_IMAGE_SHOW);
+  const isImageDataURL = flags[IS_ARTICLE_IMAGE_DATAURL];
   const { isOn, toggle } = useStateSwitch();
   //
   useEffect(() => {
-    if (imageDataUrl || imageDataUrlShow) toggle.on();
+    if (isImageDataURL && (imageDataUrl || imageDataUrlShow)) toggle.on();
     //
     return toggle.off;
-  }, [imageDataUrl, imageDataUrlShow]);
+  }, [isImageDataURL, imageDataUrl, imageDataUrlShow]);
   //
   return (
     <ModalBox isOpen={isOn} onClose={toggle.off}>

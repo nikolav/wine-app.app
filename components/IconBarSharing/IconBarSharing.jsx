@@ -22,14 +22,25 @@ import {
   FacebookMessengerShareButton,
   WhatsappShareButton,
 } from "react-share";
+import {
+  useGlobals,
+  DASHBOARD_ENTRY_ACTIVE_POST,
+} from "../../src/hooks/use-globals";
+import useGetPostLink from "../../src/hooks/use-post-link";
 //
 // export const SHARE_URL = "https://nikolav.rs/";
 // export const SHARE_URL = "https://wine-app0.herokuapp.com/";
-export const SHARE_URL = "http://ljubiteljvina.xyz/";
+// export const SHARE_URL = "http://ljubiteljvina.xyz/";
+export const DEFAULT_SHARE_URL = "http://ljubiteljvina.xyz/";
 //
 const IconBarSharing = () => {
   const { flags } = useFlags();
   const isActive = flags[IS_ACTIVE_SHARING];
+  //
+  const globals = useGlobals();
+  const activePost = globals(DASHBOARD_ENTRY_ACTIVE_POST);
+  const getPostLink = useGetPostLink();
+  const SHARE_URL = activePost ? getPostLink(activePost) : DEFAULT_SHARE_URL;
   //
   return (
     <PortalOverlaysEnd>

@@ -1,8 +1,4 @@
-import React, {
-  // useEffect,
-  useState,
-  forwardRef,
-} from "react";
+import React, { useEffect, useState, forwardRef } from "react";
 // import modcss from "./PageArticleCommandBar.module.css";
 import PortalOverlaysEnd from "../PortalOverlaysEnd";
 import { motion, AnimatePresence } from "framer-motion";
@@ -25,7 +21,11 @@ import PageArticleEditorHelp from "../PageArticleEditorHelp/PageArticleEditorHel
 import useStateSwitch from "../../src/hooks/use-state-switch";
 import ChooseImage from "../ChooseImage/ChooseImage";
 import ChooseImageShow from "../ChooseImageShow/ChooseImageShow";
-import { useGlobals, ARTICLE_ONSAVE } from "../../src/hooks/use-globals";
+import {
+  useGlobals,
+  ARTICLE_ONSAVE,
+  DEACTIVATE_ARTICLE_TOOLTIP_TRASH,
+} from "../../src/hooks/use-globals";
 import { noop, prevent } from "../../src/util";
 import useHandleImageDataUrl from "../../src/hooks/use-handle-image-data-url";
 import Tooltip from "../Tooltip/Tooltip";
@@ -85,12 +85,16 @@ const PageArticleCommandBar = () => {
   const [refPopperImage, setRefPopperImage] = useState(null);
   const { isOn: isActiveImage, toggle: toggleIsActiveImage } = useStateSwitch();
   const [refPopperTrash, setRefPopperTrash] = useState(null);
-  const { isOn: isActiveTrash, toggle: toggleIsActiveTrash } = useStateSwitch();
+  const { isOn: isActiveTrash, toggle: toggleIsActiveTrash } =
+    useStateSwitch(false);
   const [refPopperImagePreview, setRefPopperImagePreview] = useState(null);
   const { isOn: isActiveImagePreview, toggle: toggleIsActiveImagePreview } =
     useStateSwitch();
   //
-  //
+  const hideTooltipTrash = globals(DEACTIVATE_ARTICLE_TOOLTIP_TRASH);
+  useEffect(toggleIsActiveTrash.off, [hideTooltipTrash]);
+  ////
+  ////
   return (
     <>
       <PortalOverlaysEnd>

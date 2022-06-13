@@ -12,6 +12,7 @@ import ArticlesProvider, {
   WineReviewProvider,
   AppDataProvider,
 } from "../app/store/resource";
+import ActionsContextProvider from "../src/hooks/use-actions-global";
 //
 import "../styles/globals.css";
 import "../styles/build.css";
@@ -54,37 +55,39 @@ function MyApp({ Component, pageProps, router }) {
       </Head>
       <GlobalsProvder>
         <FlagsProvider>
-          <QueryProvider>
-            <AuthContextProvider>
-              <AppDataProvider>
-                <ArticlesProvider>
-                  <WineReviewProvider>
-                    <SlateEditorProvider>
-                      <PageContextProvider>
-                        <>
-                          <AnimatePresence exitBeforeEnter initial={false}>
-                            <motion.div
-                              key={router.route}
-                              initial="out"
-                              animate="in"
-                              exit="out"
-                              variants={variants}
-                            >
-                              <Component {...pageProps} />
-                            </motion.div>
-                          </AnimatePresence>
-                          {/*  */}
-                          <UserNotificationAuthStateChange />
-                          {/*  */}
-                          <LoaderBars />
-                        </>
-                      </PageContextProvider>
-                    </SlateEditorProvider>
-                  </WineReviewProvider>
-                </ArticlesProvider>
-              </AppDataProvider>
-            </AuthContextProvider>
-          </QueryProvider>
+          <ActionsContextProvider>
+            <QueryProvider>
+              <AuthContextProvider>
+                <AppDataProvider>
+                  <ArticlesProvider>
+                    <WineReviewProvider>
+                      <SlateEditorProvider>
+                        <PageContextProvider>
+                          <>
+                            <AnimatePresence exitBeforeEnter initial={false}>
+                              <motion.div
+                                key={router.route}
+                                initial="out"
+                                animate="in"
+                                exit="out"
+                                variants={variants}
+                              >
+                                <Component {...pageProps} />
+                              </motion.div>
+                            </AnimatePresence>
+                            {/*  */}
+                            <UserNotificationAuthStateChange />
+                            {/*  */}
+                            <LoaderBars />
+                          </>
+                        </PageContextProvider>
+                      </SlateEditorProvider>
+                    </WineReviewProvider>
+                  </ArticlesProvider>
+                </AppDataProvider>
+              </AuthContextProvider>
+            </QueryProvider>
+          </ActionsContextProvider>
         </FlagsProvider>
       </GlobalsProvder>
     </>

@@ -27,6 +27,12 @@ export const WR_DBSAVE = "WR.dbSave.mecqgnjgtqp";
 export const WR_SAVED = "WR.dbSaved.twrkwvrzhri";
 // store active dashboard post id
 export const DASHBOARD_ENTRY_ACTIVE_POST = "dashboardEntryActivePost.gnktkobglqd";
+// selected post to edit
+export const DASHBOARD_ENTRY_ACTIVE_POST_EDIT = "editPost.cxvgnwwisjw";
+// signals image is from db
+// prevents modal open when image is set in .useEffect in PageArtcle
+export const ARTICLE_IMAGE_EDIT = "articelImageEdit.qfzacaqyghl";
+export const DEACTIVATE_ARTICLE_TOOLTIP_TRASH = "umrybgeisnoatmhtrdsznxjgpbqozmsg";
 //
 // GLOBAL_FILE
 // GLOBAL_DATAURL

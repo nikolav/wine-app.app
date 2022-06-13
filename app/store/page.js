@@ -22,6 +22,7 @@ export const PAGE_FRENCH_WINE = "france";
 export const PAGE_SPANISH_WINE = "spain";
 export const PAGE_USA_WINE = "usa";
 export const PAGE_ARTICLE_CREATE = "article-create";
+export const PAGE_ARTICLE_EDIT = "article-edit";
 export const PAGE_CHAT = "page-chat.glcrpkbgcem";
 export const PAGE_WINE_REVIEW = "page-wine-review.jkttzwxwwqy";
 export const PAGE_SEARCH = "page-search.gqgkqpklfih";
@@ -36,6 +37,7 @@ export const pages = {
   [PAGE_SPANISH_WINE]: PageSpanishWine,
   [PAGE_USA_WINE]: PageUsaWine,
   [PAGE_ARTICLE_CREATE]: PageArticle,
+  [PAGE_ARTICLE_EDIT]: PageArticle,
   [PAGE_CHAT]: PageChat,
   [PAGE_WINE_REVIEW]: PageWineReview,
   [PAGE_SEARCH]: PageSearch,

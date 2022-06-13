@@ -4,6 +4,7 @@ import {
   ARTICLE_IMAGE_DATAURL,
   ARTICLE_IMAGE_SHOW,
 } from "./use-globals";
+import { useFlags, IS_ARTICLE_IMAGE_DATAURL } from "./use-flags-global";
 ////
 ////
 export default function useHandleImageDataUrl(
@@ -13,6 +14,7 @@ export default function useHandleImageDataUrl(
     GLOBAL_SHOW: ARTICLE_IMAGE_SHOW,
   }
 ) {
+  const { toggle: toggleFlags } = useFlags();
   const globals = useGlobals();
   const imageData = globals(__.GLOBAL_DATAURL);
   const imageNode = globals(__.GLOBAL_FILE);
@@ -23,6 +25,8 @@ export default function useHandleImageDataUrl(
     globals.set(__.GLOBAL_SHOW, null);
   };
   const showImage = () => {
+    // unblocks flag to enable manual open 
+    toggleFlags.on(IS_ARTICLE_IMAGE_DATAURL);
     // set it to new value `Date.now()`
     // `useEffect` will pick up change and show image
     globals.set(__.GLOBAL_SHOW, Date.now());

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { bgDashboard, twoCols } from "./HelpPage.module.css";
 // import useStateSwitch from "../../src/hooks/use-state-switch";
 // import DrawerBox from "../DrawerBox/DrawerBox";
@@ -20,6 +20,10 @@ import placeholder01 from "../../public/placeholder01.png";
 import { SpinnerRotatingLines } from "../loaders";
 import { arrayDivide, shuffle } from "../../src/util";
 import Dashboard from "../Dashboard/Dashboard";
+import {
+  useActions,
+  ACTION_DEACTIVATE_IMAGE_MODALS,
+} from "../../src/hooks/use-actions-global";
 
 export { bgDashboard };
 ////
@@ -32,6 +36,11 @@ const HelpPage = () => {
   //
   const onClickArticlePreview = (active) =>
     router.push(`/articles/${active.article._id}`);
+  //
+  const actions = useActions();
+  useEffect(() => {
+    actions[ACTION_DEACTIVATE_IMAGE_MODALS]();
+  }, []);
   //
   return (
     <div className="h-full">

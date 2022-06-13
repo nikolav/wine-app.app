@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from "react";
-import {
-  useAuth,
-  useArticles,
-  useWineReview,
-  useAppData,
-  APP_URL_DBKEY,
-} from "../../app/store";
-import { sortByTimestampDesc, postType, stripEndSlashes } from "../../src/util";
+import { useAuth, useArticles, useWineReview, usePages } from "../../app/store";
+import { PAGE_ARTICLE_EDIT, PAGE_WINE_REVIEW } from "../../app/store/page";
+import { sortByTimestampDesc, postType } from "../../src/util";
 import useStateSwitch from "../../src/hooks/use-state-switch";
 import {
   useGlobals,
   DASHBOARD_ENTRY_ACTIVE_POST,
+  DASHBOARD_ENTRY_ACTIVE_POST_EDIT,
 } from "../../src/hooks/use-globals";
 import {
   RiCheckboxBlankCircleLine,
@@ -29,7 +25,12 @@ import { useRouter } from "next/router";
 // https://github.com/sudodoki/copy-to-clipboard
 import copyToClipboard from "copy-to-clipboard";
 import Tooltip from "../Tooltip/Tooltip";
-
+import useGetPostLink from "../../src/hooks/use-post-link";
+import {
+  useFlags,
+  IS_ACTIVE_ARTICLE_COMMANDS,
+  IS_ACTIVE_WINE_REVIEW_TOOLBAR,
+} from "../../src/hooks/use-flags-global";
 //
 //
 const DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES =
@@ -80,10 +81,8 @@ function DashboardToolbar({ iconSize = 28, className = "", ...rest }) {
   //
   const queryClient = useQueryClient();
   const qRefresh = () => {
-    if (isActiveToolbar) {
-      queryClient.invalidateQueries("articles");
-      queryClient.invalidateQueries("winereview");
-    }
+    queryClient.invalidateQueries("articles");
+    queryClient.invalidateQueries("winereview");
   };
   //
   const [refPopperOnDelete, setRefPopperOnDelete] = useState(null);
@@ -108,21 +107,17 @@ function DashboardToolbar({ iconSize = 28, className = "", ...rest }) {
   const onShowPost = () => {
     if (activePost) router.push(`${postType(activePost)}/${activePost._id}`);
   };
-  //
-  const { appdata } = useAppData();
+  //@@
   const [copiedLink, setCopiedLink] = useState(null);
   const DEFAULT_TOOLTIP_MESSAGE_COPY_LINK = "📋 kopiraj link";
   const DEFAULT_TOOLTIP_MESSAGE_COPY_LINK_SUCCESS = "✅ kopirali ste link";
   const [tooltipBodyCopyLink, setTooltipBodyCopyLink] = useState(
     DEFAULT_TOOLTIP_MESSAGE_COPY_LINK
   );
+  const getPostLink = useGetPostLink();
   const onCopyLink = () => {
-    let domain;
     if (activePost) {
-      domain = stripEndSlashes(
-        appdata?.find((node) => APP_URL_DBKEY === node.name)?.value || "/"
-      );
-      copyToClipboard(`${domain}/${postType(activePost)}/${activePost._id}`, {
+      copyToClipboard(getPostLink(activePost), {
         format: "text/plain",
         onCopy: setCopiedLink,
       });
@@ -159,6 +154,25 @@ function DashboardToolbar({ iconSize = 28, className = "", ...rest }) {
   const { isOn: isActiveEditPost, toggle: toggleIsActiveEditPost } =
     useStateSwitch();
   //
+  const { toggle: toggleFlags } = useFlags();
+  const { setPage } = usePages();
+  const openArticleCommands = () => toggleFlags.on(IS_ACTIVE_ARTICLE_COMMANDS);
+  const openWineReviewToolbar = () =>
+    toggleFlags.on(IS_ACTIVE_WINE_REVIEW_TOOLBAR);
+  // { key: string.unique, post: object }
+  const editPostData = globals(DASHBOARD_ENTRY_ACTIVE_POST_EDIT);
+  useEffect(() => {
+    if (editPostData?.post) {
+      if ("winereview" === postType(editPostData.post)) {
+        setPage(PAGE_WINE_REVIEW);
+        openWineReviewToolbar();
+        return;
+      }
+      setPage(PAGE_ARTICLE_EDIT);
+      openArticleCommands();
+    }
+  }, [editPostData?.key]);
+  //
   return (
     <div
       className={`flex flex-row items-center justify-between gap-x-4 px-4 py-1 ${className}`}
@@ -166,7 +180,7 @@ function DashboardToolbar({ iconSize = 28, className = "", ...rest }) {
     >
       <span ref={setRefPopperCopyLink}>
         <AiOutlineLink
-          onClick={onCopyLink}
+          onClick={() => isActiveToolbar && onCopyLink()}
           onMouseOver={toggleIsActivePopperCopyLink.on}
           onMouseLeave={resetCopyLink}
           className={
@@ -186,7 +200,7 @@ function DashboardToolbar({ iconSize = 28, className = "", ...rest }) {
       </Tooltip>
       <span ref={setRefPopperPreviewPost}>
         <BiShow
-          onClick={onShowPost}
+          onClick={() => isActiveToolbar && onShowPost()}
           onMouseOver={toggleIsActivePreviewPost.on}
           onMouseLeave={toggleIsActivePreviewPost.off}
           className={
@@ -206,6 +220,13 @@ function DashboardToolbar({ iconSize = 28, className = "", ...rest }) {
       </Tooltip>
       <span ref={setRefPopperEditPost}>
         <MdCreate
+          onClick={() =>
+            isActiveToolbar &&
+            globals.set(DASHBOARD_ENTRY_ACTIVE_POST_EDIT, {
+              key: Date.now(),
+              post: activePost,
+            })
+          }
           onMouseOver={toggleIsActiveEditPost.on}
           onMouseLeave={toggleIsActiveEditPost.off}
           className={
@@ -225,7 +246,7 @@ function DashboardToolbar({ iconSize = 28, className = "", ...rest }) {
       </Tooltip>
       <span ref={setRefPopperRefreshPosts}>
         <BiRefresh
-          onClick={qRefresh}
+          onClick={() => isActiveToolbar && qRefresh()}
           onMouseOver={toggleIsActiveRefreshPosts.on}
           onMouseLeave={toggleIsActiveRefreshPosts.off}
           className={
@@ -300,6 +321,7 @@ function DashboardToolbar({ iconSize = 28, className = "", ...rest }) {
       </Panel.Appear>
       <span ref={setRefPopperInfo}>
         <IoHelp
+          onClick={() => isActiveToolbar && null}
           onMouseOver={toggleIsActiveInfo.on}
           onMouseLeave={toggleIsActiveInfo.off}
           className={

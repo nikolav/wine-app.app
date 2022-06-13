@@ -20,6 +20,9 @@ export const IS_PROCESSING_WINE_REVIEW_UPLOAD =
   "isProcessing.wineReviewUpload.vbzzaasqlmi";
 export const IS_REQUIRED_WR_INPUT_WINE = "isRequired.WR.inputWine.miorzepxlnm";
 export const IS_PROCESSING_AUTH = "isProcessing.Auth.wmuqpbwfxzx";
+// signal image is set from local file
+// prevent opening modals on post edit
+export const IS_ARTICLE_IMAGE_DATAURL = "isImageDataURL.wukfzhfaupr";
 ////
 ////
 export default function FlagsProvider({ children }) {

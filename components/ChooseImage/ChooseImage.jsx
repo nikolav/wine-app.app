@@ -8,6 +8,7 @@ import {
   // WINE_REVIEW_IMAGE_FILE,
   // WINE_REVIEW_IMAGE_DATAURL,
 } from "../../src/hooks/use-globals";
+import { useFlags, IS_ARTICLE_IMAGE_DATAURL } from "../../src/hooks/use-flags-global";
 //
 export default function ChooseImage({
   //
@@ -22,6 +23,7 @@ export default function ChooseImage({
   const ID = `FILECHOOSEIMAGE${id}`;
   const isMounted = useIsMounted();
   const globals = useGlobals();
+  const {toggle: toggleFlags} = useFlags();
   //
   const [read, __] = useFileReader();
   const onChange = (evt) => {
@@ -42,8 +44,10 @@ export default function ChooseImage({
     }
   };
   useEffect(() => {
-    if (!__.error && !__.loading && __.url)
+    if (!__.error && !__.loading && __.url) {
       globals.set(GLOBAL_DATAURL, __.url);
+      toggleFlags.on(IS_ARTICLE_IMAGE_DATAURL);
+    }
   }, [__.error, __.loading, __.url]);
   //
   return (
