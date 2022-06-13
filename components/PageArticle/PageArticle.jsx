@@ -16,7 +16,7 @@ import {
   ARTICLE_TITLE_CACHED,
   ARTICLE_SAVED,
   ARTICLE_IMAGE_DATAURL,
-  ARTICLE_IMAGE_SHOW,
+  // ARTICLE_IMAGE_SHOW,
   DASHBOARD_ENTRY_ACTIVE_POST,
   DASHBOARD_ENTRY_ACTIVE_POST_EDIT,
 } from "../../src/hooks/use-globals";
@@ -40,6 +40,8 @@ import {
   ACTION_DEACTIVATE_ARTICLE_TOOLTIP_TRASH,
   ACTION_DEACTIVATE_IMAGE_MODALS,
 } from "../../src/hooks/use-actions-global";
+
+import useHandleImageDataUrl from "../../src/hooks/use-handle-image-data-url";
 ////
 ////
 const PageArticle = () => {
@@ -69,18 +71,20 @@ const PageArticle = () => {
   const articleDBSave = globals(ARTICLE_DBSAVE);
   const nullArticleData = () => globals.set(ARTICLE_DATA, null);
   //
-  const deleteImage = () => {
-    globals.set(ARTICLE_IMAGE_DATAURL, null);
-    globals.set(ARTICLE_IMAGE_FILE, null);
-    globals.set(ARTICLE_IMAGE_SHOW, null);
-  };
+  const articleImage = useHandleImageDataUrl();
+  // const deleteImage = () => {
+  //   globals.set(ARTICLE_IMAGE_DATAURL, null);
+  //   globals.set(ARTICLE_IMAGE_FILE, null);
+  //   globals.set(ARTICLE_IMAGE_SHOW, null);
+  // };
   const clearEditor = (editor) => Transforms.insertText(editor, "", { at: [] });
   const nullArticleInputs = () => {
     // clear <input>
     setInput((current) => ({ ...current, articleTitle: "" }));
     globals.set(ARTICLE_TITLE_CACHED, "");
     //
-    deleteImage();
+    // deleteImage();
+    articleImage.rm();
     //
     clearEditor(editor);
   };
@@ -257,7 +261,10 @@ const PageArticle = () => {
     }
 
     return () => {
-      clearEditor(editor);
+      if (editPost?.current) {
+        clearEditor(editor);
+        articleImage.rm();
+      }
     };
   }, []);
   //
