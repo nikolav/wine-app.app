@@ -15,6 +15,7 @@ import {
   IoHelp,
   BiShow,
   MdDeleteOutline,
+  AiOutlineCloudSync,
 } from "../icons";
 import DrawerBox from "../DrawerBox/DrawerBox";
 import PageArticleEditorHelp from "../PageArticleEditorHelp/PageArticleEditorHelp";
@@ -29,6 +30,8 @@ import {
 import { noop, prevent } from "../../src/util";
 import useHandleImageDataUrl from "../../src/hooks/use-handle-image-data-url";
 import Tooltip from "../Tooltip/Tooltip";
+import { usePages } from "../../app/store";
+import { PAGE_ARTICLE_EDIT } from "../../app/store/page";
 //
 const IconCommand = forwardRef(function IconCommand(
   { children, disabled = null, onClick = noop, ...rest },
@@ -93,6 +96,9 @@ const PageArticleCommandBar = () => {
   //
   const hideTooltipTrash = globals(DEACTIVATE_ARTICLE_TOOLTIP_TRASH);
   useEffect(toggleIsActiveTrash.off, [hideTooltipTrash]);
+  //
+  const { page: activePage } = usePages();
+  //
   ////
   ////
   return (
@@ -174,13 +180,25 @@ const PageArticleCommandBar = () => {
                   onMouseOver={toggleIsActiveSave.on}
                   onMouseLeave={toggleIsActiveSave.off}
                 >
-                  <BiCloudUpload
-                    className={`text-white text-5xl transition-transform ${
-                      disabledUpload
-                        ? "opacity-20 cursor-not-allowed"
-                        : "opacity-80 hover:scale-125 hover:opacity-90 active:opacity-100 cursor-pointer"
-                    }`}
-                  />
+                  {/* if on article.create show upload icon */}
+                  {/* if on article.edit show sync icon */}
+                  {PAGE_ARTICLE_EDIT === activePage.key ? (
+                    <AiOutlineCloudSync
+                      className={`text-white text-5xl transition-transform ${
+                        disabledUpload
+                          ? "opacity-20 cursor-not-allowed"
+                          : "opacity-80 hover:scale-125 hover:opacity-90 active:opacity-100 cursor-pointer"
+                      }`}
+                    />
+                  ) : (
+                    <BiCloudUpload
+                      className={`text-white text-5xl transition-transform ${
+                        disabledUpload
+                          ? "opacity-20 cursor-not-allowed"
+                          : "opacity-80 hover:scale-125 hover:opacity-90 active:opacity-100 cursor-pointer"
+                      }`}
+                    />
+                  )}
                 </IconCommand>
                 {disabledUpload || (
                   <Tooltip

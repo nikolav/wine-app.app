@@ -4,7 +4,7 @@ import { Transforms } from "slate";
 import SlateEditable from "../SlateEditable/SlateEditable";
 import useInputSynced from "../../src/hooks/use-input-synced";
 import Required from "../Required/Required";
-import { prevent, escapeHTML } from "../../src/util";
+import { prevent, escapeHTML, slugify } from "../../src/util";
 import cli from "../../src/feathers";
 import useIsMounted from "../../src/hooks/use-is-mounted";
 import {
@@ -32,7 +32,11 @@ import {
 import modcss from "./PageArticle.module.css";
 import Effect from "../Effect";
 import NotificationDangerNotAuthenticated from "../NotificationDangerNotAuthenticated/NotificationDangerNotAuthenticated";
-import { PAGE_LOGIN } from "../../app/store/page";
+import {
+  PAGE_LOGIN,
+  PAGE_ARTICLE_EDIT,
+  PAGE_ARTICLE_CREATE,
+} from "../../app/store/page";
 import useChatNotify from "../../src/hooks/use-chat-notify";
 import { useQueryClient } from "react-query";
 import {
@@ -113,11 +117,16 @@ const PageArticle = () => {
       });
     }
   };
-  const { setPage } = usePages();
+  const { page: activePage, setPage } = usePages();
   const {
     isOn: isActiveNotificationDangerNotAuthenticated,
     toggle: toggleIsActiveNotificationDangerNotAuthenticated,
   } = useStateSwitch();
+  //
+  //
+  const isPageArticleEdit = PAGE_ARTICLE_EDIT === activePage.key;
+  // unedited article
+  const editPost = useRef(globals(DASHBOARD_ENTRY_ACTIVE_POST_EDIT)?.post);
   //
   useEffect(() => {
     //
@@ -143,10 +152,14 @@ const PageArticle = () => {
       //
       globals.set(ARTICLE_DATA, {
         title,
-        slug: `${title}_${Date.now()}`,
+        // slug: `${title}_${Date.now()}`,
+        slug: slugify(`${title}_${Date.now()}`),
         body: JSON.stringify(editor),
-        author: user.uid,
-        image: null,
+        // author: user.uid,
+        author: isPageArticleEdit ? editPost.current.author : user.uid,
+        // image: null,
+        image: isPageArticleEdit ? editPost.current.image : null,
+        ...(isPageArticleEdit ? { _id: editPost.current._id } : {}),
       });
       //
       // trigger spinner
@@ -186,40 +199,56 @@ const PageArticle = () => {
   const qClient = useQueryClient();
   const setActiveArticle = (post) =>
     globals.set(DASHBOARD_ENTRY_ACTIVE_POST, post);
+  //
+  // on saved/updated callback
+  const onArticleSaved = (payload) => {
+    // article saved; clear cached data
+    // prevents re-saves on page @re-mounts
+    nullArticleData();
+    //
+    // cache saved article record
+    globals.set(ARTICLE_SAVED, [...(globals(ARTICLE_SAVED) || []), payload]);
+    //
+    nullArticleInputs();
+    //
+    // notify user article saved..
+    toggleActiveDrawerBox.on();
+    //
+    // refresh articles query
+    // select new post to show in dashboard
+    qClient.invalidateQueries("articles");
+    setActiveArticle(payload);
+    //
+    // notify chat @new article
+    if (PAGE_ARTICLE_CREATE === activePage.key)
+      chatPublishArticlePosted(payload);
+  };
   // if data complete: db.save()
   useEffect(() => {
     let data;
     if (articleDBSave) {
       data = globals(ARTICLE_DATA);
       if (data) {
+        if (isPageArticleEdit) {
+          // check post and user match
+          if (null != data._id && user.uid === data.author) {
+            // update
+            cli
+              .service("articles")
+              .update(data._id, data)
+              .then(onArticleSaved)
+              .finally(isProcessingArticleSaveOff);
+          }
+          // skip .create()
+          return;
+        }
+        // create
         cli
           .service("articles")
           .create(data)
-          .then((payload) => {
-            // article saved; clear cached data
-            // prevents re-saves on page @re-mounts
-            nullArticleData();
-            //
-            // cache saved article record
-            globals.set(ARTICLE_SAVED, [
-              ...(globals(ARTICLE_SAVED) || []),
-              payload,
-            ]);
-            //
-            nullArticleInputs();
-            //
-            // notify user article saved..
-            toggleActiveDrawerBox.on();
-            //
-            // refresh articles query
-            // select new post to show in dashboard
-            qClient.invalidateQueries("articles");
-            setActiveArticle(payload);
-            //
-            // notify chat @new article
-            chatPublishArticlePosted(payload);
-          })
+          .then(onArticleSaved)
           .finally(isProcessingArticleSaveOff);
+        //
       } else {
         isProcessingArticleSaveOff();
       }
@@ -240,10 +269,10 @@ const PageArticle = () => {
     editor.children = nodes;
     editor.onChange();
   };
-  const editPost = useRef(globals(DASHBOARD_ENTRY_ACTIVE_POST_EDIT)?.post);
+
   // clear article edit data from context
   // .. unstucks navigation to dashboard page
-  // .. which auto maticaly opens this page if edit post data is set
+  // .. which automaticaly opens this page if edit post data is set
   useEffect(() => {
     // @@
     globals.set(DASHBOARD_ENTRY_ACTIVE_POST_EDIT, null);
@@ -260,6 +289,8 @@ const PageArticle = () => {
       }
     }
 
+    // if unmounting edit page
+    // clear data {image, editor} for .create to load empty
     return () => {
       if (editPost?.current) {
         clearEditor(editor);

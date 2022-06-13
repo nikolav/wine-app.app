@@ -43,6 +43,7 @@ import {
   AiOutlineUnderline,
   AiOutlineWhatsApp,
   AiOutlineLink,
+  AiOutlineCloudSync,
 } from "react-icons/ai";
 import {
   RiCloseCircleFill,
@@ -54,6 +55,7 @@ import { FiSend } from "react-icons/fi";
 ////
 ////
 export {
+  AiOutlineCloudSync,
   AiOutlineLink,
   AiOutlineUnderline,
   AiOutlineWhatsApp,

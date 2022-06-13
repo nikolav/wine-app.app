@@ -13,10 +13,12 @@ import { postType } from "./post-type";
 //
 import q from "nikolav-q";
 import shuffle from "lodash/shuffle";
+import kebabCase from "lodash/kebabCase";
 //
 const debounce = q.func.debounce;
 const paste = q.object.paste;
 const escapeHTML = escapeHtml;
+const slugify = kebabCase;
 //
 export {
   arrayDivide,
@@ -27,11 +29,13 @@ export {
   escapeHTML,
   has,
   isEmail,
+  kebabCase,
   noop,
   paste,
   postType,
   prevent,
   shuffle,
+  slugify,
   sortByTimestampDesc,
   stripEndSlashes,
   WR_InitRecord,
