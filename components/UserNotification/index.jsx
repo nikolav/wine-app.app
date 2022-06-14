@@ -9,6 +9,9 @@ import useIsMounted from "../../src/hooks/use-is-mounted";
 import { usePages } from "../../app/store";
 import { PAGE_HELP } from "../../app/store/page";
 import { escapeHTML } from "../../src/util";
+import useLocalStorage, {
+  LAST_SIGN_IN_DATE,
+} from "../../src/hooks/use-local-storage";
 ////
 ////
 
@@ -42,37 +45,68 @@ function UserNotificationPostSaved({
 }
 //
 //
+const MSECONDS_IN_ONE_DAY = 86400000;
 const UserNotificationAuthStateChange = () => {
   const isMounted = useIsMounted();
   const { user } = useAuth();
   const { isOn, toggle } = useStateSwitch();
-  const { setPage } = usePages(); //PAGE_HELP
+  const { setPage } = usePages();
+  const storage = useLocalStorage(LAST_SIGN_IN_DATE);
+  //
+  const now_ = Date.now();
+  const then_ = storage();
+  const isOldLastSignInDiff = MSECONDS_IN_ONE_DAY < now_ - (then_ || 0);
   //
   useEffect(() => {
     if (isMounted) {
       toggle.on();
-      if (!user) setPage(PAGE_HELP);
+      if (!user) {
+        setPage(PAGE_HELP);
+      }
     }
   }, [user]);
   //
+  return null != user ? (
+    <UserNotificationAuthStateChangeSignIn
+      user={user}
+      isActive={isOldLastSignInDiff && isOn}
+      onClose={() => {
+        storage(now_);
+        toggle.off();
+      }}
+    />
+  ) : (
+    <UserNotificationAuthStateChangeSignOut
+      isActive={isOn}
+      onClose={toggle.off}
+    />
+  );
+};
+const UserNotificationAuthStateChangeSignIn = ({ user, isActive, onClose }) => {
   return (
-    <DrawerBox isActive={isOn} onClose={toggle.off}>
+    <DrawerBox isActive={isActive} onClose={onClose}>
       <div className="flex flex-row items-center justify-center h-full">
         <section className="text-center">
-          {null != user ? (
-            <strong>
-              👋🏼 Dobrodošli {escapeHTML(user?.displayName || "!")}
-            </strong>
-          ) : (
-            <>
-              <p className="italic opacity-80">Uspešno ste se odjavili.</p>
-              <p className="italic opacity-80">Hvala na poseti.</p>
-              <p className="italic opacity-80">👋🏼</p>
-            </>
-          )}
+          <strong>👋🏼 Dobrodošli {escapeHTML(user?.displayName || "!")}</strong>
         </section>
       </div>
-      {/* <pre className="text-xs">{JSON.stringify(user, null, 2)}</pre> */}
+    </DrawerBox>
+  );
+};
+const UserNotificationAuthStateChangeSignOut = ({
+  user = null,
+  isActive,
+  onClose,
+}) => {
+  return (
+    <DrawerBox isActive={isActive} onClose={onClose}>
+      <div className="flex flex-row items-center justify-center h-full">
+        <section className="text-center">
+          <p className="italic opacity-80">Uspešno ste se odjavili.</p>
+          <p className="italic opacity-80">Hvala na poseti.</p>
+          <p className="italic opacity-80">👋🏼</p>
+        </section>
+      </div>
     </DrawerBox>
   );
 };

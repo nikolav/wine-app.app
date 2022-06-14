@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useAuth, useArticles, useWineReview, usePages } from "../../app/store";
 import { PAGE_ARTICLE_EDIT, PAGE_WINE_REVIEW } from "../../app/store/page";
-import { sortByTimestampDesc, postType } from "../../src/util";
+import { sortByTimestampDesc, postType, noop } from "../../src/util";
 import useStateSwitch from "../../src/hooks/use-state-switch";
 import {
   useGlobals,
@@ -31,6 +31,7 @@ import {
   IS_ACTIVE_ARTICLE_COMMANDS,
   IS_ACTIVE_WINE_REVIEW_TOOLBAR,
 } from "../../src/hooks/use-flags-global";
+import DrawerBox from "../DrawerBox/DrawerBox";
 //
 //
 const DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES =
@@ -47,33 +48,64 @@ const Dashboard = () => {
         .filter((node) => node.author === user.uid)
         .sort(sortByTimestampDesc("updatedAt"))
     : [];
+  //
+  const { isOn: isActiveDashboardHelp, toggle: toggleIsActiveDashboardHelp } =
+    useStateSwitch();
   ////
   ////
-  return user ? (
-    <div className="relative">
-      <DashboardToolbar className="shadow !sticky z-10 inset-x-0 top-0 bg-gradient-to-b from-black to-slate-900/95" />
-      <div className="py-4 bg-gradient-to-r from-black/50 to-black/80">
-        {userData ? (
-          0 < userData.length ? (
-            <section>
-              {userData.map((post, i) => (
-                <DashboardEntry i={i} key={post._id} post={post} />
-              ))}
-            </section>
-          ) : (
-            <p>no posts</p>
-          )
-        ) : (
-          <small>loading...</small>
-        )}
-      </div>
-    </div>
-  ) : (
-    <DashboardNotAuthenticated />
+  return (
+    <>
+      {user ? (
+        <div className="relative">
+          <DashboardToolbar
+            onHelp={toggleIsActiveDashboardHelp.on}
+            className="shadow !sticky z-10 inset-x-0 top-0 bg-gradient-to-b from-black to-slate-900/95"
+          />
+          <div className="py-4 bg-gradient-to-r from-black/50 to-black/80">
+            {userData ? (
+              0 < userData.length ? (
+                <section>
+                  {userData.map((post, i) => (
+                    <DashboardEntry i={i} key={post._id} post={post} />
+                  ))}
+                </section>
+              ) : (
+                <p>no posts</p>
+              )
+            ) : (
+              <small>loading...</small>
+            )}
+          </div>
+        </div>
+      ) : (
+        <DashboardNotAuthenticated />
+      )}
+      <DrawerBox
+        isActive={isActiveDashboardHelp}
+        onClose={toggleIsActiveDashboardHelp.off}
+      >
+        <section className="flex items-center justify-center h-full text-center">
+          <div className="w-1/2 max-w-full">
+            <h2>🚧 help.dashboard</h2>
+            <p>
+              @todo; Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+              Laborum alias beatae quisquam ipsam sequi sit obcaecati dolorum
+              amet aut, possimus explicabo fugit? Voluptates nam, explicabo
+              consequatur esse nostrum itaque quod.
+            </p>
+          </div>
+        </section>
+      </DrawerBox>
+    </>
   );
 };
 //
-function DashboardToolbar({ iconSize = 28, className = "", ...rest }) {
+function DashboardToolbar({
+  iconSize = 28,
+  className = "",
+  onHelp = noop,
+  ...rest
+}) {
   // Get QueryClient from the context
   const globals = useGlobals();
   const activePost = globals(DASHBOARD_ENTRY_ACTIVE_POST);
@@ -321,7 +353,7 @@ function DashboardToolbar({ iconSize = 28, className = "", ...rest }) {
       </Panel.Appear>
       <span ref={setRefPopperInfo}>
         <IoHelp
-          onClick={() => isActiveToolbar && null}
+          onClick={() => isActiveToolbar && onHelp()}
           onMouseOver={toggleIsActiveInfo.on}
           onMouseLeave={toggleIsActiveInfo.off}
           className={
