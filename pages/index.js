@@ -62,7 +62,6 @@ import {
 import { bgDashboard } from "../components/HelpPage/HelpPage";
 
 //
-import imagePlaceholder from "../public/placeholder01.png";
 import Image from "next/image";
 import {
   useFlags,
