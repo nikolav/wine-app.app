@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import { useGlobals, WR_IS_PREVIEW } from "../../src/hooks/use-globals";
 import { useWineReview } from "../../app/store";
@@ -10,6 +10,7 @@ const PreviewWineReview = () => {
   const globals = useGlobals();
   const { winereview } = useWineReview();
   const isMounted = useIsMounted();
+  const wr = useRef(winereview?.find((node) => ID === node._id));
   // const wr = winereview?.find((node) => ID === node._id);
   //
   //
@@ -24,10 +25,8 @@ const PreviewWineReview = () => {
     if (isMounted && winereview) {
       console.log(ID);
       console.log(winereview);
-      globals.set(
-        WR_IS_PREVIEW,
-        winereview.find((node) => ID === node._id)
-      );
+      console.log(wr);
+      globals.set(WR_IS_PREVIEW, wr.current);
       router.push(`/`);
     }
   }, [winereview, ID, isMounted]);
