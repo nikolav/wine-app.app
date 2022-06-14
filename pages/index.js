@@ -70,6 +70,7 @@ import {
 import {
   useGlobals,
   WR_IS_PREVIEW,
+  WR_IS_PREVIEW_ID,
   WINE_REVIEW_IMAGE_DATAURL,
 } from "../src/hooks/use-globals";
 //
