@@ -110,7 +110,7 @@ export default function Home() {
                 alt=""
                 src={imageSrc}
                 layout="fill"
-                className="object-cover object-center block"
+                className="block object-cover object-center"
               />
             ) : (
               <VideoBackground video="https://nikolav.rs/etc/wine-app/mov.min2.mp4" />

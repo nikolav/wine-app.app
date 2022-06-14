@@ -389,7 +389,7 @@ const PageWineReview = () => {
                 id="pageWineReview.hqnudedvazk"
                 GLOBAL_DATAURL={WINE_REVIEW_IMAGE_DATAURL}
                 GLOBAL_FILE={WINE_REVIEW_IMAGE_FILE}
-                className="flex justify-center items-center"
+                className="flex items-center justify-center"
               >
                 <PageWineReviewNoImageThumb />
               </ChooseImage>
@@ -426,7 +426,7 @@ const PageWineReview = () => {
           {/*  */}
           {/* col.3 */}
           <div className={`${modcss.bgUkus} row-span-2 ***bg-slate-50`}>
-            <div className="space-y-5 px-4">
+            <div className="px-4 space-y-5">
               <InputWineReviewRangeSlider
                 title="Stil"
                 name="levelSugar"
@@ -478,7 +478,7 @@ const PageWineReview = () => {
                 }
                 classInactive="text-stone-300"
               />
-              <p className="text-stone-800 opacity-60 italic">
+              <p className="italic text-stone-800 opacity-60">
                 Moja konačna ocena vina
               </p>
             </Effect>
@@ -495,7 +495,7 @@ const PageWineReview = () => {
         👤{" "}
         <strong
           onClick={prevent(setPage.bind(null, PAGE_LOGIN))}
-          className="link px-2"
+          className="px-2 link"
         >
           PRIJAVITE SE
         </strong>{" "}
@@ -519,7 +519,7 @@ const PageWineReview = () => {
             id={`winereview--${isWRPreview.current._id}`}
             placement="left-start"
             offset={[0, 12]}
-            className="fixed top-1 right-24 z-50"
+            className="fixed z-50 top-1 right-24"
           />
         </PortalOverlays>
       )}
