@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useAuth, useArticles, useWineReview, usePages } from "../../app/store";
-import { PAGE_ARTICLE_EDIT, PAGE_WINE_REVIEW } from "../../app/store/page";
+import { PAGE_ARTICLE_EDIT, PAGE_WINE_REVIEW, PAGE_WINE_REVIEW_EDIT } from "../../app/store/page";
 import { sortByTimestampDesc, postType, noop } from "../../src/util";
 import useStateSwitch from "../../src/hooks/use-state-switch";
 import {
@@ -41,8 +41,9 @@ const DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES_INACTIVE = "opacity-10";
 ////
 const Dashboard = () => {
   const { user } = useAuth();
-  const { articles, query: qArticles } = useArticles();
-  const { winereview, query: qWR } = useWineReview();
+  const { articles } = useArticles();
+  const { winereview } = useWineReview();
+  // * articles + wr
   const userData = user
     ? [...(articles ?? []), ...(winereview ?? [])]
         .filter((node) => node.author === user.uid)
@@ -62,18 +63,14 @@ const Dashboard = () => {
             className="shadow !sticky z-10 inset-x-0 top-0 bg-gradient-to-b from-black to-slate-900/95"
           />
           <div className="py-4 bg-gradient-to-r from-black/50 to-black/80">
-            {userData ? (
-              0 < userData.length ? (
-                <section>
-                  {userData.map((post, i) => (
-                    <DashboardEntry i={i} key={post._id} post={post} />
-                  ))}
-                </section>
-              ) : (
-                <p>no posts</p>
-              )
+            {0 < userData.length ? (
+              <section>
+                {userData.map((post, i) => (
+                  <DashboardEntry i={i} key={post._id} post={post} />
+                ))}
+              </section>
             ) : (
-              <small>loading...</small>
+              <p>no posts</p>
             )}
           </div>
         </div>
@@ -196,7 +193,7 @@ function DashboardToolbar({
   useEffect(() => {
     if (editPostData?.post) {
       if ("winereview" === postType(editPostData.post)) {
-        setPage(PAGE_WINE_REVIEW);
+        setPage(PAGE_WINE_REVIEW_EDIT);
         openWineReviewToolbar();
         return;
       }

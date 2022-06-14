@@ -25,6 +25,7 @@ export const PAGE_ARTICLE_CREATE = "article-create";
 export const PAGE_ARTICLE_EDIT = "article-edit";
 export const PAGE_CHAT = "page-chat.glcrpkbgcem";
 export const PAGE_WINE_REVIEW = "page-wine-review.jkttzwxwwqy";
+export const PAGE_WINE_REVIEW_EDIT = "page-wine-review.edit.hvpedgdshvv";
 export const PAGE_SEARCH = "page-search.gqgkqpklfih";
 //
 export const pages = {
@@ -40,6 +41,7 @@ export const pages = {
   [PAGE_ARTICLE_EDIT]: PageArticle,
   [PAGE_CHAT]: PageChat,
   [PAGE_WINE_REVIEW]: PageWineReview,
+  [PAGE_WINE_REVIEW_EDIT]: PageWineReview,
   [PAGE_SEARCH]: PageSearch,
 };
 

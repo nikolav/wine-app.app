@@ -21,10 +21,13 @@ const classesInputWineColorButtonActive = {
 //
 function InputWineColorButton({
   //
-  // required; white | rose | red
+  // required; 
+  // white | rose | red
+  // isClear | isHazy
   value,
   //
   // input:radio.name
+  //   color | clearhazy
   name,
   //
   children,

@@ -10,12 +10,13 @@ const InputWineReviewRangeSlider = ({
 }) => {
   const globals = useGlobals();
   const wineReview = globals(INPUT_WINE_REVIEW);
+
+  const inputValue = wineReview[name] || 1;
   //
   const onInput = (evt) => {
-    const value = evt?.target?.value;
     globals.set(INPUT_WINE_REVIEW, {
       ...wineReview,
-      [name]: value,
+      [name]: evt.target.value,
     });
   };
   ////
@@ -46,13 +47,12 @@ const InputWineReviewRangeSlider = ({
         {/* RANGE */}
         <input
           type="range"
-          name={name}
           min="1"
           max={max}
           step="1"
-          defaultValue={wineReview[name] || 1}
+          value={inputValue}
+          onChange={onInput}
           className={`top-1/2 translate-y-[1px] absolute z-20 !duration-100 !transition-opacity appearance-none w-full h-px rounded-sm outline-none opacity-80 hover:opacity-90 active:opacity-100 bg-slate-300 ${modcss.sliderThumb}`}
-          onInput={onInput}
         />
       </div>
     </div>

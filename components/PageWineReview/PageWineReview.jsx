@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import modcss from "./PageWineReview.module.css";
 //
-import { prevent, WR_InitRecord } from "../../src/util";
+import { prevent, WR_InitRecord, WR_loadFieldsFromData } from "../../src/util";
 import {
   useGlobals,
   INPUT_WINE_REVIEW,
@@ -12,6 +12,9 @@ import {
   WR_DBSAVE,
   WR_SAVED,
   WINE_REVIEW_IMAGE_SHOW,
+  DASHBOARD_ENTRY_ACTIVE_POST,
+  DASHBOARD_ENTRY_ACTIVE_POST_EDIT,
+  STAR_RATING,
 } from "../../src/hooks/use-globals";
 import {
   useFlags,
@@ -42,7 +45,8 @@ import PageWineReviewNoImageThumb from "../PageWineReviewNoImageThumb/PageWineRe
 import NotificationDangerNotAuthenticated from "../NotificationDangerNotAuthenticated/NotificationDangerNotAuthenticated";
 import Effect from "../Effect";
 import { usePages } from "../../app/store";
-import { PAGE_LOGIN } from "../../app/store/page";
+import { PAGE_LOGIN, PAGE_WINE_REVIEW_EDIT } from "../../app/store/page";
+import { useQueryClient } from "react-query";
 //
 const IDWINERATING = "wineRating";
 ////
@@ -167,6 +171,9 @@ const PageWineReview = () => {
   // post chat notification
   const chatPublish = useChatNotify();
   //
+  const qClient = useQueryClient();
+  const setActivePost = (post) =>
+    globals.set(DASHBOARD_ENTRY_ACTIVE_POST, post);
   useEffect(() => {
     //  WR_RECORD
     let data;
@@ -193,6 +200,10 @@ const PageWineReview = () => {
             // toggleActiveDrawerBox.on();
             toggleIsActiveNotificationWRSaved.on();
             //
+            // refresh dashboard and
+            // set active post to no record
+            qClient.invalidateQueries("winereview");
+            setActivePost(payload);
             // notify chat @created.winereview
             chatPublish({
               author: "🤖",
@@ -217,21 +228,37 @@ const PageWineReview = () => {
   };
   const imageDataWineReview = globals(WINE_REVIEW_IMAGE_DATAURL);
   //
-  // @@debug
-  // useEffect(() => {
-  //   if (wineReview) console.log(wineReview);
-  // }, [wineReview]);
-  // useEffect(() => {
-  //   console.log(globals(WR_RECORD));
-  // }, [debugWRRecord]);
-  //
   const { setPage } = usePages();
+  //
+  //
+  const editPostWR = useRef(globals(DASHBOARD_ENTRY_ACTIVE_POST_EDIT)?.post);
+  useEffect(() => {
+    if (editPostWR?.current) {
+      //sync set inputs, @WR_loadFieldsFromData
+      globals.set(INPUT_WINE_REVIEW, WR_loadFieldsFromData(editPostWR.current));
+      //
+      // sync star-ratings
+      globals.set(STAR_RATING, {
+        ...globals(STAR_RATING),
+        [IDWINERATING]: editPostWR.current[IDWINERATING],
+      });
+    }
+
+    return () => {
+      //
+      // clear context to unblock loading dashboard
+      // DASHBOARD_ENTRY_ACTIVE_POST_EDIT is set
+      // so dashbord keeps tring  to load it
+      // globals.set(DASHBOARD_ENTRY_ACTIVE_POST_EDIT, null);
+      globals.set(DASHBOARD_ENTRY_ACTIVE_POST_EDIT, null);
+    };
+  }, []);
   //
   return (
     <>
       <form
         onSubmit={prevent()}
-        className={`px-2 **prose ${modcss.bgWineReview} ***bg-yellow-200 h-full overflow-y-auto scrollbar-thin`}
+        className={`px-2 ${modcss.bgWineReview} h-full overflow-y-auto scrollbar-thin`}
         noValidate
       >
         {/*  */}
@@ -421,7 +448,7 @@ const PageWineReview = () => {
         onClose={toggleIsActiveNotificationWRSaved.off}
         history={globals(WR_SAVED)}
       >
-        <p>You successfully saved your wine-review. 🍸😎</p>
+        <p>Uspšno se sačuvali ocenu vina. 🍸😎</p>
       </UserNotificationPostSaved>
     </>
   );

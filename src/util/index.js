@@ -4,7 +4,7 @@ import { arrayRand } from "./array-rand";
 import { noop } from "./noop";
 import { has } from "./has";
 import dateFormated from "./date-formated";
-import WR_InitRecord from "./wr-init-record";
+import WR_InitRecord, { WR_loadFieldsFromData } from "./wr-init-record";
 import escapeHtml from "escape-html";
 import stripEndSlashes from "./strip-end-slashes";
 import arrayDivide from "./array-divide";
@@ -38,5 +38,7 @@ export {
   slugify,
   sortByTimestampDesc,
   stripEndSlashes,
+  //
   WR_InitRecord,
+  WR_loadFieldsFromData,
 };

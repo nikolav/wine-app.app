@@ -1,7 +1,13 @@
-import React from "react";
+import {useRouter} from "next/router";
+
 //
 const PreviewWineReview = () => {
-  return <div>@todo; winereview.preview</div>;
+  const router = useRouter();
+  const {winereview_id : ID} = router.query;
+  //
+  router.push(`/${ID}`);
+  //  
+  return null;
 };
 
 //

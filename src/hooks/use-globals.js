@@ -34,6 +34,9 @@ export const DASHBOARD_ENTRY_ACTIVE_POST_EDIT = "editPost.cxvgnwwisjw";
 export const ARTICLE_IMAGE_EDIT = "articelImageEdit.qfzacaqyghl";
 export const DEACTIVATE_ARTICLE_TOOLTIP_TRASH = "umrybgeisnoatmhtrdsznxjgpbqozmsg";
 //
+export const TEST_VALUES = "rqmdabjiqpldolzgimpswa";
+
+//
 // GLOBAL_FILE
 // GLOBAL_DATAURL
 
@@ -41,6 +44,8 @@ export const DEACTIVATE_ARTICLE_TOOLTIP_TRASH = "umrybgeisnoatmhtrdsznxjgpbqozms
 ////
 export default function GlobalsProvder({ children }) {
   const [globals, setGlobals] = useState({
+    [TEST_VALUES]: {},
+    //
     [INPUT_WINE_REVIEW]: {},
     [STAR_RATING]: {},
     [WR_RECORD]: {},
