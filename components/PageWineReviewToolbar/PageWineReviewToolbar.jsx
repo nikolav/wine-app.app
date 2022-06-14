@@ -15,6 +15,7 @@ import {
   MdDeleteOutline,
   MdOutlineEditNote,
   BiCloudUpload,
+  AiOutlineCloudSync,
 } from "../icons";
 import DrawerBox from "../DrawerBox/DrawerBox";
 import PageWineReviewHelp from "../PageWineReviewHelp/PageWineReviewHelp";
@@ -33,6 +34,8 @@ import useHandleImageDataUrl from "../../src/hooks/use-handle-image-data-url";
 import PageWineReviewDescription from "../PageWineReviewDescription/PageWineReviewDescription";
 //
 import Tooltip from "../Tooltip/Tooltip";
+import { usePages } from "../../app/store";
+import { PAGE_WINE_REVIEW_EDIT } from "../../app/store/page";
 //
 function IconCommandClose({ children, ...rest }) {
   const { toggle } = useFlags();
@@ -95,6 +98,8 @@ const PageWineReviewToolbar = () => {
   useEffect(() => {
     toggleIsActivePopperTrash.off();
   }, [onImageDataUrlUpdate]);
+  //
+  const { page } = usePages();
   //
   return (
     <>
@@ -160,13 +165,23 @@ const PageWineReviewToolbar = () => {
                   onClick={prevent(wineReviewOnSave)}
                   disabled={disabledUpload}
                 >
-                  <BiCloudUpload
-                    className={`text-white text-5xl transition-transform ${
-                      disabledUpload
-                        ? "opacity-20 cursor-not-allowed"
-                        : "opacity-80 hover:scale-125 hover:opacity-90 active:opacity-100 cursor-pointer"
-                    }`}
-                  />
+                  {PAGE_WINE_REVIEW_EDIT === page.key ? (
+                    <AiOutlineCloudSync
+                      className={`text-white text-5xl transition-transform ${
+                        disabledUpload
+                          ? "opacity-20 cursor-not-allowed"
+                          : "opacity-80 hover:scale-125 hover:opacity-90 active:opacity-100 cursor-pointer"
+                      }`}
+                    />
+                  ) : (
+                    <BiCloudUpload
+                      className={`text-white text-5xl transition-transform ${
+                        disabledUpload
+                          ? "opacity-20 cursor-not-allowed"
+                          : "opacity-80 hover:scale-125 hover:opacity-90 active:opacity-100 cursor-pointer"
+                      }`}
+                    />
+                  )}
                 </IconCommand>
                 {disabledUpload || (
                   <Tooltip

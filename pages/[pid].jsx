@@ -16,20 +16,20 @@ const Page = () => {
 export default Page;
 
 //
-export async function getStaticPaths() {
-  return {
-    paths: [
-      { params: { pid: "home" } },
-    ],
-    fallback: false,
-  };
-}
+// export async function getStaticPaths() {
+//   return {
+//     paths: [
+//       { params: { pid: "home" } },
+//     ],
+//     fallback: false,
+//   };
+// }
 
-export async function getStaticProps(...args) {
-  return {
-    props: {},
-  };
-}
+// export async function getStaticProps(...args) {
+//   return {
+//     props: {},
+//   };
+// }
 
 // export async function getServerSideProps(...args) {
 //   console.log(...args);

@@ -74,13 +74,6 @@ const cassesLoadFields_ = {
   toStr: (data, fields, key) => fields[key] = String(data[key]),
 };
 const strategyLoadFields_ = {
-  // author: key => key,
-  //
-  image: (_data, _fields, key) => key,
-  //
-  // wineRating: cassesLoadFields_.toInt,
-  wineRating: cassesLoadFields_.key,
-  //
   aromaBerries: (_data, fields, _key) => fields["aroma.berries"] = "bobice",
   aromaCitrus: (_data, fields, _key) => fields["aroma.citrus"] = "citrusi",
   aromaFruit: (_data, fields, _key) => fields["aroma.fruit"] = "voće",
@@ -103,6 +96,7 @@ const strategyLoadFields_ = {
   price: cassesLoadFields_.key,
   producer: cassesLoadFields_.key,
   wine: cassesLoadFields_.key,
+  wineRating: cassesLoadFields_.key,
   year: cassesLoadFields_.key,
 
 };
@@ -112,6 +106,8 @@ export function WR_loadFieldsFromData (
   fields = {}, 
   ignore = {
     author: 1,
+    image: 1,
+    _id: 1,
   }
 ) {
   return Object.keys(data)

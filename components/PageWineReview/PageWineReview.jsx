@@ -15,6 +15,7 @@ import {
   DASHBOARD_ENTRY_ACTIVE_POST,
   DASHBOARD_ENTRY_ACTIVE_POST_EDIT,
   STAR_RATING,
+  WR_IS_PREVIEW,
 } from "../../src/hooks/use-globals";
 import {
   useFlags,
@@ -45,8 +46,16 @@ import PageWineReviewNoImageThumb from "../PageWineReviewNoImageThumb/PageWineRe
 import NotificationDangerNotAuthenticated from "../NotificationDangerNotAuthenticated/NotificationDangerNotAuthenticated";
 import Effect from "../Effect";
 import { usePages } from "../../app/store";
-import { PAGE_LOGIN, PAGE_WINE_REVIEW_EDIT } from "../../app/store/page";
+import {
+  PAGE_LOGIN,
+  PAGE_WINE_REVIEW,
+  PAGE_WINE_REVIEW_EDIT,
+  PAGE_WINE_REVIEW_PREVIEW,
+} from "../../app/store/page";
 import { useQueryClient } from "react-query";
+import { CommentsLike } from "../social";
+import PortalOverlays from "../PortalOverlays";
+
 //
 const IDWINERATING = "wineRating";
 ////
@@ -56,6 +65,7 @@ const PageWineReview = () => {
   const { user } = useAuth();
   const globals = useGlobals();
   const { flags, toggle: toggleFlags } = useFlags();
+  const { page, setPage } = usePages();
   //
   // toggles user notification
   // if not logged in
@@ -83,6 +93,12 @@ const PageWineReview = () => {
   const isProcessingWRSaveOff = () => toggleFlags.off(IS_PROCESSING_WR_SAVE);
   const WRimageFile = globals(WINE_REVIEW_IMAGE_FILE);
   const { upload, status: __ } = useFirebaseStorageUpload();
+  //
+  const isWRPreview = useRef(globals(WR_IS_PREVIEW));
+  const editPostWR = useRef(globals(DASHBOARD_ENTRY_ACTIVE_POST_EDIT)?.post);
+  const isPageWREdit = PAGE_WINE_REVIEW_EDIT === page.key;
+  //
+  //
   useEffect(() => {
     //
     if (isMounted && wineReviewOnSave) {
@@ -106,8 +122,22 @@ const PageWineReview = () => {
         WR_InitRecord(
           {
             wine: wineReview.wine,
-            author: user.uid,
             wineRating: wineReview[IDWINERATING],
+
+            image:
+              isPageWREdit && editPostWR.current?.image
+                ? editPostWR.current.image
+                : null,
+
+            // author: user.uid,
+            author:
+              isPageWREdit && editPostWR.current?.author
+                ? editPostWR.current.author
+                : user.uid,
+
+            ...(isPageWREdit && editPostWR.current?._id
+              ? { _id: editPostWR.current._id }
+              : {}),
           },
           wineReview
         )
@@ -174,43 +204,59 @@ const PageWineReview = () => {
   const qClient = useQueryClient();
   const setActivePost = (post) =>
     globals.set(DASHBOARD_ENTRY_ACTIVE_POST, post);
+  //
+  const onPostSaved = (payload) => {
+    // record saved; clear cached data
+    // prevents re-saves on page @re-mounts
+    nullCachedData();
+    //
+    // cache saved article record; ls.append
+    // @todo; undo, history, etc.
+    globals.set(WR_SAVED, [...(globals(WR_SAVED) || []), payload]);
+    //
+    // nullArticleInputs();
+    // DeleteImage();
+    wrImageCached.rm();
+    //
+    // notify user article saved..
+    // toggleActiveDrawerBox.on();
+    toggleIsActiveNotificationWRSaved.on();
+    //
+    // refresh dashboard and
+    // set active post to no record
+    qClient.invalidateQueries("winereview");
+    setActivePost(payload);
+    // notify chat @created.winereview
+    if (PAGE_WINE_REVIEW === page.key)
+      chatPublish({
+        author: "🤖",
+        text: `Nova ocena vina. @${user?.displayName || "👤"}`,
+      });
+    //
+  };
+  //
+  // @@
   useEffect(() => {
     //  WR_RECORD
     let data;
     if (wrDBSave) {
       data = globals(WR_RECORD);
       if (data) {
+        if (isPageWREdit) {
+          if (null != data._id && data.author === user.uid) {
+            cli
+              .service("winereview")
+              .update(data._id, data)
+              .then(onPostSaved)
+              .finally(isProcessingWRSaveOff);
+          }
+          //
+          return;
+        }
         cli
           .service("winereview")
           .create(data)
-          .then((payload) => {
-            // record saved; clear cached data
-            // prevents re-saves on page @re-mounts
-            nullCachedData();
-            //
-            // cache saved article record; ls.append
-            // @todo; undo, history, etc.
-            globals.set(WR_SAVED, [...(globals(WR_SAVED) || []), payload]);
-            //
-            // nullArticleInputs();
-            // DeleteImage();
-            wrImageCached.rm();
-            //
-            // notify user article saved..
-            // toggleActiveDrawerBox.on();
-            toggleIsActiveNotificationWRSaved.on();
-            //
-            // refresh dashboard and
-            // set active post to no record
-            qClient.invalidateQueries("winereview");
-            setActivePost(payload);
-            // notify chat @created.winereview
-            chatPublish({
-              author: "🤖",
-              text: `Nova ocena vina. @${user?.displayName || "👤"}`,
-            });
-            //
-          })
+          .then(onPostSaved)
           // @todo; enable icon.save
           .finally(isProcessingWRSaveOff);
       } else {
@@ -228,20 +274,28 @@ const PageWineReview = () => {
   };
   const imageDataWineReview = globals(WINE_REVIEW_IMAGE_DATAURL);
   //
-  const { setPage } = usePages();
-  //
-  //
-  const editPostWR = useRef(globals(DASHBOARD_ENTRY_ACTIVE_POST_EDIT)?.post);
   useEffect(() => {
+    let editPost;
     if (editPostWR?.current) {
+      editPost = editPostWR.current;
+    } else if (isWRPreview.current) {
+      editPost = isWRPreview.current;
+    }
+    //
+    //
+    if (editPost) {
       //sync set inputs, @WR_loadFieldsFromData
-      globals.set(INPUT_WINE_REVIEW, WR_loadFieldsFromData(editPostWR.current));
+      globals.set(INPUT_WINE_REVIEW, WR_loadFieldsFromData(editPost));
       //
       // sync star-ratings
       globals.set(STAR_RATING, {
         ...globals(STAR_RATING),
-        [IDWINERATING]: editPostWR.current[IDWINERATING],
+        [IDWINERATING]: editPost[IDWINERATING],
       });
+
+      if (editPost.image)
+        globals.set(WINE_REVIEW_IMAGE_DATAURL, editPost.image);
+      //
     }
 
     return () => {
@@ -251,6 +305,12 @@ const PageWineReview = () => {
       // so dashbord keeps tring  to load it
       // globals.set(DASHBOARD_ENTRY_ACTIVE_POST_EDIT, null);
       globals.set(DASHBOARD_ENTRY_ACTIVE_POST_EDIT, null);
+      //
+      wrImageCached.rm();
+      //
+      // if wr preview reset on unmount
+      // to enable regular wr mounts
+      if (isWRPreview.current) globals.set(WR_IS_PREVIEW, null);
     };
   }, []);
   //
@@ -450,6 +510,19 @@ const PageWineReview = () => {
       >
         <p>Uspšno se sačuvali ocenu vina. 🍸😎</p>
       </UserNotificationPostSaved>
+      {/*  */}
+      {/*  */}
+      {PAGE_WINE_REVIEW_PREVIEW === page.key && isWRPreview.current?._id && (
+        <PortalOverlays end={true}>
+          <CommentsLike
+            size="!sm"
+            id={`winereview--${isWRPreview.current._id}`}
+            placement="left-start"
+            offset={[0, 12]}
+            className="fixed top-1 right-24 z-50"
+          />
+        </PortalOverlays>
+      )}
     </>
   );
 };

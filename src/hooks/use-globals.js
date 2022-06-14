@@ -25,6 +25,8 @@ export const WR_RECORD = "wr.record.xbicntewgqh";
 // trigger db.save @change
 export const WR_DBSAVE = "WR.dbSave.mecqgnjgtqp";
 export const WR_SAVED = "WR.dbSaved.twrkwvrzhri";
+// store id from /winereview for display..
+export const WR_IS_PREVIEW = "WR.isPreview.qxohswptaic";
 // store active dashboard post id
 export const DASHBOARD_ENTRY_ACTIVE_POST = "dashboardEntryActivePost.gnktkobglqd";
 // selected post to edit
@@ -35,6 +37,7 @@ export const ARTICLE_IMAGE_EDIT = "articelImageEdit.qfzacaqyghl";
 export const DEACTIVATE_ARTICLE_TOOLTIP_TRASH = "umrybgeisnoatmhtrdsznxjgpbqozmsg";
 //
 export const TEST_VALUES = "rqmdabjiqpldolzgimpswa";
+//
 
 //
 // GLOBAL_FILE

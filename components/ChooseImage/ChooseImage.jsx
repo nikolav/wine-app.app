@@ -8,7 +8,10 @@ import {
   // WINE_REVIEW_IMAGE_FILE,
   // WINE_REVIEW_IMAGE_DATAURL,
 } from "../../src/hooks/use-globals";
-import { useFlags, IS_ARTICLE_IMAGE_DATAURL } from "../../src/hooks/use-flags-global";
+import {
+  useFlags,
+  IS_ARTICLE_IMAGE_DATAURL,
+} from "../../src/hooks/use-flags-global";
 //
 export default function ChooseImage({
   //
@@ -23,7 +26,7 @@ export default function ChooseImage({
   const ID = `FILECHOOSEIMAGE${id}`;
   const isMounted = useIsMounted();
   const globals = useGlobals();
-  const {toggle: toggleFlags} = useFlags();
+  const { toggle: toggleFlags } = useFlags();
   //
   const [read, __] = useFileReader();
   const onChange = (evt) => {
@@ -31,15 +34,14 @@ export default function ChooseImage({
     //
     // evt.target.value doesnt change when component removes image
     // and if re-choosing the same image it wont work
-    // .. handle .value somehow; send {file, target} to `.set` 
+    // .. handle .value somehow; send {file, target} to `.set`
     // .. so that it can be removed with `evt.target.value = ""`
     //
     if (isMounted && file) {
       read(file);
-      globals.set(GLOBAL_FILE, 
-        { 
-          file, 
-          target: evt?.target 
+      globals.set(GLOBAL_FILE, {
+        file,
+        target: evt?.target,
       });
     }
   };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import DocBody from "../components/DocBody";
 //
 // import client from "../src/feathers";
@@ -53,14 +53,47 @@ import IconBarSharing from "../components/IconBarSharing/IconBarSharing";
 import PageArticleCommandBar from "../components/PageArticleCommandBar/PageArticleCommandBar";
 import PageWineReviewToolbar from "../components/PageWineReviewToolbar/PageWineReviewToolbar";
 import useIsMounted from "../src/hooks/use-is-mounted";
-import { PAGE_LOGIN, PAGE_REGISTER, PAGE_HELP } from "../app/store/page";
+import {
+  PAGE_LOGIN,
+  PAGE_REGISTER,
+  PAGE_HELP,
+  PAGE_WINE_REVIEW_PREVIEW,
+} from "../app/store/page";
 import { bgDashboard } from "../components/HelpPage/HelpPage";
+
+//
+import imagePlaceholder from "../public/placeholder01.png";
+import Image from "next/image";
+import {
+  useFlags,
+  IS_ACTIVE_WINE_REVIEW_TOOLBAR,
+} from "../src/hooks/use-flags-global";
+import {
+  useGlobals,
+  WR_IS_PREVIEW,
+  WINE_REVIEW_IMAGE_DATAURL,
+} from "../src/hooks/use-globals";
 //
 //
 export default function Home() {
   const isMounted = useIsMounted();
+  const globals = useGlobals();
+  const { toggle: toggleFlags } = useFlags();
   //
-  const { page } = usePages();
+  const { page, setPage } = usePages();
+  //
+  const isWRPreview = globals(WR_IS_PREVIEW);
+  const openWineReviewToolbar = () =>
+    toggleFlags.on(IS_ACTIVE_WINE_REVIEW_TOOLBAR);
+  const imageSrc = globals(WINE_REVIEW_IMAGE_DATAURL);
+  //
+  useEffect(() => {
+    if (null != isWRPreview) {
+      setPage(PAGE_WINE_REVIEW_PREVIEW);
+      openWineReviewToolbar();
+    }
+  }, [isWRPreview]);
+  //
   return (
     <DocBody className="h-screen">
       {/* 2-col grid */}
@@ -71,9 +104,17 @@ export default function Home() {
           id="window-left"
           className="relative z-10 hidden border-r-4 shadow-lg lg:col-span-5 lg:!block border-r-white"
         >
-          {/* {isMounted && (
-            <VideoBackground video="https://nikolav.rs/etc/wine-app/mov.min2.mp4" />
-          )} */}
+          {isMounted &&
+            (PAGE_WINE_REVIEW_PREVIEW === page.key && imageSrc ? (
+              <Image
+                alt=""
+                src={imageSrc}
+                layout="fill"
+                className="object-cover object-center block"
+              />
+            ) : (
+              <VideoBackground video="https://nikolav.rs/etc/wine-app/mov.min2.mp4" />
+            ))}
         </section>
 
         {/* window-right */}
