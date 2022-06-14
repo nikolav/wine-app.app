@@ -10,9 +10,11 @@ const PreviewWineReview = () => {
   const { winereview } = useWineReview();
   const wr = winereview?.find((node) => ID === node._id);
   //
+  //
   useEffect(() => {
     console.log(ID)
     console.log(wr)
+    console.log(winereview)
     globals.set(WR_IS_PREVIEW, wr);
     router.push(`/`);
   }, []);
