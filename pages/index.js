@@ -90,16 +90,17 @@ export default function Home() {
   const { winereview } = useWineReview();
   //
   useEffect(() => {
-    if (null != isWRPreviewID) {
-      console.log(winereview)
+    if (null != isWRPreviewID && winereview) {
+      console.log(isWRPreviewID);
+      console.log(winereview);
       globals.set(
         WR_IS_PREVIEW,
-        winereview?.find((node) => isWRPreviewID === node._id)
+        winereview.find((node) => isWRPreviewID === node._id)
       );
       setPage(PAGE_WINE_REVIEW_PREVIEW);
       openWineReviewToolbar();
     }
-  }, [isWRPreviewID]);
+  }, [isWRPreviewID, winereview]);
   //
   return (
     <DocBody className="h-screen">
