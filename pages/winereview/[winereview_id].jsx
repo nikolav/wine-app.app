@@ -8,7 +8,9 @@ const PreviewWineReview = () => {
   const { winereview_id: ID } = router.query;
   const globals = useGlobals();
   const { winereview } = useWineReview();
-  const wr = winereview?.find((node) => ID === node._id) || null;
+  const wr = winereview?.find((node) => ID === node._id);
+  //
+  console.log(ID)
   //
   useEffect(() => {
     console.log(wr);
@@ -16,7 +18,7 @@ const PreviewWineReview = () => {
     router.push(`/`);
   }, []);
   //
-  //
+  //https://wine-app0.herokuapp.com/winereview/62a90650e7901336c3981c1b
   return null;
 };
 
