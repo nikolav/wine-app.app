@@ -27,6 +27,7 @@ export const WR_DBSAVE = "WR.dbSave.mecqgnjgtqp";
 export const WR_SAVED = "WR.dbSaved.twrkwvrzhri";
 // store id from /winereview for display..
 export const WR_IS_PREVIEW = "WR.isPreview.qxohswptaic";
+export const WR_IS_PREVIEW_ID = "WR.isPreview.ID.bhgzranfqtq";
 // store active dashboard post id
 export const DASHBOARD_ENTRY_ACTIVE_POST = "dashboardEntryActivePost.gnktkobglqd";
 // selected post to edit

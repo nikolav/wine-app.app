@@ -35,7 +35,7 @@ import VideoBackground from "../components/VideoBackground/VideoBackground";
 import GuestNavigation from "../components/GuestNavigation/GuestNavigation";
 import Paper from "../components/Paper/Paper";
 
-import { usePages } from "../app/store";
+import { usePages, useWineReview } from "../app/store";
 
 // import {
 //   Menu,
@@ -81,17 +81,23 @@ export default function Home() {
   //
   const { page, setPage } = usePages();
   //
-  const isWRPreview = globals(WR_IS_PREVIEW);
+  const isWRPreviewID = globals(WR_IS_PREVIEW_ID);
   const openWineReviewToolbar = () =>
     toggleFlags.on(IS_ACTIVE_WINE_REVIEW_TOOLBAR);
   const imageSrc = globals(WINE_REVIEW_IMAGE_DATAURL);
   //
+  const { winereview } = useWineReview();
+  //
   useEffect(() => {
-    if (null != isWRPreview) {
+    if (null != isWRPreviewID) {
+      globals.set(
+        WR_IS_PREVIEW,
+        winereview?.find((node) => isWRPreviewID === node._id)
+      );
       setPage(PAGE_WINE_REVIEW_PREVIEW);
       openWineReviewToolbar();
     }
-  }, [isWRPreview]);
+  }, [isWRPreviewID]);
   //
   return (
     <DocBody className="h-screen">

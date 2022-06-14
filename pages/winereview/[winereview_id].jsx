@@ -1,18 +1,11 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/router";
-import { useGlobals, WR_IS_PREVIEW } from "../../src/hooks/use-globals";
-import { useWineReview } from "../../app/store";
-import useIsMounted from "../../src/hooks/use-is-mounted";
+import { useGlobals, WR_IS_PREVIEW_ID } from "../../src/hooks/use-globals";
 //
 const PreviewWineReview = () => {
   const router = useRouter();
   const { winereview_id: ID } = router.query;
   const globals = useGlobals();
-  const { winereview } = useWineReview();
-  const isMounted = useIsMounted();
-  const wr = useRef(winereview?.find((node) => ID === node._id));
-  // const wr = winereview?.find((node) => ID === node._id);
-  //
   //
   // useEffect(() => {
   //   console.log(ID)
@@ -22,14 +15,12 @@ const PreviewWineReview = () => {
   //   router.push(`/`);
   // }, []);
   useEffect(() => {
-    if (wr.current) {
+    if (ID) {
       console.log(ID);
-      console.log(winereview);
-      console.log(wr);
-      globals.set(WR_IS_PREVIEW, wr.current);
+      globals.set(WR_IS_PREVIEW_ID, ID);
       router.push(`/`);
     }
-  }, [wr.current]);
+  }, [ID]);
   //
   //https://wine-app0.herokuapp.com/winereview/62a90650e7901336c3981c1b
   return null;
