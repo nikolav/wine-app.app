@@ -16,6 +16,7 @@ import {
   DASHBOARD_ENTRY_ACTIVE_POST_EDIT,
   STAR_RATING,
   WR_IS_PREVIEW,
+  WR_IS_PREVIEW_ID,
 } from "../../src/hooks/use-globals";
 import {
   useFlags,
@@ -292,6 +293,7 @@ const PageWineReview = () => {
     // if wr preview reset on unmount
     // to enable regular wr mounts
     globals.set(WR_IS_PREVIEW, null);
+    globals.set(WR_IS_PREVIEW_ID, null);
     //
     //
     if (editPost) {
