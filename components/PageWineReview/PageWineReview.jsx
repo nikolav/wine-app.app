@@ -94,6 +94,7 @@ const PageWineReview = () => {
   const WRimageFile = globals(WINE_REVIEW_IMAGE_FILE);
   const { upload, status: __ } = useFirebaseStorageUpload();
   //
+  const imageDataWineReview = globals(WINE_REVIEW_IMAGE_DATAURL);
   const isWRPreview = useRef(globals(WR_IS_PREVIEW));
   const editPostWR = useRef(globals(DASHBOARD_ENTRY_ACTIVE_POST_EDIT)?.post);
   const isPageWREdit = PAGE_WINE_REVIEW_EDIT === page.key;
@@ -124,11 +125,12 @@ const PageWineReview = () => {
             wine: wineReview.wine,
             wineRating: wineReview[IDWINERATING],
 
-            image:
-              isPageWREdit && editPostWR.current?.image
+            image: WRimageFile?.file ? null : (
+              imageDataWineReview && editPostWR.current?.image
                 ? editPostWR.current.image
-                : null,
-
+                : null
+            ),
+            
             // author: user.uid,
             author:
               isPageWREdit && editPostWR.current?.author
@@ -272,7 +274,7 @@ const PageWineReview = () => {
       [payload.name]: payload.value,
     });
   };
-  const imageDataWineReview = globals(WINE_REVIEW_IMAGE_DATAURL);
+  
   //
   useEffect(() => {
     let editPost;
@@ -282,7 +284,13 @@ const PageWineReview = () => {
       editPost = isWRPreview.current;
     }
     //
+    // clear context to unblock loading dashboard
+    // DASHBOARD_ENTRY_ACTIVE_POST_EDIT is set
+    // so dashbord keeps tring  to load it
     globals.set(DASHBOARD_ENTRY_ACTIVE_POST_EDIT, null);
+    //
+    // if wr preview reset on unmount
+    // to enable regular wr mounts
     globals.set(WR_IS_PREVIEW, null);
     //
     //
@@ -301,19 +309,8 @@ const PageWineReview = () => {
       //
     }
 
-    return () => {
-      //
-      // clear context to unblock loading dashboard
-      // DASHBOARD_ENTRY_ACTIVE_POST_EDIT is set
-      // so dashbord keeps tring  to load it
-      // globals.set(DASHBOARD_ENTRY_ACTIVE_POST_EDIT, null);
-      //
-      wrImageCached.rm();
-      //
-      // if wr preview reset on unmount
-      // to enable regular wr mounts
-      // if (isWRPreview.current) globals.set(WR_IS_PREVIEW, null);
-    };
+    return wrImageCached.rm;
+    //
   }, []);
   //
   return (
