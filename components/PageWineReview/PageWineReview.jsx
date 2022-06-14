@@ -282,6 +282,9 @@ const PageWineReview = () => {
       editPost = isWRPreview.current;
     }
     //
+    globals.set(DASHBOARD_ENTRY_ACTIVE_POST_EDIT, null);
+    globals.set(WR_IS_PREVIEW, null);
+    //
     //
     if (editPost) {
       //sync set inputs, @WR_loadFieldsFromData
@@ -304,13 +307,12 @@ const PageWineReview = () => {
       // DASHBOARD_ENTRY_ACTIVE_POST_EDIT is set
       // so dashbord keeps tring  to load it
       // globals.set(DASHBOARD_ENTRY_ACTIVE_POST_EDIT, null);
-      globals.set(DASHBOARD_ENTRY_ACTIVE_POST_EDIT, null);
       //
       wrImageCached.rm();
       //
       // if wr preview reset on unmount
       // to enable regular wr mounts
-      if (isWRPreview.current) globals.set(WR_IS_PREVIEW, null);
+      // if (isWRPreview.current) globals.set(WR_IS_PREVIEW, null);
     };
   }, []);
   //
