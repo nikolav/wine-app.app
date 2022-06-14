@@ -22,14 +22,14 @@ const PreviewWineReview = () => {
   //   router.push(`/`);
   // }, []);
   useEffect(() => {
-    if (isMounted && winereview) {
+    if (wr.current) {
       console.log(ID);
       console.log(winereview);
       console.log(wr);
       globals.set(WR_IS_PREVIEW, wr.current);
       router.push(`/`);
     }
-  }, [winereview, ID, isMounted]);
+  }, [wr.current]);
   //
   //https://wine-app0.herokuapp.com/winereview/62a90650e7901336c3981c1b
   return null;
