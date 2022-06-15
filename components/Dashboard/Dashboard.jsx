@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useAuth, useArticles, useWineReview, usePages } from "../../app/store";
-import { PAGE_ARTICLE_EDIT, PAGE_WINE_REVIEW, PAGE_WINE_REVIEW_EDIT } from "../../app/store/page";
+import {
+  PAGE_ARTICLE_EDIT,
+  PAGE_WINE_REVIEW,
+  PAGE_WINE_REVIEW_EDIT,
+} from "../../app/store/page";
 import { sortByTimestampDesc, postType, noop } from "../../src/util";
 import useStateSwitch from "../../src/hooks/use-state-switch";
 import {
@@ -32,6 +36,7 @@ import {
   IS_ACTIVE_WINE_REVIEW_TOOLBAR,
 } from "../../src/hooks/use-flags-global";
 import DrawerBox from "../DrawerBox/DrawerBox";
+import { useLike, useComments } from "../social";
 //
 //
 const DEFAULT_DASHBOARD_TOOLBAR_ICON_CLASSES =
@@ -52,6 +57,7 @@ const Dashboard = () => {
   //
   const { isOn: isActiveDashboardHelp, toggle: toggleIsActiveDashboardHelp } =
     useStateSwitch();
+  //
   ////
   ////
   return (
@@ -66,7 +72,12 @@ const Dashboard = () => {
             {0 < userData.length ? (
               <section>
                 {userData.map((post, i) => (
-                  <DashboardEntry i={i} key={post._id} post={post} />
+                  <DashboardEntry
+                    i={i}
+                    key={post._id}
+                    post={post}
+                    ID={post._id}
+                  />
                 ))}
               </section>
             ) : (
@@ -377,10 +388,13 @@ function DashboardToolbar({
 export default Dashboard;
 //
 //
-function DashboardEntry({ post }) {
+function DashboardEntry({ ID, post }) {
   const globals = useGlobals();
-  const isActive = post._id === globals(DASHBOARD_ENTRY_ACTIVE_POST)?._id;
+  const isActive = ID === globals(DASHBOARD_ENTRY_ACTIVE_POST)?._id;
   const setActive = () => globals.set(DASHBOARD_ENTRY_ACTIVE_POST, post);
+  //
+  const comments = useComments(ID);
+  const { likeCount } = useLike(ID);
   //
   return (
     <>
@@ -411,6 +425,20 @@ function DashboardEntry({ post }) {
           }`}
         >
           {post.wine || post.title}
+        </div>
+        <div className="space-x-2 text-white pr-2">
+          <small>
+            <span className="opacity-20 text-xs">💬</span>{" "}
+            <span className={isActive ? "" : "opacity-20"}>
+              {" "}
+              {comments.len()}
+            </span>
+          </small>
+          <small>
+            {" "}
+            <span className="opacity-20 text-xs">♥</span>{" "}
+            <span className={isActive ? "" : "opacity-20"}> {likeCount}</span>
+          </small>
         </div>
       </div>
     </>
