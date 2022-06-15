@@ -91,8 +91,6 @@ export default function Home() {
   //
   useEffect(() => {
     if (null != isWRPreviewID && winereview) {
-      console.log(isWRPreviewID);
-      console.log(winereview);
       globals.set(
         WR_IS_PREVIEW,
         winereview.find((node) => isWRPreviewID === node._id)

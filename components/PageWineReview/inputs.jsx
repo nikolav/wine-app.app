@@ -62,7 +62,7 @@ function InputWineColorButton({
       {...rest}
     >
       <input
-        className="sr-only hidden"
+        className="hidden sr-only"
         type={type}
         name={name}
         value={value}
@@ -87,7 +87,7 @@ export const InputWineColor = () => {
         rosé
       </InputWineColorButton>
       <InputWineColorButton name="color" value="red">
-        crno
+        crveno
       </InputWineColorButton>
     </div>
   );
