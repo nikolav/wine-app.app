@@ -76,6 +76,7 @@ const Dashboard = () => {
                     i={i}
                     key={post._id}
                     post={post}
+                    type={postType(post)}
                     ID={post._id}
                   />
                 ))}
@@ -388,13 +389,13 @@ function DashboardToolbar({
 export default Dashboard;
 //
 //
-function DashboardEntry({ ID, post }) {
+function DashboardEntry({ ID, post, type }) {
   const globals = useGlobals();
   const isActive = ID === globals(DASHBOARD_ENTRY_ACTIVE_POST)?._id;
   const setActive = () => globals.set(DASHBOARD_ENTRY_ACTIVE_POST, post);
   //
-  const comments = useComments(ID);
-  const { likeCount } = useLike(ID);
+  const comments = useComments(`${type}--${ID}`);
+  const { likeCount } = useLike(`${type}--${ID}`);
   //
   return (
     <>

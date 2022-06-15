@@ -80,7 +80,8 @@ const PreviewArticle = () => {
                 {null != article ? (
                   <CommentsLike
                     size="!sm"
-                    id={`article--${article._id}`}
+                    // id={`article--${article._id}`}
+                    id={`articles--${article._id}`}
                     placement="bottom-end"
                   />
                 ) : null}

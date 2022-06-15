@@ -126,12 +126,12 @@ const PageWineReview = () => {
             wine: wineReview.wine,
             wineRating: wineReview[IDWINERATING],
 
-            image: WRimageFile?.file ? null : (
-              imageDataWineReview && editPostWR.current?.image
-                ? editPostWR.current.image
-                : null
-            ),
-            
+            image: WRimageFile?.file
+              ? null
+              : imageDataWineReview && editPostWR.current?.image
+              ? editPostWR.current.image
+              : null,
+
             // author: user.uid,
             author:
               isPageWREdit && editPostWR.current?.author
@@ -275,7 +275,7 @@ const PageWineReview = () => {
       [payload.name]: payload.value,
     });
   };
-  
+
   //
   useEffect(() => {
     let editPost;

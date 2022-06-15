@@ -28,7 +28,7 @@ export const useComments = (entityId) => {
   const dbPath = `comments/${entityId}`;
   const itemRefComments = ref(db, dbPath);
   //
-  const [commentsDB, setCommentsDB] = useState(null);
+  const [commentsDB, setCommentsDB] = useState({});
   //
   const comments = paste(() => commentsDB, {
     // { uid: ID, user: string, comment: string }
@@ -47,11 +47,11 @@ export const useComments = (entityId) => {
       ),
     //
     ls: () =>
-      Object.keys(commentsDB ?? {})
+      Object.keys(commentsDB)
         .map((key) => commentsDB[key])
         .sort(sortByTimestampDesc(CREATED_AT)),
     //
-    len: () => Object.keys(commentsDB ?? {}).length,
+    len: () => Object.keys(commentsDB).length,
   });
   //
   useEffect(
