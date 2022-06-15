@@ -1,0 +1,35 @@
+
+input[name="wine"]:not(:placeholder-shown) {
+  background: transparent url("../../src/etc/icon-tag-purchase.svg");
+  background-repeat: no-repeat;
+  background-position: left;
+  padding-left: 2.5rem !important;
+}
+input[name="producer"]:not(:placeholder-shown) {
+  background: transparent url("../../src/etc/icon-factory.svg");
+  background-repeat: no-repeat;
+  background-position: left;
+  background-size: 24px;
+  padding-left: 2.5rem !important;
+}
+input[name="grape"]:not(:placeholder-shown) {
+  background: transparent url("../../src/etc/icon-grape.svg");
+  background-repeat: no-repeat;
+  background-position: left;
+  background-size: 24px;
+  padding-left: 2.5rem !important;
+}
+input[name="year"]:not(:placeholder-shown) {
+  background: transparent url("../../src/etc/icon-calendar.svg");
+  background-repeat: no-repeat;
+  background-position: left;
+  background-size: 24px;
+  padding-left: 2.5rem !important;
+}
+input[name="price"]:not(:placeholder-shown) {
+  background: transparent url("../../src/etc/icon-dinar-cyr.svg");
+  background-repeat: no-repeat;
+  background-position: left;
+  background-size: 28px;
+  padding-left: 2.5rem !important;
+}

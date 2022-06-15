@@ -2546,6 +2546,14 @@ select {
   padding-right: 0.25rem;
 }
 
+.pl-8 {
+  padding-left: 2rem;
+}
+
+.pl-10 {
+  padding-left: 2.5rem;
+}
+
 .text-center {
   text-align: center;
 }

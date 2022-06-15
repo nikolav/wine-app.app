@@ -44,6 +44,9 @@ import {
   AiOutlineWhatsApp,
   AiOutlineLink,
   AiOutlineCloudSync,
+  //
+  AiOutlineTag,
+  AiOutlineCalendar,
 } from "react-icons/ai";
 import {
   RiCloseCircleFill,
@@ -51,12 +54,20 @@ import {
   RiCheckboxCircleFill,
 } from "react-icons/ri";
 import { FiSend } from "react-icons/fi";
-
+// import { TbBuildingFactory2 } from "react-icons/tb";
+import iconFactory from "../../src/etc/icon-factory.svg";
+import iconGrape from "../../src/etc/icon-grape.svg";
+import iconDinarCyr from "../../src/etc/icon-dinar-cyr.svg";
 ////
 ////
 export {
+  iconFactory,
+  iconGrape,
+  iconDinarCyr,
+  AiOutlineCalendar,
   AiOutlineCloudSync,
   AiOutlineLink,
+  AiOutlineTag,
   AiOutlineUnderline,
   AiOutlineWhatsApp,
   BiBold,
@@ -79,10 +90,10 @@ export {
   FaStar,
   FaViber,
   FiCamera,
+  FiSend,
   FiShare2,
   GoListOrdered,
   GoListUnordered,
-  FiSend,
   HiOutlineBookOpen,
   iconSearch,
   ImQuotesLeft,
@@ -101,5 +112,6 @@ export {
   RiGithubLine,
   RiMessengerLine,
   RiTwitterLine,
+  // TbBuildingFactory2,
   TiArrowLeftThick,
 };

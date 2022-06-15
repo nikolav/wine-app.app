@@ -1,7 +1,5 @@
 import Required from "../Required/Required";
-// import useInputSynced from "../../src/hooks/use-input-synced";
 import { noop } from "../../src/util";
-
 ////
 ////
 export default function PageWineReviewInput({

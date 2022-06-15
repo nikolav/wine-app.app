@@ -21,6 +21,7 @@ import "../styles/App.css";
 import "../styles/LinkCell.css";
 import "../styles/SlideAboutWine.css";
 import "../styles/CountriesWines.css";
+import "../components/PageWineReview/PageWineReviewInput.css";
 //
 const variants = {
   in: {
