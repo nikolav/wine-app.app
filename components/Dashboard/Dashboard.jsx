@@ -1,9 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { useAuth, useArticles, useWineReview, usePages } from "../../app/store";
+import { useRouter } from "next/router";
+import { useQueryClient } from "react-query";
+import cli from "../../src/feathers";
+import copyToClipboard from "copy-to-clipboard";
+import {
+  useAuth,
+  useArticles,
+  useWineReview,
+  usePages,
+  YT_PROMO_VIDEO_URL,
+} from "../../app/store";
+import useFancyboxGallery from "../../src/hooks/use-fancybox-galery";
 import {
   PAGE_ARTICLE_EDIT,
-  PAGE_WINE_REVIEW,
   PAGE_WINE_REVIEW_EDIT,
+  PAGE_LOGIN,
+  PAGE_ARTICLE_CREATE,
+  PAGE_WINE_REVIEW,
 } from "../../app/store/page";
 import { sortByTimestampDesc, postType, noop } from "../../src/util";
 import useStateSwitch from "../../src/hooks/use-state-switch";
@@ -21,13 +34,11 @@ import {
   BiRefresh,
   AiOutlineLink,
   IoHelp,
+  BsPlayFill,
 } from "../icons";
-import { useQueryClient } from "react-query";
-import cli from "../../src/feathers";
+import { bgNoAuth, bgTumbYTPromo } from "./Dashboard.module.css";
 import Panel from "../Panel";
-import { useRouter } from "next/router";
 // https://github.com/sudodoki/copy-to-clipboard
-import copyToClipboard from "copy-to-clipboard";
 import Tooltip from "../Tooltip/Tooltip";
 import useGetPostLink from "../../src/hooks/use-post-link";
 import {
@@ -62,14 +73,14 @@ const Dashboard = () => {
   ////
   return (
     <>
-      {user ? (
-        <div className="relative">
-          <DashboardToolbar
-            onHelp={toggleIsActiveDashboardHelp.on}
-            className="shadow !sticky z-10 inset-x-0 top-0 bg-gradient-to-b from-black to-slate-900/95"
-          />
-          <div className="py-4 bg-gradient-to-r from-black/50 to-black/80">
-            {0 < userData.length ? (
+      <div className="h-full relative">
+        <DashboardToolbar
+          onHelp={toggleIsActiveDashboardHelp.on}
+          className="shadow !sticky z-10 inset-x-0 top-0 bg-gradient-to-b from-black to-slate-900/95"
+        />
+        <div className="h-full py-2 bg-gradient-to-r from-black/50 to-black/80">
+          {user ? (
+            0 < userData.length ? (
               <section>
                 {userData.map((post, i) => (
                   <DashboardEntry
@@ -83,12 +94,12 @@ const Dashboard = () => {
               </section>
             ) : (
               <p>no posts</p>
-            )}
-          </div>
+            )
+          ) : (
+            <DashboardNotAuthenticated />
+          )}
         </div>
-      ) : (
-        <DashboardNotAuthenticated />
-      )}
+      </div>
       <DrawerBox
         isActive={isActiveDashboardHelp}
         onClose={toggleIsActiveDashboardHelp.off}
@@ -117,8 +128,9 @@ function DashboardToolbar({
 }) {
   // Get QueryClient from the context
   const globals = useGlobals();
+  const { user } = useAuth();
   const activePost = globals(DASHBOARD_ENTRY_ACTIVE_POST);
-  const isActiveToolbar = null != activePost;
+  const isActiveToolbar = null != user && null != activePost;
   //
   const queryClient = useQueryClient();
   const qRefresh = () => {
@@ -491,39 +503,66 @@ function DashboardEntryPostType({ post, isActive, className = "", ...rest }) {
 }
 //
 function DashboardNotAuthenticated() {
-  return <div>dashboard-not-authenticated</div>;
+  const { setPage } = usePages();
+  //
+  const goToAuth = () => setPage(PAGE_LOGIN);
+  const goToArticleCreate = () => setPage(PAGE_ARTICLE_CREATE);
+  const goToWRCreate = () => setPage(PAGE_WINE_REVIEW);
+  //
+  const { openGallery } = useFancyboxGallery();
+  //
+  const [refElementYtPromoVideo, setRefElementYtPromoVideo] = useState(null);
+  const { isOn: isActiveTooltipYT, toggle: toggleIsActiveTooltipYT } =
+    useStateSwitch();
+  //
+  return (
+    <section
+      id="c--acdzidbyqqx"
+      className={`${bgNoAuth} pt-6 h-full text-sm flex flex-row items-start justify-between`}
+    >
+      <div className="px-1 grow prose text-white/50 text-xs text-center">
+        <p>Pozdrav 👋🏻</p>
+        <p>Aplikacija vam pomaže da otkrijete svet vina.</p>
+        <p>
+          Edukujte se ili ostavite{" "}
+          <strong onClick={goToArticleCreate} className="link text-indigo-400">
+            svoju priču
+          </strong>
+          .
+        </p>
+        <p>
+          {" "}
+          <strong onClick={goToWRCreate} className="link text-indigo-400">
+            Podelite utiske
+          </strong>{" "}
+          o vinu sa drugima.
+        </p>
+        <p>
+          <strong onClick={goToAuth} className="link text-indigo-400">
+            Prijavite se
+          </strong>{" "}
+          ako želite da koristite sve usluge.
+        </p>
+      </div>
+      <div className="w-1/3 pl-2">
+        <div
+          ref={setRefElementYtPromoVideo}
+          onMouseOver={toggleIsActiveTooltipYT.on}
+          onMouseLeave={toggleIsActiveTooltipYT.off}
+          onClick={() => openGallery([{ src: YT_PROMO_VIDEO_URL }])}
+          className={`p-6 flex -items-center justify-center mt-2 cursor-pointer border border-slate-100/50 shadow opacity-50 max-w-[128px] h-32 rounded-2xl hover:opacity-80 hover:-translate-y-[2px] transition-transform ${bgTumbYTPromo}`}
+        >
+          <BsPlayFill className="w-full h-full !text-white" />
+        </div>
+        <Tooltip
+          refElement={refElementYtPromoVideo}
+          isActive={isActiveTooltipYT}
+          placement="left"
+          offset={[0, 12]}
+        >
+          🎥 Pogledaj prezentaciju
+        </Tooltip>
+      </div>
+    </section>
+  );
 }
-
-/**
- * {
-  "_id": "62a12f28e478d1707f64f170",
-  "wine": "w ---",
-  "author": "BK12mKglBvX8eVYtiPydALqSVRR2",
-  "aromaBerries": true,
-  "aromaVanilla": true,
-  "color": "red",
-  "image": "https://firebasestorage.googleapis.com/v0/b/test-wine-online.appspot.com/o/wr%2F1654730534669.24.jerez-bodega-sharry-andalucia.jpg?alt=media&token=8b5fb99b-e281-4a2f-864c-e24492435b12",
-  "isClear": true,
-  "levelAcid": 2,
-  "levelAlc": 2,
-  "levelTannin": 2,
-  "levelFinish": 2,
-  "wineRating": 1,
-  "createdAt": "2022-06-08T23:22:17.097Z",
-  "updatedAt": "2022-06-08T23:22:17.097Z",
-  "__v": 0
-}
-{
-  "_id": "62a0cfb3e478d1707f64ef16",
-  "title": "Vinogorja: Ključko, Brzopalanačko, Mihajlovačko, Negotinsko i Rogljevačko-Rajačko.",
-  "slug": "Vinogorja: Ključko, Brzopalanačko, Mihajlovačko, Negotinsko i Rogljevačko-Rajačko._1654706099241",
-  "body": "{\"children\":[{\"type\":\"paragraph\",\"children\":[{\"text\":\"Sorte: kaberne, game, prokupac, začinak, kaberne fran, merlo, crna tamjanika, sovinjon, šardone, plovdina, smederevka, semijon, pino blan.\"}]},{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}],\"operations\":[],\"selection\":{\"anchor\":{\"path\":[1,0],\"offset\":0},\"focus\":{\"path\":[1,0],\"offset\":0}},\"marks\":null}",
-  "image": "https://firebasestorage.googleapis.com/v0/b/test-wine-online.appspot.com/o/etc%2F1654706099241.10.crianza-rioja.jpg?alt=media&token=5c799bff-4bf4-4e62-8a50-201da1e05249",
-  "author": "BK12mKglBvX8eVYtiPydALqSVRR2",
-  "createdAt": "2022-06-08T16:34:59.833Z",
-  "updatedAt": "2022-06-08T16:34:59.833Z",
-  "__v": 0
-}
-
-
- */

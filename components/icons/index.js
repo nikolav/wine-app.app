@@ -20,7 +20,7 @@ import {
 } from "react-icons/fa";
 import { IoHelp } from "react-icons/io5";
 import { FiCamera, FiShare2 } from "react-icons/fi";
-import { BsStarFill } from "react-icons/bs";
+import { BsStarFill, BsPlayFill } from "react-icons/bs";
 import { RiGithubLine, RiTwitterLine, RiMessengerLine } from "react-icons/ri";
 import {
   BiShow,
@@ -54,19 +54,16 @@ import {
   RiCheckboxCircleFill,
 } from "react-icons/ri";
 import { FiSend } from "react-icons/fi";
-// import { TbBuildingFactory2 } from "react-icons/tb";
 import iconFactory from "../../src/etc/icon-factory.svg";
 import iconGrape from "../../src/etc/icon-grape.svg";
 import iconDinarCyr from "../../src/etc/icon-dinar-cyr.svg";
 ////
 ////
 export {
-  iconFactory,
-  iconGrape,
-  iconDinarCyr,
   AiOutlineCalendar,
   AiOutlineCloudSync,
   AiOutlineLink,
+  BsPlayFill,
   AiOutlineTag,
   AiOutlineUnderline,
   AiOutlineWhatsApp,
@@ -95,6 +92,9 @@ export {
   GoListOrdered,
   GoListUnordered,
   HiOutlineBookOpen,
+  iconDinarCyr,
+  iconFactory,
+  iconGrape,
   iconSearch,
   ImQuotesLeft,
   IoHelp,
@@ -112,6 +112,5 @@ export {
   RiGithubLine,
   RiMessengerLine,
   RiTwitterLine,
-  // TbBuildingFactory2,
   TiArrowLeftThick,
 };

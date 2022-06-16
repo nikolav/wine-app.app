@@ -1554,6 +1554,10 @@ select {
   margin-left: 0.5rem;
 }
 
+.mt-1 {
+  margin-top: 0.25rem;
+}
+
 .block {
   display: block;
 }
@@ -1638,6 +1642,18 @@ select {
   height: 1.25rem;
 }
 
+.h-48 {
+  height: 12rem;
+}
+
+.h-36 {
+  height: 9rem;
+}
+
+.h-40 {
+  height: 10rem;
+}
+
 .max-h-full {
   max-height: 100%;
 }
@@ -1688,6 +1704,10 @@ select {
   width: 3rem;
 }
 
+.w-1\/3 {
+  width: 33.333333%;
+}
+
 .w-48 {
   width: 12rem;
 }
@@ -1730,6 +1750,14 @@ select {
   width: fit-content;
 }
 
+.w-36 {
+  width: 9rem;
+}
+
+.w-40 {
+  width: 10rem;
+}
+
 .min-w-\[50\%\] {
   min-width: 50%;
 }
@@ -1752,6 +1780,14 @@ select {
 
 .\!max-w-full {
   max-width: 100% !important;
+}
+
+.max-w-\[128px\] {
+  max-width: 128px;
+}
+
+.\!max-w-\[128px\] {
+  max-width: 128px !important;
 }
 
 .shrink {
@@ -1932,6 +1968,12 @@ select {
   margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
 }
 
+.space-x-2 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(0.5rem * var(--tw-space-x-reverse));
+  margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
+}
+
 .space-y-2 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
   margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
@@ -1960,18 +2002,6 @@ select {
   --tw-space-x-reverse: 0;
   margin-right: calc(0px * var(--tw-space-x-reverse));
   margin-left: calc(0px * calc(1 - var(--tw-space-x-reverse)));
-}
-
-.space-x-2 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-x-reverse: 0;
-  margin-right: calc(0.5rem * var(--tw-space-x-reverse));
-  margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
-}
-
-.space-x-1 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-x-reverse: 0;
-  margin-right: calc(0.25rem * var(--tw-space-x-reverse));
-  margin-left: calc(0.25rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
 .self-center {
@@ -2139,6 +2169,14 @@ select {
   border-color: rgb(255 255 255 / 0.8) !important;
 }
 
+.border-slate-200\/50 {
+  border-color: rgb(226 232 240 / 0.5);
+}
+
+.border-slate-100\/50 {
+  border-color: rgb(241 245 249 / 0.5);
+}
+
 .border-r-white {
   --tw-border-opacity: 1;
   border-right-color: rgb(255 255 255 / var(--tw-border-opacity));
@@ -2263,6 +2301,11 @@ select {
 .bg-black {
   --tw-bg-opacity: 1;
   background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+}
+
+.bg-yellow-200 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 240 138 / var(--tw-bg-opacity));
 }
 
 .bg-opacity-95 {
@@ -2453,6 +2496,11 @@ select {
   padding-bottom: 0.5rem;
 }
 
+.px-2 {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
 .px-1 {
   padding-left: 0.25rem;
   padding-right: 0.25rem;
@@ -2461,11 +2509,6 @@ select {
 .px-8 {
   padding-left: 2rem;
   padding-right: 2rem;
-}
-
-.px-2 {
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
 }
 
 .\!py-1 {
@@ -2484,6 +2527,10 @@ select {
 
 .pb-2 {
   padding-bottom: 0.5rem;
+}
+
+.pr-2 {
+  padding-right: 0.5rem;
 }
 
 .pb-3 {
@@ -2518,10 +2565,6 @@ select {
   padding-top: 1.5rem;
 }
 
-.pr-2 {
-  padding-right: 0.5rem;
-}
-
 .pt-4 {
   padding-top: 1rem;
 }
@@ -2540,18 +2583,6 @@ select {
 
 .\!pr-4 {
   padding-right: 1rem !important;
-}
-
-.pr-1 {
-  padding-right: 0.25rem;
-}
-
-.pl-8 {
-  padding-left: 2rem;
-}
-
-.pl-10 {
-  padding-left: 2.5rem;
 }
 
 .text-center {
@@ -2717,6 +2748,11 @@ select {
   color: rgb(255 255 255 / var(--tw-text-opacity)) !important;
 }
 
+.text-indigo-400 {
+  --tw-text-opacity: 1;
+  color: rgb(129 140 248 / var(--tw-text-opacity));
+}
+
 .text-yellow-400 {
   --tw-text-opacity: 1;
   color: rgb(250 204 21 / var(--tw-text-opacity));
@@ -2842,6 +2878,14 @@ select {
 .text-slate-200 {
   --tw-text-opacity: 1;
   color: rgb(226 232 240 / var(--tw-text-opacity));
+}
+
+.text-white\/20 {
+  color: rgb(255 255 255 / 0.2);
+}
+
+.text-white\/40 {
+  color: rgb(255 255 255 / 0.4);
 }
 
 .underline {
@@ -3012,6 +3056,10 @@ select {
   transition-duration: 150ms;
 }
 
+.\!duration-75 {
+  transition-duration: 75ms !important;
+}
+
 /**
   * Use this directive to control where Tailwind injects the hover, focus,
   * responsive, dark mode, and other variants of each class.
@@ -3082,6 +3130,11 @@ select {
 
 .hover\:-translate-y-1:hover {
   --tw-translate-y: -0.25rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.hover\:-translate-y-\[2px\]:hover {
+  --tw-translate-y: -2px;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
@@ -3187,6 +3240,10 @@ select {
 
 .hover\:opacity-40:hover {
   opacity: 0.4;
+}
+
+.hover\:opacity-50:hover {
+  opacity: 0.5;
 }
 
 .hover\:shadow-lg:hover {

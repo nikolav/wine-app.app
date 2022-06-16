@@ -1,0 +1,19 @@
+/* .bgNoAuth {
+  background-image: url("../../src/etc/icon-user.svg");
+  background-repeat: no-repeat;
+  background-position: left top;
+  background-size: 58%;
+} */
+.bgNoAuth {
+  background-image: url("../../src/etc/icon-grape-white.svg");
+  background-repeat: no-repeat;
+  background-position: 62% center;
+  background-size: contain;
+}
+
+.bgTumbYTPromo {
+  background-image: url("../../public/thumb/thumb-yt-promo-video.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
