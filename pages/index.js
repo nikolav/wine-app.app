@@ -110,7 +110,7 @@ export default function Home() {
           id="window-left"
           className="relative z-10 hidden border-r-4 shadow-lg lg:col-span-5 lg:!block border-r-white"
         >
-          {/* {isMounted &&
+          {isMounted &&
             (PAGE_WINE_REVIEW_PREVIEW === page.key && imageSrc ? (
               <Image
                 alt=""
@@ -120,7 +120,7 @@ export default function Home() {
               />
             ) : (
               <VideoBackground video="https://nikolav.rs/etc/wine-app/mov.min2.mp4" />
-            ))} */}
+            ))}
         </section>
 
         {/* window-right */}
