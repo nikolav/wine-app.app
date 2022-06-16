@@ -11,14 +11,11 @@ import { motion } from "framer-motion";
 // import Image from "next/image";
 import { useRouter } from "next/router";
 //
-import {
-  useArticles,
-  // useWineReview
-} from "../../app/store";
+import { useArticles, useWineReview } from "../../app/store";
 import Rotation from "../Rotation/Rotation";
 import placeholder01 from "../../public/placeholder01.png";
 import { SpinnerRotatingLines } from "../loaders";
-import { arrayDivide, shuffle } from "../../src/util";
+import { arrayDivide, shuffle, postType } from "../../src/util";
 import Dashboard from "../Dashboard/Dashboard";
 import {
   useActions,
@@ -32,10 +29,15 @@ const HelpPage = () => {
   // const { isOn, toggle } = useStateSwitch();
   const router = useRouter();
   const { articles } = useArticles();
-  const articleChunks = arrayDivide(shuffle(articles || []), 3);
+  const { winereview } = useWineReview();
+  const postsChunks = arrayDivide(
+    shuffle([...(articles || []), ...(winereview || [])]),
+    3
+  );
   //
-  const onClickArticlePreview = (active) =>
-    router.push(`/articles/${active.article._id}`);
+  const onClickArticlePreview = ({ post }) => {
+    router.push(`/${postType(post)}/${post._id}`);
+  };
   //
   const actions = useActions();
   useEffect(() => {
@@ -69,7 +71,7 @@ const HelpPage = () => {
                 <Rotation
                   className="w-full h-full"
                   timeout={55}
-                  nodes={articleChunks[0].map(mkThumb, {
+                  nodes={postsChunks[0].map(mkThumb, {
                     classes: "rounded-tr-2xl",
                   })}
                   onClick={onClickArticlePreview}
@@ -83,7 +85,7 @@ const HelpPage = () => {
                 <Rotation
                   className="w-full h-full"
                   timeout={44}
-                  nodes={articleChunks[1].map(mkThumb, { classes: "" })}
+                  nodes={postsChunks[1].map(mkThumb, { classes: "" })}
                   onClick={onClickArticlePreview}
                 />
               ) : (
@@ -95,7 +97,7 @@ const HelpPage = () => {
                 <Rotation
                   className="w-full h-full"
                   timeout={66}
-                  nodes={articleChunks[2].map(mkThumb, {
+                  nodes={postsChunks[2].map(mkThumb, {
                     classes: "rounded-br-2xl",
                   })}
                   onClick={onClickArticlePreview}
@@ -114,11 +116,11 @@ const HelpPage = () => {
 export default HelpPage;
 //
 //
-function mkThumb(article) {
+function mkThumb(post) {
   const { classes } = this;
   return {
-    key: article._id,
-    article,
+    key: post._id,
+    post,
     node: (
       <motion.div
         whileHover={{ scale: 1.089 }}
@@ -126,11 +128,11 @@ function mkThumb(article) {
       >
         <img
           className="w-full h-full object-cover object-center block"
-          src={article.image || placeholder01.src}
+          src={post.image || placeholder01.src}
           alt=""
         />
         <small className="p-2 ***truncate text-sm absolute w-full bg-gradient-to-b from-black/50 to-black/70 italic bottom-0 text-center">
-          {article.title}
+          {post.wine || post.title}
         </small>
       </motion.div>
     ),

@@ -504,10 +504,18 @@ function DashboardEntryPostType({ post, isActive, className = "", ...rest }) {
 //
 function DashboardNotAuthenticated() {
   const { setPage } = usePages();
-  //
   const goToAuth = () => setPage(PAGE_LOGIN);
-  const goToArticleCreate = () => setPage(PAGE_ARTICLE_CREATE);
-  const goToWRCreate = () => setPage(PAGE_WINE_REVIEW);
+
+  const { toggle: toggleFlags } = useFlags();
+  const goToArticleCreate = () => {
+    setPage(PAGE_ARTICLE_CREATE);
+    toggleFlags.on(IS_ACTIVE_ARTICLE_COMMANDS);
+  };
+  const goToWRCreate = () => {
+    setPage(PAGE_WINE_REVIEW);
+    toggleFlags.on(IS_ACTIVE_WINE_REVIEW_TOOLBAR);
+  };
+
   //
   //
   //
@@ -548,10 +556,25 @@ function DashboardNotAuthenticated() {
 }
 
 function DashboardNoPostsAvailable() {
+  //
   const { user } = useAuth();
   const { setPage } = usePages();
-  const goToArticleCreate = () => setPage(PAGE_ARTICLE_CREATE);
-  const goToWRCreate = () => setPage(PAGE_WINE_REVIEW);
+  const globals = useGlobals();
+  const { toggle: toggleFlags } = useFlags();
+  //
+  const goToArticleCreate = () => {
+    setPage(PAGE_ARTICLE_CREATE);
+    toggleFlags.on(IS_ACTIVE_ARTICLE_COMMANDS);
+  };
+  const goToWRCreate = () => {
+    setPage(PAGE_WINE_REVIEW);
+    toggleFlags.on(IS_ACTIVE_WINE_REVIEW_TOOLBAR);
+  };
+
+  //
+  // no posts at this point
+  // ..deactivate toolbar
+  useEffect(() => globals.set(DASHBOARD_ENTRY_ACTIVE_POST, null), []);
   //
   return (
     <section
