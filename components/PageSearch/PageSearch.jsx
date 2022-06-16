@@ -86,7 +86,7 @@ const PageSearch = () => {
             {0 < searchQuery.length ? (
               3 <= searchQuery.length ? (
                 0 < postsFound.length ? (
-                  <ul className="px-4 space-y-4 list-none">
+                  <ul className="px-4 py-2 space-y-4 list-none">
                     {postsFound.map((post) => (
                       <PostFound
                         ID={post._id}

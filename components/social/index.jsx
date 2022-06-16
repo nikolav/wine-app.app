@@ -22,7 +22,7 @@ import { useAuth } from "../../app/store";
 //
 export const localId = (id) => `hjubqgepily.${id}`;
 export const CREATED_AT = "_@";
-//@@
+//@@@
 export const useComments = (entityId) => {
   //
   const dbPath = `comments/${entityId}`;
@@ -43,7 +43,7 @@ export const useComments = (entityId) => {
     //
     rm: (key) =>
       remove(ref(db, `${dbPath}/${key}`)).then(
-        (_) => 1 === Object.keys(commentsDB).length && setCommentsDB(null)
+        (_) => 1 === Object.keys(commentsDB).length && setCommentsDB({})
       ),
     //
     ls: () =>
