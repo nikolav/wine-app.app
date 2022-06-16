@@ -9,8 +9,8 @@ export default function useTimer(func) {
 
   return {
     start,
-    stop,
-    // 
+    stop: stop_,
+    //
     running,
   };
 
@@ -19,8 +19,9 @@ export default function useTimer(func) {
       setI(setInterval(func, timeout));
       setRunning(true);
     }
+    return stop_;
   }
-  function stop() {
+  function stop_() {
     clearInterval(i);
     setRunning(false);
   }

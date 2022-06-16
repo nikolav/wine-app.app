@@ -35,7 +35,6 @@ const PageSearch = () => {
         onChange={onInput}
       />
       <p>{rangeValue}</p>
-      <p className="text-6xl text-center">🍸</p>
     </div>
   );
 };

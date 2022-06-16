@@ -29,6 +29,9 @@
   .link {
     @apply cursor-pointer text-indigo-700 hover:underline active:text-red-600;
   }
+  .link-red-wine {
+    @apply cursor-pointer text-red-700/95 hover:underline;
+  }
   .link-preview {
     @apply cursor-zoom-in text-indigo-700 decoration-dashed hover:underline;
   }

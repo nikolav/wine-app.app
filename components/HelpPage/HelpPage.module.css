@@ -11,3 +11,10 @@
         grid-template-columns: 1fr auto !important;
     }
 }
+
+.bgWelcome {
+    background-image: url("../../public/bg/03.bg-welcome.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}

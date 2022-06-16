@@ -529,20 +529,20 @@ function DashboardNotAuthenticated() {
         <p>Aplikacija vam pomaže da otkrijete svet vina.</p>
         <p>
           Edukujte se ili ostavite{" "}
-          <strong onClick={goToArticleCreate} className="link text-indigo-400">
+          <strong onClick={goToArticleCreate} className="link-red-wine">
             svoju priču
           </strong>
           .
         </p>
         <p>
           {" "}
-          <strong onClick={goToWRCreate} className="link text-indigo-400">
+          <strong onClick={goToWRCreate} className="link-red-wine">
             Podelite utiske
           </strong>{" "}
           o vinu sa drugima.
         </p>
         <p>
-          <strong onClick={goToAuth} className="link text-indigo-400">
+          <strong onClick={goToAuth} className="link-red-wine">
             Prijavite se
           </strong>{" "}
           ako želite da koristite sve usluge.
@@ -595,11 +595,11 @@ function DashboardNoPostsAvailable() {
         <p>Strane koje napravite biće izlistane ovde.</p>
         <p>
           {" "}
-          <strong className="link text-indigo-400" onClick={goToArticleCreate}>
+          <strong className="link-red-wine" onClick={goToArticleCreate}>
             Napiši članak
           </strong>{" "}
           , ili{" "}
-          <strong className="link text-indigo-400" onClick={goToWRCreate}>
+          <strong className="link-red-wine" onClick={goToWRCreate}>
             oceni vino
           </strong>{" "}
           ...

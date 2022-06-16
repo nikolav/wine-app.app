@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { bgDashboard, twoCols } from "./HelpPage.module.css";
+import { bgDashboard, twoCols, bgWelcome } from "./HelpPage.module.css";
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import { useArticles, useWineReview } from "../../app/store";
@@ -13,9 +13,10 @@ import {
   ACTION_DEACTIVATE_IMAGE_MODALS,
 } from "../../src/hooks/use-actions-global";
 import useIsMounted from "../../src/hooks/use-is-mounted";
+import WineQuote from "../WineQuote/WineQuote";
 
 export { bgDashboard };
-////
+/////
 ////
 const HelpPage = () => {
   const router = useRouter();
@@ -45,13 +46,17 @@ const HelpPage = () => {
       >
         <div className="overflow-y-hidden ***p-1 h-full md:h-auto bg-gradient-to-b from-black/80 to-black/95 rounded-2xl md:rounded-r-none">
           <section
-            className="grid grid-rows-2 h-full gap-1"
+            className="grid grid-rows-2 h-full ***gap-1"
             style={{
               gridTemplateRows: "auto 48%",
             }}
           >
             <div className="overflow-y-auto scrollbar-thin">
-              <AppWelcome />
+              <section className={`h-full ${bgWelcome}`}>
+                <div className="md:!w-11/12 !mx-auto pt-20 sm:pt-36 text-lg">
+                  <WineQuote />
+                </div>
+              </section>
             </div>
             {/*  */}
             <div className="!overflow-y-auto scrollbar-thin">
@@ -113,9 +118,6 @@ const HelpPage = () => {
 export default HelpPage;
 //
 //
-function AppWelcome () {
-  return <section id="--rugnudqihpl">🚧 under construction</section>;
-}
 //
 function mkThumb(post) {
   const { classes } = this;
