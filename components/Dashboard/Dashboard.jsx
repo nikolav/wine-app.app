@@ -586,13 +586,13 @@ function DashboardNoPostsAvailable() {
           Dobrodošli {user?.displayName ? <em>{user.displayName}</em> : ""}
           {" !"}
         </p>
-        <p>Ovde imate pregled objavljenog sadržaja.</p>
+        <p>Pregled objavljenog sadržaja...</p>
         <p>
           <strong className="text-white/80">
-            Trenutno nemate postavljenih strana.
+            Trenutno nemate postavljen materijal.
           </strong>
         </p>
-        <p>Materijal koji napravite biće izlistan ovde.</p>
+        <p>Strane koje napravite biće izlistane ovde.</p>
         <p>
           {" "}
           <strong className="link text-indigo-400" onClick={goToArticleCreate}>

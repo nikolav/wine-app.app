@@ -1,16 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { bgDashboard, twoCols } from "./HelpPage.module.css";
-// import useStateSwitch from "../../src/hooks/use-state-switch";
-// import DrawerBox from "../DrawerBox/DrawerBox";
-// import cli from "../../src/feathers";
-// import useChatNotify from "../../src/hooks/use-chat-notify";
-// import Tooltip from "../Tooltip/Tooltip";
-// import Panel from "../Panel";
-// import Like from "../Like/Like";
 import { motion } from "framer-motion";
-// import Image from "next/image";
 import { useRouter } from "next/router";
-//
 import { useArticles, useWineReview } from "../../app/store";
 import Rotation from "../Rotation/Rotation";
 import placeholder01 from "../../public/placeholder01.png";
@@ -21,19 +12,22 @@ import {
   useActions,
   ACTION_DEACTIVATE_IMAGE_MODALS,
 } from "../../src/hooks/use-actions-global";
+import useIsMounted from "../../src/hooks/use-is-mounted";
 
 export { bgDashboard };
 ////
 ////
 const HelpPage = () => {
-  // const { isOn, toggle } = useStateSwitch();
   const router = useRouter();
+  const isMounted = useIsMounted();
   const { articles } = useArticles();
   const { winereview } = useWineReview();
-  const postsChunks = arrayDivide(
-    shuffle([...(articles || []), ...(winereview || [])]),
-    3
-  );
+  const [slides, setSlides] = useState(null);
+  const getSlides = () => arrayDivide(shuffle([...articles, ...winereview]), 3);
+  useEffect(() => {
+    if (isMounted && articles && winereview) setSlides(getSlides());
+    //
+  }, [isMounted, articles, winereview]);
   //
   const onClickArticlePreview = ({ post }) => {
     router.push(`/${postType(post)}/${post._id}`);
@@ -56,22 +50,25 @@ const HelpPage = () => {
               gridTemplateRows: "auto 48%",
             }}
           >
-            <div className="***bg-red-200/20 overflow-y-auto scrollbar-thin">
-              🚧 app under construction
+            <div className="overflow-y-auto scrollbar-thin">
+              <AppWelcome />
             </div>
-            <div className="***bg-green-200/20 !overflow-y-auto scrollbar-thin">
+            {/*  */}
+            <div className="!overflow-y-auto scrollbar-thin">
               <Dashboard />
             </div>
           </section>
         </div>
         <div className="p-px hidden md:!block w-48 bg-gradient-to-r from-black/80 to-black/90 rounded-r-2xl ***overflow-hidden">
+          {/*  */}
+          {/* slides x3 */}
           <section className="grid grid-rows-3 gap-px h-full">
-            <div className="***bg-red-100">
-              {articles ? (
+            <div>
+              {slides ? (
                 <Rotation
                   className="w-full h-full"
                   timeout={55}
-                  nodes={postsChunks[0].map(mkThumb, {
+                  nodes={slides[0].map(mkThumb, {
                     classes: "rounded-tr-2xl",
                   })}
                   onClick={onClickArticlePreview}
@@ -80,24 +77,24 @@ const HelpPage = () => {
                 <SpinnerThumb />
               )}
             </div>
-            <div className="***bg-green-100">
-              {articles ? (
+            <div>
+              {slides ? (
                 <Rotation
                   className="w-full h-full"
                   timeout={44}
-                  nodes={postsChunks[1].map(mkThumb, { classes: "" })}
+                  nodes={slides[1].map(mkThumb, { classes: "" })}
                   onClick={onClickArticlePreview}
                 />
               ) : (
                 <SpinnerThumb />
               )}
             </div>
-            <div className="***bg-blue-100">
-              {articles ? (
+            <div>
+              {slides ? (
                 <Rotation
                   className="w-full h-full"
                   timeout={66}
-                  nodes={postsChunks[2].map(mkThumb, {
+                  nodes={slides[2].map(mkThumb, {
                     classes: "rounded-br-2xl",
                   })}
                   onClick={onClickArticlePreview}
@@ -115,6 +112,10 @@ const HelpPage = () => {
 
 export default HelpPage;
 //
+//
+function AppWelcome () {
+  return <section id="--rugnudqihpl">🚧 under construction</section>;
+}
 //
 function mkThumb(post) {
   const { classes } = this;
