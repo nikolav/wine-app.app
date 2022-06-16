@@ -1,4 +1,4 @@
-export default function sortByTimestampDesc(KEY = null) {
+export default function sortByTimestampDesc(KEY = "updatedAt") {
   return null != KEY ? sortByTimestampDesc_.bind({ KEY }) : null;
 }
 

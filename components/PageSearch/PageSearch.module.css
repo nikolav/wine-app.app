@@ -1,0 +1,15 @@
+
+.bdIconSearch {
+    background-image: url("../../src/etc/icon-search-primary-gray.svg");
+    background-repeat: no-repeat;
+    background-position: left;
+    background-size: 24px;
+}
+
+.bgPageSearch {
+    /* background-color: aqua; */
+    background-image: url("../../public/bg/04.bg-page-search.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}

@@ -59,8 +59,10 @@ import {
   PAGE_REGISTER,
   PAGE_HELP,
   PAGE_WINE_REVIEW_PREVIEW,
+  PAGE_SEARCH,
 } from "../app/store/page";
 import { bgDashboard } from "../components/HelpPage/HelpPage";
+import { bgPageSearch } from "../components/PageSearch/PageSearch";
 
 //
 import Image from "next/image";
@@ -158,7 +160,9 @@ export default function Home() {
                     ? "!overflow-y-auto scrollbar-thin"
                     : "overflow-y-hidden"
                   // sets dashboard background
-                } ${PAGE_HELP === page.key ? bgDashboard : ""}`}
+                } ${PAGE_HELP === page.key ? bgDashboard : ""} ${
+                  PAGE_SEARCH === page.key ? bgPageSearch : ""
+                }`}
               >
                 <page.content />
               </Paper>
