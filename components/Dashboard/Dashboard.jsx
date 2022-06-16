@@ -93,7 +93,7 @@ const Dashboard = () => {
                 ))}
               </section>
             ) : (
-              <p>no posts</p>
+              <DashboardNoPostsAvailable />
             )
           ) : (
             <DashboardNotAuthenticated />
@@ -509,15 +509,11 @@ function DashboardNotAuthenticated() {
   const goToArticleCreate = () => setPage(PAGE_ARTICLE_CREATE);
   const goToWRCreate = () => setPage(PAGE_WINE_REVIEW);
   //
-  const { openGallery } = useFancyboxGallery();
   //
-  const [refElementYtPromoVideo, setRefElementYtPromoVideo] = useState(null);
-  const { isOn: isActiveTooltipYT, toggle: toggleIsActiveTooltipYT } =
-    useStateSwitch();
   //
   return (
     <section
-      id="c--acdzidbyqqx"
+      id="--acdzidbyqqx"
       className={`${bgNoAuth} pt-6 h-full text-sm flex flex-row items-start justify-between`}
     >
       <div className="px-1 grow prose text-white/50 text-xs text-center">
@@ -545,24 +541,79 @@ function DashboardNotAuthenticated() {
         </p>
       </div>
       <div className="w-1/3 pl-2">
-        <div
-          ref={setRefElementYtPromoVideo}
-          onMouseOver={toggleIsActiveTooltipYT.on}
-          onMouseLeave={toggleIsActiveTooltipYT.off}
-          onClick={() => openGallery([{ src: YT_PROMO_VIDEO_URL }])}
-          className={`p-6 flex -items-center justify-center mt-2 cursor-pointer border border-slate-100/50 shadow opacity-50 max-w-[128px] h-32 rounded-2xl hover:opacity-80 hover:-translate-y-[2px] transition-transform ${bgTumbYTPromo}`}
-        >
-          <BsPlayFill className="w-full h-full !text-white" />
-        </div>
-        <Tooltip
-          refElement={refElementYtPromoVideo}
-          isActive={isActiveTooltipYT}
-          placement="left"
-          offset={[0, 12]}
-        >
-          🎥 Pogledaj prezentaciju
-        </Tooltip>
+        <YTPromoVideo />
       </div>
     </section>
+  );
+}
+
+function DashboardNoPostsAvailable() {
+  const { user } = useAuth();
+  const { setPage } = usePages();
+  const goToArticleCreate = () => setPage(PAGE_ARTICLE_CREATE);
+  const goToWRCreate = () => setPage(PAGE_WINE_REVIEW);
+  //
+  return (
+    <section
+      id="--fxrdkvkpbjt"
+      className={`${bgNoAuth} pt-6 h-full text-sm flex flex-row items-start justify-between`}
+    >
+      <div className="px-1 grow prose text-white/50 text-xs text-center">
+        <p>
+          Dobrodošli {user?.displayName ? <em>{user.displayName}</em> : ""}
+          {" !"}
+        </p>
+        <p>Ovde imate pregled objavljenog sadržaja.</p>
+        <p>
+          <strong className="text-white/80">
+            Trenutno nemate postavljenih strana.
+          </strong>
+        </p>
+        <p>Materijal koji napravite biće izlistan ovde.</p>
+        <p>
+          {" "}
+          <strong className="link text-indigo-400" onClick={goToArticleCreate}>
+            Napiši članak
+          </strong>{" "}
+          , ili{" "}
+          <strong className="link text-indigo-400" onClick={goToWRCreate}>
+            oceni vino
+          </strong>{" "}
+          ...
+        </p>
+      </div>
+      <div className="w-1/3 pl-2">
+        <YTPromoVideo />
+      </div>
+    </section>
+  );
+}
+
+export function YTPromoVideo() {
+  const [refElementYtPromoVideo, setRefElementYtPromoVideo] = useState(null);
+  const { isOn: isActiveTooltipYT, toggle: toggleIsActiveTooltipYT } =
+    useStateSwitch();
+  const { openGallery } = useFancyboxGallery();
+
+  return (
+    <>
+      <div
+        ref={setRefElementYtPromoVideo}
+        onMouseOver={toggleIsActiveTooltipYT.on}
+        onMouseLeave={toggleIsActiveTooltipYT.off}
+        onClick={() => openGallery([{ src: YT_PROMO_VIDEO_URL }])}
+        className={`p-6 flex items-center justify-center mt-2 cursor-pointer border border-slate-100/50 shadow opacity-50 max-w-[128px] h-32 rounded-2xl hover:opacity-80 hover:-translate-y-[2px] transition-transform ${bgTumbYTPromo}`}
+      >
+        <BsPlayFill className="w-full h-full !text-white" />
+      </div>
+      <Tooltip
+        refElement={refElementYtPromoVideo}
+        isActive={isActiveTooltipYT}
+        placement="left"
+        offset={[0, 12]}
+      >
+        🎥 Pogledaj prezentaciju
+      </Tooltip>
+    </>
   );
 }
