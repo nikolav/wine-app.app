@@ -120,7 +120,7 @@ const GuestNavigation = ({ ...rest }) => {
           isActive={isActiveSearch}
           offset={[0, 23]}
         >
-          🔎 pretraga članaka
+          🔎 pretraga sadržaja
         </Tooltip>
 
         {/* @@chat */}

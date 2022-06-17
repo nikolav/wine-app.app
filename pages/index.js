@@ -77,6 +77,8 @@ import {
   WINE_REVIEW_IMAGE_DATAURL,
 } from "../src/hooks/use-globals";
 //
+import TestPage from "../components/PageTest";
+//
 //
 export default function Home() {
   const isMounted = useIsMounted();
@@ -164,7 +166,15 @@ export default function Home() {
                   PAGE_SEARCH === page.key ? bgPageSearch : ""
                 }`}
               >
-                <page.content />
+                {/*  */}
+                {/*  */}
+                {/*  */}
+                {/*  */}
+                {/* <page.content /> */}
+                <TestPage />
+                {/*  */}
+                {/*  */}
+                {/*  */}
               </Paper>
             </motion.div>
           </AnimatePresence>
