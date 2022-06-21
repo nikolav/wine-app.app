@@ -54,6 +54,7 @@ const OverlayHover = ({
   effect = DEFAULT_EFFECT,
   //
   className = "",
+  //
   ...rest
 }) => {
   const { isOn, toggle } = useStateSwitch();
@@ -61,15 +62,18 @@ const OverlayHover = ({
   if (!has(EFFECT, effect)) effect = DEFAULT_EFFECT;
   //
   return (
+    // stretch to fit @content
     <div
       onMouseOver={toggle.on}
       onMouseLeave={toggle.off}
       className={`w-fit h-fit overflow-hidden relative ${className}`}
       {...rest}
     >
+      {/* @content */}
       {children}
       <AnimatePresence>
         {isOn && (
+          // fill @content
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full">
             <motion.div
               initial={EFFECT[effect].initial}

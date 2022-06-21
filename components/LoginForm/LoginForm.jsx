@@ -8,7 +8,16 @@ import useSyncInput from "../../src/hooks/use-sync-input";
 import { prevent, isEmail } from "../../src/util";
 import css from "./LoginForm.module.css";
 import { useFlags, IS_PROCESSING_AUTH } from "../../src/hooks/use-flags-global";
-
+import { signIn } from "next-auth/react";
+import {
+  FcGoogle,
+  FaFacebook,
+  AiFillTwitterCircle,
+  FaGithubAlt,
+} from "../icons";
+import Tooltip from "../Tooltip/Tooltip";
+import useStateSwitch from "../../src/hooks/use-state-switch";
+//////
 export default function LoginForm() {
   const [message, setMessage] = useState("Prijava na sistem.");
   const [isActive, setIsActive] = useState(false);
@@ -57,6 +66,27 @@ export default function LoginForm() {
       setMessage("Greška, ovaj korisnik nije registrovan.");
     }
   }, [user, loginStatus.error, loginStatus.processing]);
+  //
+  // soclial login tooltips
+  const { isOn: isActiveTooltipGoogle, toggle: toggleIsActiveTooltipGoogle } =
+    useStateSwitch();
+  const [refPopperGoogle, setRefPopperGoogle] = useState();
+
+  const {
+    isOn: isActiveTooltipFacebook,
+    toggle: toggleIsActiveTooltipFacebook,
+  } = useStateSwitch();
+  const [refPopperFacebook, setRefPopperFacebook] = useState();
+
+  const { isOn: isActiveTooltipTwitter, toggle: toggleIsActiveTooltipTwitter } =
+    useStateSwitch();
+  const [refPopperTwitter, setRefPopperTwitter] = useState();
+
+  const { isOn: isActiveTooltipGithub, toggle: toggleIsActiveTooltipGithub } =
+    useStateSwitch();
+  const [refPopperGithub, setRefPopperGithub] = useState();
+
+  //
 
   return (
     <form
@@ -113,6 +143,80 @@ export default function LoginForm() {
           >
             🥂 PRIJAVA
           </button>
+          <div className="text-center">
+            <div className="flex flex-row items-center justify-around">
+              <strong ref={setRefPopperGoogle} onClick={() => signIn("google")}>
+                <FcGoogle
+                  onMouseOver={toggleIsActiveTooltipGoogle.on}
+                  onMouseLeave={toggleIsActiveTooltipGoogle.off}
+                  className={`opacity-80 hover:opacity-100 hover:scale-110 transition-transform duration-75 ${css.iconLoginSocial} `}
+                  title="google"
+                />
+                <Tooltip
+                  refElement={refPopperGoogle}
+                  isActive={isActiveTooltipGoogle}
+                  placement="top"
+                  offset={[0, 18]}
+                >
+                  👤 poveži <em className="italic font-bold">google</em> nalog
+                </Tooltip>
+              </strong>{" "}
+              <strong
+                ref={setRefPopperFacebook}
+                onClick={() => signIn("facebook")}
+              >
+                <FaFacebook
+                  onMouseOver={toggleIsActiveTooltipFacebook.on}
+                  onMouseLeave={toggleIsActiveTooltipFacebook.off}
+                  className={`opacity-80 hover:opacity-100 hover:scale-110 transition-transform duration-75 ${css.iconLoginSocial} text-[#4267b2]`}
+                  title="facebook"
+                />
+                <Tooltip
+                  refElement={refPopperFacebook}
+                  isActive={isActiveTooltipFacebook}
+                  placement="top"
+                  offset={[0, 18]}
+                >
+                  👤 poveži <em className="italic font-bold">facebook</em> nalog
+                </Tooltip>
+              </strong>
+              <strong
+                ref={setRefPopperTwitter}
+                onClick={() => signIn("twitter")}
+              >
+                <AiFillTwitterCircle
+                  onMouseOver={toggleIsActiveTooltipTwitter.on}
+                  onMouseLeave={toggleIsActiveTooltipTwitter.off}
+                  className={`opacity-80 hover:opacity-100 hover:scale-110 transition-transform duration-75 ${css.iconLoginSocial} text-[#1da1f2]`}
+                  title="twitter"
+                />
+                <Tooltip
+                  refElement={refPopperTwitter}
+                  isActive={isActiveTooltipTwitter}
+                  placement="top"
+                  offset={[0, 18]}
+                >
+                  👤 poveži <em className="italic font-bold">twitter</em> nalog
+                </Tooltip>
+              </strong>
+              <strong ref={setRefPopperGithub} onClick={() => signIn("github")}>
+                <FaGithubAlt
+                  onMouseOver={toggleIsActiveTooltipGithub.on}
+                  onMouseLeave={toggleIsActiveTooltipGithub.off}
+                  className={`opacity-80 hover:opacity-100 hover:scale-110 transition-transform duration-75 ${css.iconLoginSocial} text-[#171515]`}
+                  title="github"
+                />
+                <Tooltip
+                  refElement={refPopperGithub}
+                  isActive={isActiveTooltipGithub}
+                  placement="top"
+                  offset={[0, 18]}
+                >
+                  👤 poveži <em className="italic font-bold">github</em> nalog
+                </Tooltip>
+              </strong>
+            </div>
+          </div>
           <a
             onClick={prevent(setPage.bind(null, PAGE_REGISTER))}
             href="#!"

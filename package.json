@@ -10,7 +10,9 @@
     "lint": "next lint",
     "test:unit": "jest unit.test.js --watch",
     "build:css": "tailwindcss -i ./src/tailwind.css -o ./styles/build.css",
-    "watch:css": "tailwindcss -i ./src/tailwind.css -o ./styles/build.css --watch"
+    "watch:css": "tailwindcss -i ./src/tailwind.css -o ./styles/build.css --watch",
+    "sass:globals": "sass ./src/styles-globals.scss ./styles/styles-globals.css ",
+    "sass:globals:watch": "sass ./src/styles-globals.scss ./styles/styles-globals.css --watch "
   },
   "dependencies": {
     "@fancyapps/ui": "^4.0.26",
@@ -33,7 +35,8 @@
     "jest": "^27.5.1",
     "md5": "^2.3.0",
     "next": "12.1.4",
-    "nikolav-q": "^1.1.3",
+    "next-auth": "^4.5.0",
+    "nikolav-q": "^1.1.4",
     "react": "18.0.0",
     "react-dom": "18.0.0",
     "react-icons": "^4.3.1",
@@ -54,7 +57,7 @@
     "eslint-config-next": "12.1.4",
     "html5-boilerplate": "^8.0.0",
     "postcss": "^8.4.13",
-    "sass": "^1.51.0",
+    "sass": "^1.52.3",
     "tailwindcss": "^3.0.24"
   }
 }

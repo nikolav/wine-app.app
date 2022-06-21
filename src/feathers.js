@@ -3,7 +3,7 @@ import socketio from "@feathersjs/socketio-client";
 import io from "socket.io-client";
 
 export const URL_DEVELOPMENT = "http://localhost:3031/";
-export const URL_PRODUCTION = "https://wine-app-api.herokuapp.com/";
+export const URL_PRODUCTION  = "https://wine-app-api.herokuapp.com/";
 //
 // export const URL_LOCAL = URL_DEVELOPMENT;
 export const URL_LOCAL = URL_PRODUCTION;

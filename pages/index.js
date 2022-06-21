@@ -170,8 +170,8 @@ export default function Home() {
                 {/*  */}
                 {/*  */}
                 {/*  */}
-                {/* <page.content /> */}
-                <TestPage />
+                <page.content />
+                {/* <TestPage /> */}
                 {/*  */}
                 {/*  */}
                 {/*  */}

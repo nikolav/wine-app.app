@@ -17,6 +17,8 @@ import {
   FaRegComments,
   FaExclamationTriangle,
   FaRegSave,
+  FaFacebook,
+  FaGithubAlt,
 } from "react-icons/fa";
 import { IoHelp } from "react-icons/io5";
 import { FiCamera, FiShare2 } from "react-icons/fi";
@@ -47,6 +49,7 @@ import {
   //
   AiOutlineTag,
   AiOutlineCalendar,
+  AiFillTwitterCircle,
 } from "react-icons/ai";
 import {
   RiCloseCircleFill,
@@ -57,13 +60,14 @@ import { FiSend } from "react-icons/fi";
 import iconFactory from "../../src/etc/icon-factory.svg";
 import iconGrape from "../../src/etc/icon-grape.svg";
 import iconDinarCyr from "../../src/etc/icon-dinar-cyr.svg";
+import { FcGoogle } from "react-icons/fc";
 ////
-////
+//// 
 export {
+  AiFillTwitterCircle,
   AiOutlineCalendar,
   AiOutlineCloudSync,
   AiOutlineLink,
-  BsPlayFill,
   AiOutlineTag,
   AiOutlineUnderline,
   AiOutlineWhatsApp,
@@ -73,6 +77,7 @@ export {
   BiRefresh,
   BiShow,
   BiUserCircle,
+  BsPlayFill,
   BsStarFill,
   CgFormatItalic,
   FaAlignCenter,
@@ -80,12 +85,15 @@ export {
   FaAlignLeft,
   FaAlignRight,
   FaExclamationTriangle,
+  FaFacebook,
   FaFacebookF,
+  FaGithubAlt,
   FaHome,
   FaRegComments,
   FaRegSave,
   FaStar,
   FaViber,
+  FcGoogle,
   FiCamera,
   FiSend,
   FiShare2,

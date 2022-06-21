@@ -18,10 +18,13 @@ import {
 } from "firebase/auth";
 
 import client from "../../src/feathers";
+import { useSession } from "next-auth/react";
 
+//
 export const AuthContext = React.createContext();
 export const useAuth = () => useContext(AuthContext);
 
+//
 export default function AuthContextProvider({ children }) {
   const [user, setUser] = useState(null);
 
@@ -72,6 +75,19 @@ export default function AuthContextProvider({ children }) {
 
     return clearOnAuthStateChanged;
   }, []);
+
+  const { data: auth, status: authStatus } = useSession();
+  useEffect(() => {
+    let user;
+    //
+    if (null == auth) return setUser(null);
+    //
+    if ("authenticated" === authStatus && auth.user) {
+      user = auth.user;
+      if (!user.displayName) user.displayName = user.name;
+    }
+    user && setUser(user);
+  }, [auth, authStatus]);
 
   return (
     <AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>

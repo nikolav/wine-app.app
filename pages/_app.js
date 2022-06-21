@@ -13,10 +13,13 @@ import ArticlesProvider, {
   AppDataProvider,
 } from "../app/store/resource";
 import ActionsContextProvider from "../src/hooks/use-actions-global";
+import { SessionProvider } from "next-auth/react";
+//
 //
 import "../styles/globals.css";
 import "../styles/build.css";
 import "../styles/scrollbars.css";
+import "../styles/styles-globals.css";
 import "../styles/App.css";
 import "../styles/LinkCell.css";
 import "../styles/SlideAboutWine.css";
@@ -38,7 +41,11 @@ const variants = {
 };
 ////
 ////
-function MyApp({ Component, pageProps, router }) {
+function MyApp({
+  Component,
+  pageProps: { session, ...restPageProps },
+  router: { route },
+}) {
   return (
     <>
       <Head>
@@ -53,40 +60,46 @@ function MyApp({ Component, pageProps, router }) {
           name="description"
           content="Nikola Vuković is a web developer from Mladenovac, Serbia. He has 5+ years of experience with fullstack web development with a focus on user interfaces, ineraction and data modeling. In his spare time, Nikola Vuković does languages, modern technologies, gymnastics, wine&amp;spirits, bookkeeping, accounting, history, arts, positive life habits, astrology&amp;tarot, dating, travel, time management, resource planing, logistics, design, and more. Никола Вуковић је веб програмер из Младеновца у Србији. Има 5+ година искуства са фуллстак веб развојем са фокусом на кориснички интерфејс и моделирање података. У слободно време Никола Вуковић бави се језицима, савременим технологијама, гимнастиком, вином и жестоким пићима, пословном анализом, вођењем књига, креирањем пословних планова, рачуноводством, астрологијом и таротом, историјом, уметношћу, позитивним животним навикама, забављањем, путовањима, управљањем временом, планирањем ресурса, логистиком, дизајном. admin@nikolav.rs"
         />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       <GlobalsProvder>
         <FlagsProvider>
           <ActionsContextProvider>
             <QueryProvider>
-              <AuthContextProvider>
-                <AppDataProvider>
-                  <ArticlesProvider>
-                    <WineReviewProvider>
-                      <SlateEditorProvider>
-                        <PageContextProvider>
-                          <>
-                            <AnimatePresence exitBeforeEnter initial={false}>
-                              <motion.div
-                                key={router.route}
-                                initial="out"
-                                animate="in"
-                                exit="out"
-                                variants={variants}
-                              >
-                                <Component {...pageProps} />
-                              </motion.div>
-                            </AnimatePresence>
-                            {/*  */}
-                            <UserNotificationAuthStateChange />
-                            {/*  */}
-                            <LoaderBars />
-                          </>
-                        </PageContextProvider>
-                      </SlateEditorProvider>
-                    </WineReviewProvider>
-                  </ArticlesProvider>
-                </AppDataProvider>
-              </AuthContextProvider>
+              <SessionProvider
+                session={session}
+                refetchInterval={0}
+              >
+                <AuthContextProvider>
+                  <AppDataProvider>
+                    <ArticlesProvider>
+                      <WineReviewProvider>
+                        <SlateEditorProvider>
+                          <PageContextProvider>
+                            <>
+                              <AnimatePresence exitBeforeEnter initial={false}>
+                                <motion.div
+                                  key={route}
+                                  initial="out"
+                                  animate="in"
+                                  exit="out"
+                                  variants={variants}
+                                >
+                                  <Component {...restPageProps} />
+                                </motion.div>
+                              </AnimatePresence>
+                              {/*  */}
+                              <UserNotificationAuthStateChange />
+                              {/*  */}
+                              <LoaderBars />
+                            </>
+                          </PageContextProvider>
+                        </SlateEditorProvider>
+                      </WineReviewProvider>
+                    </ArticlesProvider>
+                  </AppDataProvider>
+                </AuthContextProvider>
+              </SessionProvider>
             </QueryProvider>
           </ActionsContextProvider>
         </FlagsProvider>

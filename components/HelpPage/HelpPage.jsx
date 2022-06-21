@@ -17,7 +17,6 @@ import WineQuote from "../WineQuote/WineQuote";
 
 export { bgDashboard };
 /////
-////
 const HelpPage = () => {
   const router = useRouter();
   const isMounted = useIsMounted();

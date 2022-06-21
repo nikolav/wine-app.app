@@ -24,6 +24,7 @@ import {
   PAGE_SEARCH,
 } from "../../app/store/page";
 import useAuthLogout from "../../src/hooks/use-auth-logout";
+import { signOut } from "next-auth/react";
 
 import { useAuth } from "../../app/store";
 import { preload } from "nikolav-q";
@@ -43,6 +44,10 @@ const GuestNavigation = ({ ...rest }) => {
   const { setPage } = usePages();
   const { user } = useAuth();
   const [logout] = useAuthLogout();
+  const logout_ = () => {
+    logout();
+    signOut({ redirect: false });
+  };
   //
   const { toggle } = useFlags();
   const openSharing = () => toggle.on(IS_ACTIVE_SHARING);
@@ -241,7 +246,8 @@ const GuestNavigation = ({ ...rest }) => {
         >
           {user ? (
             <IoMdPower
-              onClick={logout}
+              // onClick={logout}
+              onClick={logout_}
               className="***text-4xl text-white transition-transform opacity-50 cursor-pointer hover:scale-110 hover:opacity-80 active:opacity-100"
             />
           ) : (
