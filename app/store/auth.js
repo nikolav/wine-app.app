@@ -80,12 +80,16 @@ export default function AuthContextProvider({ children }) {
   useEffect(() => {
     let user;
     //
-    if (null == auth) return setUser(null);
+    if (null === auth) {
+      setUser(null);
+      return;
+    }
     //
-    if ("authenticated" === authStatus && auth.user) {
-      user = auth.user;
+    if ("authenticated" === authStatus && auth?.user) {
+      user = { ...auth.user };
       if (!user.displayName) user.displayName = user.name;
     }
+    //
     user && setUser(user);
   }, [auth, authStatus]);
 
