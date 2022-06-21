@@ -44,6 +44,9 @@ export default function AuthContextProvider({ children }) {
     updateUserPassword,
   };
 
+  // next-auth session
+  const { data: auth, status: authStatus } = useSession();
+  //
   useEffect(() => {
     const clearOnAuthStateChanged = onAuthStateChanged(
       firebaseAuth,
@@ -76,25 +79,29 @@ export default function AuthContextProvider({ children }) {
       }
     );
 
+    if (!user && auth?.user) {
+      setUser(auth.user);
+    }
+
     return clearOnAuthStateChanged;
   }, []);
 
-  const { data: auth, status: authStatus } = useSession();
+  
   useEffect(() => {
     let user_;
     //
-    if (null == auth) {
+    if (!auth) {
       setUser(null);
       return;
     }
     //
-    if ("authenticated" === authStatus && auth?.user) {
+    if ("authenticated" === authStatus && auth.user) {
       user_ = { ...auth.user };
       if (!user_.displayName) user_.displayName = user_.name;
     }
     //
     user_ && setUser(user_);
-  }, [auth, authStatus]);
+  }, [auth?.user, authStatus]);
 
   return (
     <AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>
