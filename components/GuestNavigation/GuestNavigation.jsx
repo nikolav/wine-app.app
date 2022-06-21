@@ -46,7 +46,8 @@ const GuestNavigation = ({ ...rest }) => {
   const [logout] = useAuthLogout();
   const logout_ = () => {
     logout();
-    signOut({ redirect: false });
+    // signOut({ redirect: false });
+    signOut();
   };
   //
   const { toggle } = useFlags();

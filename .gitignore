@@ -5,12 +5,12 @@ _.py
 .docusaurus
 .DS_Store
 .dynamodb/
-# .env
-# .env.development.local
-# .env.local
-# .env*.local
-# .env.production.local
-# .env.test.local
+.env
+.env.development.local
+.env.local
+.env*.local
+.env.production.local
+.env.test.local
 .eslintcache
 .fuse_hidden*
 .fusebox/
