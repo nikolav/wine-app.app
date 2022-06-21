@@ -78,19 +78,19 @@ export default function AuthContextProvider({ children }) {
 
   const { data: auth, status: authStatus } = useSession();
   useEffect(() => {
-    let user;
+    let user_;
     //
-    if (null === auth) {
-      setUser(null);
-      return;
-    }
+    // if (null === auth) {
+    //   setUser(null);
+    //   return;
+    // }
     //
     if ("authenticated" === authStatus && auth?.user) {
-      user = { ...auth.user };
-      if (!user.displayName) user.displayName = user.name;
+      user_ = { ...auth.user };
+      if (!user_.displayName) user_.displayName = user_.name;
     }
     //
-    user && setUser(user);
+    user_ && setUser(user_);
   }, [auth, authStatus]);
 
   return (
