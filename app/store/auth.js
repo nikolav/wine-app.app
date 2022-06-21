@@ -48,7 +48,10 @@ export default function AuthContextProvider({ children }) {
     const clearOnAuthStateChanged = onAuthStateChanged(
       firebaseAuth,
       async (user) => {
-        if (!user) return setUser(null);
+        if (!user) {
+          setUser(null);
+          return;
+        }
 
         // firebase doesnt save user names by default
         // fetch manualy from db
@@ -80,10 +83,10 @@ export default function AuthContextProvider({ children }) {
   useEffect(() => {
     let user_;
     //
-    // if (null === auth) {
-    //   setUser(null);
-    //   return;
-    // }
+    if (null == auth) {
+      setUser(null);
+      return;
+    }
     //
     if ("authenticated" === authStatus && auth?.user) {
       user_ = { ...auth.user };
