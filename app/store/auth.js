@@ -53,8 +53,8 @@ export default function AuthContextProvider({ children }) {
     const clearOnAuthStateChanged = onAuthStateChanged(
       firebaseAuth,
       async (user) => {
-        if (!user && isMounted) {
-          setUser(null);
+        if (!user) {
+          isMounted && setUser(null);
           return;
         }
 
@@ -89,8 +89,8 @@ export default function AuthContextProvider({ children }) {
   useEffect(() => {
     let user_;
     //
-    if (!auth && isMounted) {
-      setUser(null);
+    if (!auth) {
+      isMounted && setUser(null);
       return;
     }
     //
