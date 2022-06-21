@@ -86,7 +86,6 @@ export default function AuthContextProvider({ children }) {
     return clearOnAuthStateChanged;
   }, []);
 
-  
   useEffect(() => {
     let user_;
     //
@@ -95,13 +94,13 @@ export default function AuthContextProvider({ children }) {
       return;
     }
     //
-    if ("authenticated" === authStatus && auth.user) {
+    if (!user && "authenticated" === authStatus && auth.user) {
       user_ = { ...auth.user };
       if (!user_.displayName) user_.displayName = user_.name;
     }
     //
     user_ && setUser(user_);
-  }, [auth?.user, authStatus]);
+  }, [auth, auth?.user, authStatus]);
 
   return (
     <AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>
