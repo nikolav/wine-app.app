@@ -79,9 +79,7 @@ export default function AuthContextProvider({ children }) {
       }
     );
 
-    if (!user && auth?.user) {
-      setUser(auth.user);
-    }
+    if (!user && auth?.user) setUser({ ...auth.user });
 
     return clearOnAuthStateChanged;
   }, []);
@@ -94,13 +92,13 @@ export default function AuthContextProvider({ children }) {
       return;
     }
     //
-    if (!user && "authenticated" === authStatus && auth.user) {
+    if ("authenticated" === authStatus && auth.user) {
       user_ = { ...auth.user };
       if (!user_.displayName) user_.displayName = user_.name;
     }
     //
     user_ && setUser(user_);
-  }, [auth, auth?.user, authStatus]);
+  }, [auth, authStatus]);
 
   return (
     <AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>
