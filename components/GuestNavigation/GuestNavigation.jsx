@@ -12,7 +12,10 @@ import {
   FaHome,
 } from "../icons";
 
-import { prevent, noop } from "../../src/util";
+import { 
+  prevent, 
+  // noop,
+} from "../../src/util";
 import { usePages } from "../../app/store";
 import {
   PAGE_LOGIN,
@@ -38,20 +41,24 @@ import {
 //
 import useStateSwitch from "../../src/hooks/use-state-switch";
 import Tooltip from "../Tooltip/Tooltip";
-import { useSession } from "next-auth/react";
+// import { useSession } from "next-auth/react";
 //
 //
 const GuestNavigation = ({ ...rest }) => {
   const { setPage } = usePages();
-  const { data: auth } = useSession();
+  // const { data: auth } = useSession();
   const { user } = useAuth();
   const [logout] = useAuthLogout();
   //
-  const logout_ = user
-    ? auth?.user
-      ? () => signOut({ redirect: false })
-      : logout
-    : noop;
+  // const logout_ = user
+  //   ? auth?.user
+  //     ? () => signOut({ redirect: false })
+  //     : logout
+  //   : noop;
+  const logout_ = () => {
+    logout();
+    signOut({ redirect: false });
+  };
   //
   const { toggle } = useFlags();
   const openSharing = () => toggle.on(IS_ACTIVE_SHARING);
