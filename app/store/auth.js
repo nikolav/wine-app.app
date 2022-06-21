@@ -19,6 +19,7 @@ import {
 
 import client from "../../src/feathers";
 import { useSession } from "next-auth/react";
+import useIsMounted from "../../src/hooks/use-is-mounted";
 
 //
 export const AuthContext = React.createContext();
@@ -26,6 +27,7 @@ export const useAuth = () => useContext(AuthContext);
 
 //
 export default function AuthContextProvider({ children }) {
+  const isMounted = useIsMounted();
   const [user, setUser] = useState(null);
 
   const authValue = {
@@ -51,7 +53,7 @@ export default function AuthContextProvider({ children }) {
     const clearOnAuthStateChanged = onAuthStateChanged(
       firebaseAuth,
       async (user) => {
-        if (!user) {
+        if (!user && isMounted) {
           setUser(null);
           return;
         }
@@ -87,7 +89,7 @@ export default function AuthContextProvider({ children }) {
   useEffect(() => {
     let user_;
     //
-    if (!auth) {
+    if (!auth && isMounted) {
       setUser(null);
       return;
     }
