@@ -54,7 +54,7 @@ export default function AuthContextProvider({ children }) {
       firebaseAuth,
       async (user) => {
         if (!user) {
-          isMounted && setUser(null);
+          setUser(null);
           return;
         }
 
