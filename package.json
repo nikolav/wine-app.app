@@ -7,7 +7,7 @@
     "yarn": ">= 0.18.0"
   },
   "scripts": {
-    "dev": "next dev",
+    "dev": "yarn run sass:globals:watch && yarn run watch:css && next dev",
     "build": "yarn run sass:globals && yarn run build:css && next build",
     "build:export": "next build && next export",
     "start": "next start",
