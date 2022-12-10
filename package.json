@@ -1,6 +1,6 @@
 {
   "name": "app",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "private": true,
   "engines": {
     "node": "^16.0.0",
@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "yarn run sass:globals && yarn run build:css && next build",
     "build:export": "next build && next export",
     "start": "next start",
     "lint": "next lint",
